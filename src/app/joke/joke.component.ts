@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ServiceTestService} from "../service-test.service";
+import {ServiceTestService} from "../service/service-test.service";
 import {Subscription} from "rxjs/index";
 import {Article} from "../modele/article";
 
@@ -27,7 +27,7 @@ export class JokeComponent implements OnInit {
 
   // display triggered by a model change
   ngOnInit() {
-    this._test12Sub = this._serviceTestService.getCart().subscribe((cart: State) => {
+    this._test12Sub = this._serviceTestService.getCart().subscribe((cart: any) => {
       console.log("cart view updated");
       this._test12 = cart.totalPrice;
       this._articles = cart.articles;
@@ -38,7 +38,7 @@ export class JokeComponent implements OnInit {
     this._test12Sub.unsubscribe();
   }
 
-  keyUpButton(e: Event) {
+  keyUpButton(e: any) {
     if (e.keyCode === 13) {
          this._serviceTestService.addArticle(e.target.value);
     }
@@ -49,7 +49,7 @@ export class JokeComponent implements OnInit {
   }
 
   // display method
-  statusChangeHandler(e: Event) {
+  statusChangeHandler(e: any) {
     console.log('event received:');
     if (e === "from comp2") {
       console.log('showing comp1');

@@ -1,10 +1,10 @@
-default export class Article {
+class Article {
   private _desc: String;
   private _price: number;
 
   constructor(desc: String) {
     this._desc = desc;
-    this._price = (Math.random() * 100).toFixed(2);
+    this._price = parseFloat((Math.random() * 100).toFixed(2));
   }
 
   get desc():String{
@@ -15,3 +15,5 @@ default export class Article {
       return this._price;
       }
 }
+
+export {Article}
