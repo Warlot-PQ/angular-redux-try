@@ -1,8 +1,8 @@
 <h1 [hidden]="true">What did the cheese say when it looked in the mirror?</h1>
-<p (click)="clickMe()" >Prix total: {{ _test12 }} euros</p>
+<p (click)="clickMe()" >Prix total: {{ totalPrice | async }} euros</p>
 
 Contenu du panier :
-<div *ngFor="let article of _articles">
+<div *ngFor="let article of ( articles | async )">
   {{ article.desc }}
 </div>
 
@@ -12,8 +12,7 @@ Contenu du panier :
 Ajout d'un article au panier :
 <br />
 <!-- the event is used to fill the template-reference-variable -->
-<input type="text" (keyup)="keyUpButton($event)" #variable>
-{{ variable.value }}
+<input type="text" (keyup)="keyUpButton($event)">
 
 
 <br />

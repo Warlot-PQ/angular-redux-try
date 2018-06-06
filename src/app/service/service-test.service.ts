@@ -1,34 +1,15 @@
-import { Injectable } from '@angular/core';
+/**
+ *  Angular services communicate with AppStore in both ways. They dispatch actions and they read data from the store.
+ */
 
-import Cart from '../modele/cart'
-import {Observable, BehaviorSubject} from "rxjs/index";
-import {Article} from "../modele/article";
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'  // singleton
 })
 export class ServiceTestService {
 
-  private _cart: Cart;
-  private _cartSub: any;
-
-  constructor() {
-    this._cart = new Cart();
+  updateArticles(article: String) {
+    return { type: 'ADD_ITEM', payload: article }
   }
-
-  addArticle(desc: String) {
-    this._cart.articles = [new Article(desc)];
-    // notify viewer
-    this._cartSub.next(this._cart);
-  }
-
-  getCart(): Observable<Cart> {
-    this._cartSub = new BehaviorSubject(this._cart);
-    return this._cartSub;
-  }
-
-
-  get cart():Cart{
-      return this._cart;
-      }
 }

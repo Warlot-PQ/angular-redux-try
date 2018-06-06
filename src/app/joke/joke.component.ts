@@ -1,70 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import {ServiceTestService} from "../service/service-test.service";
-import {Subscription} from "rxjs/index";
-import {Article} from "../modele/article";
+import { NgRedux, select } from "@angular-redux/store";
 
+// @WithSubStore({
+//   basePathMethodName: 'getBasePath',
+//   localReducer: jokeReducer
+// })
 @Component({
   selector: 'app-joke',
   templateUrl: './joke.component.html',
   providers: [ServiceTestService],
-  styleUrls: ['./joke.component.css']
+  styleUrls: ['./joke.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush // render component on immutability change (reference changed)
 })
-export class JokeComponent implements OnInit {
+export class JokeComponent {
 
-  private _test12Sub: Subscription;
-  private _test12: number;
-  private _articles: Array<Article>;
-  private _serviceTestService: ServiceTestService;
-  // display states
-  private _hideComp1: boolean = false;
-  private _hideComp2: boolean = true;
-  private _hideButton: boolean = true;
+  @select() readonly totalPrice;
+  @select() readonly  articles;
 
-  constructor(private  serviceTestService: ServiceTestService) {
-    this._serviceTestService = serviceTestService;
-    this._test12 = 0;
+  constructor(private serviceTestService: ServiceTestService, private ngRedux: NgRedux<Cart>) {
   }
 
-  // display triggered by a model change
-  ngOnInit() {
-    this._test12Sub = this._serviceTestService.getCart().subscribe((cart: any) => {
-      console.log("cart view updated");
-      this._test12 = cart.totalPrice;
-      this._articles = cart.articles;
-    });
-  }
-
-  ngOnDestroy() {
-    this._test12Sub.unsubscribe();
-  }
+  // getBasePath = () => "424";
 
   keyUpButton(e: any) {
     if (e.keyCode === 13) {
-         this._serviceTestService.addArticle(e.target.value);
+      this.ngRedux.dispatch(this.serviceTestService.updateArticles(e.target.value));
     }
   }
-
-  clickMe() {
-    this._test12 = Math.random() * 10;
-  }
-
-  // display method
-  statusChangeHandler(e: any) {
-    console.log('event received:');
-    if (e === "from comp2") {
-      console.log('showing comp1');
-      this._hideComp1 = false;
-      this._hideComp2 = true;
-      this._hideButton = true;
-    } else {
-      console.log('showing comp2');
-      this._hideComp1 = true;
-      this._hideComp2 = false;
-      this._hideButton = false
-    }
-  }
-
-  get test12():number{
-      return this._test12;
-      }
 }

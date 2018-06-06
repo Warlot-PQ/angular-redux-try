@@ -9,7 +9,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "suppressImplicitAnyIndexErrors": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "target": "es5",
     "module": "commonjs",
     "typeRoots": [
@@ -19,5 +19,8 @@
       "es2017",
       "dom"
     ]
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }
