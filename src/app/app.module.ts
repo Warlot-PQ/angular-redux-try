@@ -32,11 +32,10 @@ export class AppModule {
     // Tell @angular-redux/store about our rootReducer and our initial state.
     // It will use this to create a redux store for us and wire up all the
     // events.
-    ngRedux.configureStore(
+    ngRedux.provideStore(createStore(
       combineReducers({
         cart: jokeReducer,
         display: displayReducer
-      }),
-      { cart: { totalPrice: 0, articles: [] }, display: { show: true } });
+      })));
   }
 }

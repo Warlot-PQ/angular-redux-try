@@ -1,5 +1,8 @@
 // The "joke" reducer performs actions on our list of articles & price
 const jokeReducer = (state = {}, {type, payload}) => {
+  if (typeof type === "string" && type.substring(0, 12) === "@@redux/INIT") {
+    return { totalPrice: 0, articles: [] };
+  }
   switch (type) {
     case 'ADD_ITEM':
       let obj = Object.assign({});
