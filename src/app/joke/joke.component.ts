@@ -1,11 +1,13 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import {ServiceTestService} from "../service/service-test.service";
-import { NgRedux, select } from "@angular-redux/store";
+import { NgRedux, select, dispatch, WithSubStore } from "@angular-redux/store";
+// import { jokeReducer } from "./joke.reducer";
+import { jokeComponentReducer } from "./joke.component.reducer";
 
-// @WithSubStore({
-//   basePathMethodName: 'getBasePath',
-//   localReducer: jokeReducer
-// })
+@WithSubStore({
+  basePathMethodName: 'getBasePath',
+  localReducer: jokeComponentReducer
+})
 @Component({
   selector: 'app-joke',
   templateUrl: './joke.component.html',
@@ -16,16 +18,18 @@ import { NgRedux, select } from "@angular-redux/store";
 export class JokeComponent {
 
   @select() readonly totalPrice;
-  @select() readonly  articles;
+  @select() readonly articles;
 
-  constructor(private serviceTestService: ServiceTestService, private ngRedux: NgRedux<Cart>) {
+  constructor(private serviceTestService: ServiceTestService, private ngRedux: NgRedux<IAppState>) {
   }
 
-  // getBasePath = () => "424";
+  getBasePath = () => ['cart'];
 
+  @dispatch()
   keyUpButton(e: any) {
     if (e.keyCode === 13) {
-      this.ngRedux.dispatch(this.serviceTestService.updateArticles(e.target.value));
+      return this.serviceTestService.updateArticles(e.target.value);
     }
+    return { type: 'NONE' };
   }
 }

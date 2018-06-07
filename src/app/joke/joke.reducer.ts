@@ -1,5 +1,5 @@
 // The "joke" reducer performs actions on our list of articles & price
-const jokeReducer = (state: any = null, {type, payload}) => {
+const jokeReducer = (state = {}, {type, payload}) => {
   switch (type) {
     case 'ADD_ITEM':
       let obj = Object.assign({});
@@ -12,4 +12,4 @@ const jokeReducer = (state: any = null, {type, payload}) => {
   }
 };
 
-export {jokeReducer};
+export { jokeReducer };
