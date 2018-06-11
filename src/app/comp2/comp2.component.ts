@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-import { NgRedux, select, dispatch, WithSubStore } from "@angular-redux/store";
+import { NgRedux, select, dispatch, WithSubStore } from '@angular-redux/store';
 
 @Component({
   selector: 'app-comp2',
@@ -18,8 +18,8 @@ export class Comp2Component implements OnInit {
   }
 
   goToComp1() {
-    this.getSearchStatusChange.emit("from comp2");
-    console.log("hide");
-    this.ngRedux.dispatch({ type: 'HIDE(' });
+    this.getSearchStatusChange.emit('from comp2');
+    console.log('hide');
+    this.ngRedux.dispatch({ type: 'HIDE' });
   }
 }

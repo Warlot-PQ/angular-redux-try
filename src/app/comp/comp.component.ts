@@ -18,7 +18,7 @@ export class CompComponent implements OnInit {
 
   statusChangeHandler(e: any) {
     console.log('event received:');
-    if (e === "from comp2") {
+    if (e === 'from comp2') {
       console.log('showing comp1');
       this._hideComp1 = false;
       this._hideComp2 = true;
@@ -27,7 +27,7 @@ export class CompComponent implements OnInit {
       console.log('showing comp2');
       this._hideComp1 = true;
       this._hideComp2 = false;
-      this._hideButton = false
+      this._hideButton = false;
     }
   }
 }

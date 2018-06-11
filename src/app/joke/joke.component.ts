@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import {ServiceTestService} from "../service/service-test.service";
-import { NgRedux, select, dispatch, WithSubStore } from "@angular-redux/store";
-// import { jokeReducer } from "./joke.reducer";
-import { jokeComponentReducer } from "./joke.component.reducer";
+import {ServiceTestService} from '../service/service-test.service';
+import { NgRedux, select, dispatch, WithSubStore } from '@angular-redux/store';
+// import { jokeReducer } from './joke.reducer';
+import { jokeComponentReducer } from './joke.component.reducer';
 
 @WithSubStore({
   basePathMethodName: 'getBasePath',

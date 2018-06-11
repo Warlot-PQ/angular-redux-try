@@ -10,6 +10,6 @@ import { Injectable } from '@angular/core';
 export class ServiceTestService {
 
   updateArticles(article: String) {
-    return { type: 'ADD_ITEM', payload: article }
+    return { type: 'ADD_ITEM', payload: article };
   }
 }
