@@ -7,9 +7,12 @@ module.exports = webpackMerge(commonConfig, {
   devtool: 'cheap-module-source-map',
   mode: 'development',
   devServer: {
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    },
     contentBase: path.join(__dirname, ".tmp"),
     compress: true,
-    port: 9000
+    port: 8888
   },
 
   output: {

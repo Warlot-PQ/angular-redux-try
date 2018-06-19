@@ -54607,7796 +54607,6 @@ var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('6.0.4')
 
 /***/ }),
 
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/accordion/accordion-config.js":
-/*!********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/accordion/accordion-config.js ***!
-  \********************************************************************************/
-/*! exports provided: NgbAccordionConfig */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbAccordionConfig", function() { return NgbAccordionConfig; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-/**
- * Configuration service for the NgbAccordion component.
- * You can inject this service, typically in your root component, and customize the values of its properties in
- * order to provide default values for all the accordions used in the application.
- */
-var NgbAccordionConfig = /** @class */ (function () {
-    function NgbAccordionConfig() {
-        this.closeOthers = false;
-    }
-    NgbAccordionConfig.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    return NgbAccordionConfig;
-}());
-
-//# sourceMappingURL=accordion-config.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/accordion/accordion.js":
-/*!*************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/accordion/accordion.js ***!
-  \*************************************************************************/
-/*! exports provided: NgbPanelTitle, NgbPanelContent, NgbPanel, NgbAccordion */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbPanelTitle", function() { return NgbPanelTitle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbPanelContent", function() { return NgbPanelContent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbPanel", function() { return NgbPanel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbAccordion", function() { return NgbAccordion; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-/* harmony import */ var _accordion_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./accordion-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/accordion/accordion-config.js");
-
-
-
-var nextId = 0;
-/**
- * This directive should be used to wrap accordion panel titles that need to contain HTML markup or other directives.
- */
-var NgbPanelTitle = /** @class */ (function () {
-    function NgbPanelTitle(templateRef) {
-        this.templateRef = templateRef;
-    }
-    NgbPanelTitle.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ng-template[ngbPanelTitle]' },] },
-    ];
-    /** @nocollapse */
-    NgbPanelTitle.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["TemplateRef"], },
-    ]; };
-    return NgbPanelTitle;
-}());
-
-/**
- * This directive must be used to wrap accordion panel content.
- */
-var NgbPanelContent = /** @class */ (function () {
-    function NgbPanelContent(templateRef) {
-        this.templateRef = templateRef;
-    }
-    NgbPanelContent.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ng-template[ngbPanelContent]' },] },
-    ];
-    /** @nocollapse */
-    NgbPanelContent.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["TemplateRef"], },
-    ]; };
-    return NgbPanelContent;
-}());
-
-/**
- * The NgbPanel directive represents an individual panel with the title and collapsible
- * content
- */
-var NgbPanel = /** @class */ (function () {
-    function NgbPanel() {
-        /**
-           *  A flag determining whether the panel is disabled or not.
-           *  When disabled, the panel cannot be toggled.
-           */
-        this.disabled = false;
-        /**
-           *  An optional id for the panel. The id should be unique.
-           *  If not provided, it will be auto-generated.
-           */
-        this.id = "ngb-panel-" + nextId++;
-        /**
-           * A flag telling if the panel is currently open
-           */
-        this.isOpen = false;
-    }
-    NgbPanel.prototype.ngAfterContentChecked = function () {
-        // We are using @ContentChildren instead of @ContantChild as in the Angular version being used
-        // only @ContentChildren allows us to specify the {descendants: false} option.
-        // Without {descendants: false} we are hitting bugs described in:
-        // https://github.com/ng-bootstrap/ng-bootstrap/issues/2240
-        this.titleTpl = this.titleTpls.first;
-        this.contentTpl = this.contentTpls.first;
-    };
-    NgbPanel.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ngb-panel' },] },
-    ];
-    /** @nocollapse */
-    NgbPanel.propDecorators = {
-        "disabled": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "id": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "title": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "type": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "titleTpls": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChildren"], args: [NgbPanelTitle, { descendants: false },] },],
-        "contentTpls": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChildren"], args: [NgbPanelContent, { descendants: false },] },],
-    };
-    return NgbPanel;
-}());
-
-/**
- * The NgbAccordion directive is a collection of panels.
- * It can assure that only one panel can be opened at a time.
- */
-var NgbAccordion = /** @class */ (function () {
-    function NgbAccordion(config) {
-        /**
-           * An array or comma separated strings of panel identifiers that should be opened
-           */
-        this.activeIds = [];
-        /**
-           * Whether the closed panels should be hidden without destroying them
-           */
-        this.destroyOnHide = true;
-        /**
-           * A panel change event fired right before the panel toggle happens. See NgbPanelChangeEvent for payload details
-           */
-        this.panelChange = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this.type = config.type;
-        this.closeOtherPanels = config.closeOthers;
-    }
-    /**
-     * Programmatically toggle a panel with a given id.
-     */
-    /**
-       * Programmatically toggle a panel with a given id.
-       */
-    NgbAccordion.prototype.toggle = /**
-       * Programmatically toggle a panel with a given id.
-       */
-    function (panelId) {
-        var panel = this.panels.find(function (p) { return p.id === panelId; });
-        if (panel && !panel.disabled) {
-            var defaultPrevented_1 = false;
-            this.panelChange.emit({ panelId: panelId, nextState: !panel.isOpen, preventDefault: function () { defaultPrevented_1 = true; } });
-            if (!defaultPrevented_1) {
-                panel.isOpen = !panel.isOpen;
-                if (this.closeOtherPanels) {
-                    this._closeOthers(panelId);
-                }
-                this._updateActiveIds();
-            }
-        }
-    };
-    NgbAccordion.prototype.ngAfterContentChecked = function () {
-        var _this = this;
-        // active id updates
-        if (Object(_util_util__WEBPACK_IMPORTED_MODULE_1__["isString"])(this.activeIds)) {
-            this.activeIds = this.activeIds.split(/\s*,\s*/);
-        }
-        // update panels open states
-        this.panels.forEach(function (panel) { return panel.isOpen = !panel.disabled && _this.activeIds.indexOf(panel.id) > -1; });
-        // closeOthers updates
-        if (this.activeIds.length > 1 && this.closeOtherPanels) {
-            this._closeOthers(this.activeIds[0]);
-            this._updateActiveIds();
-        }
-    };
-    NgbAccordion.prototype._closeOthers = function (panelId) {
-        this.panels.forEach(function (panel) {
-            if (panel.id !== panelId) {
-                panel.isOpen = false;
-            }
-        });
-    };
-    NgbAccordion.prototype._updateActiveIds = function () {
-        this.activeIds = this.panels.filter(function (panel) { return panel.isOpen && !panel.disabled; }).map(function (panel) { return panel.id; });
-    };
-    NgbAccordion.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: 'ngb-accordion',
-                    exportAs: 'ngbAccordion',
-                    host: { 'class': 'accordion', 'role': 'tablist', '[attr.aria-multiselectable]': '!closeOtherPanels' },
-                    template: "\n    <ng-template ngFor let-panel [ngForOf]=\"panels\">\n      <div class=\"card\">\n        <div role=\"tab\" id=\"{{panel.id}}-header\" [class]=\"'card-header ' + (panel.type ? 'bg-'+panel.type: type ? 'bg-'+type : '')\">\n          <a href (click)=\"!!toggle(panel.id)\" [class.text-muted]=\"panel.disabled\" [attr.tabindex]=\"(panel.disabled ? '-1' : null)\"\n            [attr.aria-expanded]=\"panel.isOpen\" [attr.aria-controls]=\"(panel.isOpen ? panel.id : null)\"\n            [attr.aria-disabled]=\"panel.disabled\">\n            {{panel.title}}<ng-template [ngTemplateOutlet]=\"panel.titleTpl?.templateRef\"></ng-template>\n          </a>\n        </div>\n        <div id=\"{{panel.id}}\" role=\"tabpanel\" [attr.aria-labelledby]=\"panel.id + '-header'\"\n             class=\"card-body collapse {{panel.isOpen ? 'show' : null}}\" *ngIf=\"!destroyOnHide || panel.isOpen\">\n             <ng-template [ngTemplateOutlet]=\"panel.contentTpl?.templateRef\"></ng-template>\n        </div>\n      </div>\n    </ng-template>\n  "
-                },] },
-    ];
-    /** @nocollapse */
-    NgbAccordion.ctorParameters = function () { return [
-        { type: _accordion_config__WEBPACK_IMPORTED_MODULE_2__["NgbAccordionConfig"], },
-    ]; };
-    NgbAccordion.propDecorators = {
-        "panels": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChildren"], args: [NgbPanel,] },],
-        "activeIds": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "closeOtherPanels": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['closeOthers',] },],
-        "destroyOnHide": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "type": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "panelChange": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-    };
-    return NgbAccordion;
-}());
-
-//# sourceMappingURL=accordion.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/accordion/accordion.module.js":
-/*!********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/accordion/accordion.module.js ***!
-  \********************************************************************************/
-/*! exports provided: NgbAccordion, NgbPanel, NgbPanelTitle, NgbPanelContent, NgbAccordionConfig, NgbAccordionModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbAccordionModule", function() { return NgbAccordionModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _accordion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./accordion */ "../node_modules/@ng-bootstrap/ng-bootstrap/accordion/accordion.js");
-/* harmony import */ var _accordion_config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./accordion-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/accordion/accordion-config.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbAccordion", function() { return _accordion__WEBPACK_IMPORTED_MODULE_2__["NgbAccordion"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbPanel", function() { return _accordion__WEBPACK_IMPORTED_MODULE_2__["NgbPanel"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbPanelTitle", function() { return _accordion__WEBPACK_IMPORTED_MODULE_2__["NgbPanelTitle"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbPanelContent", function() { return _accordion__WEBPACK_IMPORTED_MODULE_2__["NgbPanelContent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbAccordionConfig", function() { return _accordion_config__WEBPACK_IMPORTED_MODULE_3__["NgbAccordionConfig"]; });
-
-
-
-
-
-
-
-var NGB_ACCORDION_DIRECTIVES = [_accordion__WEBPACK_IMPORTED_MODULE_2__["NgbAccordion"], _accordion__WEBPACK_IMPORTED_MODULE_2__["NgbPanel"], _accordion__WEBPACK_IMPORTED_MODULE_2__["NgbPanelTitle"], _accordion__WEBPACK_IMPORTED_MODULE_2__["NgbPanelContent"]];
-var NgbAccordionModule = /** @class */ (function () {
-    function NgbAccordionModule() {
-    }
-    NgbAccordionModule.forRoot = function () { return { ngModule: NgbAccordionModule, providers: [_accordion_config__WEBPACK_IMPORTED_MODULE_3__["NgbAccordionConfig"]] }; };
-    NgbAccordionModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{ declarations: NGB_ACCORDION_DIRECTIVES, exports: NGB_ACCORDION_DIRECTIVES, imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]] },] },
-    ];
-    return NgbAccordionModule;
-}());
-
-//# sourceMappingURL=accordion.module.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/alert/alert-config.js":
-/*!************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/alert/alert-config.js ***!
-  \************************************************************************/
-/*! exports provided: NgbAlertConfig */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbAlertConfig", function() { return NgbAlertConfig; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-/**
- * Configuration service for the NgbAlert component.
- * You can inject this service, typically in your root component, and customize the values of its properties in
- * order to provide default values for all the alerts used in the application.
- */
-var NgbAlertConfig = /** @class */ (function () {
-    function NgbAlertConfig() {
-        this.dismissible = true;
-        this.type = 'warning';
-    }
-    NgbAlertConfig.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    return NgbAlertConfig;
-}());
-
-//# sourceMappingURL=alert-config.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/alert/alert.js":
-/*!*****************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/alert/alert.js ***!
-  \*****************************************************************/
-/*! exports provided: NgbAlert */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbAlert", function() { return NgbAlert; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _alert_config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./alert-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/alert/alert-config.js");
-
-
-/**
- * Alerts can be used to provide feedback messages.
- */
-var NgbAlert = /** @class */ (function () {
-    function NgbAlert(config) {
-        /**
-           * An event emitted when the close button is clicked. This event has no payload. Only relevant for dismissible alerts.
-           */
-        this.close = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this.dismissible = config.dismissible;
-        this.type = config.type;
-    }
-    NgbAlert.prototype.closeHandler = function () { this.close.emit(null); };
-    NgbAlert.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: 'ngb-alert',
-                    changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush,
-                    template: "\n    <div [class]=\"'alert alert-' + type + (dismissible ? ' alert-dismissible' : '')\" role=\"alert\">\n      <button *ngIf=\"dismissible\" type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"closeHandler()\">\n            <span aria-hidden=\"true\">&times;</span>\n      </button>\n      <ng-content></ng-content>\n    </div>\n    "
-                },] },
-    ];
-    /** @nocollapse */
-    NgbAlert.ctorParameters = function () { return [
-        { type: _alert_config__WEBPACK_IMPORTED_MODULE_1__["NgbAlertConfig"], },
-    ]; };
-    NgbAlert.propDecorators = {
-        "dismissible": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "type": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "close": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-    };
-    return NgbAlert;
-}());
-
-//# sourceMappingURL=alert.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/alert/alert.module.js":
-/*!************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/alert/alert.module.js ***!
-  \************************************************************************/
-/*! exports provided: NgbAlert, NgbAlertConfig, NgbAlertModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbAlertModule", function() { return NgbAlertModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _alert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./alert */ "../node_modules/@ng-bootstrap/ng-bootstrap/alert/alert.js");
-/* harmony import */ var _alert_config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./alert-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/alert/alert-config.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbAlert", function() { return _alert__WEBPACK_IMPORTED_MODULE_2__["NgbAlert"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbAlertConfig", function() { return _alert_config__WEBPACK_IMPORTED_MODULE_3__["NgbAlertConfig"]; });
-
-
-
-
-
-
-
-var NgbAlertModule = /** @class */ (function () {
-    function NgbAlertModule() {
-    }
-    NgbAlertModule.forRoot = function () { return { ngModule: NgbAlertModule, providers: [_alert_config__WEBPACK_IMPORTED_MODULE_3__["NgbAlertConfig"]] }; };
-    NgbAlertModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{ declarations: [_alert__WEBPACK_IMPORTED_MODULE_2__["NgbAlert"]], exports: [_alert__WEBPACK_IMPORTED_MODULE_2__["NgbAlert"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]], entryComponents: [_alert__WEBPACK_IMPORTED_MODULE_2__["NgbAlert"]] },] },
-    ];
-    return NgbAlertModule;
-}());
-
-//# sourceMappingURL=alert.module.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/buttons/buttons.module.js":
-/*!****************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/buttons/buttons.module.js ***!
-  \****************************************************************************/
-/*! exports provided: NgbButtonLabel, NgbCheckBox, NgbRadio, NgbRadioGroup, NgbButtonsModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbButtonsModule", function() { return NgbButtonsModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _label__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./label */ "../node_modules/@ng-bootstrap/ng-bootstrap/buttons/label.js");
-/* harmony import */ var _checkbox__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./checkbox */ "../node_modules/@ng-bootstrap/ng-bootstrap/buttons/checkbox.js");
-/* harmony import */ var _radio__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./radio */ "../node_modules/@ng-bootstrap/ng-bootstrap/buttons/radio.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbButtonLabel", function() { return _label__WEBPACK_IMPORTED_MODULE_1__["NgbButtonLabel"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbCheckBox", function() { return _checkbox__WEBPACK_IMPORTED_MODULE_2__["NgbCheckBox"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbRadio", function() { return _radio__WEBPACK_IMPORTED_MODULE_3__["NgbRadio"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbRadioGroup", function() { return _radio__WEBPACK_IMPORTED_MODULE_3__["NgbRadioGroup"]; });
-
-
-
-
-
-
-
-
-var NGB_BUTTON_DIRECTIVES = [_label__WEBPACK_IMPORTED_MODULE_1__["NgbButtonLabel"], _checkbox__WEBPACK_IMPORTED_MODULE_2__["NgbCheckBox"], _radio__WEBPACK_IMPORTED_MODULE_3__["NgbRadioGroup"], _radio__WEBPACK_IMPORTED_MODULE_3__["NgbRadio"]];
-var NgbButtonsModule = /** @class */ (function () {
-    function NgbButtonsModule() {
-    }
-    NgbButtonsModule.forRoot = function () { return { ngModule: NgbButtonsModule, providers: [] }; };
-    NgbButtonsModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{ declarations: NGB_BUTTON_DIRECTIVES, exports: NGB_BUTTON_DIRECTIVES },] },
-    ];
-    return NgbButtonsModule;
-}());
-
-//# sourceMappingURL=buttons.module.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/buttons/checkbox.js":
-/*!**********************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/buttons/checkbox.js ***!
-  \**********************************************************************/
-/*! exports provided: NgbCheckBox */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbCheckBox", function() { return NgbCheckBox; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _label__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./label */ "../node_modules/@ng-bootstrap/ng-bootstrap/buttons/label.js");
-
-
-
-var NGB_CHECKBOX_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(function () { return NgbCheckBox; }),
-    multi: true
-};
-/**
- * Easily create Bootstrap-style checkbox buttons. A value of a checked button is bound to a variable
- * specified via ngModel.
- */
-var NgbCheckBox = /** @class */ (function () {
-    function NgbCheckBox(_label) {
-        this._label = _label;
-        /**
-           * A flag indicating if a given checkbox button is disabled.
-           */
-        this.disabled = false;
-        /**
-           * Value to be propagated as model when the checkbox is checked.
-           */
-        this.valueChecked = true;
-        /**
-           * Value to be propagated as model when the checkbox is unchecked.
-           */
-        this.valueUnChecked = false;
-        this.onChange = function (_) { };
-        this.onTouched = function () { };
-    }
-    Object.defineProperty(NgbCheckBox.prototype, "focused", {
-        set: function (isFocused) {
-            this._label.focused = isFocused;
-            if (!isFocused) {
-                this.onTouched();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    NgbCheckBox.prototype.onInputChange = function ($event) {
-        var modelToPropagate = $event.target.checked ? this.valueChecked : this.valueUnChecked;
-        this.onChange(modelToPropagate);
-        this.onTouched();
-        this.writeValue(modelToPropagate);
-    };
-    NgbCheckBox.prototype.registerOnChange = function (fn) { this.onChange = fn; };
-    NgbCheckBox.prototype.registerOnTouched = function (fn) { this.onTouched = fn; };
-    NgbCheckBox.prototype.setDisabledState = function (isDisabled) {
-        this.disabled = isDisabled;
-        this._label.disabled = isDisabled;
-    };
-    NgbCheckBox.prototype.writeValue = function (value) {
-        this.checked = value === this.valueChecked;
-        this._label.active = this.checked;
-    };
-    NgbCheckBox.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
-                    selector: '[ngbButton][type=checkbox]',
-                    host: {
-                        'autocomplete': 'off',
-                        '[checked]': 'checked',
-                        '[disabled]': 'disabled',
-                        '(change)': 'onInputChange($event)',
-                        '(focus)': 'focused = true',
-                        '(blur)': 'focused = false'
-                    },
-                    providers: [NGB_CHECKBOX_VALUE_ACCESSOR]
-                },] },
-    ];
-    /** @nocollapse */
-    NgbCheckBox.ctorParameters = function () { return [
-        { type: _label__WEBPACK_IMPORTED_MODULE_2__["NgbButtonLabel"], },
-    ]; };
-    NgbCheckBox.propDecorators = {
-        "disabled": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "valueChecked": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "valueUnChecked": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-    };
-    return NgbCheckBox;
-}());
-
-//# sourceMappingURL=checkbox.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/buttons/label.js":
-/*!*******************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/buttons/label.js ***!
-  \*******************************************************************/
-/*! exports provided: NgbButtonLabel */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbButtonLabel", function() { return NgbButtonLabel; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-var NgbButtonLabel = /** @class */ (function () {
-    function NgbButtonLabel() {
-    }
-    NgbButtonLabel.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
-                    selector: '[ngbButtonLabel]',
-                    host: { '[class.btn]': 'true', '[class.active]': 'active', '[class.disabled]': 'disabled', '[class.focus]': 'focused' }
-                },] },
-    ];
-    return NgbButtonLabel;
-}());
-
-//# sourceMappingURL=label.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/buttons/radio.js":
-/*!*******************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/buttons/radio.js ***!
-  \*******************************************************************/
-/*! exports provided: NgbRadioGroup, NgbRadio */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbRadioGroup", function() { return NgbRadioGroup; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbRadio", function() { return NgbRadio; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _label__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./label */ "../node_modules/@ng-bootstrap/ng-bootstrap/buttons/label.js");
-
-
-
-var NGB_RADIO_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(function () { return NgbRadioGroup; }),
-    multi: true
-};
-var nextId = 0;
-/**
- * Easily create Bootstrap-style radio buttons. A value of a selected button is bound to a variable
- * specified via ngModel.
- */
-var NgbRadioGroup = /** @class */ (function () {
-    function NgbRadioGroup() {
-        this._radios = new Set();
-        this._value = null;
-        /**
-           * The name of the group. Unless enclosed inputs specify a name, this name is used as the name of the
-           * enclosed inputs. If not specified, a name is generated automatically.
-           */
-        this.name = "ngb-radio-" + nextId++;
-        this.onChange = function (_) { };
-        this.onTouched = function () { };
-    }
-    Object.defineProperty(NgbRadioGroup.prototype, "disabled", {
-        get: function () { return this._disabled; },
-        set: function (isDisabled) { this.setDisabledState(isDisabled); },
-        enumerable: true,
-        configurable: true
-    });
-    NgbRadioGroup.prototype.onRadioChange = function (radio) {
-        this.writeValue(radio.value);
-        this.onChange(radio.value);
-    };
-    NgbRadioGroup.prototype.onRadioValueUpdate = function () { this._updateRadiosValue(); };
-    NgbRadioGroup.prototype.register = function (radio) { this._radios.add(radio); };
-    NgbRadioGroup.prototype.registerOnChange = function (fn) { this.onChange = fn; };
-    NgbRadioGroup.prototype.registerOnTouched = function (fn) { this.onTouched = fn; };
-    NgbRadioGroup.prototype.setDisabledState = function (isDisabled) {
-        this._disabled = isDisabled;
-        this._updateRadiosDisabled();
-    };
-    NgbRadioGroup.prototype.unregister = function (radio) { this._radios.delete(radio); };
-    NgbRadioGroup.prototype.writeValue = function (value) {
-        this._value = value;
-        this._updateRadiosValue();
-    };
-    NgbRadioGroup.prototype._updateRadiosValue = function () {
-        var _this = this;
-        this._radios.forEach(function (radio) { return radio.updateValue(_this._value); });
-    };
-    NgbRadioGroup.prototype._updateRadiosDisabled = function () { this._radios.forEach(function (radio) { return radio.updateDisabled(); }); };
-    NgbRadioGroup.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: '[ngbRadioGroup]', host: { 'role': 'group' }, providers: [NGB_RADIO_VALUE_ACCESSOR] },] },
-    ];
-    /** @nocollapse */
-    NgbRadioGroup.propDecorators = {
-        "name": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-    };
-    return NgbRadioGroup;
-}());
-
-/**
- * Marks an input of type "radio" as part of the NgbRadioGroup.
- */
-var NgbRadio = /** @class */ (function () {
-    function NgbRadio(_group, _label, _renderer, _element) {
-        this._group = _group;
-        this._label = _label;
-        this._renderer = _renderer;
-        this._element = _element;
-        this._value = null;
-        this._group.register(this);
-    }
-    Object.defineProperty(NgbRadio.prototype, "value", {
-        get: function () { return this._value; },
-        set: /**
-           * You can specify model value of a given radio by binding to the value property.
-           */
-        function (value) {
-            this._value = value;
-            var stringValue = value ? value.toString() : '';
-            this._renderer.setProperty(this._element.nativeElement, 'value', stringValue);
-            this._group.onRadioValueUpdate();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NgbRadio.prototype, "disabled", {
-        get: function () { return this._group.disabled || this._disabled; },
-        set: /**
-           * A flag indicating if a given radio button is disabled.
-           */
-        function (isDisabled) {
-            this._disabled = isDisabled !== false;
-            this.updateDisabled();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NgbRadio.prototype, "focused", {
-        set: function (isFocused) {
-            if (this._label) {
-                this._label.focused = isFocused;
-            }
-            if (!isFocused) {
-                this._group.onTouched();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NgbRadio.prototype, "checked", {
-        get: function () { return this._checked; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NgbRadio.prototype, "nameAttr", {
-        get: function () { return this.name || this._group.name; },
-        enumerable: true,
-        configurable: true
-    });
-    NgbRadio.prototype.ngOnDestroy = function () { this._group.unregister(this); };
-    NgbRadio.prototype.onChange = function () { this._group.onRadioChange(this); };
-    NgbRadio.prototype.updateValue = function (value) {
-        this._checked = this.value === value;
-        this._label.active = this._checked;
-    };
-    NgbRadio.prototype.updateDisabled = function () { this._label.disabled = this.disabled; };
-    NgbRadio.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
-                    selector: '[ngbButton][type=radio]',
-                    host: {
-                        '[checked]': 'checked',
-                        '[disabled]': 'disabled',
-                        '[name]': 'nameAttr',
-                        '(change)': 'onChange()',
-                        '(focus)': 'focused = true',
-                        '(blur)': 'focused = false'
-                    }
-                },] },
-    ];
-    /** @nocollapse */
-    NgbRadio.ctorParameters = function () { return [
-        { type: NgbRadioGroup, },
-        { type: _label__WEBPACK_IMPORTED_MODULE_2__["NgbButtonLabel"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], },
-    ]; };
-    NgbRadio.propDecorators = {
-        "name": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "value": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['value',] },],
-        "disabled": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['disabled',] },],
-    };
-    return NgbRadio;
-}());
-
-//# sourceMappingURL=radio.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel-config.js":
-/*!******************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel-config.js ***!
-  \******************************************************************************/
-/*! exports provided: NgbCarouselConfig */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbCarouselConfig", function() { return NgbCarouselConfig; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-/**
- * Configuration service for the NgbCarousel component.
- * You can inject this service, typically in your root component, and customize the values of its properties in
- * order to provide default values for all the carousels used in the application.
- */
-var NgbCarouselConfig = /** @class */ (function () {
-    function NgbCarouselConfig() {
-        this.interval = 5000;
-        this.wrap = true;
-        this.keyboard = true;
-    }
-    NgbCarouselConfig.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    return NgbCarouselConfig;
-}());
-
-//# sourceMappingURL=carousel-config.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel.js":
-/*!***********************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel.js ***!
-  \***********************************************************************/
-/*! exports provided: NgbSlide, NgbCarousel, NgbSlideEventDirection, NGB_CAROUSEL_DIRECTIVES */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbSlide", function() { return NgbSlide; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbCarousel", function() { return NgbCarousel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbSlideEventDirection", function() { return NgbSlideEventDirection; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NGB_CAROUSEL_DIRECTIVES", function() { return NGB_CAROUSEL_DIRECTIVES; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _carousel_config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./carousel-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel-config.js");
-
-
-var nextId = 0;
-/**
- * Represents an individual slide to be used within a carousel.
- */
-var NgbSlide = /** @class */ (function () {
-    function NgbSlide(tplRef) {
-        this.tplRef = tplRef;
-        /**
-           * Unique slide identifier. Must be unique for the entire document for proper accessibility support.
-           * Will be auto-generated if not provided.
-           */
-        this.id = "ngb-slide-" + nextId++;
-    }
-    NgbSlide.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ng-template[ngbSlide]' },] },
-    ];
-    /** @nocollapse */
-    NgbSlide.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["TemplateRef"], },
-    ]; };
-    NgbSlide.propDecorators = {
-        "id": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-    };
-    return NgbSlide;
-}());
-
-/**
- * Directive to easily create carousels based on Bootstrap's markup.
- */
-var NgbCarousel = /** @class */ (function () {
-    function NgbCarousel(config) {
-        /**
-           * A carousel slide event fired when the slide transition is completed.
-           * See NgbSlideEvent for payload details
-           */
-        this.slide = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this.interval = config.interval;
-        this.wrap = config.wrap;
-        this.keyboard = config.keyboard;
-    }
-    NgbCarousel.prototype.ngAfterContentChecked = function () {
-        var activeSlide = this._getSlideById(this.activeId);
-        this.activeId = activeSlide ? activeSlide.id : (this.slides.length ? this.slides.first.id : null);
-    };
-    NgbCarousel.prototype.ngOnInit = function () { this._startTimer(); };
-    NgbCarousel.prototype.ngOnChanges = function (changes) {
-        if ('interval' in changes && !changes['interval'].isFirstChange()) {
-            this._restartTimer();
-        }
-    };
-    NgbCarousel.prototype.ngOnDestroy = function () { clearInterval(this._slideChangeInterval); };
-    /**
-     * Navigate to a slide with the specified identifier.
-     */
-    /**
-       * Navigate to a slide with the specified identifier.
-       */
-    NgbCarousel.prototype.select = /**
-       * Navigate to a slide with the specified identifier.
-       */
-    function (slideId) {
-        this.cycleToSelected(slideId, this.getSlideEventDirection(this.activeId, slideId));
-        this._restartTimer();
-    };
-    /**
-     * Navigate to the next slide.
-     */
-    /**
-       * Navigate to the next slide.
-       */
-    NgbCarousel.prototype.prev = /**
-       * Navigate to the next slide.
-       */
-    function () {
-        this.cycleToPrev();
-        this._restartTimer();
-    };
-    /**
-     * Navigate to the next slide.
-     */
-    /**
-       * Navigate to the next slide.
-       */
-    NgbCarousel.prototype.next = /**
-       * Navigate to the next slide.
-       */
-    function () {
-        this.cycleToNext();
-        this._restartTimer();
-    };
-    /**
-     * Stops the carousel from cycling through items.
-     */
-    /**
-       * Stops the carousel from cycling through items.
-       */
-    NgbCarousel.prototype.pause = /**
-       * Stops the carousel from cycling through items.
-       */
-    function () { this._stopTimer(); };
-    /**
-     * Restarts cycling through the carousel slides from left to right.
-     */
-    /**
-       * Restarts cycling through the carousel slides from left to right.
-       */
-    NgbCarousel.prototype.cycle = /**
-       * Restarts cycling through the carousel slides from left to right.
-       */
-    function () { this._startTimer(); };
-    NgbCarousel.prototype.cycleToNext = function () { this.cycleToSelected(this._getNextSlide(this.activeId), NgbSlideEventDirection.LEFT); };
-    NgbCarousel.prototype.cycleToPrev = function () { this.cycleToSelected(this._getPrevSlide(this.activeId), NgbSlideEventDirection.RIGHT); };
-    NgbCarousel.prototype.cycleToSelected = function (slideIdx, direction) {
-        var selectedSlide = this._getSlideById(slideIdx);
-        if (selectedSlide) {
-            if (selectedSlide.id !== this.activeId) {
-                this.slide.emit({ prev: this.activeId, current: selectedSlide.id, direction: direction });
-            }
-            this.activeId = selectedSlide.id;
-        }
-    };
-    NgbCarousel.prototype.getSlideEventDirection = function (currentActiveSlideId, nextActiveSlideId) {
-        var currentActiveSlideIdx = this._getSlideIdxById(currentActiveSlideId);
-        var nextActiveSlideIdx = this._getSlideIdxById(nextActiveSlideId);
-        return currentActiveSlideIdx > nextActiveSlideIdx ? NgbSlideEventDirection.RIGHT : NgbSlideEventDirection.LEFT;
-    };
-    NgbCarousel.prototype.keyPrev = function () {
-        if (this.keyboard) {
-            this.prev();
-        }
-    };
-    NgbCarousel.prototype.keyNext = function () {
-        if (this.keyboard) {
-            this.next();
-        }
-    };
-    NgbCarousel.prototype._restartTimer = function () {
-        this._stopTimer();
-        this._startTimer();
-    };
-    NgbCarousel.prototype._startTimer = function () {
-        var _this = this;
-        if (this.interval > 0) {
-            this._slideChangeInterval = setInterval(function () { _this.cycleToNext(); }, this.interval);
-        }
-    };
-    NgbCarousel.prototype._stopTimer = function () { clearInterval(this._slideChangeInterval); };
-    NgbCarousel.prototype._getSlideById = function (slideId) {
-        var slideWithId = this.slides.filter(function (slide) { return slide.id === slideId; });
-        return slideWithId.length ? slideWithId[0] : null;
-    };
-    NgbCarousel.prototype._getSlideIdxById = function (slideId) {
-        return this.slides.toArray().indexOf(this._getSlideById(slideId));
-    };
-    NgbCarousel.prototype._getNextSlide = function (currentSlideId) {
-        var slideArr = this.slides.toArray();
-        var currentSlideIdx = this._getSlideIdxById(currentSlideId);
-        var isLastSlide = currentSlideIdx === slideArr.length - 1;
-        return isLastSlide ? (this.wrap ? slideArr[0].id : slideArr[slideArr.length - 1].id) :
-            slideArr[currentSlideIdx + 1].id;
-    };
-    NgbCarousel.prototype._getPrevSlide = function (currentSlideId) {
-        var slideArr = this.slides.toArray();
-        var currentSlideIdx = this._getSlideIdxById(currentSlideId);
-        var isFirstSlide = currentSlideIdx === 0;
-        return isFirstSlide ? (this.wrap ? slideArr[slideArr.length - 1].id : slideArr[0].id) :
-            slideArr[currentSlideIdx - 1].id;
-    };
-    NgbCarousel.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: 'ngb-carousel',
-                    exportAs: 'ngbCarousel',
-                    host: {
-                        'class': 'carousel slide',
-                        '[style.display]': '"block"',
-                        'tabIndex': '0',
-                        '(mouseenter)': 'pause()',
-                        '(mouseleave)': 'cycle()',
-                        '(keydown.arrowLeft)': 'keyPrev()',
-                        '(keydown.arrowRight)': 'keyNext()'
-                    },
-                    template: "\n    <ol class=\"carousel-indicators\">\n      <li *ngFor=\"let slide of slides\" [id]=\"slide.id\" [class.active]=\"slide.id === activeId\"\n          (click)=\"cycleToSelected(slide.id, getSlideEventDirection(activeId, slide.id))\"></li>\n    </ol>\n    <div class=\"carousel-inner\">\n      <div *ngFor=\"let slide of slides\" class=\"carousel-item\" [class.active]=\"slide.id === activeId\">\n        <ng-template [ngTemplateOutlet]=\"slide.tplRef\"></ng-template>\n      </div>\n    </div>\n    <a class=\"carousel-control-prev\" role=\"button\" (click)=\"cycleToPrev()\">\n      <span class=\"carousel-control-prev-icon\" aria-hidden=\"true\"></span>\n      <span class=\"sr-only\">Previous</span>\n    </a>\n    <a class=\"carousel-control-next\" role=\"button\" (click)=\"cycleToNext()\">\n      <span class=\"carousel-control-next-icon\" aria-hidden=\"true\"></span>\n      <span class=\"sr-only\">Next</span>\n    </a>\n    "
-                },] },
-    ];
-    /** @nocollapse */
-    NgbCarousel.ctorParameters = function () { return [
-        { type: _carousel_config__WEBPACK_IMPORTED_MODULE_1__["NgbCarouselConfig"], },
-    ]; };
-    NgbCarousel.propDecorators = {
-        "slides": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChildren"], args: [NgbSlide,] },],
-        "interval": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "wrap": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "keyboard": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "activeId": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "slide": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-    };
-    return NgbCarousel;
-}());
-
-/**
- * Enum to define the carousel slide event direction
- */
-/**
- * Enum to define the carousel slide event direction
- */
-var NgbSlideEventDirection;
-/**
- * Enum to define the carousel slide event direction
- */
-(function (NgbSlideEventDirection) {
-    NgbSlideEventDirection[NgbSlideEventDirection["LEFT"] = 'left'] = "LEFT";
-    NgbSlideEventDirection[NgbSlideEventDirection["RIGHT"] = 'right'] = "RIGHT";
-})(NgbSlideEventDirection || (NgbSlideEventDirection = {}));
-var NGB_CAROUSEL_DIRECTIVES = [NgbCarousel, NgbSlide];
-//# sourceMappingURL=carousel.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel.module.js":
-/*!******************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel.module.js ***!
-  \******************************************************************************/
-/*! exports provided: NgbCarousel, NgbSlide, NgbCarouselConfig, NgbCarouselModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbCarouselModule", function() { return NgbCarouselModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _carousel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./carousel */ "../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel.js");
-/* harmony import */ var _carousel_config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./carousel-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel-config.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbCarousel", function() { return _carousel__WEBPACK_IMPORTED_MODULE_2__["NgbCarousel"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbSlide", function() { return _carousel__WEBPACK_IMPORTED_MODULE_2__["NgbSlide"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbCarouselConfig", function() { return _carousel_config__WEBPACK_IMPORTED_MODULE_3__["NgbCarouselConfig"]; });
-
-
-
-
-
-
-
-var NgbCarouselModule = /** @class */ (function () {
-    function NgbCarouselModule() {
-    }
-    NgbCarouselModule.forRoot = function () { return { ngModule: NgbCarouselModule, providers: [_carousel_config__WEBPACK_IMPORTED_MODULE_3__["NgbCarouselConfig"]] }; };
-    NgbCarouselModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{ declarations: _carousel__WEBPACK_IMPORTED_MODULE_2__["NGB_CAROUSEL_DIRECTIVES"], exports: _carousel__WEBPACK_IMPORTED_MODULE_2__["NGB_CAROUSEL_DIRECTIVES"], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]] },] },
-    ];
-    return NgbCarouselModule;
-}());
-
-//# sourceMappingURL=carousel.module.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/collapse/collapse.js":
-/*!***********************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/collapse/collapse.js ***!
-  \***********************************************************************/
-/*! exports provided: NgbCollapse */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbCollapse", function() { return NgbCollapse; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-/**
- * The NgbCollapse directive provides a simple way to hide and show an element with animations.
- */
-var NgbCollapse = /** @class */ (function () {
-    function NgbCollapse() {
-        /**
-           * A flag indicating collapsed (true) or open (false) state.
-           */
-        this.collapsed = false;
-    }
-    NgbCollapse.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
-                    selector: '[ngbCollapse]',
-                    exportAs: 'ngbCollapse',
-                    host: { '[class.collapse]': 'true', '[class.show]': '!collapsed' }
-                },] },
-    ];
-    /** @nocollapse */
-    NgbCollapse.propDecorators = {
-        "collapsed": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['ngbCollapse',] },],
-    };
-    return NgbCollapse;
-}());
-
-//# sourceMappingURL=collapse.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/collapse/collapse.module.js":
-/*!******************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/collapse/collapse.module.js ***!
-  \******************************************************************************/
-/*! exports provided: NgbCollapse, NgbCollapseModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbCollapseModule", function() { return NgbCollapseModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _collapse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./collapse */ "../node_modules/@ng-bootstrap/ng-bootstrap/collapse/collapse.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbCollapse", function() { return _collapse__WEBPACK_IMPORTED_MODULE_1__["NgbCollapse"]; });
-
-
-
-
-var NgbCollapseModule = /** @class */ (function () {
-    function NgbCollapseModule() {
-    }
-    NgbCollapseModule.forRoot = function () { return { ngModule: NgbCollapseModule, providers: [] }; };
-    NgbCollapseModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{ declarations: [_collapse__WEBPACK_IMPORTED_MODULE_1__["NgbCollapse"]], exports: [_collapse__WEBPACK_IMPORTED_MODULE_1__["NgbCollapse"]] },] },
-    ];
-    return NgbCollapseModule;
-}());
-
-//# sourceMappingURL=collapse.module.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-config.js":
-/*!**********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-config.js ***!
-  \**********************************************************************************/
-/*! exports provided: NgbDatepickerConfig */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerConfig", function() { return NgbDatepickerConfig; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-/**
- * Configuration service for the NgbDatepicker component.
- * You can inject this service, typically in your root component, and customize the values of its properties in
- * order to provide default values for all the datepickers used in the application.
- */
-var NgbDatepickerConfig = /** @class */ (function () {
-    function NgbDatepickerConfig() {
-        this.displayMonths = 1;
-        this.firstDayOfWeek = 1;
-        this.navigation = 'select';
-        this.outsideDays = 'visible';
-        this.showWeekdays = true;
-        this.showWeekNumbers = false;
-    }
-    NgbDatepickerConfig.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    return NgbDatepickerConfig;
-}());
-
-//# sourceMappingURL=datepicker-config.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-day-view.js":
-/*!************************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-day-view.js ***!
-  \************************************************************************************/
-/*! exports provided: NgbDatepickerDayView */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerDayView", function() { return NgbDatepickerDayView; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-var NgbDatepickerDayView = /** @class */ (function () {
-    function NgbDatepickerDayView() {
-    }
-    NgbDatepickerDayView.prototype.isMuted = function () { return !this.selected && (this.date.month !== this.currentMonth || this.disabled); };
-    NgbDatepickerDayView.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: '[ngbDatepickerDayView]',
-                    changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush,
-                    styles: ["\n    :host {\n      text-align: center;\n      width: 2rem;\n      height: 2rem;\n      line-height: 2rem;\n      border-radius: 0.25rem;\n      background: transparent;\n    }\n    :host.outside {\n      opacity: 0.5;\n    }\n  "],
-                    host: {
-                        'class': 'btn-light',
-                        '[class.bg-primary]': 'selected',
-                        '[class.text-white]': 'selected',
-                        '[class.text-muted]': 'isMuted()',
-                        '[class.outside]': 'isMuted()',
-                        '[class.active]': 'focused'
-                    },
-                    template: "{{ date.day }}"
-                },] },
-    ];
-    /** @nocollapse */
-    NgbDatepickerDayView.propDecorators = {
-        "currentMonth": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "date": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "disabled": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "focused": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "selected": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-    };
-    return NgbDatepickerDayView;
-}());
-
-//# sourceMappingURL=datepicker-day-view.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-i18n.js":
-/*!********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-i18n.js ***!
-  \********************************************************************************/
-/*! exports provided: NgbDatepickerI18n, NgbDatepickerI18nDefault */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerI18n", function() { return NgbDatepickerI18n; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerI18nDefault", function() { return NgbDatepickerI18nDefault; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../node_modules/@angular/common/fesm5/common.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-
-
-/**
- * Type of the service supplying month and weekday names to to NgbDatepicker component.
- * The default implementation of this service honors the Angular locale, and uses the registered locale data,
- * as explained in the Angular i18n guide.
- * See the i18n demo for how to extend this class and define a custom provider for i18n.
- */
-var NgbDatepickerI18n = /** @class */ (function () {
-    function NgbDatepickerI18n() {
-    }
-    NgbDatepickerI18n.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    return NgbDatepickerI18n;
-}());
-
-var NgbDatepickerI18nDefault = /** @class */ (function (_super) {
-    __extends(NgbDatepickerI18nDefault, _super);
-    function NgbDatepickerI18nDefault(_locale, _datePipe) {
-        var _this = _super.call(this) || this;
-        _this._locale = _locale;
-        _this._datePipe = _datePipe;
-        var weekdaysStartingOnSunday = Object(_angular_common__WEBPACK_IMPORTED_MODULE_1__["getLocaleDayNames"])(_locale, _angular_common__WEBPACK_IMPORTED_MODULE_1__["FormStyle"].Standalone, _angular_common__WEBPACK_IMPORTED_MODULE_1__["TranslationWidth"].Short);
-        _this._weekdaysShort = weekdaysStartingOnSunday.map(function (day, index) { return weekdaysStartingOnSunday[(index + 1) % 7]; });
-        _this._monthsShort = Object(_angular_common__WEBPACK_IMPORTED_MODULE_1__["getLocaleMonthNames"])(_locale, _angular_common__WEBPACK_IMPORTED_MODULE_1__["FormStyle"].Standalone, _angular_common__WEBPACK_IMPORTED_MODULE_1__["TranslationWidth"].Abbreviated);
-        _this._monthsFull = Object(_angular_common__WEBPACK_IMPORTED_MODULE_1__["getLocaleMonthNames"])(_locale, _angular_common__WEBPACK_IMPORTED_MODULE_1__["FormStyle"].Standalone, _angular_common__WEBPACK_IMPORTED_MODULE_1__["TranslationWidth"].Wide);
-        return _this;
-    }
-    NgbDatepickerI18nDefault.prototype.getWeekdayShortName = function (weekday) { return this._weekdaysShort[weekday - 1]; };
-    NgbDatepickerI18nDefault.prototype.getMonthShortName = function (month) { return this._monthsShort[month - 1]; };
-    NgbDatepickerI18nDefault.prototype.getMonthFullName = function (month) { return this._monthsFull[month - 1]; };
-    NgbDatepickerI18nDefault.prototype.getDayAriaLabel = function (date) {
-        var jsDate = new Date(date.year, date.month - 1, date.day);
-        return this._datePipe.transform(jsDate, 'fullDate', null, this._locale);
-    };
-    NgbDatepickerI18nDefault.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    /** @nocollapse */
-    NgbDatepickerI18nDefault.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["LOCALE_ID"],] },] },
-        { type: _angular_common__WEBPACK_IMPORTED_MODULE_1__["DatePipe"], },
-    ]; };
-    return NgbDatepickerI18nDefault;
-}(NgbDatepickerI18n));
-
-//# sourceMappingURL=datepicker-i18n.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-input.js":
-/*!*********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-input.js ***!
-  \*********************************************************************************/
-/*! exports provided: NgbInputDatepicker */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbInputDatepicker", function() { return NgbInputDatepicker; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _ngb_date__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ngb-date */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date.js");
-/* harmony import */ var _datepicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./datepicker */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker.js");
-/* harmony import */ var _ngb_date_parser_formatter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ngb-date-parser-formatter */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter.js");
-/* harmony import */ var _util_positioning__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../util/positioning */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/positioning.js");
-/* harmony import */ var _util_focus_trap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../util/focus-trap */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/focus-trap.js");
-/* harmony import */ var _ngb_date_adapter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ngb-date-adapter */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-adapter.js");
-/* harmony import */ var _ngb_calendar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./ngb-calendar */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar.js");
-/* harmony import */ var _datepicker_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./datepicker-service */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-service.js");
-
-
-
-
-
-
-
-
-
-
-var NGB_DATEPICKER_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(function () { return NgbInputDatepicker; }),
-    multi: true
-};
-var NGB_DATEPICKER_VALIDATOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NG_VALIDATORS"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(function () { return NgbInputDatepicker; }),
-    multi: true
-};
-/**
- * A directive that makes it possible to have datepickers on input fields.
- * Manages integration with the input field itself (data entry) and ngModel (validation etc.).
- */
-var NgbInputDatepicker = /** @class */ (function () {
-    function NgbInputDatepicker(_parserFormatter, _elRef, _vcRef, _renderer, _cfr, ngZone, _service, _calendar, _ngbDateAdapter, _focusTrapFactory) {
-        var _this = this;
-        this._parserFormatter = _parserFormatter;
-        this._elRef = _elRef;
-        this._vcRef = _vcRef;
-        this._renderer = _renderer;
-        this._cfr = _cfr;
-        this._service = _service;
-        this._calendar = _calendar;
-        this._ngbDateAdapter = _ngbDateAdapter;
-        this._focusTrapFactory = _focusTrapFactory;
-        this._cRef = null;
-        this._disabled = false;
-        this._focusTrap = null;
-        /**
-           * Indicates whether the datepicker popup should be closed automatically after date selection or not.
-           * If the value is 'false', the popup can be closed via 'close()' or 'toggle()' methods.
-           *
-           * @since 1.1.0
-           */
-        this.autoClose = true;
-        /**
-              * Placement of a datepicker popup accepts:
-              *    "top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right",
-              *    "left", "left-top", "left-bottom", "right", "right-top", "right-bottom"
-              * and array of above values.
-              */
-        this.placement = 'bottom-left';
-        /**
-           * An event fired when user selects a date using keyboard or mouse.
-           * The payload of the event is currently selected NgbDateStruct.
-           *
-           * @since 1.1.1
-           */
-        this.dateSelect = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        /**
-           * An event fired when navigation happens and currently displayed month changes.
-           * See NgbDatepickerNavigateEvent for the payload info.
-           */
-        this.navigate = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this._onChange = function (_) { };
-        this._onTouched = function () { };
-        this._validatorChange = function () { };
-        this._zoneSubscription = ngZone.onStable.subscribe(function () {
-            if (_this._cRef) {
-                Object(_util_positioning__WEBPACK_IMPORTED_MODULE_5__["positionElements"])(_this._elRef.nativeElement, _this._cRef.location.nativeElement, _this.placement, _this.container === 'body');
-            }
-        });
-    }
-    Object.defineProperty(NgbInputDatepicker.prototype, "disabled", {
-        get: function () {
-            return this._disabled;
-        },
-        set: function (value) {
-            this._disabled = value === '' || (value && value !== 'false');
-            if (this.isOpen()) {
-                this._cRef.instance.setDisabledState(this._disabled);
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    NgbInputDatepicker.prototype.registerOnChange = function (fn) { this._onChange = fn; };
-    NgbInputDatepicker.prototype.registerOnTouched = function (fn) { this._onTouched = fn; };
-    NgbInputDatepicker.prototype.registerOnValidatorChange = function (fn) { this._validatorChange = fn; };
-    ;
-    NgbInputDatepicker.prototype.setDisabledState = function (isDisabled) { this.disabled = isDisabled; };
-    NgbInputDatepicker.prototype.validate = function (c) {
-        var value = c.value;
-        if (value === null || value === undefined) {
-            return null;
-        }
-        var ngbDate = this._fromDateStruct(this._ngbDateAdapter.fromModel(value));
-        if (!this._calendar.isValid(ngbDate)) {
-            return { 'ngbDate': { invalid: c.value } };
-        }
-        if (this.minDate && ngbDate.before(_ngb_date__WEBPACK_IMPORTED_MODULE_2__["NgbDate"].from(this.minDate))) {
-            return { 'ngbDate': { requiredBefore: this.minDate } };
-        }
-        if (this.maxDate && ngbDate.after(_ngb_date__WEBPACK_IMPORTED_MODULE_2__["NgbDate"].from(this.maxDate))) {
-            return { 'ngbDate': { requiredAfter: this.maxDate } };
-        }
-    };
-    NgbInputDatepicker.prototype.writeValue = function (value) {
-        this._model = this._fromDateStruct(this._ngbDateAdapter.fromModel(value));
-        this._writeModelValue(this._model);
-    };
-    NgbInputDatepicker.prototype.manualDateChange = function (value, updateView) {
-        if (updateView === void 0) { updateView = false; }
-        this._model = this._fromDateStruct(this._parserFormatter.parse(value));
-        this._onChange(this._model ? this._ngbDateAdapter.toModel(this._model) : (value === '' ? null : value));
-        if (updateView && this._model) {
-            this._writeModelValue(this._model);
-        }
-    };
-    NgbInputDatepicker.prototype.isOpen = function () { return !!this._cRef; };
-    /**
-     * Opens the datepicker with the selected date indicated by the ngModel value.
-     */
-    /**
-       * Opens the datepicker with the selected date indicated by the ngModel value.
-       */
-    NgbInputDatepicker.prototype.open = /**
-       * Opens the datepicker with the selected date indicated by the ngModel value.
-       */
-    function () {
-        var _this = this;
-        if (!this.isOpen()) {
-            var cf = this._cfr.resolveComponentFactory(_datepicker__WEBPACK_IMPORTED_MODULE_3__["NgbDatepicker"]);
-            this._cRef = this._vcRef.createComponent(cf);
-            this._applyPopupStyling(this._cRef.location.nativeElement);
-            this._applyDatepickerInputs(this._cRef.instance);
-            this._subscribeForDatepickerOutputs(this._cRef.instance);
-            this._cRef.instance.ngOnInit();
-            this._cRef.instance.writeValue(this._ngbDateAdapter.toModel(this._model));
-            // date selection event handling
-            this._cRef.instance.registerOnChange(function (selectedDate) {
-                _this.writeValue(selectedDate);
-                _this._onChange(selectedDate);
-            });
-            this._cRef.changeDetectorRef.detectChanges();
-            this._cRef.instance.setDisabledState(this.disabled);
-            if (this.container === 'body') {
-                window.document.querySelector(this.container).appendChild(this._cRef.location.nativeElement);
-            }
-            this._focusTrap = this._focusTrapFactory.create(this._cRef.location.nativeElement, true);
-            // focus handling
-            this._cRef.instance.focus();
-        }
-    };
-    /**
-     * Closes the datepicker popup.
-     */
-    /**
-       * Closes the datepicker popup.
-       */
-    NgbInputDatepicker.prototype.close = /**
-       * Closes the datepicker popup.
-       */
-    function () {
-        if (this.isOpen()) {
-            this._vcRef.remove(this._vcRef.indexOf(this._cRef.hostView));
-            this._cRef = null;
-            this._focusTrap.destroy();
-            this._focusTrap = null;
-        }
-    };
-    /**
-     * Toggles the datepicker popup (opens when closed and closes when opened).
-     */
-    /**
-       * Toggles the datepicker popup (opens when closed and closes when opened).
-       */
-    NgbInputDatepicker.prototype.toggle = /**
-       * Toggles the datepicker popup (opens when closed and closes when opened).
-       */
-    function () {
-        if (this.isOpen()) {
-            this.close();
-        }
-        else {
-            this.open();
-        }
-    };
-    /**
-     * Navigates current view to provided date.
-     * With default calendar we use ISO 8601: 'month' is 1=Jan ... 12=Dec.
-     * If nothing or invalid date provided calendar will open current month.
-     * Use 'startDate' input as an alternative
-     */
-    /**
-       * Navigates current view to provided date.
-       * With default calendar we use ISO 8601: 'month' is 1=Jan ... 12=Dec.
-       * If nothing or invalid date provided calendar will open current month.
-       * Use 'startDate' input as an alternative
-       */
-    NgbInputDatepicker.prototype.navigateTo = /**
-       * Navigates current view to provided date.
-       * With default calendar we use ISO 8601: 'month' is 1=Jan ... 12=Dec.
-       * If nothing or invalid date provided calendar will open current month.
-       * Use 'startDate' input as an alternative
-       */
-    function (date) {
-        if (this.isOpen()) {
-            this._cRef.instance.navigateTo(date);
-        }
-    };
-    NgbInputDatepicker.prototype.onBlur = function () { this._onTouched(); };
-    NgbInputDatepicker.prototype.ngOnChanges = function (changes) {
-        if (changes['minDate'] || changes['maxDate']) {
-            this._validatorChange();
-        }
-    };
-    NgbInputDatepicker.prototype.ngOnDestroy = function () {
-        this.close();
-        this._zoneSubscription.unsubscribe();
-    };
-    NgbInputDatepicker.prototype._applyDatepickerInputs = function (datepickerInstance) {
-        var _this = this;
-        ['dayTemplate', 'displayMonths', 'firstDayOfWeek', 'markDisabled', 'minDate', 'maxDate', 'navigation',
-            'outsideDays', 'showNavigation', 'showWeekdays', 'showWeekNumbers']
-            .forEach(function (optionName) {
-            if (_this[optionName] !== undefined) {
-                datepickerInstance[optionName] = _this[optionName];
-            }
-        });
-        datepickerInstance.startDate = this.startDate || this._model;
-    };
-    NgbInputDatepicker.prototype._applyPopupStyling = function (nativeElement) {
-        this._renderer.addClass(nativeElement, 'dropdown-menu');
-        this._renderer.setStyle(nativeElement, 'padding', '0');
-        this._renderer.addClass(nativeElement, 'show');
-    };
-    NgbInputDatepicker.prototype._subscribeForDatepickerOutputs = function (datepickerInstance) {
-        var _this = this;
-        datepickerInstance.navigate.subscribe(function (date) { return _this.navigate.emit(date); });
-        datepickerInstance.select.subscribe(function (date) {
-            _this.dateSelect.emit(date);
-            if (_this.autoClose) {
-                _this.close();
-            }
-        });
-    };
-    NgbInputDatepicker.prototype._writeModelValue = function (model) {
-        this._renderer.setProperty(this._elRef.nativeElement, 'value', this._parserFormatter.format(model));
-        if (this.isOpen()) {
-            this._cRef.instance.writeValue(this._ngbDateAdapter.toModel(model));
-            this._onTouched();
-        }
-    };
-    NgbInputDatepicker.prototype._fromDateStruct = function (date) {
-        var ngbDate = date ? new _ngb_date__WEBPACK_IMPORTED_MODULE_2__["NgbDate"](date.year, date.month, date.day) : null;
-        return this._calendar.isValid(ngbDate) ? ngbDate : null;
-    };
-    NgbInputDatepicker.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
-                    selector: 'input[ngbDatepicker]',
-                    exportAs: 'ngbDatepicker',
-                    host: {
-                        '(input)': 'manualDateChange($event.target.value)',
-                        '(change)': 'manualDateChange($event.target.value, true)',
-                        '(keyup.esc)': 'close()',
-                        '(blur)': 'onBlur()',
-                        '[disabled]': 'disabled'
-                    },
-                    providers: [NGB_DATEPICKER_VALUE_ACCESSOR, NGB_DATEPICKER_VALIDATOR, _datepicker_service__WEBPACK_IMPORTED_MODULE_9__["NgbDatepickerService"]]
-                },] },
-    ];
-    /** @nocollapse */
-    NgbInputDatepicker.ctorParameters = function () { return [
-        { type: _ngb_date_parser_formatter__WEBPACK_IMPORTED_MODULE_4__["NgbDateParserFormatter"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewContainerRef"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ComponentFactoryResolver"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"], },
-        { type: _datepicker_service__WEBPACK_IMPORTED_MODULE_9__["NgbDatepickerService"], },
-        { type: _ngb_calendar__WEBPACK_IMPORTED_MODULE_8__["NgbCalendar"], },
-        { type: _ngb_date_adapter__WEBPACK_IMPORTED_MODULE_7__["NgbDateAdapter"], },
-        { type: _util_focus_trap__WEBPACK_IMPORTED_MODULE_6__["NgbFocusTrapFactory"], },
-    ]; };
-    NgbInputDatepicker.propDecorators = {
-        "autoClose": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "dayTemplate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "displayMonths": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "firstDayOfWeek": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "markDisabled": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "minDate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "maxDate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "navigation": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "outsideDays": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "placement": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "showWeekdays": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "showWeekNumbers": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "startDate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "container": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "dateSelect": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-        "navigate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-        "disabled": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-    };
-    return NgbInputDatepicker;
-}());
-
-//# sourceMappingURL=datepicker-input.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-keymap-service.js":
-/*!******************************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-keymap-service.js ***!
-  \******************************************************************************************/
-/*! exports provided: NgbDatepickerKeyMapService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerKeyMapService", function() { return NgbDatepickerKeyMapService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _datepicker_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./datepicker-service */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-service.js");
-/* harmony import */ var _ngb_calendar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ngb-calendar */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar.js");
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-
-
-
-
-var Key;
-(function (Key) {
-    Key[Key["Enter"] = 13] = "Enter";
-    Key[Key["Space"] = 32] = "Space";
-    Key[Key["PageUp"] = 33] = "PageUp";
-    Key[Key["PageDown"] = 34] = "PageDown";
-    Key[Key["End"] = 35] = "End";
-    Key[Key["Home"] = 36] = "Home";
-    Key[Key["ArrowLeft"] = 37] = "ArrowLeft";
-    Key[Key["ArrowUp"] = 38] = "ArrowUp";
-    Key[Key["ArrowRight"] = 39] = "ArrowRight";
-    Key[Key["ArrowDown"] = 40] = "ArrowDown";
-})(Key || (Key = {}));
-var NgbDatepickerKeyMapService = /** @class */ (function () {
-    function NgbDatepickerKeyMapService(_service, _calendar) {
-        var _this = this;
-        this._service = _service;
-        this._calendar = _calendar;
-        _service.model$.subscribe(function (model) {
-            _this._minDate = model.minDate;
-            _this._maxDate = model.maxDate;
-            _this._firstViewDate = model.firstDate;
-            _this._lastViewDate = model.lastDate;
-        });
-    }
-    NgbDatepickerKeyMapService.prototype.processKey = function (event) {
-        if (Key[Object(_util_util__WEBPACK_IMPORTED_MODULE_3__["toString"])(event.which)]) {
-            switch (event.which) {
-                case Key.PageUp:
-                    this._service.focusMove(event.shiftKey ? 'y' : 'm', -1);
-                    break;
-                case Key.PageDown:
-                    this._service.focusMove(event.shiftKey ? 'y' : 'm', 1);
-                    break;
-                case Key.End:
-                    this._service.focus(event.shiftKey ? this._maxDate : this._lastViewDate);
-                    break;
-                case Key.Home:
-                    this._service.focus(event.shiftKey ? this._minDate : this._firstViewDate);
-                    break;
-                case Key.ArrowLeft:
-                    this._service.focusMove('d', -1);
-                    break;
-                case Key.ArrowUp:
-                    this._service.focusMove('d', -this._calendar.getDaysPerWeek());
-                    break;
-                case Key.ArrowRight:
-                    this._service.focusMove('d', 1);
-                    break;
-                case Key.ArrowDown:
-                    this._service.focusMove('d', this._calendar.getDaysPerWeek());
-                    break;
-                case Key.Enter:
-                case Key.Space:
-                    this._service.focusSelect();
-                    break;
-                default:
-                    return;
-            }
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    };
-    NgbDatepickerKeyMapService.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    /** @nocollapse */
-    NgbDatepickerKeyMapService.ctorParameters = function () { return [
-        { type: _datepicker_service__WEBPACK_IMPORTED_MODULE_1__["NgbDatepickerService"], },
-        { type: _ngb_calendar__WEBPACK_IMPORTED_MODULE_2__["NgbCalendar"], },
-    ]; };
-    return NgbDatepickerKeyMapService;
-}());
-
-//# sourceMappingURL=datepicker-keymap-service.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-month-view.js":
-/*!**************************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-month-view.js ***!
-  \**************************************************************************************/
-/*! exports provided: NgbDatepickerMonthView */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerMonthView", function() { return NgbDatepickerMonthView; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ngb_date__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ngb-date */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date.js");
-/* harmony import */ var _datepicker_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./datepicker-i18n */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-i18n.js");
-
-
-
-var NgbDatepickerMonthView = /** @class */ (function () {
-    function NgbDatepickerMonthView(i18n) {
-        this.i18n = i18n;
-        this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-    }
-    NgbDatepickerMonthView.prototype.doSelect = function (day) {
-        if (!day.context.disabled && !this.isHidden(day)) {
-            this.select.emit(_ngb_date__WEBPACK_IMPORTED_MODULE_1__["NgbDate"].from(day.date));
-        }
-    };
-    NgbDatepickerMonthView.prototype.isCollapsed = function (week) {
-        return this.outsideDays === 'collapsed' && week.days[0].date.month !== this.month.number &&
-            week.days[week.days.length - 1].date.month !== this.month.number;
-    };
-    NgbDatepickerMonthView.prototype.isHidden = function (day) {
-        return (this.outsideDays === 'hidden' || this.outsideDays === 'collapsed') && this.month.number !== day.date.month;
-    };
-    NgbDatepickerMonthView.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: 'ngb-datepicker-month-view',
-                    host: { 'class': 'd-block', 'role': 'grid' },
-                    styles: ["\n    .ngb-dp-weekday, .ngb-dp-week-number {\n      line-height: 2rem;\n      text-align: center;\n      font-style: italic;\n    }\n    .ngb-dp-weekday {\n      color: #5bc0de;\n      color: var(--info);\n    }\n    .ngb-dp-week {\n      border-radius: 0.25rem;\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n    }\n    .ngb-dp-weekdays {\n      border-bottom: 1px solid rgba(0, 0, 0, 0.125);\n      border-radius: 0rem;\n    }\n    .ngb-dp-day, .ngb-dp-weekday, .ngb-dp-week-number {\n      width: 2rem;\n      height: 2rem;\n    }\n    .ngb-dp-day {\n      cursor: pointer;\n    }\n    .ngb-dp-day.disabled, .ngb-dp-day.hidden {\n      cursor: default;\n    }\n  "],
-                    template: "\n    <div *ngIf=\"showWeekdays\" class=\"ngb-dp-week ngb-dp-weekdays bg-light\">\n      <div *ngIf=\"showWeekNumbers\" class=\"ngb-dp-weekday ngb-dp-showweek\"></div>\n      <div *ngFor=\"let w of month.weekdays\" class=\"ngb-dp-weekday small\">\n        {{ i18n.getWeekdayShortName(w) }}\n      </div>\n    </div>\n    <ng-template ngFor let-week [ngForOf]=\"month.weeks\">\n      <div *ngIf=\"!isCollapsed(week)\" class=\"ngb-dp-week\" role=\"row\">\n        <div *ngIf=\"showWeekNumbers\" class=\"ngb-dp-week-number small text-muted\">{{ week.number }}</div>\n        <div *ngFor=\"let day of week.days\" (click)=\"doSelect(day)\" class=\"ngb-dp-day\" role=\"gridcell\"\n          [class.disabled]=\"day.context.disabled\"\n          [tabindex]=\"day.tabindex\"\n          [class.hidden]=\"isHidden(day)\"\n          [attr.aria-label]=\"day.ariaLabel\">\n          <ng-template [ngIf]=\"!isHidden(day)\">\n            <ng-template [ngTemplateOutlet]=\"dayTemplate\" [ngTemplateOutletContext]=\"day.context\"></ng-template>\n          </ng-template>\n        </div>\n      </div>\n    </ng-template>\n  "
-                },] },
-    ];
-    /** @nocollapse */
-    NgbDatepickerMonthView.ctorParameters = function () { return [
-        { type: _datepicker_i18n__WEBPACK_IMPORTED_MODULE_2__["NgbDatepickerI18n"], },
-    ]; };
-    NgbDatepickerMonthView.propDecorators = {
-        "dayTemplate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "month": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "outsideDays": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "showWeekdays": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "showWeekNumbers": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "select": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-    };
-    return NgbDatepickerMonthView;
-}());
-
-//# sourceMappingURL=datepicker-month-view.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.js":
-/*!*********************************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.js ***!
-  \*********************************************************************************************/
-/*! exports provided: NgbDatepickerNavigationSelect */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerNavigationSelect", function() { return NgbDatepickerNavigationSelect; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ngb_date__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ngb-date */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date.js");
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-/* harmony import */ var _datepicker_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./datepicker-i18n */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-i18n.js");
-
-
-
-
-var NgbDatepickerNavigationSelect = /** @class */ (function () {
-    function NgbDatepickerNavigationSelect(i18n) {
-        this.i18n = i18n;
-        this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-    }
-    NgbDatepickerNavigationSelect.prototype.changeMonth = function (month) { this.select.emit(new _ngb_date__WEBPACK_IMPORTED_MODULE_1__["NgbDate"](this.date.year, Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["toInteger"])(month), 1)); };
-    NgbDatepickerNavigationSelect.prototype.changeYear = function (year) { this.select.emit(new _ngb_date__WEBPACK_IMPORTED_MODULE_1__["NgbDate"](Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["toInteger"])(year), this.date.month, 1)); };
-    NgbDatepickerNavigationSelect.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: 'ngb-datepicker-navigation-select',
-                    changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush,
-                    styles: ["\n    :host>select {\n      /* to align with btn-sm */\n      padding: 0.25rem 0.5rem;\n      font-size: 0.875rem;\n      line-height: 1.25;\n      /* to cancel the custom height set by custom-select */\n      height: inherit;\n      width: 50%;\n      display: inline-block;\n    }\n  "],
-                    template: "\n    <select\n      [disabled]=\"disabled\"\n      class=\"custom-select\"\n      [value]=\"date?.month\"\n      (change)=\"changeMonth($event.target.value)\">\n        <option *ngFor=\"let m of months\" [value]=\"m\">{{ i18n.getMonthShortName(m) }}</option>\n    </select><select\n      [disabled]=\"disabled\"\n      class=\"custom-select\"\n      [value]=\"date?.year\"\n      (change)=\"changeYear($event.target.value)\">\n        <option *ngFor=\"let y of years\" [value]=\"y\">{{ y }}</option>\n    </select>\n  "
-                },] },
-    ];
-    /** @nocollapse */
-    NgbDatepickerNavigationSelect.ctorParameters = function () { return [
-        { type: _datepicker_i18n__WEBPACK_IMPORTED_MODULE_3__["NgbDatepickerI18n"], },
-    ]; };
-    NgbDatepickerNavigationSelect.propDecorators = {
-        "date": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "disabled": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "months": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "years": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "select": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-    };
-    return NgbDatepickerNavigationSelect;
-}());
-
-//# sourceMappingURL=datepicker-navigation-select.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.js":
-/*!**************************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.js ***!
-  \**************************************************************************************/
-/*! exports provided: NgbDatepickerNavigation */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerNavigation", function() { return NgbDatepickerNavigation; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _datepicker_view_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./datepicker-view-model */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-view-model.js");
-/* harmony import */ var _ngb_date__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ngb-date */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date.js");
-/* harmony import */ var _datepicker_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./datepicker-i18n */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-i18n.js");
-
-
-
-
-// The -ms- and -webkit- element for the CSS can be removed if we are generating the CSS using SASS.
-var NgbDatepickerNavigation = /** @class */ (function () {
-    function NgbDatepickerNavigation(i18n) {
-        this.i18n = i18n;
-        this.navigation = _datepicker_view_model__WEBPACK_IMPORTED_MODULE_1__["NavigationEvent"];
-        this.months = [];
-        this.navigate = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-    }
-    NgbDatepickerNavigation.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: 'ngb-datepicker-navigation',
-                    changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush,
-                    styles: ["\n    :host {\n      height: 2rem;\n      line-height: 1.85rem;\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n    }\n    .ngb-dp-navigation-chevron {\n      border-style: solid;\n      border-width: 0.2em 0.2em 0 0;\n      display: inline-block;\n      width: 0.75em;\n      height: 0.75em;\n      margin-left: 0.25em;\n      margin-right: 0.15em;\n      transform: rotate(-135deg);\n      -webkit-transform: rotate(-135deg);\n      -ms-transform: rotate(-135deg);\n    }\n    .right .ngb-dp-navigation-chevron {\n      -webkit-transform: rotate(45deg);\n      -ms-transform: rotate(45deg);\n      transform: rotate(45deg);\n      margin-left: 0.15em;\n      margin-right: 0.25em;\n    }\n    .ngb-dp-arrow {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-flex: 1 1 auto;\n      -ms-flex: 1 1 auto;\n      flex-basis: auto;\n      flex-grow: 1;\n      padding-right: 0px;\n      padding-left: 0px;\n      margin: 0px;\n      width: 2rem;\n      height: 2rem;\n    }\n    .ngb-dp-arrow.right {\n      -webkit-box-pack: end;\n      -ms-flex-pack: end;\n      justify-content: flex-end;\n    }\n    .ngb-dp-arrow-btn {\n      padding: 0rem 0.25rem;\n      margin: 0rem 0.5rem;\n      border: none;\n      background-color: transparent;\n      z-index: 1;\n    }\n    .ngb-dp-arrow-btn:focus {\n      outline-style: auto;\n      outline-width: 1px;\n    }\n    .ngb-dp-month-name {\n      font-size: larger;\n      height: 2rem;\n      line-height: 2rem;\n      text-align: center;\n    }\n    .ngb-dp-navigation-select {\n      -webkit-box-flex: 1 1 9rem;\n      -ms-flex:  1 1 9rem;\n      flex-grow: 1;\n      flex-basis: 9rem;\n    }\n  "],
-                    template: "\n  <div class=\"ngb-dp-arrow\">\n    <button type=\"button\" class=\"btn btn-link ngb-dp-arrow-btn\"\n            (click)=\"!!navigate.emit(navigation.PREV)\" [disabled]=\"prevDisabled\">\n      <span class=\"ngb-dp-navigation-chevron\"></span>\n    </button>\n  </div>\n    <ngb-datepicker-navigation-select *ngIf=\"showSelect\" class=\"d-block ngb-dp-navigation-select\"\n      [date]=\"date\"\n      [disabled] = \"disabled\"\n      [months]=\"selectBoxes.months\"\n      [years]=\"selectBoxes.years\"\n      (select)=\"select.emit($event)\">\n    </ngb-datepicker-navigation-select>\n\n    <ng-template *ngIf=\"!showSelect\" ngFor let-month [ngForOf]=\"months\" let-i=\"index\">\n      <div class=\"ngb-dp-arrow\" *ngIf=\"i > 0\"></div>\n      <div class=\"ngb-dp-month-name d-block\">\n        {{ i18n.getMonthFullName(month.number) }} {{ month.year }}\n      </div>\n      <div class=\"ngb-dp-arrow\" *ngIf=\"i !== months.length - 1\"></div>\n    </ng-template>\n    <div class=\"ngb-dp-arrow right\">\n    <button type=\"button\" class=\"btn btn-link ngb-dp-arrow-btn\"\n            (click)=\"!!navigate.emit(navigation.NEXT)\" [disabled]=\"nextDisabled\">\n      <span class=\"ngb-dp-navigation-chevron\"></span>\n    </button>\n    </div>\n    "
-                },] },
-    ];
-    /** @nocollapse */
-    NgbDatepickerNavigation.ctorParameters = function () { return [
-        { type: _datepicker_i18n__WEBPACK_IMPORTED_MODULE_3__["NgbDatepickerI18n"], },
-    ]; };
-    NgbDatepickerNavigation.propDecorators = {
-        "date": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "disabled": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "months": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "showSelect": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "prevDisabled": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "nextDisabled": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "selectBoxes": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "navigate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-        "select": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-    };
-    return NgbDatepickerNavigation;
-}());
-
-//# sourceMappingURL=datepicker-navigation.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-service.js":
-/*!***********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-service.js ***!
-  \***********************************************************************************/
-/*! exports provided: NgbDatepickerService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerService", function() { return NgbDatepickerService; });
-/* harmony import */ var _ngb_calendar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ngb-calendar */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar.js");
-/* harmony import */ var _ngb_date__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ngb-date */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "../node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _datepicker_tools__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./datepicker-tools */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-tools.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "../node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _datepicker_i18n__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./datepicker-i18n */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-i18n.js");
-
-
-
-
-
-
-
-
-var NgbDatepickerService = /** @class */ (function () {
-    function NgbDatepickerService(_calendar, _i18n) {
-        this._calendar = _calendar;
-        this._i18n = _i18n;
-        this._model$ = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
-        this._select$ = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
-        this._state = {
-            disabled: false,
-            displayMonths: 1,
-            firstDayOfWeek: 1,
-            focusVisible: false,
-            months: [],
-            navigation: 'select',
-            prevDisabled: false,
-            nextDisabled: false,
-            selectBoxes: { years: [], months: [] },
-            selectedDate: null
-        };
-    }
-    Object.defineProperty(NgbDatepickerService.prototype, "model$", {
-        get: function () { return this._model$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["filter"])(function (model) { return model.months.length > 0; })); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NgbDatepickerService.prototype, "select$", {
-        get: function () { return this._select$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["filter"])(function (date) { return date !== null; })); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NgbDatepickerService.prototype, "disabled", {
-        set: function (disabled) {
-            if (this._state.disabled !== disabled) {
-                this._nextState({ disabled: disabled });
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NgbDatepickerService.prototype, "displayMonths", {
-        set: function (displayMonths) {
-            displayMonths = Object(_util_util__WEBPACK_IMPORTED_MODULE_3__["toInteger"])(displayMonths);
-            if (Object(_util_util__WEBPACK_IMPORTED_MODULE_3__["isInteger"])(displayMonths) && displayMonths > 0 && this._state.displayMonths !== displayMonths) {
-                this._nextState({ displayMonths: displayMonths });
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NgbDatepickerService.prototype, "firstDayOfWeek", {
-        set: function (firstDayOfWeek) {
-            firstDayOfWeek = Object(_util_util__WEBPACK_IMPORTED_MODULE_3__["toInteger"])(firstDayOfWeek);
-            if (Object(_util_util__WEBPACK_IMPORTED_MODULE_3__["isInteger"])(firstDayOfWeek) && firstDayOfWeek >= 0 && this._state.firstDayOfWeek !== firstDayOfWeek) {
-                this._nextState({ firstDayOfWeek: firstDayOfWeek });
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NgbDatepickerService.prototype, "focusVisible", {
-        set: function (focusVisible) {
-            if (this._state.focusVisible !== focusVisible && !this._state.disabled) {
-                this._nextState({ focusVisible: focusVisible });
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NgbDatepickerService.prototype, "maxDate", {
-        set: function (date) {
-            var maxDate = this.toValidDate(date, null);
-            if (Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["isChangedDate"])(this._state.maxDate, maxDate)) {
-                this._nextState({ maxDate: maxDate });
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NgbDatepickerService.prototype, "markDisabled", {
-        set: function (markDisabled) {
-            if (this._state.markDisabled !== markDisabled) {
-                this._nextState({ markDisabled: markDisabled });
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NgbDatepickerService.prototype, "minDate", {
-        set: function (date) {
-            var minDate = this.toValidDate(date, null);
-            if (Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["isChangedDate"])(this._state.minDate, minDate)) {
-                this._nextState({ minDate: minDate });
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NgbDatepickerService.prototype, "navigation", {
-        set: function (navigation) {
-            if (this._state.navigation !== navigation) {
-                this._nextState({ navigation: navigation });
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    NgbDatepickerService.prototype.focus = function (date) {
-        if (!this._state.disabled && this._calendar.isValid(date) && Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["isChangedDate"])(this._state.focusDate, date)) {
-            this._nextState({ focusDate: date });
-        }
-    };
-    NgbDatepickerService.prototype.focusMove = function (period, number) {
-        this.focus(this._calendar.getNext(this._state.focusDate, period, number));
-    };
-    NgbDatepickerService.prototype.focusSelect = function () {
-        if (Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["isDateSelectable"])(this._state.focusDate, this._state)) {
-            this.select(this._state.focusDate, { emitEvent: true });
-        }
-    };
-    NgbDatepickerService.prototype.open = function (date) {
-        var firstDate = this.toValidDate(date, this._calendar.getToday());
-        if (!this._state.disabled) {
-            this._nextState({ firstDate: firstDate });
-        }
-    };
-    NgbDatepickerService.prototype.select = function (date, options) {
-        if (options === void 0) { options = {}; }
-        var selectedDate = this.toValidDate(date, null);
-        if (!this._state.disabled) {
-            if (Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["isChangedDate"])(this._state.selectedDate, selectedDate)) {
-                this._nextState({ selectedDate: selectedDate });
-            }
-            if (options.emitEvent && Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["isDateSelectable"])(selectedDate, this._state)) {
-                this._select$.next(selectedDate);
-            }
-        }
-    };
-    NgbDatepickerService.prototype.toValidDate = function (date, defaultValue) {
-        var ngbDate = _ngb_date__WEBPACK_IMPORTED_MODULE_1__["NgbDate"].from(date);
-        if (defaultValue === undefined) {
-            defaultValue = this._calendar.getToday();
-        }
-        return this._calendar.isValid(ngbDate) ? ngbDate : defaultValue;
-    };
-    NgbDatepickerService.prototype._nextState = function (patch) {
-        var newState = this._updateState(patch);
-        this._patchContexts(newState);
-        this._state = newState;
-        this._model$.next(this._state);
-    };
-    NgbDatepickerService.prototype._patchContexts = function (state) {
-        state.months.forEach(function (month) {
-            month.weeks.forEach(function (week) {
-                week.days.forEach(function (day) {
-                    // patch focus flag
-                    if (state.focusDate) {
-                        day.context.focused = state.focusDate.equals(day.date) && state.focusVisible;
-                    }
-                    day.tabindex =
-                        (!state.disabled && day.date.equals(state.focusDate) && state.focusDate.month === month.number) ? 0 : -1;
-                    // override context disabled
-                    if (state.disabled === true) {
-                        day.context.disabled = true;
-                    }
-                    // patch selection flag
-                    if (state.selectedDate !== undefined) {
-                        day.context.selected = state.selectedDate !== null && state.selectedDate.equals(day.date);
-                    }
-                });
-            });
-        });
-    };
-    NgbDatepickerService.prototype._updateState = function (patch) {
-        // patching fields
-        var state = Object.assign({}, this._state, patch);
-        var startDate = state.firstDate;
-        // min/max dates changed
-        if ('minDate' in patch || 'maxDate' in patch) {
-            Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["checkMinBeforeMax"])(state.minDate, state.maxDate);
-            state.focusDate = Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["checkDateInRange"])(state.focusDate, state.minDate, state.maxDate);
-            state.firstDate = Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["checkDateInRange"])(state.firstDate, state.minDate, state.maxDate);
-            startDate = state.focusDate;
-        }
-        // disabled
-        if ('disabled' in patch) {
-            state.focusVisible = false;
-        }
-        // initial rebuild via 'select()'
-        if ('selectedDate' in patch && this._state.months.length === 0) {
-            startDate = state.selectedDate;
-        }
-        // focus date changed
-        if ('focusDate' in patch) {
-            state.focusDate = Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["checkDateInRange"])(state.focusDate, state.minDate, state.maxDate);
-            startDate = state.focusDate;
-            // nothing to rebuild if only focus changed and it is still visible
-            if (state.months.length !== 0 && !state.focusDate.before(state.firstDate) &&
-                !state.focusDate.after(state.lastDate)) {
-                return state;
-            }
-        }
-        // first date changed
-        if ('firstDate' in patch) {
-            state.firstDate = Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["checkDateInRange"])(state.firstDate, state.minDate, state.maxDate);
-            startDate = state.firstDate;
-        }
-        // rebuilding months
-        if (startDate) {
-            var forceRebuild = 'firstDayOfWeek' in patch || 'markDisabled' in patch || 'minDate' in patch ||
-                'maxDate' in patch || 'disabled' in patch;
-            var months = Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["buildMonths"])(this._calendar, startDate, state, this._i18n, forceRebuild);
-            // updating months and boundary dates
-            state.months = months;
-            state.firstDate = months.length > 0 ? months[0].firstDate : undefined;
-            state.lastDate = months.length > 0 ? months[months.length - 1].lastDate : undefined;
-            // reset selected date if 'markDisabled' returns true
-            if ('selectedDate' in patch && !Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["isDateSelectable"])(state.selectedDate, state)) {
-                state.selectedDate = null;
-            }
-            // adjusting focus after months were built
-            if ('firstDate' in patch) {
-                if (state.focusDate === undefined || state.focusDate.before(state.firstDate) ||
-                    state.focusDate.after(state.lastDate)) {
-                    state.focusDate = startDate;
-                }
-            }
-            // adjusting months/years for the select box navigation
-            var yearChanged = !this._state.firstDate || this._state.firstDate.year !== state.firstDate.year;
-            var monthChanged = !this._state.firstDate || this._state.firstDate.month !== state.firstDate.month;
-            if (state.navigation === 'select') {
-                // years ->  boundaries (min/max were changed)
-                if ('minDate' in patch || 'maxDate' in patch || state.selectBoxes.years.length === 0 || yearChanged) {
-                    state.selectBoxes.years = Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["generateSelectBoxYears"])(state.focusDate, state.minDate, state.maxDate);
-                }
-                // months -> when current year or boundaries change
-                if ('minDate' in patch || 'maxDate' in patch || state.selectBoxes.months.length === 0 || yearChanged) {
-                    state.selectBoxes.months =
-                        Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["generateSelectBoxMonths"])(this._calendar, state.focusDate, state.minDate, state.maxDate);
-                }
-            }
-            else {
-                state.selectBoxes = { years: [], months: [] };
-            }
-            // updating navigation arrows -> boundaries change (min/max) or month/year changes
-            if ((state.navigation === 'arrows' || state.navigation === 'select') &&
-                (monthChanged || yearChanged || 'minDate' in patch || 'maxDate' in patch || 'disabled' in patch)) {
-                state.prevDisabled = state.disabled || Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["prevMonthDisabled"])(this._calendar, state.firstDate, state.minDate);
-                state.nextDisabled = state.disabled || Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_5__["nextMonthDisabled"])(this._calendar, state.lastDate, state.maxDate);
-            }
-        }
-        return state;
-    };
-    NgbDatepickerService.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"] },
-    ];
-    /** @nocollapse */
-    NgbDatepickerService.ctorParameters = function () { return [
-        { type: _ngb_calendar__WEBPACK_IMPORTED_MODULE_0__["NgbCalendar"], },
-        { type: _datepicker_i18n__WEBPACK_IMPORTED_MODULE_7__["NgbDatepickerI18n"], },
-    ]; };
-    return NgbDatepickerService;
-}());
-
-//# sourceMappingURL=datepicker-service.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-tools.js":
-/*!*********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-tools.js ***!
-  \*********************************************************************************/
-/*! exports provided: isChangedDate, dateComparator, checkMinBeforeMax, checkDateInRange, isDateSelectable, generateSelectBoxMonths, generateSelectBoxYears, nextMonthDisabled, prevMonthDisabled, buildMonths, buildMonth, getFirstViewDate */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isChangedDate", function() { return isChangedDate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dateComparator", function() { return dateComparator; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkMinBeforeMax", function() { return checkMinBeforeMax; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkDateInRange", function() { return checkDateInRange; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isDateSelectable", function() { return isDateSelectable; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateSelectBoxMonths", function() { return generateSelectBoxMonths; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateSelectBoxYears", function() { return generateSelectBoxYears; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "nextMonthDisabled", function() { return nextMonthDisabled; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "prevMonthDisabled", function() { return prevMonthDisabled; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buildMonths", function() { return buildMonths; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buildMonth", function() { return buildMonth; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFirstViewDate", function() { return getFirstViewDate; });
-/* harmony import */ var _ngb_date__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ngb-date */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date.js");
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-
-
-function isChangedDate(prev, next) {
-    return !dateComparator(prev, next);
-}
-function dateComparator(prev, next) {
-    return (!prev && !next) || (!!prev && !!next && prev.equals(next));
-}
-function checkMinBeforeMax(minDate, maxDate) {
-    if (maxDate && minDate && maxDate.before(minDate)) {
-        throw new Error("'maxDate' " + maxDate + " should be greater than 'minDate' " + minDate);
-    }
-}
-function checkDateInRange(date, minDate, maxDate) {
-    if (date && minDate && date.before(minDate)) {
-        return _ngb_date__WEBPACK_IMPORTED_MODULE_0__["NgbDate"].from(minDate);
-    }
-    if (date && maxDate && date.after(maxDate)) {
-        return _ngb_date__WEBPACK_IMPORTED_MODULE_0__["NgbDate"].from(maxDate);
-    }
-    return date;
-}
-function isDateSelectable(date, state) {
-    var minDate = state.minDate, maxDate = state.maxDate, disabled = state.disabled, markDisabled = state.markDisabled;
-    // clang-format off
-    return !(!Object(_util_util__WEBPACK_IMPORTED_MODULE_1__["isDefined"])(date) ||
-        disabled ||
-        (markDisabled && markDisabled(date, { year: date.year, month: date.month })) ||
-        (minDate && date.before(minDate)) ||
-        (maxDate && date.after(maxDate)));
-    // clang-format on
-}
-function generateSelectBoxMonths(calendar, date, minDate, maxDate) {
-    if (!date) {
-        return [];
-    }
-    var months = calendar.getMonths();
-    if (minDate && date.year === minDate.year) {
-        var index = months.findIndex(function (month) { return month === minDate.month; });
-        months = months.slice(index);
-    }
-    if (maxDate && date.year === maxDate.year) {
-        var index = months.findIndex(function (month) { return month === maxDate.month; });
-        months = months.slice(0, index + 1);
-    }
-    return months;
-}
-function generateSelectBoxYears(date, minDate, maxDate) {
-    if (!date) {
-        return [];
-    }
-    var start = minDate && minDate.year || date.year - 10;
-    var end = maxDate && maxDate.year || date.year + 10;
-    return Array.from({ length: end - start + 1 }, function (e, i) { return start + i; });
-}
-function nextMonthDisabled(calendar, date, maxDate) {
-    return maxDate && calendar.getNext(date, 'm').after(maxDate);
-}
-function prevMonthDisabled(calendar, date, minDate) {
-    var prevDate = calendar.getPrev(date, 'm');
-    return minDate && (prevDate.year === minDate.year && prevDate.month < minDate.month ||
-        prevDate.year < minDate.year && minDate.month === 1);
-}
-function buildMonths(calendar, date, state, i18n, force) {
-    var displayMonths = state.displayMonths, months = state.months;
-    var newMonths = [];
-    var _loop_1 = function (i) {
-        var newDate = calendar.getNext(date, 'm', i);
-        var index = months.findIndex(function (month) { return month.firstDate.equals(newDate); });
-        if (force || index === -1) {
-            newMonths.push(buildMonth(calendar, newDate, state, i18n));
-        }
-        else {
-            newMonths.push(months[index]);
-        }
-    };
-    for (var i = 0; i < displayMonths; i++) {
-        _loop_1(i);
-    }
-    return newMonths;
-}
-function buildMonth(calendar, date, state, i18n) {
-    var minDate = state.minDate, maxDate = state.maxDate, firstDayOfWeek = state.firstDayOfWeek, markDisabled = state.markDisabled;
-    var month = { firstDate: null, lastDate: null, number: date.month, year: date.year, weeks: [], weekdays: [] };
-    date = getFirstViewDate(calendar, date, firstDayOfWeek);
-    // month has weeks
-    for (var week = 0; week < calendar.getWeeksPerMonth(); week++) {
-        var days = [];
-        // week has days
-        for (var day = 0; day < calendar.getDaysPerWeek(); day++) {
-            if (week === 0) {
-                month.weekdays.push(calendar.getWeekday(date));
-            }
-            var newDate = new _ngb_date__WEBPACK_IMPORTED_MODULE_0__["NgbDate"](date.year, date.month, date.day);
-            var nextDate = calendar.getNext(newDate);
-            var ariaLabel = i18n.getDayAriaLabel(newDate);
-            // marking date as disabled
-            var disabled = !!((minDate && newDate.before(minDate)) || (maxDate && newDate.after(maxDate)));
-            if (!disabled && markDisabled) {
-                disabled = markDisabled(newDate, { month: month.number, year: month.year });
-            }
-            // saving first date of the month
-            if (month.firstDate === null && newDate.month === month.number) {
-                month.firstDate = newDate;
-            }
-            // saving last date of the month
-            if (newDate.month === month.number && nextDate.month !== month.number) {
-                month.lastDate = newDate;
-            }
-            days.push({
-                date: newDate,
-                context: {
-                    date: { year: newDate.year, month: newDate.month, day: newDate.day },
-                    currentMonth: month.number,
-                    disabled: disabled,
-                    focused: false,
-                    selected: false
-                },
-                tabindex: -1, ariaLabel: ariaLabel
-            });
-            date = nextDate;
-        }
-        month.weeks.push({ number: calendar.getWeekNumber(days.map(function (day) { return _ngb_date__WEBPACK_IMPORTED_MODULE_0__["NgbDate"].from(day.date); }), firstDayOfWeek), days: days });
-    }
-    return month;
-}
-function getFirstViewDate(calendar, date, firstDayOfWeek) {
-    var daysPerWeek = calendar.getDaysPerWeek();
-    var firstMonthDate = new _ngb_date__WEBPACK_IMPORTED_MODULE_0__["NgbDate"](date.year, date.month, 1);
-    var dayOfWeek = calendar.getWeekday(firstMonthDate) % daysPerWeek;
-    return calendar.getPrev(firstMonthDate, 'd', (daysPerWeek + dayOfWeek - firstDayOfWeek) % daysPerWeek);
-}
-//# sourceMappingURL=datepicker-tools.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-view-model.js":
-/*!**************************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-view-model.js ***!
-  \**************************************************************************************/
-/*! exports provided: NavigationEvent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavigationEvent", function() { return NavigationEvent; });
-// clang-format on
-// clang-format on
-var NavigationEvent;
-// clang-format on
-(function (NavigationEvent) {
-    NavigationEvent[NavigationEvent["PREV"] = 0] = "PREV";
-    NavigationEvent[NavigationEvent["NEXT"] = 1] = "NEXT";
-})(NavigationEvent || (NavigationEvent = {}));
-//# sourceMappingURL=datepicker-view-model.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker.js":
-/*!***************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker.js ***!
-  \***************************************************************************/
-/*! exports provided: NgbDatepicker */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDatepicker", function() { return NgbDatepicker; });
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs/operators */ "../node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "../node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _ngb_calendar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ngb-calendar */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar.js");
-/* harmony import */ var _ngb_date__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ngb-date */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date.js");
-/* harmony import */ var _datepicker_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./datepicker-service */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-service.js");
-/* harmony import */ var _datepicker_keymap_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./datepicker-keymap-service */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-keymap-service.js");
-/* harmony import */ var _datepicker_view_model__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./datepicker-view-model */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-view-model.js");
-/* harmony import */ var _datepicker_config__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./datepicker-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-config.js");
-/* harmony import */ var _ngb_date_adapter__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ngb-date-adapter */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-adapter.js");
-/* harmony import */ var _datepicker_i18n__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./datepicker-i18n */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-i18n.js");
-/* harmony import */ var _datepicker_tools__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./datepicker-tools */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-tools.js");
-
-
-
-
-
-
-
-
-
-
-
-
-var NGB_DATEPICKER_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return NgbDatepicker; }),
-    multi: true
-};
-/**
- * A lightweight and highly configurable datepicker directive
- */
-var NgbDatepicker = /** @class */ (function () {
-    function NgbDatepicker(_keyMapService, _service, _calendar, i18n, config, _cd, _elementRef, _ngbDateAdapter, _ngZone) {
-        var _this = this;
-        this._keyMapService = _keyMapService;
-        this._service = _service;
-        this._calendar = _calendar;
-        this.i18n = i18n;
-        this._cd = _cd;
-        this._elementRef = _elementRef;
-        this._ngbDateAdapter = _ngbDateAdapter;
-        this._ngZone = _ngZone;
-        /**
-           * An event fired when navigation happens and currently displayed month changes.
-           * See NgbDatepickerNavigateEvent for the payload info.
-           */
-        this.navigate = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        /**
-           * An event fired when user selects a date using keyboard or mouse.
-           * The payload of the event is currently selected NgbDateStruct.
-           */
-        this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.onChange = function (_) { };
-        this.onTouched = function () { };
-        ['dayTemplate', 'displayMonths', 'firstDayOfWeek', 'markDisabled', 'minDate', 'maxDate', 'navigation',
-            'outsideDays', 'showWeekdays', 'showWeekNumbers', 'startDate']
-            .forEach(function (input) { return _this[input] = config[input]; });
-        this._selectSubscription = _service.select$.subscribe(function (date) { _this.select.emit(date.toStruct()); });
-        this._subscription = _service.model$.subscribe(function (model) {
-            var newDate = model.firstDate;
-            var oldDate = _this.model ? _this.model.firstDate : null;
-            var newSelectedDate = model.selectedDate;
-            var oldSelectedDate = _this.model ? _this.model.selectedDate : null;
-            var newFocusedDate = model.focusDate;
-            var oldFocusedDate = _this.model ? _this.model.focusDate : null;
-            _this.model = model;
-            // handling selection change
-            if (Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_11__["isChangedDate"])(newSelectedDate, oldSelectedDate)) {
-                _this.onTouched();
-                _this.onChange(_this._ngbDateAdapter.toModel(newSelectedDate));
-            }
-            // handling focus change
-            if (Object(_datepicker_tools__WEBPACK_IMPORTED_MODULE_11__["isChangedDate"])(newFocusedDate, oldFocusedDate) && oldFocusedDate && model.focusVisible) {
-                _this.focus();
-            }
-            // emitting navigation event if the first month changes
-            if (!newDate.equals(oldDate)) {
-                _this.navigate.emit({
-                    current: oldDate ? { year: oldDate.year, month: oldDate.month } : null,
-                    next: { year: newDate.year, month: newDate.month }
-                });
-            }
-            _cd.markForCheck();
-        });
-    }
-    /**
-     * Manually focus the focusable day in the datepicker
-     */
-    /**
-       * Manually focus the focusable day in the datepicker
-       */
-    NgbDatepicker.prototype.focus = /**
-       * Manually focus the focusable day in the datepicker
-       */
-    function () {
-        var _this = this;
-        this._ngZone.onStable.asObservable().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["take"])(1)).subscribe(function () {
-            var elementToFocus = _this._elementRef.nativeElement.querySelector('div.ngb-dp-day[tabindex="0"]');
-            if (elementToFocus) {
-                elementToFocus.focus();
-            }
-        });
-    };
-    /**
-     * Navigates current view to provided date.
-     * With default calendar we use ISO 8601: 'month' is 1=Jan ... 12=Dec.
-     * If nothing or invalid date provided calendar will open current month.
-     * Use 'startDate' input as an alternative
-     */
-    /**
-       * Navigates current view to provided date.
-       * With default calendar we use ISO 8601: 'month' is 1=Jan ... 12=Dec.
-       * If nothing or invalid date provided calendar will open current month.
-       * Use 'startDate' input as an alternative
-       */
-    NgbDatepicker.prototype.navigateTo = /**
-       * Navigates current view to provided date.
-       * With default calendar we use ISO 8601: 'month' is 1=Jan ... 12=Dec.
-       * If nothing or invalid date provided calendar will open current month.
-       * Use 'startDate' input as an alternative
-       */
-    function (date) { this._service.open(_ngb_date__WEBPACK_IMPORTED_MODULE_4__["NgbDate"].from(date)); };
-    NgbDatepicker.prototype.ngOnDestroy = function () {
-        this._subscription.unsubscribe();
-        this._selectSubscription.unsubscribe();
-    };
-    NgbDatepicker.prototype.ngOnInit = function () {
-        var _this = this;
-        if (this.model === undefined) {
-            ['displayMonths', 'markDisabled', 'firstDayOfWeek', 'navigation', 'minDate', 'maxDate'].forEach(function (input) { return _this._service[input] = _this[input]; });
-            this.navigateTo(this.startDate);
-        }
-    };
-    NgbDatepicker.prototype.ngOnChanges = function (changes) {
-        var _this = this;
-        ['displayMonths', 'markDisabled', 'firstDayOfWeek', 'navigation', 'minDate', 'maxDate']
-            .filter(function (input) { return input in changes; })
-            .forEach(function (input) { return _this._service[input] = _this[input]; });
-        if ('startDate' in changes) {
-            this.navigateTo(this.startDate);
-        }
-    };
-    NgbDatepicker.prototype.onDateSelect = function (date) {
-        this._service.focus(date);
-        this._service.select(date, { emitEvent: true });
-    };
-    NgbDatepicker.prototype.onKeyDown = function (event) { this._keyMapService.processKey(event); };
-    NgbDatepicker.prototype.onNavigateDateSelect = function (date) { this._service.open(date); };
-    NgbDatepicker.prototype.onNavigateEvent = function (event) {
-        switch (event) {
-            case _datepicker_view_model__WEBPACK_IMPORTED_MODULE_7__["NavigationEvent"].PREV:
-                this._service.open(this._calendar.getPrev(this.model.firstDate, 'm', 1));
-                break;
-            case _datepicker_view_model__WEBPACK_IMPORTED_MODULE_7__["NavigationEvent"].NEXT:
-                this._service.open(this._calendar.getNext(this.model.firstDate, 'm', 1));
-                break;
-        }
-    };
-    NgbDatepicker.prototype.registerOnChange = function (fn) { this.onChange = fn; };
-    NgbDatepicker.prototype.registerOnTouched = function (fn) { this.onTouched = fn; };
-    NgbDatepicker.prototype.setDisabledState = function (isDisabled) { this._service.disabled = isDisabled; };
-    NgbDatepicker.prototype.showFocus = function (focusVisible) { this._service.focusVisible = focusVisible; };
-    NgbDatepicker.prototype.writeValue = function (value) { this._service.select(_ngb_date__WEBPACK_IMPORTED_MODULE_4__["NgbDate"].from(this._ngbDateAdapter.fromModel(value))); };
-    NgbDatepicker.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"], args: [{
-                    exportAs: 'ngbDatepicker',
-                    selector: 'ngb-datepicker',
-                    changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
-                    styles: ["\n    :host {\n      border: 1px solid rgba(0, 0, 0, 0.125);\n      border-radius: 0.25rem;\n      display: inline-block;\n    }\n    .ngb-dp-month {\n      pointer-events: none;\n    }\n    .ngb-dp-header {\n      border-bottom: 0px;\n      border-radius: .25rem 0.25rem 0rem 0rem;\n      padding-top: 0.25rem;\n    }\n    ngb-datepicker-month-view {\n      pointer-events: auto;\n    }\n    .ngb-dp-month-name {\n      font-size: larger;\n      height: 2rem;\n      line-height: 2rem;\n      text-align: center;\n    }\n    /deep/ .ngb-dp-month + .ngb-dp-month > ngb-datepicker-month-view > .ngb-dp-week {\n      padding-left: 1rem;\n    }\n    /deep/ .ngb-dp-month + .ngb-dp-month > .ngb-dp-month-name {\n      padding-left: 1rem;\n    }\n    /deep/ .ngb-dp-month:last-child .ngb-dp-week {\n      padding-right: .25rem;\n    }\n    /deep/ .ngb-dp-month:first-child .ngb-dp-week {\n      padding-left: .25rem;\n    }\n    /deep/ .ngb-dp-month > ngb-datepicker-month-view > .ngb-dp-week:last-child {\n      padding-bottom: .25rem;\n    }\n    .ngb-dp-months {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n    }\n  "],
-                    template: "\n    <ng-template #dt let-date=\"date\" let-currentMonth=\"currentMonth\" let-selected=\"selected\" let-disabled=\"disabled\" let-focused=\"focused\">\n      <div ngbDatepickerDayView\n        [date]=\"date\"\n        [currentMonth]=\"currentMonth\"\n        [selected]=\"selected\"\n        [disabled]=\"disabled\"\n        [focused]=\"focused\">\n      </div>\n    </ng-template>\n\n    <div class=\"ngb-dp-header bg-light\">\n      <ngb-datepicker-navigation *ngIf=\"navigation !== 'none'\"\n        [date]=\"model.firstDate\"\n        [months]=\"model.months\"\n        [disabled]=\"model.disabled\"\n        [showSelect]=\"model.navigation === 'select'\"\n        [prevDisabled]=\"model.prevDisabled\"\n        [nextDisabled]=\"model.nextDisabled\"\n        [selectBoxes]=\"model.selectBoxes\"\n        (navigate)=\"onNavigateEvent($event)\"\n        (select)=\"onNavigateDateSelect($event)\">\n      </ngb-datepicker-navigation>\n    </div>\n\n    <div class=\"ngb-dp-months\" (keydown)=\"onKeyDown($event)\" (focusin)=\"showFocus(true)\" (focusout)=\"showFocus(false)\">\n      <ng-template ngFor let-month [ngForOf]=\"model.months\" let-i=\"index\">\n        <div class=\"ngb-dp-month d-block\">\n          <div *ngIf=\"navigation === 'none' || (displayMonths > 1 && navigation === 'select')\"\n                class=\"ngb-dp-month-name bg-light\">\n            {{ i18n.getMonthFullName(month.number) }} {{ month.year }}\n          </div>\n          <ngb-datepicker-month-view\n            [month]=\"month\"\n            [dayTemplate]=\"dayTemplate || dt\"\n            [showWeekdays]=\"showWeekdays\"\n            [showWeekNumbers]=\"showWeekNumbers\"\n            [outsideDays]=\"(displayMonths === 1 ? outsideDays : 'hidden')\"\n            (select)=\"onDateSelect($event)\">\n          </ngb-datepicker-month-view>\n        </div>\n      </ng-template>\n    </div>\n  ",
-                    providers: [NGB_DATEPICKER_VALUE_ACCESSOR, _datepicker_service__WEBPACK_IMPORTED_MODULE_5__["NgbDatepickerService"], _datepicker_keymap_service__WEBPACK_IMPORTED_MODULE_6__["NgbDatepickerKeyMapService"]]
-                },] },
-    ];
-    /** @nocollapse */
-    NgbDatepicker.ctorParameters = function () { return [
-        { type: _datepicker_keymap_service__WEBPACK_IMPORTED_MODULE_6__["NgbDatepickerKeyMapService"], },
-        { type: _datepicker_service__WEBPACK_IMPORTED_MODULE_5__["NgbDatepickerService"], },
-        { type: _ngb_calendar__WEBPACK_IMPORTED_MODULE_3__["NgbCalendar"], },
-        { type: _datepicker_i18n__WEBPACK_IMPORTED_MODULE_10__["NgbDatepickerI18n"], },
-        { type: _datepicker_config__WEBPACK_IMPORTED_MODULE_8__["NgbDatepickerConfig"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], },
-        { type: _ngb_date_adapter__WEBPACK_IMPORTED_MODULE_9__["NgbDateAdapter"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"], },
-    ]; };
-    NgbDatepicker.propDecorators = {
-        "dayTemplate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
-        "displayMonths": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
-        "firstDayOfWeek": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
-        "markDisabled": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
-        "maxDate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
-        "minDate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
-        "navigation": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
-        "outsideDays": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
-        "showWeekdays": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
-        "showWeekNumbers": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
-        "startDate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
-        "navigate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"] },],
-        "select": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"] },],
-    };
-    return NgbDatepicker;
-}());
-
-//# sourceMappingURL=datepicker.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module.js":
-/*!**********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module.js ***!
-  \**********************************************************************************/
-/*! exports provided: NgbDatepicker, NgbInputDatepicker, NgbCalendar, NgbCalendarIslamicCivil, NgbCalendarIslamicUmalqura, NgbDatepickerMonthView, NgbDatepickerDayView, NgbDatepickerNavigation, NgbDatepickerNavigationSelect, NgbDatepickerConfig, NgbDatepickerI18n, NgbDateAdapter, NgbDateParserFormatter, NgbDatepickerModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerModule", function() { return NgbDatepickerModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "../node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _util_focus_trap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/focus-trap */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/focus-trap.js");
-/* harmony import */ var _datepicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./datepicker */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker.js");
-/* harmony import */ var _datepicker_month_view__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./datepicker-month-view */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-month-view.js");
-/* harmony import */ var _datepicker_navigation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./datepicker-navigation */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.js");
-/* harmony import */ var _datepicker_input__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./datepicker-input */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-input.js");
-/* harmony import */ var _datepicker_day_view__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./datepicker-day-view */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-day-view.js");
-/* harmony import */ var _datepicker_i18n__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./datepicker-i18n */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-i18n.js");
-/* harmony import */ var _ngb_calendar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ngb-calendar */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar.js");
-/* harmony import */ var _ngb_date_parser_formatter__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ngb-date-parser-formatter */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter.js");
-/* harmony import */ var _ngb_date_adapter__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ngb-date-adapter */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-adapter.js");
-/* harmony import */ var _datepicker_navigation_select__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./datepicker-navigation-select */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.js");
-/* harmony import */ var _datepicker_config__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./datepicker-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-config.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDatepicker", function() { return _datepicker__WEBPACK_IMPORTED_MODULE_4__["NgbDatepicker"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbInputDatepicker", function() { return _datepicker_input__WEBPACK_IMPORTED_MODULE_7__["NgbInputDatepicker"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbCalendar", function() { return _ngb_calendar__WEBPACK_IMPORTED_MODULE_10__["NgbCalendar"]; });
-
-/* harmony import */ var _hijri_ngb_calendar_islamic_civil__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./hijri/ngb-calendar-islamic-civil */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/hijri/ngb-calendar-islamic-civil.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbCalendarIslamicCivil", function() { return _hijri_ngb_calendar_islamic_civil__WEBPACK_IMPORTED_MODULE_15__["NgbCalendarIslamicCivil"]; });
-
-/* harmony import */ var _hijri_ngb_calendar_islamic_umalqura__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./hijri/ngb-calendar-islamic-umalqura */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/hijri/ngb-calendar-islamic-umalqura.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbCalendarIslamicUmalqura", function() { return _hijri_ngb_calendar_islamic_umalqura__WEBPACK_IMPORTED_MODULE_16__["NgbCalendarIslamicUmalqura"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerMonthView", function() { return _datepicker_month_view__WEBPACK_IMPORTED_MODULE_5__["NgbDatepickerMonthView"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerDayView", function() { return _datepicker_day_view__WEBPACK_IMPORTED_MODULE_8__["NgbDatepickerDayView"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerNavigation", function() { return _datepicker_navigation__WEBPACK_IMPORTED_MODULE_6__["NgbDatepickerNavigation"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerNavigationSelect", function() { return _datepicker_navigation_select__WEBPACK_IMPORTED_MODULE_13__["NgbDatepickerNavigationSelect"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerConfig", function() { return _datepicker_config__WEBPACK_IMPORTED_MODULE_14__["NgbDatepickerConfig"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerI18n", function() { return _datepicker_i18n__WEBPACK_IMPORTED_MODULE_9__["NgbDatepickerI18n"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDateAdapter", function() { return _ngb_date_adapter__WEBPACK_IMPORTED_MODULE_12__["NgbDateAdapter"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDateParserFormatter", function() { return _ngb_date_parser_formatter__WEBPACK_IMPORTED_MODULE_11__["NgbDateParserFormatter"]; });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var NgbDatepickerModule = /** @class */ (function () {
-    function NgbDatepickerModule() {
-    }
-    NgbDatepickerModule.forRoot = function () {
-        return {
-            ngModule: NgbDatepickerModule,
-            providers: [
-                { provide: _ngb_calendar__WEBPACK_IMPORTED_MODULE_10__["NgbCalendar"], useClass: _ngb_calendar__WEBPACK_IMPORTED_MODULE_10__["NgbCalendarGregorian"] },
-                { provide: _datepicker_i18n__WEBPACK_IMPORTED_MODULE_9__["NgbDatepickerI18n"], useClass: _datepicker_i18n__WEBPACK_IMPORTED_MODULE_9__["NgbDatepickerI18nDefault"] },
-                { provide: _ngb_date_parser_formatter__WEBPACK_IMPORTED_MODULE_11__["NgbDateParserFormatter"], useClass: _ngb_date_parser_formatter__WEBPACK_IMPORTED_MODULE_11__["NgbDateISOParserFormatter"] },
-                { provide: _ngb_date_adapter__WEBPACK_IMPORTED_MODULE_12__["NgbDateAdapter"], useClass: _ngb_date_adapter__WEBPACK_IMPORTED_MODULE_12__["NgbDateStructAdapter"] }, _datepicker_config__WEBPACK_IMPORTED_MODULE_14__["NgbDatepickerConfig"], _util_focus_trap__WEBPACK_IMPORTED_MODULE_3__["NgbFocusTrapFactory"], _angular_common__WEBPACK_IMPORTED_MODULE_1__["DatePipe"]
-            ]
-        };
-    };
-    NgbDatepickerModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
-                    declarations: [
-                        _datepicker__WEBPACK_IMPORTED_MODULE_4__["NgbDatepicker"], _datepicker_month_view__WEBPACK_IMPORTED_MODULE_5__["NgbDatepickerMonthView"], _datepicker_navigation__WEBPACK_IMPORTED_MODULE_6__["NgbDatepickerNavigation"], _datepicker_navigation_select__WEBPACK_IMPORTED_MODULE_13__["NgbDatepickerNavigationSelect"], _datepicker_day_view__WEBPACK_IMPORTED_MODULE_8__["NgbDatepickerDayView"],
-                        _datepicker_input__WEBPACK_IMPORTED_MODULE_7__["NgbInputDatepicker"]
-                    ],
-                    exports: [_datepicker__WEBPACK_IMPORTED_MODULE_4__["NgbDatepicker"], _datepicker_input__WEBPACK_IMPORTED_MODULE_7__["NgbInputDatepicker"]],
-                    imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"]],
-                    entryComponents: [_datepicker__WEBPACK_IMPORTED_MODULE_4__["NgbDatepicker"]]
-                },] },
-    ];
-    return NgbDatepickerModule;
-}());
-
-//# sourceMappingURL=datepicker.module.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/hijri/ngb-calendar-hijri.js":
-/*!*****************************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/hijri/ngb-calendar-hijri.js ***!
-  \*****************************************************************************************/
-/*! exports provided: NgbCalendarHijri */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbCalendarHijri", function() { return NgbCalendarHijri; });
-/* harmony import */ var _ngb_calendar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ngb-calendar */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-
-
-var NgbCalendarHijri = /** @class */ (function (_super) {
-    __extends(NgbCalendarHijri, _super);
-    function NgbCalendarHijri() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    NgbCalendarHijri.prototype.getDaysPerWeek = function () { return 7; };
-    NgbCalendarHijri.prototype.getMonths = function () { return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; };
-    NgbCalendarHijri.prototype.getWeeksPerMonth = function () { return 6; };
-    NgbCalendarHijri.prototype.isValid = function (date) {
-        return date && Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["isNumber"])(date.year) && Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["isNumber"])(date.month) && Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["isNumber"])(date.day) &&
-            !isNaN(this.toGregorian(date).getTime());
-    };
-    NgbCalendarHijri.prototype.setDay = function (date, day) {
-        day = +day;
-        var mDays = this.getDaysInIslamicMonth(date.month, date.year);
-        if (day <= 0) {
-            while (day <= 0) {
-                date = this.setMonth(date, date.month - 1);
-                mDays = this.getDaysInIslamicMonth(date.month, date.year);
-                day += mDays;
-            }
-        }
-        else if (day > mDays) {
-            while (day > mDays) {
-                day -= mDays;
-                date = this.setMonth(date, date.month + 1);
-                mDays = this.getDaysInIslamicMonth(date.month, date.year);
-            }
-        }
-        date.day = day;
-        return date;
-    };
-    NgbCalendarHijri.prototype.setMonth = function (date, month) {
-        month = +month;
-        date.year = date.year + Math.floor((month - 1) / 12);
-        date.month = Math.floor(((month - 1) % 12 + 12) % 12) + 1;
-        return date;
-    };
-    NgbCalendarHijri.prototype.setYear = function (date, yearValue) {
-        date.year = +yearValue;
-        return date;
-    };
-    NgbCalendarHijri.prototype._isIslamicLeapYear = function (year) { return (14 + 11 * year) % 30 < 11; };
-    /**
-     * Returns the start of Hijri Month.
-     * `month` is 0 for Muharram, 1 for Safar, etc.
-     * `year` is any Hijri year.
-     */
-    /**
-       * Returns the start of Hijri Month.
-       * `month` is 0 for Muharram, 1 for Safar, etc.
-       * `year` is any Hijri year.
-       */
-    NgbCalendarHijri.prototype._getMonthStart = /**
-       * Returns the start of Hijri Month.
-       * `month` is 0 for Muharram, 1 for Safar, etc.
-       * `year` is any Hijri year.
-       */
-    function (year, month) {
-        return Math.ceil(29.5 * month) + (year - 1) * 354 + Math.floor((3 + 11 * year) / 30.0);
-    };
-    /**
-     * Returns the start of Hijri year.
-     * `year` is any Hijri year.
-     */
-    /**
-       * Returns the start of Hijri year.
-       * `year` is any Hijri year.
-       */
-    NgbCalendarHijri.prototype._getYearStart = /**
-       * Returns the start of Hijri year.
-       * `year` is any Hijri year.
-       */
-    function (year) { return (year - 1) * 354 + Math.floor((3 + 11 * year) / 30.0); };
-    NgbCalendarHijri.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"] },
-    ];
-    return NgbCalendarHijri;
-}(_ngb_calendar__WEBPACK_IMPORTED_MODULE_0__["NgbCalendar"]));
-
-//# sourceMappingURL=ngb-calendar-hijri.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/hijri/ngb-calendar-islamic-civil.js":
-/*!*************************************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/hijri/ngb-calendar-islamic-civil.js ***!
-  \*************************************************************************************************/
-/*! exports provided: NgbCalendarIslamicCivil */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbCalendarIslamicCivil", function() { return NgbCalendarIslamicCivil; });
-/* harmony import */ var _ngb_calendar_hijri__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ngb-calendar-hijri */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/hijri/ngb-calendar-hijri.js");
-/* harmony import */ var _ngb_date__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ngb-date */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-
-
-function isGregorianLeapYear(date) {
-    var year = date.getFullYear();
-    return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
-}
-function mod(a, b) {
-    return a - b * Math.floor(a / b);
-}
-/**
- * The civil calendar is one type of Hijri calendars used in islamic countries.
- * Uses a fixed cycle of alternating 29- and 30-day months,
- * with a leap day added to the last month of 11 out of every 30 years.
- * http://cldr.unicode.org/development/development-process/design-proposals/islamic-calendar-types
- * All the calculations here are based on the equations from "Calendrical Calculations" By Edward M. Reingold, Nachum
- * Dershowitz.
- */
-var GREGORIAN_EPOCH = 1721425.5;
-var ISLAMIC_EPOCH = 1948439.5;
-var NgbCalendarIslamicCivil = /** @class */ (function (_super) {
-    __extends(NgbCalendarIslamicCivil, _super);
-    function NgbCalendarIslamicCivil() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-     * Returns the equivalent islamic(civil) date value for a give input Gregorian date.
-     * `gdate` is a JS Date to be converted to Hijri.
-     */
-    /**
-       * Returns the equivalent islamic(civil) date value for a give input Gregorian date.
-       * `gdate` is a JS Date to be converted to Hijri.
-       */
-    NgbCalendarIslamicCivil.prototype.fromGregorian = /**
-       * Returns the equivalent islamic(civil) date value for a give input Gregorian date.
-       * `gdate` is a JS Date to be converted to Hijri.
-       */
-    function (gdate) {
-        var date = new Date(gdate);
-        var gYear = date.getFullYear(), gMonth = date.getMonth(), gDay = date.getDate();
-        var julianDay = GREGORIAN_EPOCH - 1 + 365 * (gYear - 1) + Math.floor((gYear - 1) / 4) +
-            -Math.floor((gYear - 1) / 100) + Math.floor((gYear - 1) / 400) +
-            Math.floor((367 * (gMonth + 1) - 362) / 12 + (gMonth + 1 <= 2 ? 0 : isGregorianLeapYear(date) ? -1 : -2) + gDay);
-        julianDay = Math.floor(julianDay) + 0.5;
-        var days = julianDay - ISLAMIC_EPOCH;
-        var hYear = Math.floor((30 * days + 10646) / 10631.0);
-        var hMonth = Math.ceil((days - 29 - this._getYearStart(hYear)) / 29.5);
-        hMonth = Math.min(hMonth, 11);
-        var hDay = Math.ceil(days - this._getMonthStart(hYear, hMonth)) + 1;
-        return new _ngb_date__WEBPACK_IMPORTED_MODULE_1__["NgbDate"](hYear, hMonth + 1, hDay);
-    };
-    /**
-     * Returns the equivalent JS date value for a give input islamic(civil) date.
-     * `hijriDate` is an islamic(civil) date to be converted to Gregorian.
-     */
-    /**
-       * Returns the equivalent JS date value for a give input islamic(civil) date.
-       * `hijriDate` is an islamic(civil) date to be converted to Gregorian.
-       */
-    NgbCalendarIslamicCivil.prototype.toGregorian = /**
-       * Returns the equivalent JS date value for a give input islamic(civil) date.
-       * `hijriDate` is an islamic(civil) date to be converted to Gregorian.
-       */
-    function (hijriDate) {
-        var hYear = hijriDate.year;
-        var hMonth = hijriDate.month - 1;
-        var hDate = hijriDate.day;
-        var julianDay = hDate + Math.ceil(29.5 * hMonth) + (hYear - 1) * 354 + Math.floor((3 + 11 * hYear) / 30) + ISLAMIC_EPOCH - 1;
-        var wjd = Math.floor(julianDay - 0.5) + 0.5, depoch = wjd - GREGORIAN_EPOCH, quadricent = Math.floor(depoch / 146097), dqc = mod(depoch, 146097), cent = Math.floor(dqc / 36524), dcent = mod(dqc, 36524), quad = Math.floor(dcent / 1461), dquad = mod(dcent, 1461), yindex = Math.floor(dquad / 365);
-        var year = quadricent * 400 + cent * 100 + quad * 4 + yindex;
-        if (!(cent === 4 || yindex === 4)) {
-            year++;
-        }
-        var gYearStart = GREGORIAN_EPOCH + 365 * (year - 1) + Math.floor((year - 1) / 4) - Math.floor((year - 1) / 100) +
-            Math.floor((year - 1) / 400);
-        var yearday = wjd - gYearStart;
-        var tjd = GREGORIAN_EPOCH - 1 + 365 * (year - 1) + Math.floor((year - 1) / 4) - Math.floor((year - 1) / 100) +
-            Math.floor((year - 1) / 400) + Math.floor(739 / 12 + (isGregorianLeapYear(new Date(year, 3, 1)) ? -1 : -2) + 1);
-        var leapadj = wjd < tjd ? 0 : isGregorianLeapYear(new Date(year, 3, 1)) ? 1 : 2;
-        var month = Math.floor(((yearday + leapadj) * 12 + 373) / 367);
-        var tjd2 = GREGORIAN_EPOCH - 1 + 365 * (year - 1) + Math.floor((year - 1) / 4) - Math.floor((year - 1) / 100) +
-            Math.floor((year - 1) / 400) +
-            Math.floor((367 * month - 362) / 12 + (month <= 2 ? 0 : isGregorianLeapYear(new Date(year, month - 1, 1)) ? -1 : -2) +
-                1);
-        var day = wjd - tjd2 + 1;
-        return new Date(year, month - 1, day);
-    };
-    /**
-     * Returns the number of days in a specific Hijri month.
-     * `month` is 1 for Muharram, 2 for Safar, etc.
-     * `year` is any Hijri year.
-     */
-    /**
-       * Returns the number of days in a specific Hijri month.
-       * `month` is 1 for Muharram, 2 for Safar, etc.
-       * `year` is any Hijri year.
-       */
-    NgbCalendarIslamicCivil.prototype.getDaysInIslamicMonth = /**
-       * Returns the number of days in a specific Hijri month.
-       * `month` is 1 for Muharram, 2 for Safar, etc.
-       * `year` is any Hijri year.
-       */
-    function (month, year) {
-        year = year + Math.floor(month / 13);
-        month = ((month - 1) % 12) + 1;
-        var length = 29 + month % 2;
-        if (month === 12 && this._isIslamicLeapYear(year)) {
-            length++;
-        }
-        return length;
-    };
-    NgbCalendarIslamicCivil.prototype.getNext = function (date, period, number) {
-        if (period === void 0) { period = 'd'; }
-        if (number === void 0) { number = 1; }
-        date = _ngb_date__WEBPACK_IMPORTED_MODULE_1__["NgbDate"].from(date);
-        switch (period) {
-            case 'y':
-                date = this.setYear(date, date.year + number);
-                date.month = 1;
-                date.day = 1;
-                return date;
-            case 'm':
-                date = this.setMonth(date, date.month + number);
-                date.day = 1;
-                return date;
-            case 'd':
-                return this.setDay(date, date.day + number);
-            default:
-                return date;
-        }
-    };
-    NgbCalendarIslamicCivil.prototype.getPrev = function (date, period, number) {
-        if (period === void 0) { period = 'd'; }
-        if (number === void 0) { number = 1; }
-        return this.getNext(date, period, -number);
-    };
-    NgbCalendarIslamicCivil.prototype.getWeekday = function (date) {
-        var day = this.toGregorian(date).getDay();
-        // in JS Date Sun=0, in ISO 8601 Sun=7
-        return day === 0 ? 7 : day;
-    };
-    NgbCalendarIslamicCivil.prototype.getWeekNumber = function (week, firstDayOfWeek) {
-        // in JS Date Sun=0, in ISO 8601 Sun=7
-        if (firstDayOfWeek === 7) {
-            firstDayOfWeek = 0;
-        }
-        var thursdayIndex = (4 + 7 - firstDayOfWeek) % 7;
-        var date = week[thursdayIndex];
-        var jsDate = this.toGregorian(date);
-        jsDate.setDate(jsDate.getDate() + 4 - (jsDate.getDay() || 7)); // Thursday
-        var time = jsDate.getTime();
-        var MuhDate = this.toGregorian(new _ngb_date__WEBPACK_IMPORTED_MODULE_1__["NgbDate"](date.year, 1, 1)); // Compare with Muharram 1
-        return Math.floor(Math.round((time - MuhDate.getTime()) / 86400000) / 7) + 1;
-    };
-    NgbCalendarIslamicCivil.prototype.getToday = function () { return this.fromGregorian(new Date()); };
-    NgbCalendarIslamicCivil.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"] },
-    ];
-    return NgbCalendarIslamicCivil;
-}(_ngb_calendar_hijri__WEBPACK_IMPORTED_MODULE_0__["NgbCalendarHijri"]));
-
-//# sourceMappingURL=ngb-calendar-islamic-civil.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/hijri/ngb-calendar-islamic-umalqura.js":
-/*!****************************************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/hijri/ngb-calendar-islamic-umalqura.js ***!
-  \****************************************************************************************************/
-/*! exports provided: NgbCalendarIslamicUmalqura */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbCalendarIslamicUmalqura", function() { return NgbCalendarIslamicUmalqura; });
-/* harmony import */ var _ngb_calendar_islamic_civil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ngb-calendar-islamic-civil */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/hijri/ngb-calendar-islamic-civil.js");
-/* harmony import */ var _ngb_calendar_hijri__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ngb-calendar-hijri */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/hijri/ngb-calendar-hijri.js");
-/* harmony import */ var _ngb_date__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ngb-date */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-
-
-
-/**
- * Umalqura calendar is one type of Hijri calendars used in islamic countries.
- * This Calendar is used by Saudi Arabia for administrative purpose.
- * Unlike tabular calendars, the algorithm involves astronomical calculation, but it's still deterministic.
- * http://cldr.unicode.org/development/development-process/design-proposals/islamic-calendar-types
- */
-var GREGORIAN_FIRST_DATE = new Date(1882, 10, 12);
-var GREGORIAN_LAST_DATE = new Date(2174, 10, 25);
-var HIJRI_BEGIN = 1300;
-var HIJRI_END = 1600;
-var ONE_DAY = 1000 * 60 * 60 * 24;
-var ISLAMIC_CIVIL = new _ngb_calendar_islamic_civil__WEBPACK_IMPORTED_MODULE_0__["NgbCalendarIslamicCivil"]();
-var MONTH_LENGTH = [
-    '101010101010', '110101010100', '111011001001', '011011010100', '011011101010',
-    '001101101100', '101010101101', '010101010101', '011010101001', '011110010010',
-    '101110101001', '010111010100', '101011011010', '010101011100', '110100101101',
-    '011010010101', '011101001010', '101101010100', '101101101010', '010110101101',
-    '010010101110', '101001001111', '010100010111', '011010001011', '011010100101',
-    '101011010101', '001011010110', '100101011011', '010010011101', '101001001101',
-    '110100100110', '110110010101', '010110101100', '100110110110', '001010111010',
-    '101001011011', '010100101011', '101010010101', '011011001010', '101011101001',
-    '001011110100', '100101110110', '001010110110', '100101010110', '101011001010',
-    '101110100100', '101111010010', '010111011001', '001011011100', '100101101101',
-    '010101001101', '101010100101', '101101010010', '101110100101', '010110110100',
-    '100110110110', '010101010111', '001010010111', '010101001011', '011010100011',
-    '011101010010', '101101100101', '010101101010', '101010101011', '010100101011',
-    '110010010101', '110101001010', '110110100101', '010111001010', '101011010110',
-    '100101010111', '010010101011', '100101001011', '101010100101', '101101010010',
-    '101101101010', '010101110101', '001001110110', '100010110111', '010001011011',
-    '010101010101', '010110101001', '010110110100', '100111011010', '010011011101',
-    '001001101110', '100100110110', '101010101010', '110101010100', '110110110010',
-    '010111010101', '001011011010', '100101011011', '010010101011', '101001010101',
-    '101101001001', '101101100100', '101101110001', '010110110100', '101010110101',
-    '101001010101', '110100100101', '111010010010', '111011001001', '011011010100',
-    '101011101001', '100101101011', '010010101011', '101010010011', '110101001001',
-    '110110100100', '110110110010', '101010111001', '010010111010', '101001011011',
-    '010100101011', '101010010101', '101100101010', '101101010101', '010101011100',
-    '010010111101', '001000111101', '100100011101', '101010010101', '101101001010',
-    '101101011010', '010101101101', '001010110110', '100100111011', '010010011011',
-    '011001010101', '011010101001', '011101010100', '101101101010', '010101101100',
-    '101010101101', '010101010101', '101100101001', '101110010010', '101110101001',
-    '010111010100', '101011011010', '010101011010', '101010101011', '010110010101',
-    '011101001001', '011101100100', '101110101010', '010110110101', '001010110110',
-    '101001010110', '111001001101', '101100100101', '101101010010', '101101101010',
-    '010110101101', '001010101110', '100100101111', '010010010111', '011001001011',
-    '011010100101', '011010101100', '101011010110', '010101011101', '010010011101',
-    '101001001101', '110100010110', '110110010101', '010110101010', '010110110101',
-    '001011011010', '100101011011', '010010101101', '010110010101', '011011001010',
-    '011011100100', '101011101010', '010011110101', '001010110110', '100101010110',
-    '101010101010', '101101010100', '101111010010', '010111011001', '001011101010',
-    '100101101101', '010010101101', '101010010101', '101101001010', '101110100101',
-    '010110110010', '100110110101', '010011010110', '101010010111', '010101000111',
-    '011010010011', '011101001001', '101101010101', '010101101010', '101001101011',
-    '010100101011', '101010001011', '110101000110', '110110100011', '010111001010',
-    '101011010110', '010011011011', '001001101011', '100101001011', '101010100101',
-    '101101010010', '101101101001', '010101110101', '000101110110', '100010110111',
-    '001001011011', '010100101011', '010101100101', '010110110100', '100111011010',
-    '010011101101', '000101101101', '100010110110', '101010100110', '110101010010',
-    '110110101001', '010111010100', '101011011010', '100101011011', '010010101011',
-    '011001010011', '011100101001', '011101100010', '101110101001', '010110110010',
-    '101010110101', '010101010101', '101100100101', '110110010010', '111011001001',
-    '011011010010', '101011101001', '010101101011', '010010101011', '101001010101',
-    '110100101001', '110101010100', '110110101010', '100110110101', '010010111010',
-    '101000111011', '010010011011', '101001001101', '101010101010', '101011010101',
-    '001011011010', '100101011101', '010001011110', '101000101110', '110010011010',
-    '110101010101', '011010110010', '011010111001', '010010111010', '101001011101',
-    '010100101101', '101010010101', '101101010010', '101110101000', '101110110100',
-    '010110111001', '001011011010', '100101011010', '101101001010', '110110100100',
-    '111011010001', '011011101000', '101101101010', '010101101101', '010100110101',
-    '011010010101', '110101001010', '110110101000', '110111010100', '011011011010',
-    '010101011011', '001010011101', '011000101011', '101100010101', '101101001010',
-    '101110010101', '010110101010', '101010101110', '100100101110', '110010001111',
-    '010100100111', '011010010101', '011010101010', '101011010110', '010101011101',
-    '001010011101'
-];
-function getDaysDiff(date1, date2) {
-    var diff = Math.abs(date1.getTime() - date2.getTime());
-    return Math.round(diff / ONE_DAY);
-}
-var NgbCalendarIslamicUmalqura = /** @class */ (function (_super) {
-    __extends(NgbCalendarIslamicUmalqura, _super);
-    function NgbCalendarIslamicUmalqura() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-    * Returns the equivalent islamic(Umalqura) date value for a give input Gregorian date.
-    * `gdate` is s JS Date to be converted to Hijri.
-    */
-    /**
-      * Returns the equivalent islamic(Umalqura) date value for a give input Gregorian date.
-      * `gdate` is s JS Date to be converted to Hijri.
-      */
-    NgbCalendarIslamicUmalqura.prototype.fromGregorian = /**
-      * Returns the equivalent islamic(Umalqura) date value for a give input Gregorian date.
-      * `gdate` is s JS Date to be converted to Hijri.
-      */
-    function (gDate) {
-        var hDay = 1, hMonth = 0, hYear = 1300;
-        var daysDiff = getDaysDiff(gDate, GREGORIAN_FIRST_DATE);
-        if (gDate.getTime() - GREGORIAN_FIRST_DATE.getTime() >= 0 && gDate.getTime() - GREGORIAN_LAST_DATE.getTime() <= 0) {
-            var year = 1300;
-            for (var i = 0; i < MONTH_LENGTH.length; i++, year++) {
-                for (var j = 0; j < 12; j++) {
-                    var numOfDays = +MONTH_LENGTH[i][j] + 29;
-                    if (daysDiff <= numOfDays) {
-                        hDay = daysDiff + 1;
-                        if (hDay > numOfDays) {
-                            hDay = 1;
-                            j++;
-                        }
-                        if (j > 11) {
-                            j = 0;
-                            year++;
-                        }
-                        hMonth = j;
-                        hYear = year;
-                        return new _ngb_date__WEBPACK_IMPORTED_MODULE_2__["NgbDate"](hYear, hMonth + 1, hDay);
-                    }
-                    daysDiff = daysDiff - numOfDays;
-                }
-            }
-        }
-        else {
-            return ISLAMIC_CIVIL.fromGregorian(gDate);
-        }
-    };
-    /**
-    * Converts the current Hijri date to Gregorian.
-    */
-    /**
-      * Converts the current Hijri date to Gregorian.
-      */
-    NgbCalendarIslamicUmalqura.prototype.toGregorian = /**
-      * Converts the current Hijri date to Gregorian.
-      */
-    function (hijriDate) {
-        var hYear = hijriDate.year;
-        var hMonth = hijriDate.month - 1;
-        var hDay = hijriDate.day;
-        var gDate = new Date(GREGORIAN_FIRST_DATE);
-        var dayDiff = hDay - 1;
-        if (hYear >= HIJRI_BEGIN && hYear <= HIJRI_END) {
-            for (var y = 0; y < hYear - HIJRI_BEGIN; y++) {
-                for (var m = 0; m < 12; m++) {
-                    dayDiff += +MONTH_LENGTH[y][m] + 29;
-                }
-            }
-            for (var m = 0; m < hMonth; m++) {
-                dayDiff += +MONTH_LENGTH[hYear - HIJRI_BEGIN][m] + 29;
-            }
-            gDate.setDate(GREGORIAN_FIRST_DATE.getDate() + dayDiff);
-        }
-        else {
-            gDate = ISLAMIC_CIVIL.toGregorian(hijriDate);
-        }
-        return gDate;
-    };
-    /**
-    * Returns the number of days in a specific Hijri month.
-    * `month` is 1 for Muharram, 2 for Safar, etc.
-    * `year` is any Hijri year.
-    */
-    /**
-      * Returns the number of days in a specific Hijri month.
-      * `month` is 1 for Muharram, 2 for Safar, etc.
-      * `year` is any Hijri year.
-      */
-    NgbCalendarIslamicUmalqura.prototype.getDaysInIslamicMonth = /**
-      * Returns the number of days in a specific Hijri month.
-      * `month` is 1 for Muharram, 2 for Safar, etc.
-      * `year` is any Hijri year.
-      */
-    function (month, year) {
-        if (year >= HIJRI_BEGIN && year <= HIJRI_END) {
-            var pos = year - HIJRI_BEGIN;
-            return MONTH_LENGTH[pos].charAt(month - 1) === '1' ? 30 : 29;
-        }
-        return ISLAMIC_CIVIL.getDaysInIslamicMonth(month, year);
-    };
-    NgbCalendarIslamicUmalqura.prototype.getNext = function (date, period, number) {
-        if (period === void 0) { period = 'd'; }
-        if (number === void 0) { number = 1; }
-        date = _ngb_date__WEBPACK_IMPORTED_MODULE_2__["NgbDate"].from(date);
-        switch (period) {
-            case 'y':
-                date = this.setYear(date, date.year + number);
-                date.month = 1;
-                date.day = 1;
-                return date;
-            case 'm':
-                date = this.setMonth(date, date.month + number);
-                date.day = 1;
-                return date;
-            case 'd':
-                return this.setDay(date, date.day + number);
-            default:
-                return date;
-        }
-    };
-    NgbCalendarIslamicUmalqura.prototype.getPrev = function (date, period, number) {
-        if (period === void 0) { period = 'd'; }
-        if (number === void 0) { number = 1; }
-        return this.getNext(date, period, -number);
-    };
-    NgbCalendarIslamicUmalqura.prototype.getWeekday = function (date) {
-        var day = this.toGregorian(date).getDay();
-        // in JS Date Sun=0, in ISO 8601 Sun=7
-        return day === 0 ? 7 : day;
-    };
-    NgbCalendarIslamicUmalqura.prototype.getWeekNumber = function (week, firstDayOfWeek) {
-        // in JS Date Sun=0, in ISO 8601 Sun=7
-        if (firstDayOfWeek === 7) {
-            firstDayOfWeek = 0;
-        }
-        var thursdayIndex = (4 + 7 - firstDayOfWeek) % 7;
-        var date = week[thursdayIndex];
-        var jsDate = this.toGregorian(date);
-        jsDate.setDate(jsDate.getDate() + 4 - (jsDate.getDay() || 7)); // Thursday
-        var time = jsDate.getTime();
-        var MuhDate = this.toGregorian(new _ngb_date__WEBPACK_IMPORTED_MODULE_2__["NgbDate"](date.year, 1, 1)); // Compare with Muharram 1
-        return Math.floor(Math.round((time - MuhDate.getTime()) / ONE_DAY) / 7) + 1;
-    };
-    NgbCalendarIslamicUmalqura.prototype.getToday = function () { return this.fromGregorian(new Date()); };
-    NgbCalendarIslamicUmalqura.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["Injectable"] },
-    ];
-    return NgbCalendarIslamicUmalqura;
-}(_ngb_calendar_hijri__WEBPACK_IMPORTED_MODULE_1__["NgbCalendarHijri"]));
-
-//# sourceMappingURL=ngb-calendar-islamic-umalqura.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar.js":
-/*!*****************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar.js ***!
-  \*****************************************************************************/
-/*! exports provided: NgbCalendar, NgbCalendarGregorian */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbCalendar", function() { return NgbCalendar; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbCalendarGregorian", function() { return NgbCalendarGregorian; });
-/* harmony import */ var _ngb_date__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ngb-date */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-
-
-function fromJSDate(jsDate) {
-    return new _ngb_date__WEBPACK_IMPORTED_MODULE_0__["NgbDate"](jsDate.getFullYear(), jsDate.getMonth() + 1, jsDate.getDate());
-}
-function toJSDate(date) {
-    var jsDate = new Date(date.year, date.month - 1, date.day, 12);
-    // this is done avoid 30 -> 1930 conversion
-    if (!isNaN(jsDate.getTime())) {
-        jsDate.setFullYear(date.year);
-    }
-    return jsDate;
-}
-var NgbCalendar = /** @class */ (function () {
-    function NgbCalendar() {
-    }
-    NgbCalendar.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"] },
-    ];
-    return NgbCalendar;
-}());
-
-var NgbCalendarGregorian = /** @class */ (function (_super) {
-    __extends(NgbCalendarGregorian, _super);
-    function NgbCalendarGregorian() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    NgbCalendarGregorian.prototype.getDaysPerWeek = function () { return 7; };
-    NgbCalendarGregorian.prototype.getMonths = function () { return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; };
-    NgbCalendarGregorian.prototype.getWeeksPerMonth = function () { return 6; };
-    NgbCalendarGregorian.prototype.getNext = function (date, period, number) {
-        if (period === void 0) { period = 'd'; }
-        if (number === void 0) { number = 1; }
-        var jsDate = toJSDate(date);
-        switch (period) {
-            case 'y':
-                return new _ngb_date__WEBPACK_IMPORTED_MODULE_0__["NgbDate"](date.year + number, 1, 1);
-            case 'm':
-                jsDate = new Date(date.year, date.month + number - 1, 1, 12);
-                break;
-            case 'd':
-                jsDate.setDate(jsDate.getDate() + number);
-                break;
-            default:
-                return date;
-        }
-        return fromJSDate(jsDate);
-    };
-    NgbCalendarGregorian.prototype.getPrev = function (date, period, number) {
-        if (period === void 0) { period = 'd'; }
-        if (number === void 0) { number = 1; }
-        return this.getNext(date, period, -number);
-    };
-    NgbCalendarGregorian.prototype.getWeekday = function (date) {
-        var jsDate = toJSDate(date);
-        var day = jsDate.getDay();
-        // in JS Date Sun=0, in ISO 8601 Sun=7
-        return day === 0 ? 7 : day;
-    };
-    NgbCalendarGregorian.prototype.getWeekNumber = function (week, firstDayOfWeek) {
-        // in JS Date Sun=0, in ISO 8601 Sun=7
-        if (firstDayOfWeek === 7) {
-            firstDayOfWeek = 0;
-        }
-        var thursdayIndex = (4 + 7 - firstDayOfWeek) % 7;
-        var date = week[thursdayIndex];
-        var jsDate = toJSDate(date);
-        jsDate.setDate(jsDate.getDate() + 4 - (jsDate.getDay() || 7)); // Thursday
-        var time = jsDate.getTime();
-        jsDate.setMonth(0); // Compare with Jan 1
-        jsDate.setDate(1);
-        return Math.floor(Math.round((time - jsDate.getTime()) / 86400000) / 7) + 1;
-    };
-    NgbCalendarGregorian.prototype.getToday = function () { return fromJSDate(new Date()); };
-    NgbCalendarGregorian.prototype.isValid = function (date) {
-        if (!date || !Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["isInteger"])(date.year) || !Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["isInteger"])(date.month) || !Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["isInteger"])(date.day)) {
-            return false;
-        }
-        var jsDate = toJSDate(date);
-        return !isNaN(jsDate.getTime()) && jsDate.getFullYear() === date.year && jsDate.getMonth() + 1 === date.month &&
-            jsDate.getDate() === date.day;
-    };
-    NgbCalendarGregorian.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"] },
-    ];
-    return NgbCalendarGregorian;
-}(NgbCalendar));
-
-//# sourceMappingURL=ngb-calendar.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-adapter.js":
-/*!*********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-adapter.js ***!
-  \*********************************************************************************/
-/*! exports provided: NgbDateAdapter, NgbDateStructAdapter */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDateAdapter", function() { return NgbDateAdapter; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDateStructAdapter", function() { return NgbDateStructAdapter; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-/**
- * Abstract type serving as a DI token for the service converting from your application Date model to internal
- * NgbDateStruct model.
- * A default implementation converting from and to NgbDateStruct is provided for retro-compatibility,
- * but you can provide another implementation to use an alternative format, ie for using with native Date Object.
- */
-var NgbDateAdapter = /** @class */ (function () {
-    function NgbDateAdapter() {
-    }
-    NgbDateAdapter.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    return NgbDateAdapter;
-}());
-
-var NgbDateStructAdapter = /** @class */ (function (_super) {
-    __extends(NgbDateStructAdapter, _super);
-    function NgbDateStructAdapter() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-     * Converts a NgbDateStruct value into NgbDateStruct value
-     * @param  {NgbDateStruct} value
-     * @return {NgbDateStruct}
-     */
-    /**
-       * Converts a NgbDateStruct value into NgbDateStruct value
-       * @param  {NgbDateStruct} value
-       * @return {NgbDateStruct}
-       */
-    NgbDateStructAdapter.prototype.fromModel = /**
-       * Converts a NgbDateStruct value into NgbDateStruct value
-       * @param  {NgbDateStruct} value
-       * @return {NgbDateStruct}
-       */
-    function (date) {
-        return (date && date.year && date.month && date.day) ? { year: date.year, month: date.month, day: date.day } : null;
-    };
-    /**
-     * Converts a NgbDateStruct value into NgbDateStruct value
-     * @param  {NgbDateStruct} value
-     * @return {NgbDateStruct}
-     */
-    /**
-       * Converts a NgbDateStruct value into NgbDateStruct value
-       * @param  {NgbDateStruct} value
-       * @return {NgbDateStruct}
-       */
-    NgbDateStructAdapter.prototype.toModel = /**
-       * Converts a NgbDateStruct value into NgbDateStruct value
-       * @param  {NgbDateStruct} value
-       * @return {NgbDateStruct}
-       */
-    function (date) {
-        return (date && date.year && date.month && date.day) ? { year: date.year, month: date.month, day: date.day } : null;
-    };
-    NgbDateStructAdapter.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    return NgbDateStructAdapter;
-}(NgbDateAdapter));
-
-//# sourceMappingURL=ngb-date-adapter.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter.js":
-/*!******************************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter.js ***!
-  \******************************************************************************************/
-/*! exports provided: NgbDateParserFormatter, NgbDateISOParserFormatter */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDateParserFormatter", function() { return NgbDateParserFormatter; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDateISOParserFormatter", function() { return NgbDateISOParserFormatter; });
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-/**
- * Abstract type serving as a DI token for the service parsing and formatting dates for the NgbInputDatepicker
- * directive. A default implementation using the ISO 8601 format is provided, but you can provide another implementation
- * to use an alternative format.
- */
-var /**
- * Abstract type serving as a DI token for the service parsing and formatting dates for the NgbInputDatepicker
- * directive. A default implementation using the ISO 8601 format is provided, but you can provide another implementation
- * to use an alternative format.
- */
-NgbDateParserFormatter = /** @class */ (function () {
-    function NgbDateParserFormatter() {
-    }
-    return NgbDateParserFormatter;
-}());
-/**
- * Abstract type serving as a DI token for the service parsing and formatting dates for the NgbInputDatepicker
- * directive. A default implementation using the ISO 8601 format is provided, but you can provide another implementation
- * to use an alternative format.
- */
-
-var NgbDateISOParserFormatter = /** @class */ (function (_super) {
-    __extends(NgbDateISOParserFormatter, _super);
-    function NgbDateISOParserFormatter() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    NgbDateISOParserFormatter.prototype.parse = function (value) {
-        if (value) {
-            var dateParts = value.trim().split('-');
-            if (dateParts.length === 1 && Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["isNumber"])(dateParts[0])) {
-                return { year: Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["toInteger"])(dateParts[0]), month: null, day: null };
-            }
-            else if (dateParts.length === 2 && Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["isNumber"])(dateParts[0]) && Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["isNumber"])(dateParts[1])) {
-                return { year: Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["toInteger"])(dateParts[0]), month: Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["toInteger"])(dateParts[1]), day: null };
-            }
-            else if (dateParts.length === 3 && Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["isNumber"])(dateParts[0]) && Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["isNumber"])(dateParts[1]) && Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["isNumber"])(dateParts[2])) {
-                return { year: Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["toInteger"])(dateParts[0]), month: Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["toInteger"])(dateParts[1]), day: Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["toInteger"])(dateParts[2]) };
-            }
-        }
-        return null;
-    };
-    NgbDateISOParserFormatter.prototype.format = function (date) {
-        return date ?
-            date.year + "-" + (Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["isNumber"])(date.month) ? Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["padNumber"])(date.month) : '') + "-" + (Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["isNumber"])(date.day) ? Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["padNumber"])(date.day) : '') :
-            '';
-    };
-    return NgbDateISOParserFormatter;
-}(NgbDateParserFormatter));
-
-//# sourceMappingURL=ngb-date-parser-formatter.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date.js":
-/*!*************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date.js ***!
-  \*************************************************************************/
-/*! exports provided: NgbDate */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDate", function() { return NgbDate; });
-var NgbDate = /** @class */ (function () {
-    function NgbDate(year, month, day) {
-        this.year = year;
-        this.month = month;
-        this.day = day;
-    }
-    NgbDate.from = function (date) {
-        return date ? new NgbDate(date.year, date.month, date.day ? date.day : 1) : null;
-    };
-    NgbDate.prototype.equals = function (other) {
-        return other && this.year === other.year && this.month === other.month && this.day === other.day;
-    };
-    NgbDate.prototype.before = function (other) {
-        if (!other) {
-            return false;
-        }
-        if (this.year === other.year) {
-            if (this.month === other.month) {
-                return this.day === other.day ? false : this.day < other.day;
-            }
-            else {
-                return this.month < other.month;
-            }
-        }
-        else {
-            return this.year < other.year;
-        }
-    };
-    NgbDate.prototype.after = function (other) {
-        if (!other) {
-            return false;
-        }
-        if (this.year === other.year) {
-            if (this.month === other.month) {
-                return this.day === other.day ? false : this.day > other.day;
-            }
-            else {
-                return this.month > other.month;
-            }
-        }
-        else {
-            return this.year > other.year;
-        }
-    };
-    NgbDate.prototype.toStruct = function () { return { year: this.year, month: this.month, day: this.day }; };
-    NgbDate.prototype.toString = function () { return this.year + "-" + this.month + "-" + this.day; };
-    return NgbDate;
-}());
-
-//# sourceMappingURL=ngb-date.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/dropdown/dropdown-config.js":
-/*!******************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/dropdown/dropdown-config.js ***!
-  \******************************************************************************/
-/*! exports provided: NgbDropdownConfig */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDropdownConfig", function() { return NgbDropdownConfig; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-/**
- * Configuration service for the NgbDropdown directive.
- * You can inject this service, typically in your root component, and customize the values of its properties in
- * order to provide default values for all the dropdowns used in the application.
- */
-var NgbDropdownConfig = /** @class */ (function () {
-    function NgbDropdownConfig() {
-        this.autoClose = true;
-        this.placement = 'bottom-left';
-    }
-    NgbDropdownConfig.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    return NgbDropdownConfig;
-}());
-
-//# sourceMappingURL=dropdown-config.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/dropdown/dropdown.js":
-/*!***********************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/dropdown/dropdown.js ***!
-  \***********************************************************************/
-/*! exports provided: NgbDropdownMenu, NgbDropdownAnchor, NgbDropdownToggle, NgbDropdown */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDropdownMenu", function() { return NgbDropdownMenu; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDropdownAnchor", function() { return NgbDropdownAnchor; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDropdownToggle", function() { return NgbDropdownToggle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDropdown", function() { return NgbDropdown; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _dropdown_config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dropdown-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/dropdown/dropdown-config.js");
-/* harmony import */ var _util_positioning__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util/positioning */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/positioning.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-
-
-/**
- */
-var NgbDropdownMenu = /** @class */ (function () {
-    function NgbDropdownMenu(dropdown, _elementRef, _renderer) {
-        this.dropdown = dropdown;
-        this._elementRef = _elementRef;
-        this._renderer = _renderer;
-        this.placement = 'bottom';
-        this.isOpen = false;
-    }
-    NgbDropdownMenu.prototype.isEventFrom = function ($event) { return this._elementRef.nativeElement.contains($event.target); };
-    NgbDropdownMenu.prototype.position = function (triggerEl, placement) {
-        this.applyPlacement(Object(_util_positioning__WEBPACK_IMPORTED_MODULE_2__["positionElements"])(triggerEl, this._elementRef.nativeElement, placement));
-    };
-    NgbDropdownMenu.prototype.applyPlacement = function (_placement) {
-        // remove the current placement classes
-        this._renderer.removeClass(this._elementRef.nativeElement.parentNode, 'dropup');
-        this._renderer.removeClass(this._elementRef.nativeElement.parentNode, 'dropdown');
-        this.placement = _placement;
-        /**
-             * apply the new placement
-             * in case of top use up-arrow or down-arrow otherwise
-             */
-        if (_placement.search('^top') !== -1) {
-            this._renderer.addClass(this._elementRef.nativeElement.parentNode, 'dropup');
-        }
-        else {
-            this._renderer.addClass(this._elementRef.nativeElement.parentNode, 'dropdown');
-        }
-    };
-    NgbDropdownMenu.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
-                    selector: '[ngbDropdownMenu]',
-                    host: { '[class.dropdown-menu]': 'true', '[class.show]': 'dropdown.isOpen()', '[attr.x-placement]': 'placement' }
-                },] },
-    ];
-    /** @nocollapse */
-    NgbDropdownMenu.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(function () { return NgbDropdown; }),] },] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"], },
-    ]; };
-    return NgbDropdownMenu;
-}());
-
-/**
- * Marks an element to which dropdown menu will be anchored. This is a simple version
- * of the NgbDropdownToggle directive. It plays the same role as NgbDropdownToggle but
- * doesn't listen to click events to toggle dropdown menu thus enabling support for
- * events other than click.
- *
- * @since 1.1.0
- */
-var NgbDropdownAnchor = /** @class */ (function () {
-    function NgbDropdownAnchor(dropdown, _elementRef) {
-        this.dropdown = dropdown;
-        this._elementRef = _elementRef;
-        this.anchorEl = _elementRef.nativeElement;
-    }
-    NgbDropdownAnchor.prototype.isEventFrom = function ($event) { return this._elementRef.nativeElement.contains($event.target); };
-    NgbDropdownAnchor.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
-                    selector: '[ngbDropdownAnchor]',
-                    host: { 'class': 'dropdown-toggle', 'aria-haspopup': 'true', '[attr.aria-expanded]': 'dropdown.isOpen()' }
-                },] },
-    ];
-    /** @nocollapse */
-    NgbDropdownAnchor.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(function () { return NgbDropdown; }),] },] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], },
-    ]; };
-    return NgbDropdownAnchor;
-}());
-
-/**
- * Allows the dropdown to be toggled via click. This directive is optional: you can use NgbDropdownAnchor as an
- * alternative.
- */
-var NgbDropdownToggle = /** @class */ (function (_super) {
-    __extends(NgbDropdownToggle, _super);
-    function NgbDropdownToggle(dropdown, elementRef) {
-        return _super.call(this, dropdown, elementRef) || this;
-    }
-    NgbDropdownToggle.prototype.toggleOpen = function () { this.dropdown.toggle(); };
-    NgbDropdownToggle.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
-                    selector: '[ngbDropdownToggle]',
-                    host: {
-                        'class': 'dropdown-toggle',
-                        'aria-haspopup': 'true',
-                        '[attr.aria-expanded]': 'dropdown.isOpen()',
-                        '(click)': 'toggleOpen()'
-                    },
-                    providers: [{ provide: NgbDropdownAnchor, useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(function () { return NgbDropdownToggle; }) }]
-                },] },
-    ];
-    /** @nocollapse */
-    NgbDropdownToggle.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(function () { return NgbDropdown; }),] },] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], },
-    ]; };
-    return NgbDropdownToggle;
-}(NgbDropdownAnchor));
-
-/**
- * Transforms a node into a dropdown.
- */
-var NgbDropdown = /** @class */ (function () {
-    function NgbDropdown(config, ngZone) {
-        var _this = this;
-        /**
-           *  Defines whether or not the dropdown-menu is open initially.
-           */
-        this._open = false;
-        /**
-           *  An event fired when the dropdown is opened or closed.
-           *  Event's payload equals whether dropdown is open.
-           */
-        this.openChange = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this.placement = config.placement;
-        this.autoClose = config.autoClose;
-        this._zoneSubscription = ngZone.onStable.subscribe(function () { _this._positionMenu(); });
-    }
-    NgbDropdown.prototype.ngOnInit = function () {
-        if (this._menu) {
-            this._menu.applyPlacement(Array.isArray(this.placement) ? (this.placement[0]) : this.placement);
-        }
-    };
-    /**
-     * Checks if the dropdown menu is open or not.
-     */
-    /**
-       * Checks if the dropdown menu is open or not.
-       */
-    NgbDropdown.prototype.isOpen = /**
-       * Checks if the dropdown menu is open or not.
-       */
-    function () { return this._open; };
-    /**
-     * Opens the dropdown menu of a given navbar or tabbed navigation.
-     */
-    /**
-       * Opens the dropdown menu of a given navbar or tabbed navigation.
-       */
-    NgbDropdown.prototype.open = /**
-       * Opens the dropdown menu of a given navbar or tabbed navigation.
-       */
-    function () {
-        if (!this._open) {
-            this._open = true;
-            this._positionMenu();
-            this.openChange.emit(true);
-        }
-    };
-    /**
-     * Closes the dropdown menu of a given navbar or tabbed navigation.
-     */
-    /**
-       * Closes the dropdown menu of a given navbar or tabbed navigation.
-       */
-    NgbDropdown.prototype.close = /**
-       * Closes the dropdown menu of a given navbar or tabbed navigation.
-       */
-    function () {
-        if (this._open) {
-            this._open = false;
-            this.openChange.emit(false);
-        }
-    };
-    /**
-     * Toggles the dropdown menu of a given navbar or tabbed navigation.
-     */
-    /**
-       * Toggles the dropdown menu of a given navbar or tabbed navigation.
-       */
-    NgbDropdown.prototype.toggle = /**
-       * Toggles the dropdown menu of a given navbar or tabbed navigation.
-       */
-    function () {
-        if (this.isOpen()) {
-            this.close();
-        }
-        else {
-            this.open();
-        }
-    };
-    NgbDropdown.prototype.closeFromClick = function ($event) {
-        if (this.autoClose && $event.button !== 2 && !this._isEventFromToggle($event)) {
-            if (this.autoClose === true) {
-                this.close();
-            }
-            else if (this.autoClose === 'inside' && this._isEventFromMenu($event)) {
-                this.close();
-            }
-            else if (this.autoClose === 'outside' && !this._isEventFromMenu($event)) {
-                this.close();
-            }
-        }
-    };
-    NgbDropdown.prototype.closeFromOutsideEsc = function () {
-        if (this.autoClose) {
-            this.close();
-        }
-    };
-    NgbDropdown.prototype.ngOnDestroy = function () { this._zoneSubscription.unsubscribe(); };
-    NgbDropdown.prototype._isEventFromToggle = function ($event) { return this._anchor.isEventFrom($event); };
-    NgbDropdown.prototype._isEventFromMenu = function ($event) { return this._menu ? this._menu.isEventFrom($event) : false; };
-    NgbDropdown.prototype._positionMenu = function () {
-        if (this.isOpen() && this._menu) {
-            this._menu.position(this._anchor.anchorEl, this.placement);
-        }
-    };
-    NgbDropdown.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
-                    selector: '[ngbDropdown]',
-                    exportAs: 'ngbDropdown',
-                    host: {
-                        '[class.show]': 'isOpen()',
-                        '(keyup.esc)': 'closeFromOutsideEsc()',
-                        '(document:click)': 'closeFromClick($event)'
-                    }
-                },] },
-    ];
-    /** @nocollapse */
-    NgbDropdown.ctorParameters = function () { return [
-        { type: _dropdown_config__WEBPACK_IMPORTED_MODULE_1__["NgbDropdownConfig"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"], },
-    ]; };
-    NgbDropdown.propDecorators = {
-        "_menu": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChild"], args: [NgbDropdownMenu,] },],
-        "_anchor": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChild"], args: [NgbDropdownAnchor,] },],
-        "autoClose": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "_open": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['open',] },],
-        "placement": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "openChange": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-    };
-    return NgbDropdown;
-}());
-
-//# sourceMappingURL=dropdown.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/dropdown/dropdown.module.js":
-/*!******************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/dropdown/dropdown.module.js ***!
-  \******************************************************************************/
-/*! exports provided: NgbDropdown, NgbDropdownToggle, NgbDropdownMenu, NgbDropdownConfig, NgbDropdownModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDropdownModule", function() { return NgbDropdownModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _dropdown__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dropdown */ "../node_modules/@ng-bootstrap/ng-bootstrap/dropdown/dropdown.js");
-/* harmony import */ var _dropdown_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dropdown-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/dropdown/dropdown-config.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDropdown", function() { return _dropdown__WEBPACK_IMPORTED_MODULE_1__["NgbDropdown"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDropdownToggle", function() { return _dropdown__WEBPACK_IMPORTED_MODULE_1__["NgbDropdownToggle"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDropdownMenu", function() { return _dropdown__WEBPACK_IMPORTED_MODULE_1__["NgbDropdownMenu"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDropdownConfig", function() { return _dropdown_config__WEBPACK_IMPORTED_MODULE_2__["NgbDropdownConfig"]; });
-
-
-
-
-
-
-var NGB_DROPDOWN_DIRECTIVES = [_dropdown__WEBPACK_IMPORTED_MODULE_1__["NgbDropdown"], _dropdown__WEBPACK_IMPORTED_MODULE_1__["NgbDropdownAnchor"], _dropdown__WEBPACK_IMPORTED_MODULE_1__["NgbDropdownToggle"], _dropdown__WEBPACK_IMPORTED_MODULE_1__["NgbDropdownMenu"]];
-var NgbDropdownModule = /** @class */ (function () {
-    function NgbDropdownModule() {
-    }
-    NgbDropdownModule.forRoot = function () { return { ngModule: NgbDropdownModule, providers: [_dropdown_config__WEBPACK_IMPORTED_MODULE_2__["NgbDropdownConfig"]] }; };
-    NgbDropdownModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{ declarations: NGB_DROPDOWN_DIRECTIVES, exports: NGB_DROPDOWN_DIRECTIVES },] },
-    ];
-    return NgbDropdownModule;
-}());
-
-//# sourceMappingURL=dropdown.module.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/index.js":
-/*!***********************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/index.js ***!
-  \***********************************************************/
-/*! exports provided: NgbAccordionModule, NgbAccordionConfig, NgbAccordion, NgbPanel, NgbPanelTitle, NgbPanelContent, NgbAlertModule, NgbAlertConfig, NgbAlert, NgbButtonsModule, NgbCheckBox, NgbRadioGroup, NgbCarouselModule, NgbCarouselConfig, NgbCarousel, NgbSlide, NgbCollapseModule, NgbCollapse, NgbCalendar, NgbCalendarIslamicCivil, NgbCalendarIslamicUmalqura, NgbDatepickerModule, NgbDatepickerI18n, NgbDatepickerConfig, NgbDateParserFormatter, NgbDateAdapter, NgbDatepicker, NgbInputDatepicker, NgbDropdownModule, NgbDropdownConfig, NgbDropdown, NgbModalModule, NgbModal, NgbActiveModal, NgbModalRef, ModalDismissReasons, NgbPaginationModule, NgbPaginationConfig, NgbPagination, NgbPopoverModule, NgbPopoverConfig, NgbPopover, NgbProgressbarModule, NgbProgressbarConfig, NgbProgressbar, NgbRatingModule, NgbRatingConfig, NgbRating, NgbTabsetModule, NgbTabsetConfig, NgbTabset, NgbTab, NgbTabContent, NgbTabTitle, NgbTimepickerModule, NgbTimepickerConfig, NgbTimepicker, NgbTooltipModule, NgbTooltipConfig, NgbTooltip, NgbHighlight, NgbTypeaheadModule, NgbTypeaheadConfig, NgbTypeahead, NgbRootModule, NgbModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbRootModule", function() { return NgbRootModule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbModule", function() { return NgbModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _accordion_accordion_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./accordion/accordion.module */ "../node_modules/@ng-bootstrap/ng-bootstrap/accordion/accordion.module.js");
-/* harmony import */ var _alert_alert_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./alert/alert.module */ "../node_modules/@ng-bootstrap/ng-bootstrap/alert/alert.module.js");
-/* harmony import */ var _buttons_buttons_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./buttons/buttons.module */ "../node_modules/@ng-bootstrap/ng-bootstrap/buttons/buttons.module.js");
-/* harmony import */ var _carousel_carousel_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./carousel/carousel.module */ "../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel.module.js");
-/* harmony import */ var _collapse_collapse_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./collapse/collapse.module */ "../node_modules/@ng-bootstrap/ng-bootstrap/collapse/collapse.module.js");
-/* harmony import */ var _datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./datepicker/datepicker.module */ "../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module.js");
-/* harmony import */ var _dropdown_dropdown_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./dropdown/dropdown.module */ "../node_modules/@ng-bootstrap/ng-bootstrap/dropdown/dropdown.module.js");
-/* harmony import */ var _modal_modal_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modal/modal.module */ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal.module.js");
-/* harmony import */ var _pagination_pagination_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pagination/pagination.module */ "../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.module.js");
-/* harmony import */ var _popover_popover_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./popover/popover.module */ "../node_modules/@ng-bootstrap/ng-bootstrap/popover/popover.module.js");
-/* harmony import */ var _progressbar_progressbar_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./progressbar/progressbar.module */ "../node_modules/@ng-bootstrap/ng-bootstrap/progressbar/progressbar.module.js");
-/* harmony import */ var _rating_rating_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./rating/rating.module */ "../node_modules/@ng-bootstrap/ng-bootstrap/rating/rating.module.js");
-/* harmony import */ var _tabset_tabset_module__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./tabset/tabset.module */ "../node_modules/@ng-bootstrap/ng-bootstrap/tabset/tabset.module.js");
-/* harmony import */ var _timepicker_timepicker_module__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./timepicker/timepicker.module */ "../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.module.js");
-/* harmony import */ var _tooltip_tooltip_module__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./tooltip/tooltip.module */ "../node_modules/@ng-bootstrap/ng-bootstrap/tooltip/tooltip.module.js");
-/* harmony import */ var _typeahead_typeahead_module__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./typeahead/typeahead.module */ "../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/typeahead.module.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbAccordionModule", function() { return _accordion_accordion_module__WEBPACK_IMPORTED_MODULE_1__["NgbAccordionModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbAccordionConfig", function() { return _accordion_accordion_module__WEBPACK_IMPORTED_MODULE_1__["NgbAccordionConfig"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbAccordion", function() { return _accordion_accordion_module__WEBPACK_IMPORTED_MODULE_1__["NgbAccordion"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbPanel", function() { return _accordion_accordion_module__WEBPACK_IMPORTED_MODULE_1__["NgbPanel"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbPanelTitle", function() { return _accordion_accordion_module__WEBPACK_IMPORTED_MODULE_1__["NgbPanelTitle"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbPanelContent", function() { return _accordion_accordion_module__WEBPACK_IMPORTED_MODULE_1__["NgbPanelContent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbAlertModule", function() { return _alert_alert_module__WEBPACK_IMPORTED_MODULE_2__["NgbAlertModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbAlertConfig", function() { return _alert_alert_module__WEBPACK_IMPORTED_MODULE_2__["NgbAlertConfig"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbAlert", function() { return _alert_alert_module__WEBPACK_IMPORTED_MODULE_2__["NgbAlert"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbButtonsModule", function() { return _buttons_buttons_module__WEBPACK_IMPORTED_MODULE_3__["NgbButtonsModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbCheckBox", function() { return _buttons_buttons_module__WEBPACK_IMPORTED_MODULE_3__["NgbCheckBox"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbRadioGroup", function() { return _buttons_buttons_module__WEBPACK_IMPORTED_MODULE_3__["NgbRadioGroup"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbCarouselModule", function() { return _carousel_carousel_module__WEBPACK_IMPORTED_MODULE_4__["NgbCarouselModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbCarouselConfig", function() { return _carousel_carousel_module__WEBPACK_IMPORTED_MODULE_4__["NgbCarouselConfig"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbCarousel", function() { return _carousel_carousel_module__WEBPACK_IMPORTED_MODULE_4__["NgbCarousel"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbSlide", function() { return _carousel_carousel_module__WEBPACK_IMPORTED_MODULE_4__["NgbSlide"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbCollapseModule", function() { return _collapse_collapse_module__WEBPACK_IMPORTED_MODULE_5__["NgbCollapseModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbCollapse", function() { return _collapse_collapse_module__WEBPACK_IMPORTED_MODULE_5__["NgbCollapse"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbCalendar", function() { return _datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_6__["NgbCalendar"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbCalendarIslamicCivil", function() { return _datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_6__["NgbCalendarIslamicCivil"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbCalendarIslamicUmalqura", function() { return _datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_6__["NgbCalendarIslamicUmalqura"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerModule", function() { return _datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_6__["NgbDatepickerModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerI18n", function() { return _datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_6__["NgbDatepickerI18n"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDatepickerConfig", function() { return _datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_6__["NgbDatepickerConfig"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDateParserFormatter", function() { return _datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_6__["NgbDateParserFormatter"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDateAdapter", function() { return _datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_6__["NgbDateAdapter"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDatepicker", function() { return _datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_6__["NgbDatepicker"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbInputDatepicker", function() { return _datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_6__["NgbInputDatepicker"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDropdownModule", function() { return _dropdown_dropdown_module__WEBPACK_IMPORTED_MODULE_7__["NgbDropdownModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDropdownConfig", function() { return _dropdown_dropdown_module__WEBPACK_IMPORTED_MODULE_7__["NgbDropdownConfig"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbDropdown", function() { return _dropdown_dropdown_module__WEBPACK_IMPORTED_MODULE_7__["NgbDropdown"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbModalModule", function() { return _modal_modal_module__WEBPACK_IMPORTED_MODULE_8__["NgbModalModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbModal", function() { return _modal_modal_module__WEBPACK_IMPORTED_MODULE_8__["NgbModal"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbActiveModal", function() { return _modal_modal_module__WEBPACK_IMPORTED_MODULE_8__["NgbActiveModal"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbModalRef", function() { return _modal_modal_module__WEBPACK_IMPORTED_MODULE_8__["NgbModalRef"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ModalDismissReasons", function() { return _modal_modal_module__WEBPACK_IMPORTED_MODULE_8__["ModalDismissReasons"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbPaginationModule", function() { return _pagination_pagination_module__WEBPACK_IMPORTED_MODULE_9__["NgbPaginationModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbPaginationConfig", function() { return _pagination_pagination_module__WEBPACK_IMPORTED_MODULE_9__["NgbPaginationConfig"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbPagination", function() { return _pagination_pagination_module__WEBPACK_IMPORTED_MODULE_9__["NgbPagination"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbPopoverModule", function() { return _popover_popover_module__WEBPACK_IMPORTED_MODULE_10__["NgbPopoverModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbPopoverConfig", function() { return _popover_popover_module__WEBPACK_IMPORTED_MODULE_10__["NgbPopoverConfig"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbPopover", function() { return _popover_popover_module__WEBPACK_IMPORTED_MODULE_10__["NgbPopover"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbProgressbarModule", function() { return _progressbar_progressbar_module__WEBPACK_IMPORTED_MODULE_11__["NgbProgressbarModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbProgressbarConfig", function() { return _progressbar_progressbar_module__WEBPACK_IMPORTED_MODULE_11__["NgbProgressbarConfig"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbProgressbar", function() { return _progressbar_progressbar_module__WEBPACK_IMPORTED_MODULE_11__["NgbProgressbar"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbRatingModule", function() { return _rating_rating_module__WEBPACK_IMPORTED_MODULE_12__["NgbRatingModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbRatingConfig", function() { return _rating_rating_module__WEBPACK_IMPORTED_MODULE_12__["NgbRatingConfig"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbRating", function() { return _rating_rating_module__WEBPACK_IMPORTED_MODULE_12__["NgbRating"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTabsetModule", function() { return _tabset_tabset_module__WEBPACK_IMPORTED_MODULE_13__["NgbTabsetModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTabsetConfig", function() { return _tabset_tabset_module__WEBPACK_IMPORTED_MODULE_13__["NgbTabsetConfig"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTabset", function() { return _tabset_tabset_module__WEBPACK_IMPORTED_MODULE_13__["NgbTabset"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTab", function() { return _tabset_tabset_module__WEBPACK_IMPORTED_MODULE_13__["NgbTab"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTabContent", function() { return _tabset_tabset_module__WEBPACK_IMPORTED_MODULE_13__["NgbTabContent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTabTitle", function() { return _tabset_tabset_module__WEBPACK_IMPORTED_MODULE_13__["NgbTabTitle"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTimepickerModule", function() { return _timepicker_timepicker_module__WEBPACK_IMPORTED_MODULE_14__["NgbTimepickerModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTimepickerConfig", function() { return _timepicker_timepicker_module__WEBPACK_IMPORTED_MODULE_14__["NgbTimepickerConfig"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTimepicker", function() { return _timepicker_timepicker_module__WEBPACK_IMPORTED_MODULE_14__["NgbTimepicker"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTooltipModule", function() { return _tooltip_tooltip_module__WEBPACK_IMPORTED_MODULE_15__["NgbTooltipModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTooltipConfig", function() { return _tooltip_tooltip_module__WEBPACK_IMPORTED_MODULE_15__["NgbTooltipConfig"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTooltip", function() { return _tooltip_tooltip_module__WEBPACK_IMPORTED_MODULE_15__["NgbTooltip"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbHighlight", function() { return _typeahead_typeahead_module__WEBPACK_IMPORTED_MODULE_16__["NgbHighlight"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTypeaheadModule", function() { return _typeahead_typeahead_module__WEBPACK_IMPORTED_MODULE_16__["NgbTypeaheadModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTypeaheadConfig", function() { return _typeahead_typeahead_module__WEBPACK_IMPORTED_MODULE_16__["NgbTypeaheadConfig"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTypeahead", function() { return _typeahead_typeahead_module__WEBPACK_IMPORTED_MODULE_16__["NgbTypeahead"]; });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var NGB_MODULES = [
-    _accordion_accordion_module__WEBPACK_IMPORTED_MODULE_1__["NgbAccordionModule"], _alert_alert_module__WEBPACK_IMPORTED_MODULE_2__["NgbAlertModule"], _buttons_buttons_module__WEBPACK_IMPORTED_MODULE_3__["NgbButtonsModule"], _carousel_carousel_module__WEBPACK_IMPORTED_MODULE_4__["NgbCarouselModule"], _collapse_collapse_module__WEBPACK_IMPORTED_MODULE_5__["NgbCollapseModule"], _datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_6__["NgbDatepickerModule"],
-    _dropdown_dropdown_module__WEBPACK_IMPORTED_MODULE_7__["NgbDropdownModule"], _modal_modal_module__WEBPACK_IMPORTED_MODULE_8__["NgbModalModule"], _pagination_pagination_module__WEBPACK_IMPORTED_MODULE_9__["NgbPaginationModule"], _popover_popover_module__WEBPACK_IMPORTED_MODULE_10__["NgbPopoverModule"], _progressbar_progressbar_module__WEBPACK_IMPORTED_MODULE_11__["NgbProgressbarModule"], _rating_rating_module__WEBPACK_IMPORTED_MODULE_12__["NgbRatingModule"],
-    _tabset_tabset_module__WEBPACK_IMPORTED_MODULE_13__["NgbTabsetModule"], _timepicker_timepicker_module__WEBPACK_IMPORTED_MODULE_14__["NgbTimepickerModule"], _tooltip_tooltip_module__WEBPACK_IMPORTED_MODULE_15__["NgbTooltipModule"], _typeahead_typeahead_module__WEBPACK_IMPORTED_MODULE_16__["NgbTypeaheadModule"]
-];
-var NgbRootModule = /** @class */ (function () {
-    function NgbRootModule() {
-    }
-    NgbRootModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
-                    imports: [
-                        _alert_alert_module__WEBPACK_IMPORTED_MODULE_2__["NgbAlertModule"].forRoot(), _buttons_buttons_module__WEBPACK_IMPORTED_MODULE_3__["NgbButtonsModule"].forRoot(), _collapse_collapse_module__WEBPACK_IMPORTED_MODULE_5__["NgbCollapseModule"].forRoot(), _progressbar_progressbar_module__WEBPACK_IMPORTED_MODULE_11__["NgbProgressbarModule"].forRoot(),
-                        _tooltip_tooltip_module__WEBPACK_IMPORTED_MODULE_15__["NgbTooltipModule"].forRoot(), _typeahead_typeahead_module__WEBPACK_IMPORTED_MODULE_16__["NgbTypeaheadModule"].forRoot(), _accordion_accordion_module__WEBPACK_IMPORTED_MODULE_1__["NgbAccordionModule"].forRoot(), _carousel_carousel_module__WEBPACK_IMPORTED_MODULE_4__["NgbCarouselModule"].forRoot(),
-                        _datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_6__["NgbDatepickerModule"].forRoot(), _dropdown_dropdown_module__WEBPACK_IMPORTED_MODULE_7__["NgbDropdownModule"].forRoot(), _modal_modal_module__WEBPACK_IMPORTED_MODULE_8__["NgbModalModule"].forRoot(), _pagination_pagination_module__WEBPACK_IMPORTED_MODULE_9__["NgbPaginationModule"].forRoot(),
-                        _popover_popover_module__WEBPACK_IMPORTED_MODULE_10__["NgbPopoverModule"].forRoot(), _progressbar_progressbar_module__WEBPACK_IMPORTED_MODULE_11__["NgbProgressbarModule"].forRoot(), _rating_rating_module__WEBPACK_IMPORTED_MODULE_12__["NgbRatingModule"].forRoot(), _tabset_tabset_module__WEBPACK_IMPORTED_MODULE_13__["NgbTabsetModule"].forRoot(),
-                        _timepicker_timepicker_module__WEBPACK_IMPORTED_MODULE_14__["NgbTimepickerModule"].forRoot(), _tooltip_tooltip_module__WEBPACK_IMPORTED_MODULE_15__["NgbTooltipModule"].forRoot()
-                    ],
-                    exports: NGB_MODULES
-                },] },
-    ];
-    return NgbRootModule;
-}());
-
-var NgbModule = /** @class */ (function () {
-    function NgbModule() {
-    }
-    NgbModule.forRoot = function () { return { ngModule: NgbRootModule }; };
-    NgbModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{ imports: NGB_MODULES, exports: NGB_MODULES },] },
-    ];
-    return NgbModule;
-}());
-
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-backdrop.js":
-/*!**************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-backdrop.js ***!
-  \**************************************************************************/
-/*! exports provided: NgbModalBackdrop */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbModalBackdrop", function() { return NgbModalBackdrop; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-var NgbModalBackdrop = /** @class */ (function () {
-    function NgbModalBackdrop() {
-    }
-    NgbModalBackdrop.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: 'ngb-modal-backdrop',
-                    template: '',
-                    host: { '[class]': '"modal-backdrop fade show" + (backdropClass ? " " + backdropClass : "")' }
-                },] },
-    ];
-    /** @nocollapse */
-    NgbModalBackdrop.propDecorators = {
-        "backdropClass": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-    };
-    return NgbModalBackdrop;
-}());
-
-//# sourceMappingURL=modal-backdrop.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-dismiss-reasons.js":
-/*!*********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-dismiss-reasons.js ***!
-  \*********************************************************************************/
-/*! exports provided: ModalDismissReasons */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModalDismissReasons", function() { return ModalDismissReasons; });
-var ModalDismissReasons;
-(function (ModalDismissReasons) {
-    ModalDismissReasons[ModalDismissReasons["BACKDROP_CLICK"] = 0] = "BACKDROP_CLICK";
-    ModalDismissReasons[ModalDismissReasons["ESC"] = 1] = "ESC";
-})(ModalDismissReasons || (ModalDismissReasons = {}));
-//# sourceMappingURL=modal-dismiss-reasons.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-ref.js":
-/*!*********************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-ref.js ***!
-  \*********************************************************************/
-/*! exports provided: NgbActiveModal, NgbModalRef */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbActiveModal", function() { return NgbActiveModal; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbModalRef", function() { return NgbModalRef; });
-/**
- * A reference to an active (currently opened) modal. Instances of this class
- * can be injected into components passed as modal content.
- */
-var /**
- * A reference to an active (currently opened) modal. Instances of this class
- * can be injected into components passed as modal content.
- */
-NgbActiveModal = /** @class */ (function () {
-    function NgbActiveModal() {
-    }
-    /**
-     * Can be used to close a modal, passing an optional result.
-     */
-    /**
-       * Can be used to close a modal, passing an optional result.
-       */
-    NgbActiveModal.prototype.close = /**
-       * Can be used to close a modal, passing an optional result.
-       */
-    function (result) { };
-    /**
-     * Can be used to dismiss a modal, passing an optional reason.
-     */
-    /**
-       * Can be used to dismiss a modal, passing an optional reason.
-       */
-    NgbActiveModal.prototype.dismiss = /**
-       * Can be used to dismiss a modal, passing an optional reason.
-       */
-    function (reason) { };
-    return NgbActiveModal;
-}());
-/**
- * A reference to an active (currently opened) modal. Instances of this class
- * can be injected into components passed as modal content.
- */
-
-/**
- * A reference to a newly opened modal.
- */
-var /**
- * A reference to a newly opened modal.
- */
-NgbModalRef = /** @class */ (function () {
-    function NgbModalRef(_windowCmptRef, _contentRef, _backdropCmptRef, _beforeDismiss) {
-        var _this = this;
-        this._windowCmptRef = _windowCmptRef;
-        this._contentRef = _contentRef;
-        this._backdropCmptRef = _backdropCmptRef;
-        this._beforeDismiss = _beforeDismiss;
-        _windowCmptRef.instance.dismissEvent.subscribe(function (reason) { _this.dismiss(reason); });
-        this.result = new Promise(function (resolve, reject) {
-            _this._resolve = resolve;
-            _this._reject = reject;
-        });
-        this.result.then(null, function () { });
-    }
-    Object.defineProperty(NgbModalRef.prototype, "componentInstance", {
-        /**
-         * The instance of component used as modal's content.
-         * Undefined when a TemplateRef is used as modal's content.
-         */
-        get: /**
-           * The instance of component used as modal's content.
-           * Undefined when a TemplateRef is used as modal's content.
-           */
-        function () {
-            if (this._contentRef.componentRef) {
-                return this._contentRef.componentRef.instance;
-            }
-        },
-        // only needed to keep TS1.8 compatibility
-        set: 
-        // only needed to keep TS1.8 compatibility
-        function (instance) { },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Can be used to close a modal, passing an optional result.
-     */
-    /**
-       * Can be used to close a modal, passing an optional result.
-       */
-    NgbModalRef.prototype.close = /**
-       * Can be used to close a modal, passing an optional result.
-       */
-    function (result) {
-        if (this._windowCmptRef) {
-            this._resolve(result);
-            this._removeModalElements();
-        }
-    };
-    /**
-     * Can be used to dismiss a modal, passing an optional reason.
-     */
-    /**
-       * Can be used to dismiss a modal, passing an optional reason.
-       */
-    NgbModalRef.prototype.dismiss = /**
-       * Can be used to dismiss a modal, passing an optional reason.
-       */
-    function (reason) {
-        if (this._windowCmptRef) {
-            if (!this._beforeDismiss || this._beforeDismiss() !== false) {
-                this._reject(reason);
-                this._removeModalElements();
-            }
-        }
-    };
-    NgbModalRef.prototype._removeModalElements = function () {
-        var windowNativeEl = this._windowCmptRef.location.nativeElement;
-        windowNativeEl.parentNode.removeChild(windowNativeEl);
-        this._windowCmptRef.destroy();
-        if (this._backdropCmptRef) {
-            var backdropNativeEl = this._backdropCmptRef.location.nativeElement;
-            backdropNativeEl.parentNode.removeChild(backdropNativeEl);
-            this._backdropCmptRef.destroy();
-        }
-        if (this._contentRef && this._contentRef.viewRef) {
-            this._contentRef.viewRef.destroy();
-        }
-        this._windowCmptRef = null;
-        this._backdropCmptRef = null;
-        this._contentRef = null;
-    };
-    return NgbModalRef;
-}());
-/**
- * A reference to a newly opened modal.
- */
-
-//# sourceMappingURL=modal-ref.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-stack.js":
-/*!***********************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-stack.js ***!
-  \***********************************************************************/
-/*! exports provided: NgbModalStack */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbModalStack", function() { return NgbModalStack; });
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ "../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _util_popup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util/popup */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/popup.js");
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-/* harmony import */ var _modal_backdrop__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modal-backdrop */ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-backdrop.js");
-/* harmony import */ var _modal_window__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modal-window */ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-window.js");
-/* harmony import */ var _modal_ref__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modal-ref */ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-ref.js");
-
-
-
-
-
-
-
-var NgbModalStack = /** @class */ (function () {
-    function NgbModalStack(_applicationRef, _injector, _componentFactoryResolver, document) {
-        this._applicationRef = _applicationRef;
-        this._injector = _injector;
-        this._componentFactoryResolver = _componentFactoryResolver;
-        this._windowAttributes = ['backdrop', 'centered', 'keyboard', 'size', 'windowClass'];
-        this._backdropAttributes = ['backdropClass'];
-        this._document = document;
-    }
-    NgbModalStack.prototype.open = function (moduleCFR, contentInjector, content, options) {
-        var containerEl = Object(_util_util__WEBPACK_IMPORTED_MODULE_3__["isDefined"])(options.container) ? this._document.querySelector(options.container) : this._document.body;
-        if (!containerEl) {
-            throw new Error("The specified modal container \"" + (options.container || 'body') + "\" was not found in the DOM.");
-        }
-        var activeModal = new _modal_ref__WEBPACK_IMPORTED_MODULE_6__["NgbActiveModal"]();
-        var contentRef = this._getContentRef(moduleCFR, options.injector || contentInjector, content, activeModal);
-        var backdropCmptRef = options.backdrop !== false ? this._attachBackdrop(containerEl) : null;
-        var windowCmptRef = this._attachWindowComponent(containerEl, contentRef);
-        var ngbModalRef = new _modal_ref__WEBPACK_IMPORTED_MODULE_6__["NgbModalRef"](windowCmptRef, contentRef, backdropCmptRef, options.beforeDismiss);
-        activeModal.close = function (result) { ngbModalRef.close(result); };
-        activeModal.dismiss = function (reason) { ngbModalRef.dismiss(reason); };
-        this._applyWindowOptions(windowCmptRef.instance, options);
-        if (backdropCmptRef && backdropCmptRef.instance) {
-            this._applyBackdropOptions(backdropCmptRef.instance, options);
-        }
-        return ngbModalRef;
-    };
-    NgbModalStack.prototype._attachBackdrop = function (containerEl) {
-        var backdropFactory = this._componentFactoryResolver.resolveComponentFactory(_modal_backdrop__WEBPACK_IMPORTED_MODULE_4__["NgbModalBackdrop"]);
-        var backdropCmptRef = backdropFactory.create(this._injector);
-        this._applicationRef.attachView(backdropCmptRef.hostView);
-        containerEl.appendChild(backdropCmptRef.location.nativeElement);
-        return backdropCmptRef;
-    };
-    NgbModalStack.prototype._attachWindowComponent = function (containerEl, contentRef) {
-        var windowFactory = this._componentFactoryResolver.resolveComponentFactory(_modal_window__WEBPACK_IMPORTED_MODULE_5__["NgbModalWindow"]);
-        var windowCmptRef = windowFactory.create(this._injector, contentRef.nodes);
-        this._applicationRef.attachView(windowCmptRef.hostView);
-        containerEl.appendChild(windowCmptRef.location.nativeElement);
-        return windowCmptRef;
-    };
-    NgbModalStack.prototype._applyWindowOptions = function (windowInstance, options) {
-        this._windowAttributes.forEach(function (optionName) {
-            if (Object(_util_util__WEBPACK_IMPORTED_MODULE_3__["isDefined"])(options[optionName])) {
-                windowInstance[optionName] = options[optionName];
-            }
-        });
-    };
-    NgbModalStack.prototype._applyBackdropOptions = function (backdropInstance, options) {
-        this._backdropAttributes.forEach(function (optionName) {
-            if (Object(_util_util__WEBPACK_IMPORTED_MODULE_3__["isDefined"])(options[optionName])) {
-                backdropInstance[optionName] = options[optionName];
-            }
-        });
-    };
-    NgbModalStack.prototype._getContentRef = function (moduleCFR, contentInjector, content, context) {
-        if (!content) {
-            return new _util_popup__WEBPACK_IMPORTED_MODULE_2__["ContentRef"]([]);
-        }
-        else if (content instanceof _angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"]) {
-            return this._createFromTemplateRef(content, context);
-        }
-        else if (Object(_util_util__WEBPACK_IMPORTED_MODULE_3__["isString"])(content)) {
-            return this._createFromString(content);
-        }
-        else {
-            return this._createFromComponent(moduleCFR, contentInjector, content, context);
-        }
-    };
-    NgbModalStack.prototype._createFromTemplateRef = function (content, context) {
-        var viewRef = content.createEmbeddedView(context);
-        this._applicationRef.attachView(viewRef);
-        return new _util_popup__WEBPACK_IMPORTED_MODULE_2__["ContentRef"]([viewRef.rootNodes], viewRef);
-    };
-    NgbModalStack.prototype._createFromString = function (content) {
-        var component = this._document.createTextNode("" + content);
-        return new _util_popup__WEBPACK_IMPORTED_MODULE_2__["ContentRef"]([[component]]);
-    };
-    NgbModalStack.prototype._createFromComponent = function (moduleCFR, contentInjector, content, context) {
-        var contentCmptFactory = moduleCFR.resolveComponentFactory(content);
-        var modalContentInjector = _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"].create([{ provide: _modal_ref__WEBPACK_IMPORTED_MODULE_6__["NgbActiveModal"], useValue: context }], contentInjector);
-        var componentRef = contentCmptFactory.create(modalContentInjector);
-        this._applicationRef.attachView(componentRef.hostView);
-        return new _util_popup__WEBPACK_IMPORTED_MODULE_2__["ContentRef"]([[componentRef.location.nativeElement]], componentRef.hostView, componentRef);
-    };
-    NgbModalStack.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"] },
-    ];
-    /** @nocollapse */
-    NgbModalStack.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ApplicationRef"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ComponentFactoryResolver"], },
-        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["DOCUMENT"],] },] },
-    ]; };
-    return NgbModalStack;
-}());
-
-//# sourceMappingURL=modal-stack.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-window.js":
-/*!************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-window.js ***!
-  \************************************************************************/
-/*! exports provided: NgbModalWindow */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbModalWindow", function() { return NgbModalWindow; });
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ "../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _modal_dismiss_reasons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modal-dismiss-reasons */ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-dismiss-reasons.js");
-
-
-
-var NgbModalWindow = /** @class */ (function () {
-    function NgbModalWindow(document, _elRef, _renderer) {
-        this._elRef = _elRef;
-        this._renderer = _renderer;
-        this.backdrop = true;
-        this.keyboard = true;
-        this.dismissEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this._document = document;
-    }
-    NgbModalWindow.prototype.backdropClick = function ($event) {
-        if (this.backdrop === true && this._elRef.nativeElement === $event.target) {
-            this.dismiss(_modal_dismiss_reasons__WEBPACK_IMPORTED_MODULE_2__["ModalDismissReasons"].BACKDROP_CLICK);
-        }
-    };
-    NgbModalWindow.prototype.escKey = function ($event) {
-        if (this.keyboard && !$event.defaultPrevented) {
-            this.dismiss(_modal_dismiss_reasons__WEBPACK_IMPORTED_MODULE_2__["ModalDismissReasons"].ESC);
-        }
-    };
-    NgbModalWindow.prototype.dismiss = function (reason) { this.dismissEvent.emit(reason); };
-    NgbModalWindow.prototype.ngOnInit = function () {
-        this._elWithFocus = this._document.activeElement;
-        this._renderer.addClass(this._document.body, 'modal-open');
-    };
-    NgbModalWindow.prototype.ngAfterViewInit = function () {
-        if (!this._elRef.nativeElement.contains(document.activeElement)) {
-            this._elRef.nativeElement['focus'].apply(this._elRef.nativeElement, []);
-        }
-    };
-    NgbModalWindow.prototype.ngOnDestroy = function () {
-        var body = this._document.body;
-        var elWithFocus = this._elWithFocus;
-        var elementToFocus;
-        if (elWithFocus && elWithFocus['focus'] && body.contains(elWithFocus)) {
-            elementToFocus = elWithFocus;
-        }
-        else {
-            elementToFocus = body;
-        }
-        elementToFocus['focus'].apply(elementToFocus, []);
-        this._elWithFocus = null;
-        this._renderer.removeClass(body, 'modal-open');
-    };
-    NgbModalWindow.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"], args: [{
-                    selector: 'ngb-modal-window',
-                    host: {
-                        '[class]': '"modal fade show d-block" + (windowClass ? " " + windowClass : "")',
-                        'role': 'dialog',
-                        'tabindex': '-1',
-                        '(keyup.esc)': 'escKey($event)',
-                        '(click)': 'backdropClick($event)'
-                    },
-                    template: "\n    <div [class]=\"'modal-dialog' + (size ? ' modal-' + size : '') + (centered ? ' modal-dialog-centered' : '')\" role=\"document\">\n        <div class=\"modal-content\"><ng-content></ng-content></div>\n    </div>\n    "
-                },] },
-    ];
-    /** @nocollapse */
-    NgbModalWindow.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["DOCUMENT"],] },] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer2"], },
-    ]; };
-    NgbModalWindow.propDecorators = {
-        "backdrop": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
-        "centered": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
-        "keyboard": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
-        "size": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
-        "windowClass": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
-        "dismissEvent": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"], args: ['dismiss',] },],
-    };
-    return NgbModalWindow;
-}());
-
-//# sourceMappingURL=modal-window.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal.js":
-/*!*****************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal.js ***!
-  \*****************************************************************/
-/*! exports provided: NgbModal */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbModal", function() { return NgbModal; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _modal_stack__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal-stack */ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-stack.js");
-
-
-/**
- * A service to open modal windows. Creating a modal is straightforward: create a template and pass it as an argument to
- * the "open" method!
- */
-var NgbModal = /** @class */ (function () {
-    function NgbModal(_moduleCFR, _injector, _modalStack) {
-        this._moduleCFR = _moduleCFR;
-        this._injector = _injector;
-        this._modalStack = _modalStack;
-    }
-    /**
-     * Opens a new modal window with the specified content and using supplied options. Content can be provided
-     * as a TemplateRef or a component type. If you pass a component type as content than instances of those
-     * components can be injected with an instance of the NgbActiveModal class. You can use methods on the
-     * NgbActiveModal class to close / dismiss modals from "inside" of a component.
-     */
-    /**
-       * Opens a new modal window with the specified content and using supplied options. Content can be provided
-       * as a TemplateRef or a component type. If you pass a component type as content than instances of those
-       * components can be injected with an instance of the NgbActiveModal class. You can use methods on the
-       * NgbActiveModal class to close / dismiss modals from "inside" of a component.
-       */
-    NgbModal.prototype.open = /**
-       * Opens a new modal window with the specified content and using supplied options. Content can be provided
-       * as a TemplateRef or a component type. If you pass a component type as content than instances of those
-       * components can be injected with an instance of the NgbActiveModal class. You can use methods on the
-       * NgbActiveModal class to close / dismiss modals from "inside" of a component.
-       */
-    function (content, options) {
-        if (options === void 0) { options = {}; }
-        return this._modalStack.open(this._moduleCFR, this._injector, content, options);
-    };
-    NgbModal.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    /** @nocollapse */
-    NgbModal.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ComponentFactoryResolver"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"], },
-        { type: _modal_stack__WEBPACK_IMPORTED_MODULE_1__["NgbModalStack"], },
-    ]; };
-    return NgbModal;
-}());
-
-//# sourceMappingURL=modal.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal.module.js":
-/*!************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal.module.js ***!
-  \************************************************************************/
-/*! exports provided: NgbModal, NgbModalRef, NgbActiveModal, ModalDismissReasons, NgbModalModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbModalModule", function() { return NgbModalModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _modal_backdrop__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal-backdrop */ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-backdrop.js");
-/* harmony import */ var _modal_window__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modal-window */ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-window.js");
-/* harmony import */ var _modal_stack__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modal-stack */ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-stack.js");
-/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modal */ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbModal", function() { return _modal__WEBPACK_IMPORTED_MODULE_4__["NgbModal"]; });
-
-/* harmony import */ var _modal_ref__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modal-ref */ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-ref.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbModalRef", function() { return _modal_ref__WEBPACK_IMPORTED_MODULE_5__["NgbModalRef"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbActiveModal", function() { return _modal_ref__WEBPACK_IMPORTED_MODULE_5__["NgbActiveModal"]; });
-
-/* harmony import */ var _modal_dismiss_reasons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modal-dismiss-reasons */ "../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-dismiss-reasons.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ModalDismissReasons", function() { return _modal_dismiss_reasons__WEBPACK_IMPORTED_MODULE_6__["ModalDismissReasons"]; });
-
-
-
-
-
-
-
-
-
-var NgbModalModule = /** @class */ (function () {
-    function NgbModalModule() {
-    }
-    NgbModalModule.forRoot = function () { return { ngModule: NgbModalModule, providers: [_modal__WEBPACK_IMPORTED_MODULE_4__["NgbModal"], _modal_stack__WEBPACK_IMPORTED_MODULE_3__["NgbModalStack"]] }; };
-    NgbModalModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
-                    declarations: [_modal_backdrop__WEBPACK_IMPORTED_MODULE_1__["NgbModalBackdrop"], _modal_window__WEBPACK_IMPORTED_MODULE_2__["NgbModalWindow"]],
-                    entryComponents: [_modal_backdrop__WEBPACK_IMPORTED_MODULE_1__["NgbModalBackdrop"], _modal_window__WEBPACK_IMPORTED_MODULE_2__["NgbModalWindow"]],
-                    providers: [_modal__WEBPACK_IMPORTED_MODULE_4__["NgbModal"]]
-                },] },
-    ];
-    return NgbModalModule;
-}());
-
-//# sourceMappingURL=modal.module.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination-config.js":
-/*!**********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination-config.js ***!
-  \**********************************************************************************/
-/*! exports provided: NgbPaginationConfig */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbPaginationConfig", function() { return NgbPaginationConfig; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-/**
- * Configuration service for the NgbPagination component.
- * You can inject this service, typically in your root component, and customize the values of its properties in
- * order to provide default values for all the paginations used in the application.
- */
-var NgbPaginationConfig = /** @class */ (function () {
-    function NgbPaginationConfig() {
-        this.disabled = false;
-        this.boundaryLinks = false;
-        this.directionLinks = true;
-        this.ellipses = true;
-        this.maxSize = 0;
-        this.pageSize = 10;
-        this.rotate = false;
-    }
-    NgbPaginationConfig.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    return NgbPaginationConfig;
-}());
-
-//# sourceMappingURL=pagination-config.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.js":
-/*!***************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.js ***!
-  \***************************************************************************/
-/*! exports provided: NgbPagination */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbPagination", function() { return NgbPagination; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-/* harmony import */ var _pagination_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pagination-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination-config.js");
-
-
-
-/**
- * A directive that will take care of visualising a pagination bar and enable / disable buttons correctly!
- */
-var NgbPagination = /** @class */ (function () {
-    function NgbPagination(config) {
-        this.pageCount = 0;
-        this.pages = [];
-        /**
-           *  Current page. Page numbers start with 1
-           */
-        this.page = 1;
-        /**
-           *  An event fired when the page is changed.
-           *  Event's payload equals to the newly selected page.
-           *  Will fire only if collection size is set and all values are valid.
-           *  Page numbers start with 1
-           */
-        this.pageChange = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"](true);
-        this.disabled = config.disabled;
-        this.boundaryLinks = config.boundaryLinks;
-        this.directionLinks = config.directionLinks;
-        this.ellipses = config.ellipses;
-        this.maxSize = config.maxSize;
-        this.pageSize = config.pageSize;
-        this.rotate = config.rotate;
-        this.size = config.size;
-    }
-    NgbPagination.prototype.hasPrevious = function () { return this.page > 1; };
-    NgbPagination.prototype.hasNext = function () { return this.page < this.pageCount; };
-    NgbPagination.prototype.selectPage = function (pageNumber) { this._updatePages(pageNumber); };
-    NgbPagination.prototype.ngOnChanges = function (changes) { this._updatePages(this.page); };
-    NgbPagination.prototype.isEllipsis = function (pageNumber) { return pageNumber === -1; };
-    /**
-     * Appends ellipses and first/last page number to the displayed pages
-     */
-    /**
-       * Appends ellipses and first/last page number to the displayed pages
-       */
-    NgbPagination.prototype._applyEllipses = /**
-       * Appends ellipses and first/last page number to the displayed pages
-       */
-    function (start, end) {
-        if (this.ellipses) {
-            if (start > 0) {
-                if (start > 1) {
-                    this.pages.unshift(-1);
-                }
-                this.pages.unshift(1);
-            }
-            if (end < this.pageCount) {
-                if (end < (this.pageCount - 1)) {
-                    this.pages.push(-1);
-                }
-                this.pages.push(this.pageCount);
-            }
-        }
-    };
-    /**
-     * Rotates page numbers based on maxSize items visible.
-     * Currently selected page stays in the middle:
-     *
-     * Ex. for selected page = 6:
-     * [5,*6*,7] for maxSize = 3
-     * [4,5,*6*,7] for maxSize = 4
-     */
-    /**
-       * Rotates page numbers based on maxSize items visible.
-       * Currently selected page stays in the middle:
-       *
-       * Ex. for selected page = 6:
-       * [5,*6*,7] for maxSize = 3
-       * [4,5,*6*,7] for maxSize = 4
-       */
-    NgbPagination.prototype._applyRotation = /**
-       * Rotates page numbers based on maxSize items visible.
-       * Currently selected page stays in the middle:
-       *
-       * Ex. for selected page = 6:
-       * [5,*6*,7] for maxSize = 3
-       * [4,5,*6*,7] for maxSize = 4
-       */
-    function () {
-        var start = 0;
-        var end = this.pageCount;
-        var leftOffset = Math.floor(this.maxSize / 2);
-        var rightOffset = this.maxSize % 2 === 0 ? leftOffset - 1 : leftOffset;
-        if (this.page <= leftOffset) {
-            // very beginning, no rotation -> [0..maxSize]
-            end = this.maxSize;
-        }
-        else if (this.pageCount - this.page < leftOffset) {
-            // very end, no rotation -> [len-maxSize..len]
-            start = this.pageCount - this.maxSize;
-        }
-        else {
-            // rotate
-            start = this.page - leftOffset - 1;
-            end = this.page + rightOffset;
-        }
-        return [start, end];
-    };
-    /**
-     * Paginates page numbers based on maxSize items per page
-     */
-    /**
-       * Paginates page numbers based on maxSize items per page
-       */
-    NgbPagination.prototype._applyPagination = /**
-       * Paginates page numbers based on maxSize items per page
-       */
-    function () {
-        var page = Math.ceil(this.page / this.maxSize) - 1;
-        var start = page * this.maxSize;
-        var end = start + this.maxSize;
-        return [start, end];
-    };
-    NgbPagination.prototype._setPageInRange = function (newPageNo) {
-        var prevPageNo = this.page;
-        this.page = Object(_util_util__WEBPACK_IMPORTED_MODULE_1__["getValueInRange"])(newPageNo, this.pageCount, 1);
-        if (this.page !== prevPageNo && Object(_util_util__WEBPACK_IMPORTED_MODULE_1__["isNumber"])(this.collectionSize)) {
-            this.pageChange.emit(this.page);
-        }
-    };
-    NgbPagination.prototype._updatePages = function (newPage) {
-        this.pageCount = Math.ceil(this.collectionSize / this.pageSize);
-        if (!Object(_util_util__WEBPACK_IMPORTED_MODULE_1__["isNumber"])(this.pageCount)) {
-            this.pageCount = 0;
-        }
-        // fill-in model needed to render pages
-        this.pages.length = 0;
-        for (var i = 1; i <= this.pageCount; i++) {
-            this.pages.push(i);
-        }
-        // set page within 1..max range
-        this._setPageInRange(newPage);
-        // apply maxSize if necessary
-        if (this.maxSize > 0 && this.pageCount > this.maxSize) {
-            var start = 0;
-            var end = this.pageCount;
-            // either paginating or rotating page numbers
-            if (this.rotate) {
-                _a = this._applyRotation(), start = _a[0], end = _a[1];
-            }
-            else {
-                _b = this._applyPagination(), start = _b[0], end = _b[1];
-            }
-            this.pages = this.pages.slice(start, end);
-            // adding ellipses
-            this._applyEllipses(start, end);
-        }
-        var _a, _b;
-    };
-    NgbPagination.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: 'ngb-pagination',
-                    changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush,
-                    host: { 'role': 'navigation' },
-                    template: "\n    <ul [class]=\"'pagination' + (size ? ' pagination-' + size : '')\">\n      <li *ngIf=\"boundaryLinks\" class=\"page-item\"\n        [class.disabled]=\"!hasPrevious() || disabled\">\n        <a aria-label=\"First\" class=\"page-link\" href (click)=\"!!selectPage(1)\" [attr.tabindex]=\"(hasPrevious() ? null : '-1')\">\n          <span aria-hidden=\"true\">&laquo;&laquo;</span>\n        </a>\n      </li>\n\n      <li *ngIf=\"directionLinks\" class=\"page-item\"\n        [class.disabled]=\"!hasPrevious() || disabled\">\n        <a aria-label=\"Previous\" class=\"page-link\" href (click)=\"!!selectPage(page-1)\" [attr.tabindex]=\"(hasPrevious() ? null : '-1')\">\n          <span aria-hidden=\"true\">&laquo;</span>\n        </a>\n      </li>\n      <li *ngFor=\"let pageNumber of pages\" class=\"page-item\" [class.active]=\"pageNumber === page\"\n        [class.disabled]=\"isEllipsis(pageNumber) || disabled\">\n        <a *ngIf=\"isEllipsis(pageNumber)\" class=\"page-link\">...</a>\n        <a *ngIf=\"!isEllipsis(pageNumber)\" class=\"page-link\" href (click)=\"!!selectPage(pageNumber)\">\n          {{pageNumber}}\n          <span *ngIf=\"pageNumber === page\" class=\"sr-only\">(current)</span>\n        </a>\n      </li>\n      <li *ngIf=\"directionLinks\" class=\"page-item\" [class.disabled]=\"!hasNext() || disabled\">\n        <a aria-label=\"Next\" class=\"page-link\" href (click)=\"!!selectPage(page+1)\" [attr.tabindex]=\"(hasNext() ? null : '-1')\">\n          <span aria-hidden=\"true\">&raquo;</span>\n        </a>\n      </li>\n\n      <li *ngIf=\"boundaryLinks\" class=\"page-item\" [class.disabled]=\"!hasNext() || disabled\">\n        <a aria-label=\"Last\" class=\"page-link\" href (click)=\"!!selectPage(pageCount)\" [attr.tabindex]=\"(hasNext() ? null : '-1')\">\n          <span aria-hidden=\"true\">&raquo;&raquo;</span>\n        </a>\n      </li>\n    </ul>\n  "
-                },] },
-    ];
-    /** @nocollapse */
-    NgbPagination.ctorParameters = function () { return [
-        { type: _pagination_config__WEBPACK_IMPORTED_MODULE_2__["NgbPaginationConfig"], },
-    ]; };
-    NgbPagination.propDecorators = {
-        "disabled": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "boundaryLinks": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "directionLinks": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "ellipses": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "rotate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "collectionSize": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "maxSize": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "page": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "pageSize": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "pageChange": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-        "size": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-    };
-    return NgbPagination;
-}());
-
-//# sourceMappingURL=pagination.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.module.js":
-/*!**********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.module.js ***!
-  \**********************************************************************************/
-/*! exports provided: NgbPagination, NgbPaginationConfig, NgbPaginationModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbPaginationModule", function() { return NgbPaginationModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pagination */ "../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.js");
-/* harmony import */ var _pagination_config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pagination-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination-config.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbPagination", function() { return _pagination__WEBPACK_IMPORTED_MODULE_2__["NgbPagination"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbPaginationConfig", function() { return _pagination_config__WEBPACK_IMPORTED_MODULE_3__["NgbPaginationConfig"]; });
-
-
-
-
-
-
-
-var NgbPaginationModule = /** @class */ (function () {
-    function NgbPaginationModule() {
-    }
-    NgbPaginationModule.forRoot = function () { return { ngModule: NgbPaginationModule, providers: [_pagination_config__WEBPACK_IMPORTED_MODULE_3__["NgbPaginationConfig"]] }; };
-    NgbPaginationModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{ declarations: [_pagination__WEBPACK_IMPORTED_MODULE_2__["NgbPagination"]], exports: [_pagination__WEBPACK_IMPORTED_MODULE_2__["NgbPagination"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]] },] },
-    ];
-    return NgbPaginationModule;
-}());
-
-//# sourceMappingURL=pagination.module.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/popover/popover-config.js":
-/*!****************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/popover/popover-config.js ***!
-  \****************************************************************************/
-/*! exports provided: NgbPopoverConfig */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbPopoverConfig", function() { return NgbPopoverConfig; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-/**
- * Configuration service for the NgbPopover directive.
- * You can inject this service, typically in your root component, and customize the values of its properties in
- * order to provide default values for all the popovers used in the application.
- */
-var NgbPopoverConfig = /** @class */ (function () {
-    function NgbPopoverConfig() {
-        this.placement = 'top';
-        this.triggers = 'click';
-        this.disablePopover = false;
-    }
-    NgbPopoverConfig.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    return NgbPopoverConfig;
-}());
-
-//# sourceMappingURL=popover-config.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/popover/popover.js":
-/*!*********************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/popover/popover.js ***!
-  \*********************************************************************/
-/*! exports provided: NgbPopoverWindow, NgbPopover */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbPopoverWindow", function() { return NgbPopoverWindow; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbPopover", function() { return NgbPopover; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _util_triggers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/triggers */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/triggers.js");
-/* harmony import */ var _util_positioning__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util/positioning */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/positioning.js");
-/* harmony import */ var _util_popup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/popup */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/popup.js");
-/* harmony import */ var _popover_config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./popover-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/popover/popover-config.js");
-
-
-
-
-
-var nextId = 0;
-var NgbPopoverWindow = /** @class */ (function () {
-    function NgbPopoverWindow(_element, _renderer) {
-        this._element = _element;
-        this._renderer = _renderer;
-        this.placement = 'top';
-    }
-    NgbPopoverWindow.prototype.applyPlacement = function (_placement) {
-        // remove the current placement classes
-        this._renderer.removeClass(this._element.nativeElement, 'bs-popover-' + this.placement.toString().split('-')[0]);
-        this._renderer.removeClass(this._element.nativeElement, 'bs-popover-' + this.placement.toString());
-        // set the new placement classes
-        this.placement = _placement;
-        // apply the new placement
-        this._renderer.addClass(this._element.nativeElement, 'bs-popover-' + this.placement.toString().split('-')[0]);
-        this._renderer.addClass(this._element.nativeElement, 'bs-popover-' + this.placement.toString());
-    };
-    NgbPopoverWindow.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: 'ngb-popover-window',
-                    changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush,
-                    host: {
-                        '[class]': '"popover bs-popover-" + placement.split("-")[0]+" bs-popover-" + placement',
-                        'role': 'tooltip',
-                        '[id]': 'id'
-                    },
-                    template: "\n    <div class=\"arrow\"></div>\n    <h3 class=\"popover-header\">{{title}}</h3><div class=\"popover-body\"><ng-content></ng-content></div>",
-                    styles: ["\n    :host.bs-popover-top .arrow, :host.bs-popover-bottom .arrow {\n      left: 50%;\n      margin-left: -5px;\n    }\n\n    :host.bs-popover-top-left .arrow, :host.bs-popover-bottom-left .arrow {\n      left: 2em;\n    }\n\n    :host.bs-popover-top-right .arrow, :host.bs-popover-bottom-right .arrow {\n      left: auto;\n      right: 2em;\n    }\n\n    :host.bs-popover-left .arrow, :host.bs-popover-right .arrow {\n      top: 50%;\n      margin-top: -5px;\n    }\n\n    :host.bs-popover-left-top .arrow, :host.bs-popover-right-top .arrow {\n      top: 0.7em;\n    }\n\n    :host.bs-popover-left-bottom .arrow, :host.bs-popover-right-bottom .arrow {\n      top: auto;\n      bottom: 0.7em;\n    }\n  "]
-                },] },
-    ];
-    /** @nocollapse */
-    NgbPopoverWindow.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"], },
-    ]; };
-    NgbPopoverWindow.propDecorators = {
-        "placement": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "title": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "id": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-    };
-    return NgbPopoverWindow;
-}());
-
-/**
- * A lightweight, extensible directive for fancy popover creation.
- */
-var NgbPopover = /** @class */ (function () {
-    function NgbPopover(_elementRef, _renderer, injector, componentFactoryResolver, viewContainerRef, config, ngZone) {
-        var _this = this;
-        this._elementRef = _elementRef;
-        this._renderer = _renderer;
-        /**
-           * Emits an event when the popover is shown
-           */
-        this.shown = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        /**
-           * Emits an event when the popover is hidden
-           */
-        this.hidden = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this._ngbPopoverWindowId = "ngb-popover-" + nextId++;
-        this.placement = config.placement;
-        this.triggers = config.triggers;
-        this.container = config.container;
-        this.disablePopover = config.disablePopover;
-        this._popupService = new _util_popup__WEBPACK_IMPORTED_MODULE_3__["PopupService"](NgbPopoverWindow, injector, viewContainerRef, _renderer, componentFactoryResolver);
-        this._zoneSubscription = ngZone.onStable.subscribe(function () {
-            if (_this._windowRef) {
-                _this._windowRef.instance.applyPlacement(Object(_util_positioning__WEBPACK_IMPORTED_MODULE_2__["positionElements"])(_this._elementRef.nativeElement, _this._windowRef.location.nativeElement, _this.placement, _this.container === 'body'));
-            }
-        });
-    }
-    NgbPopover.prototype._isDisabled = function () {
-        if (this.disablePopover) {
-            return true;
-        }
-        if (!this.ngbPopover && !this.popoverTitle) {
-            return true;
-        }
-        return false;
-    };
-    /**
-     * Opens an element’s popover. This is considered a “manual” triggering of the popover.
-     * The context is an optional value to be injected into the popover template when it is created.
-     */
-    /**
-       * Opens an element’s popover. This is considered a “manual” triggering of the popover.
-       * The context is an optional value to be injected into the popover template when it is created.
-       */
-    NgbPopover.prototype.open = /**
-       * Opens an element’s popover. This is considered a “manual” triggering of the popover.
-       * The context is an optional value to be injected into the popover template when it is created.
-       */
-    function (context) {
-        if (!this._windowRef && !this._isDisabled()) {
-            this._windowRef = this._popupService.open(this.ngbPopover, context);
-            this._windowRef.instance.title = this.popoverTitle;
-            this._windowRef.instance.id = this._ngbPopoverWindowId;
-            this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-describedby', this._ngbPopoverWindowId);
-            if (this.container === 'body') {
-                window.document.querySelector(this.container).appendChild(this._windowRef.location.nativeElement);
-            }
-            // apply styling to set basic css-classes on target element, before going for positioning
-            this._windowRef.changeDetectorRef.detectChanges();
-            this._windowRef.changeDetectorRef.markForCheck();
-            // position popover along the element
-            this._windowRef.instance.applyPlacement(Object(_util_positioning__WEBPACK_IMPORTED_MODULE_2__["positionElements"])(this._elementRef.nativeElement, this._windowRef.location.nativeElement, this.placement, this.container === 'body'));
-            this.shown.emit();
-        }
-    };
-    /**
-     * Closes an element’s popover. This is considered a “manual” triggering of the popover.
-     */
-    /**
-       * Closes an element’s popover. This is considered a “manual” triggering of the popover.
-       */
-    NgbPopover.prototype.close = /**
-       * Closes an element’s popover. This is considered a “manual” triggering of the popover.
-       */
-    function () {
-        if (this._windowRef) {
-            this._renderer.removeAttribute(this._elementRef.nativeElement, 'aria-describedby');
-            this._popupService.close();
-            this._windowRef = null;
-            this.hidden.emit();
-        }
-    };
-    /**
-     * Toggles an element’s popover. This is considered a “manual” triggering of the popover.
-     */
-    /**
-       * Toggles an element’s popover. This is considered a “manual” triggering of the popover.
-       */
-    NgbPopover.prototype.toggle = /**
-       * Toggles an element’s popover. This is considered a “manual” triggering of the popover.
-       */
-    function () {
-        if (this._windowRef) {
-            this.close();
-        }
-        else {
-            this.open();
-        }
-    };
-    /**
-     * Returns whether or not the popover is currently being shown
-     */
-    /**
-       * Returns whether or not the popover is currently being shown
-       */
-    NgbPopover.prototype.isOpen = /**
-       * Returns whether or not the popover is currently being shown
-       */
-    function () { return this._windowRef != null; };
-    NgbPopover.prototype.ngOnInit = function () {
-        this._unregisterListenersFn = Object(_util_triggers__WEBPACK_IMPORTED_MODULE_1__["listenToTriggers"])(this._renderer, this._elementRef.nativeElement, this.triggers, this.open.bind(this), this.close.bind(this), this.toggle.bind(this));
-    };
-    NgbPopover.prototype.ngOnChanges = function (changes) {
-        // close popover if title and content become empty, or disablePopover set to true
-        if ((changes['ngbPopover'] || changes['popoverTitle'] || changes['disablePopover']) && this._isDisabled()) {
-            this.close();
-        }
-    };
-    NgbPopover.prototype.ngOnDestroy = function () {
-        this.close();
-        this._unregisterListenersFn();
-        this._zoneSubscription.unsubscribe();
-    };
-    NgbPopover.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: '[ngbPopover]', exportAs: 'ngbPopover' },] },
-    ];
-    /** @nocollapse */
-    NgbPopover.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ComponentFactoryResolver"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewContainerRef"], },
-        { type: _popover_config__WEBPACK_IMPORTED_MODULE_4__["NgbPopoverConfig"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"], },
-    ]; };
-    NgbPopover.propDecorators = {
-        "ngbPopover": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "popoverTitle": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "placement": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "triggers": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "container": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "disablePopover": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "shown": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-        "hidden": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-    };
-    return NgbPopover;
-}());
-
-//# sourceMappingURL=popover.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/popover/popover.module.js":
-/*!****************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/popover/popover.module.js ***!
-  \****************************************************************************/
-/*! exports provided: NgbPopover, NgbPopoverConfig, NgbPopoverModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbPopoverModule", function() { return NgbPopoverModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _popover__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./popover */ "../node_modules/@ng-bootstrap/ng-bootstrap/popover/popover.js");
-/* harmony import */ var _popover_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./popover-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/popover/popover-config.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbPopover", function() { return _popover__WEBPACK_IMPORTED_MODULE_1__["NgbPopover"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbPopoverConfig", function() { return _popover_config__WEBPACK_IMPORTED_MODULE_2__["NgbPopoverConfig"]; });
-
-
-
-
-
-
-var NgbPopoverModule = /** @class */ (function () {
-    function NgbPopoverModule() {
-    }
-    NgbPopoverModule.forRoot = function () { return { ngModule: NgbPopoverModule, providers: [_popover_config__WEBPACK_IMPORTED_MODULE_2__["NgbPopoverConfig"]] }; };
-    NgbPopoverModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{ declarations: [_popover__WEBPACK_IMPORTED_MODULE_1__["NgbPopover"], _popover__WEBPACK_IMPORTED_MODULE_1__["NgbPopoverWindow"]], exports: [_popover__WEBPACK_IMPORTED_MODULE_1__["NgbPopover"]], entryComponents: [_popover__WEBPACK_IMPORTED_MODULE_1__["NgbPopoverWindow"]] },] },
-    ];
-    return NgbPopoverModule;
-}());
-
-//# sourceMappingURL=popover.module.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/progressbar/progressbar-config.js":
-/*!************************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/progressbar/progressbar-config.js ***!
-  \************************************************************************************/
-/*! exports provided: NgbProgressbarConfig */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbProgressbarConfig", function() { return NgbProgressbarConfig; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-/**
- * Configuration service for the NgbProgressbar component.
- * You can inject this service, typically in your root component, and customize the values of its properties in
- * order to provide default values for all the progress bars used in the application.
- */
-var NgbProgressbarConfig = /** @class */ (function () {
-    function NgbProgressbarConfig() {
-        this.max = 100;
-        this.animated = false;
-        this.striped = false;
-        this.showValue = false;
-    }
-    NgbProgressbarConfig.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    return NgbProgressbarConfig;
-}());
-
-//# sourceMappingURL=progressbar-config.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/progressbar/progressbar.js":
-/*!*****************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/progressbar/progressbar.js ***!
-  \*****************************************************************************/
-/*! exports provided: NgbProgressbar */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbProgressbar", function() { return NgbProgressbar; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-/* harmony import */ var _progressbar_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./progressbar-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/progressbar/progressbar-config.js");
-
-
-
-/**
- * Directive that can be used to provide feedback on the progress of a workflow or an action.
- */
-var NgbProgressbar = /** @class */ (function () {
-    function NgbProgressbar(config) {
-        /**
-           * Current value to be displayed in the progressbar. Should be smaller or equal to "max" value.
-           */
-        this.value = 0;
-        this.max = config.max;
-        this.animated = config.animated;
-        this.striped = config.striped;
-        this.type = config.type;
-        this.showValue = config.showValue;
-        this.height = config.height;
-    }
-    NgbProgressbar.prototype.getValue = function () { return Object(_util_util__WEBPACK_IMPORTED_MODULE_1__["getValueInRange"])(this.value, this.max); };
-    NgbProgressbar.prototype.getPercentValue = function () { return 100 * this.getValue() / this.max; };
-    NgbProgressbar.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: 'ngb-progressbar',
-                    changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush,
-                    template: "\n    <div class=\"progress\" [style.height]=\"height\">\n      <div class=\"progress-bar{{type ? ' bg-' + type : ''}}{{animated ? ' progress-bar-animated' : ''}}{{striped ?\n    ' progress-bar-striped' : ''}}\" role=\"progressbar\" [style.width.%]=\"getPercentValue()\"\n    [attr.aria-valuenow]=\"getValue()\" aria-valuemin=\"0\" [attr.aria-valuemax]=\"max\">\n        <span *ngIf=\"showValue\">{{getPercentValue()}}%</span><ng-content></ng-content>\n      </div>\n    </div>\n  "
-                },] },
-    ];
-    /** @nocollapse */
-    NgbProgressbar.ctorParameters = function () { return [
-        { type: _progressbar_config__WEBPACK_IMPORTED_MODULE_2__["NgbProgressbarConfig"], },
-    ]; };
-    NgbProgressbar.propDecorators = {
-        "max": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "animated": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "striped": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "showValue": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "type": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "value": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "height": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-    };
-    return NgbProgressbar;
-}());
-
-//# sourceMappingURL=progressbar.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/progressbar/progressbar.module.js":
-/*!************************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/progressbar/progressbar.module.js ***!
-  \************************************************************************************/
-/*! exports provided: NgbProgressbar, NgbProgressbarConfig, NgbProgressbarModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbProgressbarModule", function() { return NgbProgressbarModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _progressbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./progressbar */ "../node_modules/@ng-bootstrap/ng-bootstrap/progressbar/progressbar.js");
-/* harmony import */ var _progressbar_config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./progressbar-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/progressbar/progressbar-config.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbProgressbar", function() { return _progressbar__WEBPACK_IMPORTED_MODULE_2__["NgbProgressbar"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbProgressbarConfig", function() { return _progressbar_config__WEBPACK_IMPORTED_MODULE_3__["NgbProgressbarConfig"]; });
-
-
-
-
-
-
-
-var NgbProgressbarModule = /** @class */ (function () {
-    function NgbProgressbarModule() {
-    }
-    NgbProgressbarModule.forRoot = function () { return { ngModule: NgbProgressbarModule, providers: [_progressbar_config__WEBPACK_IMPORTED_MODULE_3__["NgbProgressbarConfig"]] }; };
-    NgbProgressbarModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{ declarations: [_progressbar__WEBPACK_IMPORTED_MODULE_2__["NgbProgressbar"]], exports: [_progressbar__WEBPACK_IMPORTED_MODULE_2__["NgbProgressbar"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]] },] },
-    ];
-    return NgbProgressbarModule;
-}());
-
-//# sourceMappingURL=progressbar.module.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/rating/rating-config.js":
-/*!**************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/rating/rating-config.js ***!
-  \**************************************************************************/
-/*! exports provided: NgbRatingConfig */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbRatingConfig", function() { return NgbRatingConfig; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-/**
- * Configuration service for the NgbRating component.
- * You can inject this service, typically in your root component, and customize the values of its properties in
- * order to provide default values for all the ratings used in the application.
- */
-var NgbRatingConfig = /** @class */ (function () {
-    function NgbRatingConfig() {
-        this.max = 10;
-        this.readonly = false;
-        this.resettable = false;
-    }
-    NgbRatingConfig.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    return NgbRatingConfig;
-}());
-
-//# sourceMappingURL=rating-config.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/rating/rating.js":
-/*!*******************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/rating/rating.js ***!
-  \*******************************************************************/
-/*! exports provided: NgbRating */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbRating", function() { return NgbRating; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _rating_config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rating-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/rating/rating-config.js");
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "../node_modules/@angular/forms/fesm5/forms.js");
-
-
-
-
-var Key;
-(function (Key) {
-    Key[Key["End"] = 35] = "End";
-    Key[Key["Home"] = 36] = "Home";
-    Key[Key["ArrowLeft"] = 37] = "ArrowLeft";
-    Key[Key["ArrowUp"] = 38] = "ArrowUp";
-    Key[Key["ArrowRight"] = 39] = "ArrowRight";
-    Key[Key["ArrowDown"] = 40] = "ArrowDown";
-})(Key || (Key = {}));
-var NGB_RATING_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(function () { return NgbRating; }),
-    multi: true
-};
-/**
- * Rating directive that will take care of visualising a star rating bar.
- */
-var NgbRating = /** @class */ (function () {
-    function NgbRating(config, _changeDetectorRef) {
-        this._changeDetectorRef = _changeDetectorRef;
-        this.contexts = [];
-        this.disabled = false;
-        /**
-           * An event fired when a user is hovering over a given rating.
-           * Event's payload equals to the rating being hovered over.
-           */
-        this.hover = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        /**
-           * An event fired when a user stops hovering over a given rating.
-           * Event's payload equals to the rating of the last item being hovered over.
-           */
-        this.leave = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        /**
-           * An event fired when a user selects a new rating.
-           * Event's payload equals to the newly selected rating.
-           */
-        this.rateChange = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"](true);
-        this.onChange = function (_) { };
-        this.onTouched = function () { };
-        this.max = config.max;
-        this.readonly = config.readonly;
-    }
-    NgbRating.prototype.ariaValueText = function () { return this.nextRate + " out of " + this.max; };
-    NgbRating.prototype.enter = function (value) {
-        if (!this.readonly && !this.disabled) {
-            this._updateState(value);
-        }
-        this.hover.emit(value);
-    };
-    NgbRating.prototype.handleBlur = function () { this.onTouched(); };
-    NgbRating.prototype.handleClick = function (value) { this.update(this.resettable && this.rate === value ? 0 : value); };
-    NgbRating.prototype.handleKeyDown = function (event) {
-        if (Key[Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["toString"])(event.which)]) {
-            event.preventDefault();
-            switch (event.which) {
-                case Key.ArrowDown:
-                case Key.ArrowLeft:
-                    this.update(this.rate - 1);
-                    break;
-                case Key.ArrowUp:
-                case Key.ArrowRight:
-                    this.update(this.rate + 1);
-                    break;
-                case Key.Home:
-                    this.update(0);
-                    break;
-                case Key.End:
-                    this.update(this.max);
-                    break;
-            }
-        }
-    };
-    NgbRating.prototype.ngOnChanges = function (changes) {
-        if (changes['rate']) {
-            this.update(this.rate);
-        }
-    };
-    NgbRating.prototype.ngOnInit = function () {
-        this.contexts = Array.from({ length: this.max }, function (v, k) { return ({ fill: 0, index: k }); });
-        this._updateState(this.rate);
-    };
-    NgbRating.prototype.registerOnChange = function (fn) { this.onChange = fn; };
-    NgbRating.prototype.registerOnTouched = function (fn) { this.onTouched = fn; };
-    NgbRating.prototype.reset = function () {
-        this.leave.emit(this.nextRate);
-        this._updateState(this.rate);
-    };
-    NgbRating.prototype.setDisabledState = function (isDisabled) { this.disabled = isDisabled; };
-    NgbRating.prototype.update = function (value, internalChange) {
-        if (internalChange === void 0) { internalChange = true; }
-        var newRate = Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["getValueInRange"])(value, this.max, 0);
-        if (!this.readonly && !this.disabled && this.rate !== newRate) {
-            this.rate = newRate;
-            this.rateChange.emit(this.rate);
-        }
-        if (internalChange) {
-            this.onChange(this.rate);
-            this.onTouched();
-        }
-        this._updateState(this.rate);
-    };
-    NgbRating.prototype.writeValue = function (value) {
-        this.update(value, false);
-        this._changeDetectorRef.markForCheck();
-    };
-    NgbRating.prototype._getFillValue = function (index) {
-        var diff = this.nextRate - index;
-        if (diff >= 1) {
-            return 100;
-        }
-        if (diff < 1 && diff > 0) {
-            return Number.parseInt((diff * 100).toFixed(2));
-        }
-        return 0;
-    };
-    NgbRating.prototype._updateState = function (nextValue) {
-        var _this = this;
-        this.nextRate = nextValue;
-        this.contexts.forEach(function (context, index) { return context.fill = _this._getFillValue(index); });
-    };
-    NgbRating.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: 'ngb-rating',
-                    changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush,
-                    host: {
-                        'class': 'd-inline-flex',
-                        'tabindex': '0',
-                        'role': 'slider',
-                        'aria-valuemin': '0',
-                        '[attr.aria-valuemax]': 'max',
-                        '[attr.aria-valuenow]': 'nextRate',
-                        '[attr.aria-valuetext]': 'ariaValueText()',
-                        '[attr.aria-disabled]': 'readonly ? true : null',
-                        '(blur)': 'handleBlur()',
-                        '(keydown)': 'handleKeyDown($event)',
-                        '(mouseleave)': 'reset()'
-                    },
-                    template: "\n    <ng-template #t let-fill=\"fill\">{{ fill === 100 ? '&#9733;' : '&#9734;' }}</ng-template>\n    <ng-template ngFor [ngForOf]=\"contexts\" let-index=\"index\">\n      <span class=\"sr-only\">({{ index < nextRate ? '*' : ' ' }})</span>\n      <span (mouseenter)=\"enter(index + 1)\" (click)=\"handleClick(index + 1)\" [style.cursor]=\"readonly || disabled ? 'default' : 'pointer'\">\n        <ng-template [ngTemplateOutlet]=\"starTemplate || t\" [ngTemplateOutletContext]=\"contexts[index]\"></ng-template>\n      </span>\n    </ng-template>\n  ",
-                    providers: [NGB_RATING_VALUE_ACCESSOR]
-                },] },
-    ];
-    /** @nocollapse */
-    NgbRating.ctorParameters = function () { return [
-        { type: _rating_config__WEBPACK_IMPORTED_MODULE_1__["NgbRatingConfig"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"], },
-    ]; };
-    NgbRating.propDecorators = {
-        "max": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "rate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "readonly": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "resettable": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "starTemplate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChild"], args: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["TemplateRef"],] },],
-        "hover": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-        "leave": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-        "rateChange": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-    };
-    return NgbRating;
-}());
-
-//# sourceMappingURL=rating.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/rating/rating.module.js":
-/*!**************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/rating/rating.module.js ***!
-  \**************************************************************************/
-/*! exports provided: NgbRating, NgbRatingConfig, NgbRatingModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbRatingModule", function() { return NgbRatingModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _rating_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./rating-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/rating/rating-config.js");
-/* harmony import */ var _rating__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./rating */ "../node_modules/@ng-bootstrap/ng-bootstrap/rating/rating.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbRating", function() { return _rating__WEBPACK_IMPORTED_MODULE_3__["NgbRating"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbRatingConfig", function() { return _rating_config__WEBPACK_IMPORTED_MODULE_2__["NgbRatingConfig"]; });
-
-
-
-
-
-
-
-var NgbRatingModule = /** @class */ (function () {
-    function NgbRatingModule() {
-    }
-    NgbRatingModule.forRoot = function () { return { ngModule: NgbRatingModule, providers: [_rating_config__WEBPACK_IMPORTED_MODULE_2__["NgbRatingConfig"]] }; };
-    NgbRatingModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{ declarations: [_rating__WEBPACK_IMPORTED_MODULE_3__["NgbRating"]], exports: [_rating__WEBPACK_IMPORTED_MODULE_3__["NgbRating"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]] },] },
-    ];
-    return NgbRatingModule;
-}());
-
-//# sourceMappingURL=rating.module.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/tabset/tabset-config.js":
-/*!**************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/tabset/tabset-config.js ***!
-  \**************************************************************************/
-/*! exports provided: NgbTabsetConfig */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTabsetConfig", function() { return NgbTabsetConfig; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-/**
- * Configuration service for the NgbTabset component.
- * You can inject this service, typically in your root component, and customize the values of its properties in
- * order to provide default values for all the tabsets used in the application.
- */
-var NgbTabsetConfig = /** @class */ (function () {
-    function NgbTabsetConfig() {
-        this.justify = 'start';
-        this.orientation = 'horizontal';
-        this.type = 'tabs';
-    }
-    NgbTabsetConfig.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    return NgbTabsetConfig;
-}());
-
-//# sourceMappingURL=tabset-config.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/tabset/tabset.js":
-/*!*******************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/tabset/tabset.js ***!
-  \*******************************************************************/
-/*! exports provided: NgbTabTitle, NgbTabContent, NgbTab, NgbTabset */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTabTitle", function() { return NgbTabTitle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTabContent", function() { return NgbTabContent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTab", function() { return NgbTab; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTabset", function() { return NgbTabset; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _tabset_config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tabset-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/tabset/tabset-config.js");
-
-
-var nextId = 0;
-/**
- * This directive should be used to wrap tab titles that need to contain HTML markup or other directives.
- */
-var NgbTabTitle = /** @class */ (function () {
-    function NgbTabTitle(templateRef) {
-        this.templateRef = templateRef;
-    }
-    NgbTabTitle.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ng-template[ngbTabTitle]' },] },
-    ];
-    /** @nocollapse */
-    NgbTabTitle.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["TemplateRef"], },
-    ]; };
-    return NgbTabTitle;
-}());
-
-/**
- * This directive must be used to wrap content to be displayed in a tab.
- */
-var NgbTabContent = /** @class */ (function () {
-    function NgbTabContent(templateRef) {
-        this.templateRef = templateRef;
-    }
-    NgbTabContent.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ng-template[ngbTabContent]' },] },
-    ];
-    /** @nocollapse */
-    NgbTabContent.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["TemplateRef"], },
-    ]; };
-    return NgbTabContent;
-}());
-
-/**
- * A directive representing an individual tab.
- */
-var NgbTab = /** @class */ (function () {
-    function NgbTab() {
-        /**
-           * Unique tab identifier. Must be unique for the entire document for proper accessibility support.
-           */
-        this.id = "ngb-tab-" + nextId++;
-        /**
-           * Allows toggling disabled state of a given state. Disabled tabs can't be selected.
-           */
-        this.disabled = false;
-    }
-    NgbTab.prototype.ngAfterContentChecked = function () {
-        // We are using @ContentChildren instead of @ContantChild as in the Angular version being used
-        // only @ContentChildren allows us to specify the {descendants: false} option.
-        // Without {descendants: false} we are hitting bugs described in:
-        // https://github.com/ng-bootstrap/ng-bootstrap/issues/2240
-        this.titleTpl = this.titleTpls.first;
-        this.contentTpl = this.contentTpls.first;
-    };
-    NgbTab.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ngb-tab' },] },
-    ];
-    /** @nocollapse */
-    NgbTab.propDecorators = {
-        "id": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "title": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "disabled": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "titleTpls": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChildren"], args: [NgbTabTitle, { descendants: false },] },],
-        "contentTpls": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChildren"], args: [NgbTabContent, { descendants: false },] },],
-    };
-    return NgbTab;
-}());
-
-/**
- * A component that makes it easy to create tabbed interface.
- */
-var NgbTabset = /** @class */ (function () {
-    function NgbTabset(config) {
-        /**
-           * Whether the closed tabs should be hidden without destroying them
-           */
-        this.destroyOnHide = true;
-        /**
-           * A tab change event fired right before the tab selection happens. See NgbTabChangeEvent for payload details
-           */
-        this.tabChange = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this.type = config.type;
-        this.justify = config.justify;
-        this.orientation = config.orientation;
-    }
-    Object.defineProperty(NgbTabset.prototype, "justify", {
-        set: /**
-           * The horizontal alignment of the nav with flexbox utilities. Can be one of 'start', 'center', 'end', 'fill' or
-           * 'justified'
-           * The default value is 'start'.
-           */
-        function (className) {
-            if (className === 'fill' || className === 'justified') {
-                this.justifyClass = "nav-" + className;
-            }
-            else {
-                this.justifyClass = "justify-content-" + className;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Selects the tab with the given id and shows its associated pane.
-     * Any other tab that was previously selected becomes unselected and its associated pane is hidden.
-     */
-    /**
-       * Selects the tab with the given id and shows its associated pane.
-       * Any other tab that was previously selected becomes unselected and its associated pane is hidden.
-       */
-    NgbTabset.prototype.select = /**
-       * Selects the tab with the given id and shows its associated pane.
-       * Any other tab that was previously selected becomes unselected and its associated pane is hidden.
-       */
-    function (tabId) {
-        var selectedTab = this._getTabById(tabId);
-        if (selectedTab && !selectedTab.disabled && this.activeId !== selectedTab.id) {
-            var defaultPrevented_1 = false;
-            this.tabChange.emit({ activeId: this.activeId, nextId: selectedTab.id, preventDefault: function () { defaultPrevented_1 = true; } });
-            if (!defaultPrevented_1) {
-                this.activeId = selectedTab.id;
-            }
-        }
-    };
-    NgbTabset.prototype.ngAfterContentChecked = function () {
-        // auto-correct activeId that might have been set incorrectly as input
-        var activeTab = this._getTabById(this.activeId);
-        this.activeId = activeTab ? activeTab.id : (this.tabs.length ? this.tabs.first.id : null);
-    };
-    NgbTabset.prototype._getTabById = function (id) {
-        var tabsWithId = this.tabs.filter(function (tab) { return tab.id === id; });
-        return tabsWithId.length ? tabsWithId[0] : null;
-    };
-    NgbTabset.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: 'ngb-tabset',
-                    exportAs: 'ngbTabset',
-                    template: "\n    <ul [class]=\"'nav nav-' + type + (orientation == 'horizontal'?  ' ' + justifyClass : ' flex-column')\" role=\"tablist\">\n      <li class=\"nav-item\" *ngFor=\"let tab of tabs\">\n        <a [id]=\"tab.id\" class=\"nav-link\" [class.active]=\"tab.id === activeId\" [class.disabled]=\"tab.disabled\"\n          href (click)=\"!!select(tab.id)\" role=\"tab\" [attr.tabindex]=\"(tab.disabled ? '-1': undefined)\"\n          [attr.aria-controls]=\"(!destroyOnHide || tab.id === activeId ? tab.id + '-panel' : null)\"\n          [attr.aria-expanded]=\"tab.id === activeId\" [attr.aria-disabled]=\"tab.disabled\">\n          {{tab.title}}<ng-template [ngTemplateOutlet]=\"tab.titleTpl?.templateRef\"></ng-template>\n        </a>\n      </li>\n    </ul>\n    <div class=\"tab-content\">\n      <ng-template ngFor let-tab [ngForOf]=\"tabs\">\n        <div\n          class=\"tab-pane {{tab.id === activeId ? 'active' : null}}\"\n          *ngIf=\"!destroyOnHide || tab.id === activeId\"\n          role=\"tabpanel\"\n          [attr.aria-labelledby]=\"tab.id\" id=\"{{tab.id}}-panel\"\n          [attr.aria-expanded]=\"tab.id === activeId\">\n          <ng-template [ngTemplateOutlet]=\"tab.contentTpl?.templateRef\"></ng-template>\n        </div>\n      </ng-template>\n    </div>\n  "
-                },] },
-    ];
-    /** @nocollapse */
-    NgbTabset.ctorParameters = function () { return [
-        { type: _tabset_config__WEBPACK_IMPORTED_MODULE_1__["NgbTabsetConfig"], },
-    ]; };
-    NgbTabset.propDecorators = {
-        "tabs": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChildren"], args: [NgbTab,] },],
-        "activeId": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "destroyOnHide": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "justify": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "orientation": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "type": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "tabChange": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-    };
-    return NgbTabset;
-}());
-
-//# sourceMappingURL=tabset.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/tabset/tabset.module.js":
-/*!**************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/tabset/tabset.module.js ***!
-  \**************************************************************************/
-/*! exports provided: NgbTabset, NgbTab, NgbTabContent, NgbTabTitle, NgbTabsetConfig, NgbTabsetModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTabsetModule", function() { return NgbTabsetModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _tabset__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tabset */ "../node_modules/@ng-bootstrap/ng-bootstrap/tabset/tabset.js");
-/* harmony import */ var _tabset_config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tabset-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/tabset/tabset-config.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTabset", function() { return _tabset__WEBPACK_IMPORTED_MODULE_2__["NgbTabset"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTab", function() { return _tabset__WEBPACK_IMPORTED_MODULE_2__["NgbTab"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTabContent", function() { return _tabset__WEBPACK_IMPORTED_MODULE_2__["NgbTabContent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTabTitle", function() { return _tabset__WEBPACK_IMPORTED_MODULE_2__["NgbTabTitle"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTabsetConfig", function() { return _tabset_config__WEBPACK_IMPORTED_MODULE_3__["NgbTabsetConfig"]; });
-
-
-
-
-
-
-
-var NGB_TABSET_DIRECTIVES = [_tabset__WEBPACK_IMPORTED_MODULE_2__["NgbTabset"], _tabset__WEBPACK_IMPORTED_MODULE_2__["NgbTab"], _tabset__WEBPACK_IMPORTED_MODULE_2__["NgbTabContent"], _tabset__WEBPACK_IMPORTED_MODULE_2__["NgbTabTitle"]];
-var NgbTabsetModule = /** @class */ (function () {
-    function NgbTabsetModule() {
-    }
-    NgbTabsetModule.forRoot = function () { return { ngModule: NgbTabsetModule, providers: [_tabset_config__WEBPACK_IMPORTED_MODULE_3__["NgbTabsetConfig"]] }; };
-    NgbTabsetModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{ declarations: NGB_TABSET_DIRECTIVES, exports: NGB_TABSET_DIRECTIVES, imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]] },] },
-    ];
-    return NgbTabsetModule;
-}());
-
-//# sourceMappingURL=tabset.module.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/ngb-time.js":
-/*!*************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/ngb-time.js ***!
-  \*************************************************************************/
-/*! exports provided: NgbTime */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTime", function() { return NgbTime; });
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-
-var NgbTime = /** @class */ (function () {
-    function NgbTime(hour, minute, second) {
-        this.hour = Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["toInteger"])(hour);
-        this.minute = Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["toInteger"])(minute);
-        this.second = Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["toInteger"])(second);
-    }
-    NgbTime.prototype.changeHour = function (step) {
-        if (step === void 0) { step = 1; }
-        this.updateHour((isNaN(this.hour) ? 0 : this.hour) + step);
-    };
-    NgbTime.prototype.updateHour = function (hour) {
-        if (Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["isNumber"])(hour)) {
-            this.hour = (hour < 0 ? 24 + hour : hour) % 24;
-        }
-        else {
-            this.hour = NaN;
-        }
-    };
-    NgbTime.prototype.changeMinute = function (step) {
-        if (step === void 0) { step = 1; }
-        this.updateMinute((isNaN(this.minute) ? 0 : this.minute) + step);
-    };
-    NgbTime.prototype.updateMinute = function (minute) {
-        if (Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["isNumber"])(minute)) {
-            this.minute = minute % 60 < 0 ? 60 + minute % 60 : minute % 60;
-            this.changeHour(Math.floor(minute / 60));
-        }
-        else {
-            this.minute = NaN;
-        }
-    };
-    NgbTime.prototype.changeSecond = function (step) {
-        if (step === void 0) { step = 1; }
-        this.updateSecond((isNaN(this.second) ? 0 : this.second) + step);
-    };
-    NgbTime.prototype.updateSecond = function (second) {
-        if (Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["isNumber"])(second)) {
-            this.second = second < 0 ? 60 + second % 60 : second % 60;
-            this.changeMinute(Math.floor(second / 60));
-        }
-        else {
-            this.second = NaN;
-        }
-    };
-    NgbTime.prototype.isValid = function (checkSecs) {
-        if (checkSecs === void 0) { checkSecs = true; }
-        return Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["isNumber"])(this.hour) && Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["isNumber"])(this.minute) && (checkSecs ? Object(_util_util__WEBPACK_IMPORTED_MODULE_0__["isNumber"])(this.second) : true);
-    };
-    NgbTime.prototype.toString = function () { return (this.hour || 0) + ":" + (this.minute || 0) + ":" + (this.second || 0); };
-    return NgbTime;
-}());
-
-//# sourceMappingURL=ngb-time.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker-config.js":
-/*!**********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker-config.js ***!
-  \**********************************************************************************/
-/*! exports provided: NgbTimepickerConfig */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTimepickerConfig", function() { return NgbTimepickerConfig; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-/**
- * Configuration service for the NgbTimepicker component.
- * You can inject this service, typically in your root component, and customize the values of its properties in
- * order to provide default values for all the timepickers used in the application.
- */
-var NgbTimepickerConfig = /** @class */ (function () {
-    function NgbTimepickerConfig() {
-        this.meridian = false;
-        this.spinners = true;
-        this.seconds = false;
-        this.hourStep = 1;
-        this.minuteStep = 1;
-        this.secondStep = 1;
-        this.disabled = false;
-        this.readonlyInputs = false;
-        this.size = 'medium';
-    }
-    NgbTimepickerConfig.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    return NgbTimepickerConfig;
-}());
-
-//# sourceMappingURL=timepicker-config.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.js":
-/*!***************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.js ***!
-  \***************************************************************************/
-/*! exports provided: NgbTimepicker */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTimepicker", function() { return NgbTimepicker; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-/* harmony import */ var _ngb_time__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ngb-time */ "../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/ngb-time.js");
-/* harmony import */ var _timepicker_config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./timepicker-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker-config.js");
-
-
-
-
-
-var NGB_TIMEPICKER_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(function () { return NgbTimepicker; }),
-    multi: true
-};
-/**
- * A lightweight & configurable timepicker directive.
- */
-var NgbTimepicker = /** @class */ (function () {
-    function NgbTimepicker(config) {
-        this.onChange = function (_) { };
-        this.onTouched = function () { };
-        this.meridian = config.meridian;
-        this.spinners = config.spinners;
-        this.seconds = config.seconds;
-        this.hourStep = config.hourStep;
-        this.minuteStep = config.minuteStep;
-        this.secondStep = config.secondStep;
-        this.disabled = config.disabled;
-        this.readonlyInputs = config.readonlyInputs;
-        this.size = config.size;
-    }
-    NgbTimepicker.prototype.writeValue = function (value) {
-        this.model = value ? new _ngb_time__WEBPACK_IMPORTED_MODULE_3__["NgbTime"](value.hour, value.minute, value.second) : new _ngb_time__WEBPACK_IMPORTED_MODULE_3__["NgbTime"]();
-        if (!this.seconds && (!value || !Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["isNumber"])(value.second))) {
-            this.model.second = 0;
-        }
-    };
-    NgbTimepicker.prototype.registerOnChange = function (fn) { this.onChange = fn; };
-    NgbTimepicker.prototype.registerOnTouched = function (fn) { this.onTouched = fn; };
-    NgbTimepicker.prototype.setDisabledState = function (isDisabled) { this.disabled = isDisabled; };
-    NgbTimepicker.prototype.changeHour = function (step) {
-        this.model.changeHour(step);
-        this.propagateModelChange();
-    };
-    NgbTimepicker.prototype.changeMinute = function (step) {
-        this.model.changeMinute(step);
-        this.propagateModelChange();
-    };
-    NgbTimepicker.prototype.changeSecond = function (step) {
-        this.model.changeSecond(step);
-        this.propagateModelChange();
-    };
-    NgbTimepicker.prototype.updateHour = function (newVal) {
-        var isPM = this.model.hour >= 12;
-        var enteredHour = Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["toInteger"])(newVal);
-        if (this.meridian && (isPM && enteredHour < 12 || !isPM && enteredHour === 12)) {
-            this.model.updateHour(enteredHour + 12);
-        }
-        else {
-            this.model.updateHour(enteredHour);
-        }
-        this.propagateModelChange();
-    };
-    NgbTimepicker.prototype.updateMinute = function (newVal) {
-        this.model.updateMinute(Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["toInteger"])(newVal));
-        this.propagateModelChange();
-    };
-    NgbTimepicker.prototype.updateSecond = function (newVal) {
-        this.model.updateSecond(Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["toInteger"])(newVal));
-        this.propagateModelChange();
-    };
-    NgbTimepicker.prototype.toggleMeridian = function () {
-        if (this.meridian) {
-            this.changeHour(12);
-        }
-    };
-    NgbTimepicker.prototype.formatHour = function (value) {
-        if (Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["isNumber"])(value)) {
-            if (this.meridian) {
-                return Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["padNumber"])(value % 12 === 0 ? 12 : value % 12);
-            }
-            else {
-                return Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["padNumber"])(value % 24);
-            }
-        }
-        else {
-            return Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["padNumber"])(NaN);
-        }
-    };
-    NgbTimepicker.prototype.formatMinSec = function (value) { return Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["padNumber"])(value); };
-    NgbTimepicker.prototype.setFormControlSize = function () { return { 'form-control-sm': this.size === 'small', 'form-control-lg': this.size === 'large' }; };
-    NgbTimepicker.prototype.setButtonSize = function () { return { 'btn-sm': this.size === 'small', 'btn-lg': this.size === 'large' }; };
-    NgbTimepicker.prototype.ngOnChanges = function (changes) {
-        if (changes['seconds'] && !this.seconds && this.model && !Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["isNumber"])(this.model.second)) {
-            this.model.second = 0;
-            this.propagateModelChange(false);
-        }
-    };
-    NgbTimepicker.prototype.propagateModelChange = function (touched) {
-        if (touched === void 0) { touched = true; }
-        if (touched) {
-            this.onTouched();
-        }
-        if (this.model.isValid(this.seconds)) {
-            this.onChange({ hour: this.model.hour, minute: this.model.minute, second: this.model.second });
-        }
-        else {
-            this.onChange(null);
-        }
-    };
-    NgbTimepicker.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: 'ngb-timepicker',
-                    styles: ["\n    .ngb-tp {\n      display: -ms-flexbox;\n      display: flex;\n      -ms-flex-align: center;\n      align-items: center;\n    }\n\n    .ngb-tp-hour, .ngb-tp-minute, .ngb-tp-second, .ngb-tp-meridian {\n      display: -ms-flexbox;\n      display: flex;\n      -ms-flex-direction: column;\n      flex-direction: column;\n      -ms-flex-align: center;\n      align-items: center;\n      -ms-flex-pack: distribute;\n      justify-content: space-around;\n    }\n\n    .ngb-tp-spacer {\n      width: 1em;\n      text-align: center;\n    }\n\n    .chevron::before {\n      border-style: solid;\n      border-width: 0.29em 0.29em 0 0;\n      content: '';\n      display: inline-block;\n      height: 0.69em;\n      left: 0.05em;\n      position: relative;\n      top: 0.15em;\n      transform: rotate(-45deg);\n      -webkit-transform: rotate(-45deg);\n      -ms-transform: rotate(-45deg);\n      vertical-align: middle;\n      width: 0.71em;\n    }\n\n    .chevron.bottom:before {\n      top: -.3em;\n      -webkit-transform: rotate(135deg);\n      -ms-transform: rotate(135deg);\n      transform: rotate(135deg);\n    }\n\n    input {\n      text-align: center;\n      display: inline-block;\n      width: auto;\n    }\n  "],
-                    template: "\n    <fieldset [disabled]=\"disabled\" [class.disabled]=\"disabled\">\n      <div class=\"ngb-tp\">\n        <div class=\"ngb-tp-hour\">\n          <button *ngIf=\"spinners\" type=\"button\" class=\"btn btn-link\" [ngClass]=\"setButtonSize()\" (click)=\"changeHour(hourStep)\"\n            [disabled]=\"disabled\" [class.disabled]=\"disabled\">\n            <span class=\"chevron\"></span>\n            <span class=\"sr-only\">Increment hours</span>\n          </button>\n          <input type=\"text\" class=\"form-control\" [ngClass]=\"setFormControlSize()\" maxlength=\"2\" size=\"2\" placeholder=\"HH\"\n            [value]=\"formatHour(model?.hour)\" (change)=\"updateHour($event.target.value)\"\n            [readonly]=\"readonlyInputs\" [disabled]=\"disabled\" aria-label=\"Hours\">\n          <button *ngIf=\"spinners\" type=\"button\" class=\"btn btn-link\" [ngClass]=\"setButtonSize()\" (click)=\"changeHour(-hourStep)\"\n            [disabled]=\"disabled\" [class.disabled]=\"disabled\">\n            <span class=\"chevron bottom\"></span>\n            <span class=\"sr-only\">Decrement hours</span>\n          </button>\n        </div>\n        <div class=\"ngb-tp-spacer\">:</div>\n        <div class=\"ngb-tp-minute\">\n          <button *ngIf=\"spinners\" type=\"button\" class=\"btn btn-link\" [ngClass]=\"setButtonSize()\" (click)=\"changeMinute(minuteStep)\"\n            [disabled]=\"disabled\" [class.disabled]=\"disabled\">\n            <span class=\"chevron\"></span>\n            <span class=\"sr-only\">Increment minutes</span>\n          </button>\n          <input type=\"text\" class=\"form-control\" [ngClass]=\"setFormControlSize()\" maxlength=\"2\" size=\"2\" placeholder=\"MM\"\n            [value]=\"formatMinSec(model?.minute)\" (change)=\"updateMinute($event.target.value)\"\n            [readonly]=\"readonlyInputs\" [disabled]=\"disabled\" aria-label=\"Minutes\">\n          <button *ngIf=\"spinners\" type=\"button\" class=\"btn btn-link\" [ngClass]=\"setButtonSize()\" (click)=\"changeMinute(-minuteStep)\"\n            [disabled]=\"disabled\" [class.disabled]=\"disabled\">\n            <span class=\"chevron bottom\"></span>\n            <span class=\"sr-only\">Decrement minutes</span>\n          </button>\n        </div>\n        <div *ngIf=\"seconds\" class=\"ngb-tp-spacer\">:</div>\n        <div *ngIf=\"seconds\" class=\"ngb-tp-second\">\n          <button *ngIf=\"spinners\" type=\"button\" class=\"btn btn-link\" [ngClass]=\"setButtonSize()\" (click)=\"changeSecond(secondStep)\"\n            [disabled]=\"disabled\" [class.disabled]=\"disabled\">\n            <span class=\"chevron\"></span>\n            <span class=\"sr-only\">Increment seconds</span>\n          </button>\n          <input type=\"text\" class=\"form-control\" [ngClass]=\"setFormControlSize()\" maxlength=\"2\" size=\"2\" placeholder=\"SS\"\n            [value]=\"formatMinSec(model?.second)\" (change)=\"updateSecond($event.target.value)\"\n            [readonly]=\"readonlyInputs\" [disabled]=\"disabled\" aria-label=\"Seconds\">\n          <button *ngIf=\"spinners\" type=\"button\" class=\"btn btn-link\" [ngClass]=\"setButtonSize()\" (click)=\"changeSecond(-secondStep)\"\n            [disabled]=\"disabled\" [class.disabled]=\"disabled\">\n            <span class=\"chevron bottom\"></span>\n            <span class=\"sr-only\">Decrement seconds</span>\n          </button>\n        </div>\n        <div *ngIf=\"meridian\" class=\"ngb-tp-spacer\"></div>\n        <div *ngIf=\"meridian\" class=\"ngb-tp-meridian\">\n          <button type=\"button\" class=\"btn btn-outline-primary\" [ngClass]=\"setButtonSize()\"\n            [disabled]=\"disabled\" [class.disabled]=\"disabled\"\n            (click)=\"toggleMeridian()\">{{model?.hour >= 12 ? 'PM' : 'AM'}}</button>\n        </div>\n      </div>\n    </fieldset>\n  ",
-                    providers: [NGB_TIMEPICKER_VALUE_ACCESSOR]
-                },] },
-    ];
-    /** @nocollapse */
-    NgbTimepicker.ctorParameters = function () { return [
-        { type: _timepicker_config__WEBPACK_IMPORTED_MODULE_4__["NgbTimepickerConfig"], },
-    ]; };
-    NgbTimepicker.propDecorators = {
-        "meridian": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "spinners": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "seconds": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "hourStep": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "minuteStep": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "secondStep": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "readonlyInputs": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "size": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-    };
-    return NgbTimepicker;
-}());
-
-//# sourceMappingURL=timepicker.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.module.js":
-/*!**********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.module.js ***!
-  \**********************************************************************************/
-/*! exports provided: NgbTimepicker, NgbTimepickerConfig, NgbTimepickerModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTimepickerModule", function() { return NgbTimepickerModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _timepicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./timepicker */ "../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.js");
-/* harmony import */ var _timepicker_config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./timepicker-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker-config.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTimepicker", function() { return _timepicker__WEBPACK_IMPORTED_MODULE_2__["NgbTimepicker"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTimepickerConfig", function() { return _timepicker_config__WEBPACK_IMPORTED_MODULE_3__["NgbTimepickerConfig"]; });
-
-
-
-
-
-
-
-var NgbTimepickerModule = /** @class */ (function () {
-    function NgbTimepickerModule() {
-    }
-    NgbTimepickerModule.forRoot = function () { return { ngModule: NgbTimepickerModule, providers: [_timepicker_config__WEBPACK_IMPORTED_MODULE_3__["NgbTimepickerConfig"]] }; };
-    NgbTimepickerModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{ declarations: [_timepicker__WEBPACK_IMPORTED_MODULE_2__["NgbTimepicker"]], exports: [_timepicker__WEBPACK_IMPORTED_MODULE_2__["NgbTimepicker"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]] },] },
-    ];
-    return NgbTimepickerModule;
-}());
-
-//# sourceMappingURL=timepicker.module.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/tooltip/tooltip-config.js":
-/*!****************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/tooltip/tooltip-config.js ***!
-  \****************************************************************************/
-/*! exports provided: NgbTooltipConfig */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTooltipConfig", function() { return NgbTooltipConfig; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-/**
- * Configuration service for the NgbTooltip directive.
- * You can inject this service, typically in your root component, and customize the values of its properties in
- * order to provide default values for all the tooltips used in the application.
- */
-var NgbTooltipConfig = /** @class */ (function () {
-    function NgbTooltipConfig() {
-        this.placement = 'top';
-        this.triggers = 'hover';
-        this.disableTooltip = false;
-    }
-    NgbTooltipConfig.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    return NgbTooltipConfig;
-}());
-
-//# sourceMappingURL=tooltip-config.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/tooltip/tooltip.js":
-/*!*********************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/tooltip/tooltip.js ***!
-  \*********************************************************************/
-/*! exports provided: NgbTooltipWindow, NgbTooltip */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTooltipWindow", function() { return NgbTooltipWindow; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTooltip", function() { return NgbTooltip; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _util_triggers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/triggers */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/triggers.js");
-/* harmony import */ var _util_positioning__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util/positioning */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/positioning.js");
-/* harmony import */ var _util_popup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/popup */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/popup.js");
-/* harmony import */ var _tooltip_config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tooltip-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/tooltip/tooltip-config.js");
-
-
-
-
-
-var nextId = 0;
-var NgbTooltipWindow = /** @class */ (function () {
-    function NgbTooltipWindow(_element, _renderer) {
-        this._element = _element;
-        this._renderer = _renderer;
-        this.placement = 'top';
-    }
-    NgbTooltipWindow.prototype.applyPlacement = function (_placement) {
-        // remove the current placement classes
-        this._renderer.removeClass(this._element.nativeElement, 'bs-tooltip-' + this.placement.toString().split('-')[0]);
-        this._renderer.removeClass(this._element.nativeElement, 'bs-tooltip-' + this.placement.toString());
-        // set the new placement classes
-        this.placement = _placement;
-        // apply the new placement
-        this._renderer.addClass(this._element.nativeElement, 'bs-tooltip-' + this.placement.toString().split('-')[0]);
-        this._renderer.addClass(this._element.nativeElement, 'bs-tooltip-' + this.placement.toString());
-    };
-    NgbTooltipWindow.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: 'ngb-tooltip-window',
-                    changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush,
-                    host: {
-                        '[class]': '"tooltip show bs-tooltip-" + placement.split("-")[0]+" bs-tooltip-" + placement',
-                        'role': 'tooltip',
-                        '[id]': 'id'
-                    },
-                    template: "<div class=\"arrow\"></div><div class=\"tooltip-inner\"><ng-content></ng-content></div>",
-                    styles: ["\n    :host.bs-tooltip-top .arrow, :host.bs-tooltip-bottom .arrow {\n      left: calc(50% - 0.4rem);\n    }\n\n    :host.bs-tooltip-top-left .arrow, :host.bs-tooltip-bottom-left .arrow {\n      left: 1em;\n    }\n\n    :host.bs-tooltip-top-right .arrow, :host.bs-tooltip-bottom-right .arrow {\n      left: auto;\n      right: 0.8rem;\n    }\n\n    :host.bs-tooltip-left .arrow, :host.bs-tooltip-right .arrow {\n      top: calc(50% - 0.4rem);\n    }\n\n    :host.bs-tooltip-left-top .arrow, :host.bs-tooltip-right-top .arrow {\n      top: 0.4rem;\n    }\n\n    :host.bs-tooltip-left-bottom .arrow, :host.bs-tooltip-right-bottom .arrow {\n      top: auto;\n      bottom: 0.4rem;\n    }\n  "]
-                },] },
-    ];
-    /** @nocollapse */
-    NgbTooltipWindow.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"], },
-    ]; };
-    NgbTooltipWindow.propDecorators = {
-        "placement": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "id": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-    };
-    return NgbTooltipWindow;
-}());
-
-/**
- * A lightweight, extensible directive for fancy tooltip creation.
- */
-var NgbTooltip = /** @class */ (function () {
-    function NgbTooltip(_elementRef, _renderer, injector, componentFactoryResolver, viewContainerRef, config, ngZone) {
-        var _this = this;
-        this._elementRef = _elementRef;
-        this._renderer = _renderer;
-        /**
-           * Emits an event when the tooltip is shown
-           */
-        this.shown = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        /**
-           * Emits an event when the tooltip is hidden
-           */
-        this.hidden = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this._ngbTooltipWindowId = "ngb-tooltip-" + nextId++;
-        this.placement = config.placement;
-        this.triggers = config.triggers;
-        this.container = config.container;
-        this.disableTooltip = config.disableTooltip;
-        this._popupService = new _util_popup__WEBPACK_IMPORTED_MODULE_3__["PopupService"](NgbTooltipWindow, injector, viewContainerRef, _renderer, componentFactoryResolver);
-        this._zoneSubscription = ngZone.onStable.subscribe(function () {
-            if (_this._windowRef) {
-                _this._windowRef.instance.applyPlacement(Object(_util_positioning__WEBPACK_IMPORTED_MODULE_2__["positionElements"])(_this._elementRef.nativeElement, _this._windowRef.location.nativeElement, _this.placement, _this.container === 'body'));
-            }
-        });
-    }
-    Object.defineProperty(NgbTooltip.prototype, "ngbTooltip", {
-        get: function () { return this._ngbTooltip; },
-        set: /**
-           * Content to be displayed as tooltip. If falsy, the tooltip won't open.
-           */
-        function (value) {
-            this._ngbTooltip = value;
-            if (!value && this._windowRef) {
-                this.close();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Opens an element’s tooltip. This is considered a “manual” triggering of the tooltip.
-     * The context is an optional value to be injected into the tooltip template when it is created.
-     */
-    /**
-       * Opens an element’s tooltip. This is considered a “manual” triggering of the tooltip.
-       * The context is an optional value to be injected into the tooltip template when it is created.
-       */
-    NgbTooltip.prototype.open = /**
-       * Opens an element’s tooltip. This is considered a “manual” triggering of the tooltip.
-       * The context is an optional value to be injected into the tooltip template when it is created.
-       */
-    function (context) {
-        if (!this._windowRef && this._ngbTooltip && !this.disableTooltip) {
-            this._windowRef = this._popupService.open(this._ngbTooltip, context);
-            this._windowRef.instance.id = this._ngbTooltipWindowId;
-            this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-describedby', this._ngbTooltipWindowId);
-            if (this.container === 'body') {
-                window.document.querySelector(this.container).appendChild(this._windowRef.location.nativeElement);
-            }
-            this._windowRef.instance.placement = Array.isArray(this.placement) ? this.placement[0] : this.placement;
-            // apply styling to set basic css-classes on target element, before going for positioning
-            this._windowRef.changeDetectorRef.detectChanges();
-            this._windowRef.changeDetectorRef.markForCheck();
-            // position tooltip along the element
-            this._windowRef.instance.applyPlacement(Object(_util_positioning__WEBPACK_IMPORTED_MODULE_2__["positionElements"])(this._elementRef.nativeElement, this._windowRef.location.nativeElement, this.placement, this.container === 'body'));
-            this.shown.emit();
-        }
-    };
-    /**
-     * Closes an element’s tooltip. This is considered a “manual” triggering of the tooltip.
-     */
-    /**
-       * Closes an element’s tooltip. This is considered a “manual” triggering of the tooltip.
-       */
-    NgbTooltip.prototype.close = /**
-       * Closes an element’s tooltip. This is considered a “manual” triggering of the tooltip.
-       */
-    function () {
-        if (this._windowRef != null) {
-            this._renderer.removeAttribute(this._elementRef.nativeElement, 'aria-describedby');
-            this._popupService.close();
-            this._windowRef = null;
-            this.hidden.emit();
-        }
-    };
-    /**
-     * Toggles an element’s tooltip. This is considered a “manual” triggering of the tooltip.
-     */
-    /**
-       * Toggles an element’s tooltip. This is considered a “manual” triggering of the tooltip.
-       */
-    NgbTooltip.prototype.toggle = /**
-       * Toggles an element’s tooltip. This is considered a “manual” triggering of the tooltip.
-       */
-    function () {
-        if (this._windowRef) {
-            this.close();
-        }
-        else {
-            this.open();
-        }
-    };
-    /**
-     * Returns whether or not the tooltip is currently being shown
-     */
-    /**
-       * Returns whether or not the tooltip is currently being shown
-       */
-    NgbTooltip.prototype.isOpen = /**
-       * Returns whether or not the tooltip is currently being shown
-       */
-    function () { return this._windowRef != null; };
-    NgbTooltip.prototype.ngOnInit = function () {
-        this._unregisterListenersFn = Object(_util_triggers__WEBPACK_IMPORTED_MODULE_1__["listenToTriggers"])(this._renderer, this._elementRef.nativeElement, this.triggers, this.open.bind(this), this.close.bind(this), this.toggle.bind(this));
-    };
-    NgbTooltip.prototype.ngOnDestroy = function () {
-        this.close();
-        // This check is needed as it might happen that ngOnDestroy is called before ngOnInit
-        // under certain conditions, see: https://github.com/ng-bootstrap/ng-bootstrap/issues/2199
-        if (this._unregisterListenersFn) {
-            this._unregisterListenersFn();
-        }
-        this._zoneSubscription.unsubscribe();
-    };
-    NgbTooltip.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: '[ngbTooltip]', exportAs: 'ngbTooltip' },] },
-    ];
-    /** @nocollapse */
-    NgbTooltip.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ComponentFactoryResolver"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewContainerRef"], },
-        { type: _tooltip_config__WEBPACK_IMPORTED_MODULE_4__["NgbTooltipConfig"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"], },
-    ]; };
-    NgbTooltip.propDecorators = {
-        "placement": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "triggers": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "container": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "disableTooltip": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "shown": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-        "hidden": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-        "ngbTooltip": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-    };
-    return NgbTooltip;
-}());
-
-//# sourceMappingURL=tooltip.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/tooltip/tooltip.module.js":
-/*!****************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/tooltip/tooltip.module.js ***!
-  \****************************************************************************/
-/*! exports provided: NgbTooltipConfig, NgbTooltip, NgbTooltipModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTooltipModule", function() { return NgbTooltipModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _tooltip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tooltip */ "../node_modules/@ng-bootstrap/ng-bootstrap/tooltip/tooltip.js");
-/* harmony import */ var _tooltip_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tooltip-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/tooltip/tooltip-config.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTooltipConfig", function() { return _tooltip_config__WEBPACK_IMPORTED_MODULE_2__["NgbTooltipConfig"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTooltip", function() { return _tooltip__WEBPACK_IMPORTED_MODULE_1__["NgbTooltip"]; });
-
-
-
-
-
-
-var NgbTooltipModule = /** @class */ (function () {
-    function NgbTooltipModule() {
-    }
-    NgbTooltipModule.forRoot = function () { return { ngModule: NgbTooltipModule, providers: [_tooltip_config__WEBPACK_IMPORTED_MODULE_2__["NgbTooltipConfig"]] }; };
-    NgbTooltipModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{ declarations: [_tooltip__WEBPACK_IMPORTED_MODULE_1__["NgbTooltip"], _tooltip__WEBPACK_IMPORTED_MODULE_1__["NgbTooltipWindow"]], exports: [_tooltip__WEBPACK_IMPORTED_MODULE_1__["NgbTooltip"]], entryComponents: [_tooltip__WEBPACK_IMPORTED_MODULE_1__["NgbTooltipWindow"]] },] },
-    ];
-    return NgbTooltipModule;
-}());
-
-//# sourceMappingURL=tooltip.module.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/highlight.js":
-/*!*************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/highlight.js ***!
-  \*************************************************************************/
-/*! exports provided: NgbHighlight */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbHighlight", function() { return NgbHighlight; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-
-
-var NgbHighlight = /** @class */ (function () {
-    function NgbHighlight() {
-        this.highlightClass = 'ngb-highlight';
-    }
-    NgbHighlight.prototype.ngOnChanges = function (changes) {
-        var resultStr = Object(_util_util__WEBPACK_IMPORTED_MODULE_1__["toString"])(this.result);
-        var resultLC = resultStr.toLowerCase();
-        var termLC = Object(_util_util__WEBPACK_IMPORTED_MODULE_1__["toString"])(this.term).toLowerCase();
-        var currentIdx = 0;
-        if (termLC.length > 0) {
-            this.parts = resultLC.split(new RegExp("(" + Object(_util_util__WEBPACK_IMPORTED_MODULE_1__["regExpEscape"])(termLC) + ")")).map(function (part) {
-                var originalPart = resultStr.substr(currentIdx, part.length);
-                currentIdx += part.length;
-                return originalPart;
-            });
-        }
-        else {
-            this.parts = [resultStr];
-        }
-    };
-    NgbHighlight.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: 'ngb-highlight',
-                    changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush,
-                    template: "<ng-template ngFor [ngForOf]=\"parts\" let-part let-isOdd=\"odd\">" +
-                        "<span *ngIf=\"isOdd\" class=\"{{highlightClass}}\">{{part}}</span><ng-template [ngIf]=\"!isOdd\">{{part}}</ng-template>" +
-                        "</ng-template>",
-                    // template needs to be formatted in a certain way so we don't add empty text nodes
-                    styles: ["\n    .ngb-highlight {\n      font-weight: bold;\n    }\n  "]
-                },] },
-    ];
-    /** @nocollapse */
-    NgbHighlight.propDecorators = {
-        "highlightClass": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "result": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "term": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-    };
-    return NgbHighlight;
-}());
-
-//# sourceMappingURL=highlight.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/typeahead-config.js":
-/*!********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/typeahead-config.js ***!
-  \********************************************************************************/
-/*! exports provided: NgbTypeaheadConfig */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTypeaheadConfig", function() { return NgbTypeaheadConfig; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-/**
- * Configuration service for the NgbTypeahead component.
- * You can inject this service, typically in your root component, and customize the values of its properties in
- * order to provide default values for all the typeaheads used in the application.
- */
-var NgbTypeaheadConfig = /** @class */ (function () {
-    function NgbTypeaheadConfig() {
-        this.editable = true;
-        this.focusFirst = true;
-        this.showHint = false;
-        this.placement = 'bottom-left';
-    }
-    NgbTypeaheadConfig.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    return NgbTypeaheadConfig;
-}());
-
-//# sourceMappingURL=typeahead-config.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/typeahead-window.js":
-/*!********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/typeahead-window.js ***!
-  \********************************************************************************/
-/*! exports provided: NgbTypeaheadWindow */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTypeaheadWindow", function() { return NgbTypeaheadWindow; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-
-
-var NgbTypeaheadWindow = /** @class */ (function () {
-    function NgbTypeaheadWindow() {
-        this.activeIdx = 0;
-        /**
-           * Flag indicating if the first row should be active initially
-           */
-        this.focusFirst = true;
-        /**
-           * A function used to format a given result before display. This function should return a formatted string without any
-           * HTML markup
-           */
-        this.formatter = _util_util__WEBPACK_IMPORTED_MODULE_1__["toString"];
-        /**
-           * Event raised when user selects a particular result row
-           */
-        this.selectEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this.activeChangeEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-    }
-    NgbTypeaheadWindow.prototype.hasActive = function () { return this.activeIdx > -1 && this.activeIdx < this.results.length; };
-    NgbTypeaheadWindow.prototype.getActive = function () { return this.results[this.activeIdx]; };
-    NgbTypeaheadWindow.prototype.markActive = function (activeIdx) {
-        this.activeIdx = activeIdx;
-        this._activeChanged();
-    };
-    NgbTypeaheadWindow.prototype.next = function () {
-        if (this.activeIdx === this.results.length - 1) {
-            this.activeIdx = this.focusFirst ? (this.activeIdx + 1) % this.results.length : -1;
-        }
-        else {
-            this.activeIdx++;
-        }
-        this._activeChanged();
-    };
-    NgbTypeaheadWindow.prototype.prev = function () {
-        if (this.activeIdx < 0) {
-            this.activeIdx = this.results.length - 1;
-        }
-        else if (this.activeIdx === 0) {
-            this.activeIdx = this.focusFirst ? this.results.length - 1 : -1;
-        }
-        else {
-            this.activeIdx--;
-        }
-        this._activeChanged();
-    };
-    NgbTypeaheadWindow.prototype.resetActive = function () {
-        this.activeIdx = this.focusFirst ? 0 : -1;
-        this._activeChanged();
-    };
-    NgbTypeaheadWindow.prototype.select = function (item) { this.selectEvent.emit(item); };
-    NgbTypeaheadWindow.prototype.ngOnInit = function () { this.resetActive(); };
-    NgbTypeaheadWindow.prototype._activeChanged = function () {
-        this.activeChangeEvent.emit(this.activeIdx >= 0 ? this.id + '-' + this.activeIdx : undefined);
-    };
-    NgbTypeaheadWindow.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                    selector: 'ngb-typeahead-window',
-                    exportAs: 'ngbTypeaheadWindow',
-                    host: { 'class': 'dropdown-menu show', 'role': 'listbox', '[id]': 'id' },
-                    template: "\n    <ng-template #rt let-result=\"result\" let-term=\"term\" let-formatter=\"formatter\">\n      <ngb-highlight [result]=\"formatter(result)\" [term]=\"term\"></ngb-highlight>\n    </ng-template>\n    <ng-template ngFor [ngForOf]=\"results\" let-result let-idx=\"index\">\n      <button type=\"button\" class=\"dropdown-item\" role=\"option\"\n        [id]=\"id + '-' + idx\"\n        [class.active]=\"idx === activeIdx\"\n        (mouseenter)=\"markActive(idx)\"\n        (click)=\"select(result)\">\n          <ng-template [ngTemplateOutlet]=\"resultTemplate || rt\"\n          [ngTemplateOutletContext]=\"{result: result, term: term, formatter: formatter}\"></ng-template>\n      </button>\n    </ng-template>\n  "
-                },] },
-    ];
-    /** @nocollapse */
-    NgbTypeaheadWindow.propDecorators = {
-        "id": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "focusFirst": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "results": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "term": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "formatter": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "resultTemplate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "selectEvent": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"], args: ['select',] },],
-        "activeChangeEvent": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"], args: ['activeChange',] },],
-    };
-    return NgbTypeaheadWindow;
-}());
-
-//# sourceMappingURL=typeahead-window.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/typeahead.js":
-/*!*************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/typeahead.js ***!
-  \*************************************************************************/
-/*! exports provided: NgbTypeahead */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTypeahead", function() { return NgbTypeahead; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "../node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _util_positioning__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/positioning */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/positioning.js");
-/* harmony import */ var _typeahead_window__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./typeahead-window */ "../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/typeahead-window.js");
-/* harmony import */ var _util_popup__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../util/popup */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/popup.js");
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../util/util */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js");
-/* harmony import */ var _util_accessibility_live__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../util/accessibility/live */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/accessibility/live.js");
-/* harmony import */ var _typeahead_config__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./typeahead-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/typeahead-config.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs/operators */ "../node_modules/rxjs/_esm5/operators/index.js");
-
-
-
-
-
-
-
-
-
-
-var Key;
-(function (Key) {
-    Key[Key["Tab"] = 9] = "Tab";
-    Key[Key["Enter"] = 13] = "Enter";
-    Key[Key["Escape"] = 27] = "Escape";
-    Key[Key["ArrowUp"] = 38] = "ArrowUp";
-    Key[Key["ArrowDown"] = 40] = "ArrowDown";
-})(Key || (Key = {}));
-var NGB_TYPEAHEAD_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(function () { return NgbTypeahead; }),
-    multi: true
-};
-var nextWindowId = 0;
-/**
- * NgbTypeahead directive provides a simple way of creating powerful typeaheads from any text input
- */
-var NgbTypeahead = /** @class */ (function () {
-    function NgbTypeahead(_elementRef, _viewContainerRef, _renderer, _injector, componentFactoryResolver, config, ngZone, _live) {
-        var _this = this;
-        this._elementRef = _elementRef;
-        this._viewContainerRef = _viewContainerRef;
-        this._renderer = _renderer;
-        this._injector = _injector;
-        this._live = _live;
-        /** Placement of a typeahead accepts:
-           *    "top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right",
-           *    "left", "left-top", "left-bottom", "right", "right-top", "right-bottom"
-           * and array of above values.
-          */
-        this.placement = 'bottom-left';
-        /**
-           * An event emitted when a match is selected. Event payload is of type NgbTypeaheadSelectItemEvent.
-           */
-        this.selectItem = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this.popupId = "ngb-typeahead-" + nextWindowId++;
-        this._onTouched = function () { };
-        this._onChange = function (_) { };
-        this.container = config.container;
-        this.editable = config.editable;
-        this.focusFirst = config.focusFirst;
-        this.showHint = config.showHint;
-        this.placement = config.placement;
-        this._valueChanges = Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["fromEvent"])(_elementRef.nativeElement, 'input')
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["map"])(function ($event) { return $event.target.value; }));
-        this._resubscribeTypeahead = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](null);
-        this._popupService = new _util_popup__WEBPACK_IMPORTED_MODULE_5__["PopupService"](_typeahead_window__WEBPACK_IMPORTED_MODULE_4__["NgbTypeaheadWindow"], _injector, _viewContainerRef, _renderer, componentFactoryResolver);
-        this._zoneSubscription = ngZone.onStable.subscribe(function () {
-            if (_this.isPopupOpen()) {
-                Object(_util_positioning__WEBPACK_IMPORTED_MODULE_3__["positionElements"])(_this._elementRef.nativeElement, _this._windowRef.location.nativeElement, _this.placement, _this.container === 'body');
-            }
-        });
-    }
-    NgbTypeahead.prototype.ngOnInit = function () {
-        var _this = this;
-        var inputValues$ = this._valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function (value) {
-            _this._inputValueBackup = value;
-            if (_this.editable) {
-                _this._onChange(value);
-            }
-        }));
-        var results$ = inputValues$.pipe(this.ngbTypeahead);
-        var processedResults$ = results$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function () {
-            if (!_this.editable) {
-                _this._onChange(undefined);
-            }
-        }));
-        var userInput$ = this._resubscribeTypeahead.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["switchMap"])(function () { return processedResults$; }));
-        this._subscription = this._subscribeToUserInput(userInput$);
-    };
-    NgbTypeahead.prototype.ngOnDestroy = function () {
-        this._closePopup();
-        this._unsubscribeFromUserInput();
-        this._zoneSubscription.unsubscribe();
-    };
-    NgbTypeahead.prototype.registerOnChange = function (fn) { this._onChange = fn; };
-    NgbTypeahead.prototype.registerOnTouched = function (fn) { this._onTouched = fn; };
-    NgbTypeahead.prototype.writeValue = function (value) { this._writeInputValue(this._formatItemForInput(value)); };
-    NgbTypeahead.prototype.setDisabledState = function (isDisabled) {
-        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
-    };
-    NgbTypeahead.prototype.onDocumentClick = function (event) {
-        if (event.target !== this._elementRef.nativeElement) {
-            this.dismissPopup();
-        }
-    };
-    /**
-     * Dismisses typeahead popup window
-     */
-    /**
-       * Dismisses typeahead popup window
-       */
-    NgbTypeahead.prototype.dismissPopup = /**
-       * Dismisses typeahead popup window
-       */
-    function () {
-        if (this.isPopupOpen()) {
-            this._closePopup();
-            this._writeInputValue(this._inputValueBackup);
-        }
-    };
-    /**
-     * Returns true if the typeahead popup window is displayed
-     */
-    /**
-       * Returns true if the typeahead popup window is displayed
-       */
-    NgbTypeahead.prototype.isPopupOpen = /**
-       * Returns true if the typeahead popup window is displayed
-       */
-    function () { return this._windowRef != null; };
-    NgbTypeahead.prototype.handleBlur = function () {
-        this._resubscribeTypeahead.next(null);
-        this._onTouched();
-    };
-    NgbTypeahead.prototype.handleKeyDown = function (event) {
-        if (!this.isPopupOpen()) {
-            return;
-        }
-        if (Key[Object(_util_util__WEBPACK_IMPORTED_MODULE_6__["toString"])(event.which)]) {
-            switch (event.which) {
-                case Key.ArrowDown:
-                    event.preventDefault();
-                    this._windowRef.instance.next();
-                    this._showHint();
-                    break;
-                case Key.ArrowUp:
-                    event.preventDefault();
-                    this._windowRef.instance.prev();
-                    this._showHint();
-                    break;
-                case Key.Enter:
-                case Key.Tab:
-                    var result = this._windowRef.instance.getActive();
-                    if (Object(_util_util__WEBPACK_IMPORTED_MODULE_6__["isDefined"])(result)) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        this._selectResult(result);
-                    }
-                    this._closePopup();
-                    break;
-                case Key.Escape:
-                    event.preventDefault();
-                    this._resubscribeTypeahead.next(null);
-                    this.dismissPopup();
-                    break;
-            }
-        }
-    };
-    NgbTypeahead.prototype._openPopup = function () {
-        var _this = this;
-        if (!this.isPopupOpen()) {
-            this._inputValueBackup = this._elementRef.nativeElement.value;
-            this._windowRef = this._popupService.open();
-            this._windowRef.instance.id = this.popupId;
-            this._windowRef.instance.selectEvent.subscribe(function (result) { return _this._selectResultClosePopup(result); });
-            this._windowRef.instance.activeChangeEvent.subscribe(function (activeId) { return _this.activeDescendant = activeId; });
-            if (this.container === 'body') {
-                window.document.querySelector(this.container).appendChild(this._windowRef.location.nativeElement);
-            }
-        }
-    };
-    NgbTypeahead.prototype._closePopup = function () {
-        this._popupService.close();
-        this._windowRef = null;
-        this.activeDescendant = undefined;
-    };
-    NgbTypeahead.prototype._selectResult = function (result) {
-        var defaultPrevented = false;
-        this.selectItem.emit({ item: result, preventDefault: function () { defaultPrevented = true; } });
-        this._resubscribeTypeahead.next(null);
-        if (!defaultPrevented) {
-            this.writeValue(result);
-            this._onChange(result);
-        }
-    };
-    NgbTypeahead.prototype._selectResultClosePopup = function (result) {
-        this._selectResult(result);
-        this._closePopup();
-    };
-    NgbTypeahead.prototype._showHint = function () {
-        if (this.showHint && this._windowRef.instance.hasActive() && this._inputValueBackup != null) {
-            var userInputLowerCase = this._inputValueBackup.toLowerCase();
-            var formattedVal = this._formatItemForInput(this._windowRef.instance.getActive());
-            if (userInputLowerCase === formattedVal.substr(0, this._inputValueBackup.length).toLowerCase()) {
-                this._writeInputValue(this._inputValueBackup + formattedVal.substr(this._inputValueBackup.length));
-                this._elementRef.nativeElement['setSelectionRange'].apply(this._elementRef.nativeElement, [this._inputValueBackup.length, formattedVal.length]);
-            }
-            else {
-                this.writeValue(this._windowRef.instance.getActive());
-            }
-        }
-    };
-    NgbTypeahead.prototype._formatItemForInput = function (item) {
-        return item && this.inputFormatter ? this.inputFormatter(item) : Object(_util_util__WEBPACK_IMPORTED_MODULE_6__["toString"])(item);
-    };
-    NgbTypeahead.prototype._writeInputValue = function (value) {
-        this._renderer.setProperty(this._elementRef.nativeElement, 'value', Object(_util_util__WEBPACK_IMPORTED_MODULE_6__["toString"])(value));
-    };
-    NgbTypeahead.prototype._subscribeToUserInput = function (userInput$) {
-        var _this = this;
-        return userInput$.subscribe(function (results) {
-            if (!results || results.length === 0) {
-                _this._closePopup();
-            }
-            else {
-                _this._openPopup();
-                _this._windowRef.instance.focusFirst = _this.focusFirst;
-                _this._windowRef.instance.results = results;
-                _this._windowRef.instance.term = _this._elementRef.nativeElement.value;
-                if (_this.resultFormatter) {
-                    _this._windowRef.instance.formatter = _this.resultFormatter;
-                }
-                if (_this.resultTemplate) {
-                    _this._windowRef.instance.resultTemplate = _this.resultTemplate;
-                }
-                _this._windowRef.instance.resetActive();
-                // The observable stream we are subscribing to might have async steps
-                // and if a component containing typeahead is using the OnPush strategy
-                // the change detection turn wouldn't be invoked automatically.
-                // The observable stream we are subscribing to might have async steps
-                // and if a component containing typeahead is using the OnPush strategy
-                // the change detection turn wouldn't be invoked automatically.
-                _this._windowRef.changeDetectorRef.detectChanges();
-                _this._showHint();
-            }
-            var count = results.length;
-            _this._live.say(count === 0 ? 'No results available' : count + " result" + (count === 1 ? '' : 's') + " available");
-        });
-    };
-    NgbTypeahead.prototype._unsubscribeFromUserInput = function () {
-        if (this._subscription) {
-            this._subscription.unsubscribe();
-        }
-        this._subscription = null;
-    };
-    NgbTypeahead.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
-                    selector: 'input[ngbTypeahead]',
-                    exportAs: 'ngbTypeahead',
-                    host: {
-                        '(blur)': 'handleBlur()',
-                        '[class.open]': 'isPopupOpen()',
-                        '(document:click)': 'onDocumentClick($event)',
-                        '(keydown)': 'handleKeyDown($event)',
-                        'autocomplete': 'off',
-                        'autocapitalize': 'off',
-                        'autocorrect': 'off',
-                        'role': 'combobox',
-                        'aria-multiline': 'false',
-                        '[attr.aria-autocomplete]': 'showHint ? "both" : "list"',
-                        '[attr.aria-activedescendant]': 'activeDescendant',
-                        '[attr.aria-owns]': 'isPopupOpen() ? popupId : null',
-                        '[attr.aria-expanded]': 'isPopupOpen()'
-                    },
-                    providers: [NGB_TYPEAHEAD_VALUE_ACCESSOR]
-                },] },
-    ];
-    /** @nocollapse */
-    NgbTypeahead.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewContainerRef"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ComponentFactoryResolver"], },
-        { type: _typeahead_config__WEBPACK_IMPORTED_MODULE_8__["NgbTypeaheadConfig"], },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"], },
-        { type: _util_accessibility_live__WEBPACK_IMPORTED_MODULE_7__["Live"], },
-    ]; };
-    NgbTypeahead.propDecorators = {
-        "container": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "editable": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "focusFirst": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "inputFormatter": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "ngbTypeahead": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "resultFormatter": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "resultTemplate": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "showHint": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "placement": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-        "selectItem": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
-    };
-    return NgbTypeahead;
-}());
-
-//# sourceMappingURL=typeahead.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/typeahead.module.js":
-/*!********************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/typeahead.module.js ***!
-  \********************************************************************************/
-/*! exports provided: NgbHighlight, NgbTypeaheadWindow, NgbTypeaheadConfig, NgbTypeahead, NgbTypeaheadModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbTypeaheadModule", function() { return NgbTypeaheadModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _highlight__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./highlight */ "../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/highlight.js");
-/* harmony import */ var _typeahead_window__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./typeahead-window */ "../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/typeahead-window.js");
-/* harmony import */ var _typeahead__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./typeahead */ "../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/typeahead.js");
-/* harmony import */ var _typeahead_config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./typeahead-config */ "../node_modules/@ng-bootstrap/ng-bootstrap/typeahead/typeahead-config.js");
-/* harmony import */ var _util_accessibility_live__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../util/accessibility/live */ "../node_modules/@ng-bootstrap/ng-bootstrap/util/accessibility/live.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbHighlight", function() { return _highlight__WEBPACK_IMPORTED_MODULE_2__["NgbHighlight"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTypeaheadWindow", function() { return _typeahead_window__WEBPACK_IMPORTED_MODULE_3__["NgbTypeaheadWindow"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTypeaheadConfig", function() { return _typeahead_config__WEBPACK_IMPORTED_MODULE_5__["NgbTypeaheadConfig"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgbTypeahead", function() { return _typeahead__WEBPACK_IMPORTED_MODULE_4__["NgbTypeahead"]; });
-
-
-
-
-
-
-
-
-
-
-
-
-var NgbTypeaheadModule = /** @class */ (function () {
-    function NgbTypeaheadModule() {
-    }
-    NgbTypeaheadModule.forRoot = function () {
-        return {
-            ngModule: NgbTypeaheadModule,
-            providers: [_util_accessibility_live__WEBPACK_IMPORTED_MODULE_6__["Live"], _typeahead_config__WEBPACK_IMPORTED_MODULE_5__["NgbTypeaheadConfig"], { provide: _util_accessibility_live__WEBPACK_IMPORTED_MODULE_6__["ARIA_LIVE_DELAY"], useValue: _util_accessibility_live__WEBPACK_IMPORTED_MODULE_6__["DEFAULT_ARIA_LIVE_DELAY"] }]
-        };
-    };
-    NgbTypeaheadModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
-                    declarations: [_typeahead__WEBPACK_IMPORTED_MODULE_4__["NgbTypeahead"], _highlight__WEBPACK_IMPORTED_MODULE_2__["NgbHighlight"], _typeahead_window__WEBPACK_IMPORTED_MODULE_3__["NgbTypeaheadWindow"]],
-                    exports: [_typeahead__WEBPACK_IMPORTED_MODULE_4__["NgbTypeahead"], _highlight__WEBPACK_IMPORTED_MODULE_2__["NgbHighlight"]],
-                    imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]],
-                    entryComponents: [_typeahead_window__WEBPACK_IMPORTED_MODULE_3__["NgbTypeaheadWindow"]]
-                },] },
-    ];
-    return NgbTypeaheadModule;
-}());
-
-//# sourceMappingURL=typeahead.module.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/util/accessibility/live.js":
-/*!*****************************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/util/accessibility/live.js ***!
-  \*****************************************************************************/
-/*! exports provided: ARIA_LIVE_DELAY, DEFAULT_ARIA_LIVE_DELAY, Live */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ARIA_LIVE_DELAY", function() { return ARIA_LIVE_DELAY; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DEFAULT_ARIA_LIVE_DELAY", function() { return DEFAULT_ARIA_LIVE_DELAY; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Live", function() { return Live; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../node_modules/@angular/common/fesm5/common.js");
-
-
-var ARIA_LIVE_DELAY = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('live announcer delay');
-var DEFAULT_ARIA_LIVE_DELAY = 100;
-function createLiveElement(document) {
-    var element = document.createElement('div');
-    element.setAttribute('aria-live', 'polite');
-    element.setAttribute('aria-atomic', 'true');
-    element.classList.add('sr-only');
-    document.body.appendChild(element);
-    return element;
-}
-var Live = /** @class */ (function () {
-    function Live(document, _delay) {
-        this._delay = _delay;
-        this._element = createLiveElement(document);
-    }
-    Live.prototype.ngOnDestroy = function () { this._element.parentElement.removeChild(this._element); };
-    Live.prototype.say = function (message) {
-        var element = this._element;
-        var delay = this._delay;
-        element.textContent = '';
-        var setText = function () { return element.textContent = message; };
-        if (delay === null) {
-            setText();
-        }
-        else {
-            setTimeout(setText, delay);
-        }
-    };
-    Live.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
-    ];
-    /** @nocollapse */
-    Live.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["DOCUMENT"],] },] },
-        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [ARIA_LIVE_DELAY,] },] },
-    ]; };
-    return Live;
-}());
-
-//# sourceMappingURL=live.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/util/focus-trap.js":
-/*!*********************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/util/focus-trap.js ***!
-  \*********************************************************************/
-/*! exports provided: NgbFocusTrap, NgbFocusTrapFactory */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbFocusTrap", function() { return NgbFocusTrap; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbFocusTrapFactory", function() { return NgbFocusTrapFactory; });
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ "../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-
-var FOCUSABLE_ELEMENTS_SELECTOR = [
-    'a[href]', 'button:not([disabled])', 'input:not([disabled]):not([type="hidden"])', 'select:not([disabled])',
-    'textarea:not([disabled])', '[contenteditable]', '[tabindex]:not([tabindex="-1"])'
-].join(', ');
-var DIRECTION;
-(function (DIRECTION) {
-    DIRECTION[DIRECTION["BACKWARD"] = 0] = "BACKWARD";
-    DIRECTION[DIRECTION["FORWARD"] = 1] = "FORWARD";
-})(DIRECTION || (DIRECTION = {}));
-/**
- * Class that enforce the browser focus to be trapped inside a DOM element.
- *
- * The implementation is rather simple, the class add a `focusin` listener on the document with capture phase.
- * Any focus event will then be caught, and therefore the class will only allow the one for elements contained inside
- * it's own element.
- *
- * In case the element is not contained, the class will determine which new element has to be focused based on the `tab`
- * navigation direction.
- *
- * Should not be used directly. Use only via {@link NgbFocusTrapFactory}
- */
-var /**
- * Class that enforce the browser focus to be trapped inside a DOM element.
- *
- * The implementation is rather simple, the class add a `focusin` listener on the document with capture phase.
- * Any focus event will then be caught, and therefore the class will only allow the one for elements contained inside
- * it's own element.
- *
- * In case the element is not contained, the class will determine which new element has to be focused based on the `tab`
- * navigation direction.
- *
- * Should not be used directly. Use only via {@link NgbFocusTrapFactory}
- */
-NgbFocusTrap = /** @class */ (function () {
-    /**
-     * @param _element The element around which focus will be trapped inside
-     * @param autofocus Initially put the focus on specific element with a `ngbFocustrap` attribute. Will also remenber
-     * and restore any previously focused element on destroy.
-     * @param _document Document on which `focusin` and `keydown.TAB` events are listened
-     * @param _ngZone The zone Angular is running in
-     */
-    function NgbFocusTrap(_element, autofocus, _document, _ngZone) {
-        var _this = this;
-        this._element = _element;
-        this._document = _document;
-        this._ngZone = _ngZone;
-        this._direction = DIRECTION.FORWARD;
-        this._previouslyFocused = null;
-        this._endOfDocument = null;
-        this._enforceFocus = this._enforceFocus.bind(this);
-        this._detectDirection = this._detectDirection.bind(this);
-        var eod = this._endOfDocument = this._document.createElement('i');
-        eod.className = 'ngb-focustrap-eod';
-        eod.tabIndex = 0;
-        this._document.body.appendChild(eod);
-        this._ngZone.runOutsideAngular(function () {
-            _this._document.addEventListener('focusin', _this._enforceFocus, true);
-            _this._document.addEventListener('keydown', _this._detectDirection);
-            _this._removeDocumentListener = function () {
-                _this._document.removeEventListener('focusin', _this._enforceFocus, true);
-                _this._document.removeEventListener('keydown', _this._detectDirection);
-            };
-        });
-        if (autofocus === true) {
-            this._previouslyFocused = document.activeElement;
-            this._focusInitial();
-        }
-    }
-    Object.defineProperty(NgbFocusTrap.prototype, "focusableElement", {
-        /**
-         * Guess the next focusable element.
-         * Computation is based on specific CSS selector and [tab] navigation direction
-         */
-        get: /**
-           * Guess the next focusable element.
-           * Computation is based on specific CSS selector and [tab] navigation direction
-           */
-        function () {
-            var list = this._element.querySelectorAll(FOCUSABLE_ELEMENTS_SELECTOR);
-            return this._direction === DIRECTION.BACKWARD ? list[list.length - 1] : list[0];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /** Detect if incoming focus event should be prevented or not */
-    /** Detect if incoming focus event should be prevented or not */
-    NgbFocusTrap.prototype._enforceFocus = /** Detect if incoming focus event should be prevented or not */
-    function (event) {
-        var _this = this;
-        var target = event.target;
-        if (this._document !== target && this._element !== target && !this._element.contains(target)) {
-            this._ngZone.run(function () {
-                var element = _this.focusableElement;
-                if (element) {
-                    element.focus();
-                    event.stopPropagation();
-                }
-            });
-        }
-    };
-    /** Event handler detecting current `tab` navigation direction */
-    /** Event handler detecting current `tab` navigation direction */
-    NgbFocusTrap.prototype._detectDirection = /** Event handler detecting current `tab` navigation direction */
-    function (event) {
-        var shiftKey = event.shiftKey, key = event.key;
-        if (key === 'Tab') {
-            this._direction = shiftKey ? DIRECTION.BACKWARD : DIRECTION.FORWARD;
-        }
-    };
-    /** Try to set focus on the first found element that has an ngbAutofocus attribute */
-    /** Try to set focus on the first found element that has an ngbAutofocus attribute */
-    NgbFocusTrap.prototype._focusInitial = /** Try to set focus on the first found element that has an ngbAutofocus attribute */
-    function () {
-        var element = this._element.querySelector('[ngbAutofocus]');
-        if (element) {
-            element.focus();
-        }
-    };
-    /**
-     * Destroys the focustrap by removing all event listeners set on document.
-     *
-     * Eventually put the focus back on the previously focused element at the time
-     * focustrap has been initialized.
-     */
-    /**
-       * Destroys the focustrap by removing all event listeners set on document.
-       *
-       * Eventually put the focus back on the previously focused element at the time
-       * focustrap has been initialized.
-       */
-    NgbFocusTrap.prototype.destroy = /**
-       * Destroys the focustrap by removing all event listeners set on document.
-       *
-       * Eventually put the focus back on the previously focused element at the time
-       * focustrap has been initialized.
-       */
-    function () {
-        this._removeDocumentListener();
-        this._document.body.removeChild(this._endOfDocument);
-        if (this._previouslyFocused) {
-            this._previouslyFocused.focus();
-        }
-    };
-    return NgbFocusTrap;
-}());
-/**
- * Class that enforce the browser focus to be trapped inside a DOM element.
- *
- * The implementation is rather simple, the class add a `focusin` listener on the document with capture phase.
- * Any focus event will then be caught, and therefore the class will only allow the one for elements contained inside
- * it's own element.
- *
- * In case the element is not contained, the class will determine which new element has to be focused based on the `tab`
- * navigation direction.
- *
- * Should not be used directly. Use only via {@link NgbFocusTrapFactory}
- */
-
-/**
- * Factory service to easily create a `NgbFocusTrap` instance on an element
- */
-var NgbFocusTrapFactory = /** @class */ (function () {
-    function NgbFocusTrapFactory(_document, _ngZone) {
-        this._document = _document;
-        this._ngZone = _ngZone;
-    }
-    /**
-     * Create an instance of {@link NgbFocusTrap} and return it
-     * @param element HTMLElement to trap focus inside
-     * @param autofocus Whether the focustrap should automatically move focus into the trapped element upon
-     * initialization and return focus to the previous activeElement upon destruction.
-     */
-    /**
-       * Create an instance of {@link NgbFocusTrap} and return it
-       * @param element HTMLElement to trap focus inside
-       * @param autofocus Whether the focustrap should automatically move focus into the trapped element upon
-       * initialization and return focus to the previous activeElement upon destruction.
-       */
-    NgbFocusTrapFactory.prototype.create = /**
-       * Create an instance of {@link NgbFocusTrap} and return it
-       * @param element HTMLElement to trap focus inside
-       * @param autofocus Whether the focustrap should automatically move focus into the trapped element upon
-       * initialization and return focus to the previous activeElement upon destruction.
-       */
-    function (element, autofocus) {
-        if (autofocus === void 0) { autofocus = false; }
-        return new NgbFocusTrap(element, autofocus, this._document, this._ngZone);
-    };
-    NgbFocusTrapFactory.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"] },
-    ];
-    /** @nocollapse */
-    NgbFocusTrapFactory.ctorParameters = function () { return [
-        { type: Document, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["DOCUMENT"],] },] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"], },
-    ]; };
-    return NgbFocusTrapFactory;
-}());
-
-//# sourceMappingURL=focus-trap.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/util/popup.js":
-/*!****************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/util/popup.js ***!
-  \****************************************************************/
-/*! exports provided: ContentRef, PopupService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContentRef", function() { return ContentRef; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PopupService", function() { return PopupService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-
-var ContentRef = /** @class */ (function () {
-    function ContentRef(nodes, viewRef, componentRef) {
-        this.nodes = nodes;
-        this.viewRef = viewRef;
-        this.componentRef = componentRef;
-    }
-    return ContentRef;
-}());
-
-var PopupService = /** @class */ (function () {
-    function PopupService(_type, _injector, _viewContainerRef, _renderer, _componentFactoryResolver) {
-        this._type = _type;
-        this._injector = _injector;
-        this._viewContainerRef = _viewContainerRef;
-        this._renderer = _renderer;
-        this._componentFactoryResolver = _componentFactoryResolver;
-    }
-    PopupService.prototype.open = function (content, context) {
-        if (!this._windowRef) {
-            this._contentRef = this._getContentRef(content, context);
-            this._windowRef = this._viewContainerRef.createComponent(this._componentFactoryResolver.resolveComponentFactory(this._type), 0, this._injector, this._contentRef.nodes);
-        }
-        return this._windowRef;
-    };
-    PopupService.prototype.close = function () {
-        if (this._windowRef) {
-            this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._windowRef.hostView));
-            this._windowRef = null;
-            if (this._contentRef.viewRef) {
-                this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._contentRef.viewRef));
-                this._contentRef = null;
-            }
-        }
-    };
-    PopupService.prototype._getContentRef = function (content, context) {
-        if (!content) {
-            return new ContentRef([]);
-        }
-        else if (content instanceof _angular_core__WEBPACK_IMPORTED_MODULE_0__["TemplateRef"]) {
-            var viewRef = this._viewContainerRef.createEmbeddedView(content, context);
-            return new ContentRef([viewRef.rootNodes], viewRef);
-        }
-        else {
-            return new ContentRef([[this._renderer.createText("" + content)]]);
-        }
-    };
-    return PopupService;
-}());
-
-//# sourceMappingURL=popup.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/util/positioning.js":
-/*!**********************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/util/positioning.js ***!
-  \**********************************************************************/
-/*! exports provided: Positioning, positionElements */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Positioning", function() { return Positioning; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "positionElements", function() { return positionElements; });
-// previous version:
-// https://github.com/angular-ui/bootstrap/blob/07c31d0731f7cb068a1932b8e01d2312b796b4ec/src/position/position.js
-var 
-// previous version:
-// https://github.com/angular-ui/bootstrap/blob/07c31d0731f7cb068a1932b8e01d2312b796b4ec/src/position/position.js
-Positioning = /** @class */ (function () {
-    function Positioning() {
-    }
-    Positioning.prototype.getAllStyles = function (element) { return window.getComputedStyle(element); };
-    Positioning.prototype.getStyle = function (element, prop) { return this.getAllStyles(element)[prop]; };
-    Positioning.prototype.isStaticPositioned = function (element) {
-        return (this.getStyle(element, 'position') || 'static') === 'static';
-    };
-    Positioning.prototype.offsetParent = function (element) {
-        var offsetParentEl = element.offsetParent || document.documentElement;
-        while (offsetParentEl && offsetParentEl !== document.documentElement && this.isStaticPositioned(offsetParentEl)) {
-            offsetParentEl = offsetParentEl.offsetParent;
-        }
-        return offsetParentEl || document.documentElement;
-    };
-    Positioning.prototype.position = function (element, round) {
-        if (round === void 0) { round = true; }
-        var elPosition;
-        var parentOffset = { width: 0, height: 0, top: 0, bottom: 0, left: 0, right: 0 };
-        if (this.getStyle(element, 'position') === 'fixed') {
-            elPosition = element.getBoundingClientRect();
-        }
-        else {
-            var offsetParentEl = this.offsetParent(element);
-            elPosition = this.offset(element, false);
-            if (offsetParentEl !== document.documentElement) {
-                parentOffset = this.offset(offsetParentEl, false);
-            }
-            parentOffset.top += offsetParentEl.clientTop;
-            parentOffset.left += offsetParentEl.clientLeft;
-        }
-        elPosition.top -= parentOffset.top;
-        elPosition.bottom -= parentOffset.top;
-        elPosition.left -= parentOffset.left;
-        elPosition.right -= parentOffset.left;
-        if (round) {
-            elPosition.top = Math.round(elPosition.top);
-            elPosition.bottom = Math.round(elPosition.bottom);
-            elPosition.left = Math.round(elPosition.left);
-            elPosition.right = Math.round(elPosition.right);
-        }
-        return elPosition;
-    };
-    Positioning.prototype.offset = function (element, round) {
-        if (round === void 0) { round = true; }
-        var elBcr = element.getBoundingClientRect();
-        var viewportOffset = {
-            top: window.pageYOffset - document.documentElement.clientTop,
-            left: window.pageXOffset - document.documentElement.clientLeft
-        };
-        var elOffset = {
-            height: elBcr.height || element.offsetHeight,
-            width: elBcr.width || element.offsetWidth,
-            top: elBcr.top + viewportOffset.top,
-            bottom: elBcr.bottom + viewportOffset.top,
-            left: elBcr.left + viewportOffset.left,
-            right: elBcr.right + viewportOffset.left
-        };
-        if (round) {
-            elOffset.height = Math.round(elOffset.height);
-            elOffset.width = Math.round(elOffset.width);
-            elOffset.top = Math.round(elOffset.top);
-            elOffset.bottom = Math.round(elOffset.bottom);
-            elOffset.left = Math.round(elOffset.left);
-            elOffset.right = Math.round(elOffset.right);
-        }
-        return elOffset;
-    };
-    Positioning.prototype.positionElements = function (hostElement, targetElement, placement, appendToBody) {
-        var hostElPosition = appendToBody ? this.offset(hostElement, false) : this.position(hostElement, false);
-        var targetElStyles = this.getAllStyles(targetElement);
-        var targetElBCR = targetElement.getBoundingClientRect();
-        var placementPrimary = placement.split('-')[0] || 'top';
-        var placementSecondary = placement.split('-')[1] || 'center';
-        var targetElPosition = {
-            'height': targetElBCR.height || targetElement.offsetHeight,
-            'width': targetElBCR.width || targetElement.offsetWidth,
-            'top': 0,
-            'bottom': targetElBCR.height || targetElement.offsetHeight,
-            'left': 0,
-            'right': targetElBCR.width || targetElement.offsetWidth
-        };
-        switch (placementPrimary) {
-            case 'top':
-                targetElPosition.top =
-                    hostElPosition.top - (targetElement.offsetHeight + parseFloat(targetElStyles.marginBottom));
-                break;
-            case 'bottom':
-                targetElPosition.top = hostElPosition.top + hostElPosition.height;
-                break;
-            case 'left':
-                targetElPosition.left =
-                    hostElPosition.left - (targetElement.offsetWidth + parseFloat(targetElStyles.marginRight));
-                break;
-            case 'right':
-                targetElPosition.left = hostElPosition.left + hostElPosition.width;
-                break;
-        }
-        switch (placementSecondary) {
-            case 'top':
-                targetElPosition.top = hostElPosition.top;
-                break;
-            case 'bottom':
-                targetElPosition.top = hostElPosition.top + hostElPosition.height - targetElement.offsetHeight;
-                break;
-            case 'left':
-                targetElPosition.left = hostElPosition.left;
-                break;
-            case 'right':
-                targetElPosition.left = hostElPosition.left + hostElPosition.width - targetElement.offsetWidth;
-                break;
-            case 'center':
-                if (placementPrimary === 'top' || placementPrimary === 'bottom') {
-                    targetElPosition.left = hostElPosition.left + hostElPosition.width / 2 - targetElement.offsetWidth / 2;
-                }
-                else {
-                    targetElPosition.top = hostElPosition.top + hostElPosition.height / 2 - targetElement.offsetHeight / 2;
-                }
-                break;
-        }
-        targetElPosition.top = Math.round(targetElPosition.top);
-        targetElPosition.bottom = Math.round(targetElPosition.bottom);
-        targetElPosition.left = Math.round(targetElPosition.left);
-        targetElPosition.right = Math.round(targetElPosition.right);
-        return targetElPosition;
-    };
-    // get the availble placements of the target element in the viewport dependeing on the host element
-    // get the availble placements of the target element in the viewport dependeing on the host element
-    Positioning.prototype.getAvailablePlacements = 
-    // get the availble placements of the target element in the viewport dependeing on the host element
-    function (hostElement, targetElement) {
-        var availablePlacements = [];
-        var hostElemClientRect = hostElement.getBoundingClientRect();
-        var targetElemClientRect = targetElement.getBoundingClientRect();
-        var html = document.documentElement;
-        // left: check if target width can be placed between host left and viewport start and also height of target is
-        // inside viewport
-        if (targetElemClientRect.width < hostElemClientRect.left) {
-            // check for left only
-            if ((hostElemClientRect.top + hostElemClientRect.height / 2 - targetElement.offsetHeight / 2) > 0) {
-                availablePlacements.splice(availablePlacements.length, 1, 'left');
-            }
-            // check for left-top and left-bottom
-            this.setSecondaryPlacementForLeftRight(hostElemClientRect, targetElemClientRect, 'left', availablePlacements);
-        }
-        // top: target height is less than host top
-        if (targetElemClientRect.height < hostElemClientRect.top) {
-            availablePlacements.splice(availablePlacements.length, 1, 'top');
-            this.setSecondaryPlacementForTopBottom(hostElemClientRect, targetElemClientRect, 'top', availablePlacements);
-        }
-        // right: check if target width can be placed between host right and viewport end and also height of target is
-        // inside viewport
-        if ((window.innerWidth || html.clientWidth) - hostElemClientRect.right > targetElemClientRect.width) {
-            // check for right only
-            if ((hostElemClientRect.top + hostElemClientRect.height / 2 - targetElement.offsetHeight / 2) > 0) {
-                availablePlacements.splice(availablePlacements.length, 1, 'right');
-            }
-            // check for right-top and right-bottom
-            this.setSecondaryPlacementForLeftRight(hostElemClientRect, targetElemClientRect, 'right', availablePlacements);
-        }
-        // bottom: check if there is enough space between host bottom and viewport end for target height
-        if ((window.innerHeight || html.clientHeight) - hostElemClientRect.bottom > targetElemClientRect.height) {
-            availablePlacements.splice(availablePlacements.length, 1, 'bottom');
-            this.setSecondaryPlacementForTopBottom(hostElemClientRect, targetElemClientRect, 'bottom', availablePlacements);
-        }
-        return availablePlacements;
-    };
-    /**
-     * check if secondary placement for left and right are available i.e. left-top, left-bottom, right-top, right-bottom
-     * primaryplacement: left|right
-     * availablePlacementArr: array in which available placemets to be set
-     */
-    /**
-       * check if secondary placement for left and right are available i.e. left-top, left-bottom, right-top, right-bottom
-       * primaryplacement: left|right
-       * availablePlacementArr: array in which available placemets to be set
-       */
-    Positioning.prototype.setSecondaryPlacementForLeftRight = /**
-       * check if secondary placement for left and right are available i.e. left-top, left-bottom, right-top, right-bottom
-       * primaryplacement: left|right
-       * availablePlacementArr: array in which available placemets to be set
-       */
-    function (hostElemClientRect, targetElemClientRect, primaryPlacement, availablePlacementArr) {
-        var html = document.documentElement;
-        // check for left-bottom
-        if (targetElemClientRect.height <= hostElemClientRect.bottom) {
-            availablePlacementArr.splice(availablePlacementArr.length, 1, primaryPlacement + '-bottom');
-        }
-        if ((window.innerHeight || html.clientHeight) - hostElemClientRect.top >= targetElemClientRect.height) {
-            availablePlacementArr.splice(availablePlacementArr.length, 1, primaryPlacement + '-top');
-        }
-    };
-    /**
-     * check if secondary placement for top and bottom are available i.e. top-left, top-right, bottom-left, bottom-right
-     * primaryplacement: top|bottom
-     * availablePlacementArr: array in which available placemets to be set
-     */
-    /**
-       * check if secondary placement for top and bottom are available i.e. top-left, top-right, bottom-left, bottom-right
-       * primaryplacement: top|bottom
-       * availablePlacementArr: array in which available placemets to be set
-       */
-    Positioning.prototype.setSecondaryPlacementForTopBottom = /**
-       * check if secondary placement for top and bottom are available i.e. top-left, top-right, bottom-left, bottom-right
-       * primaryplacement: top|bottom
-       * availablePlacementArr: array in which available placemets to be set
-       */
-    function (hostElemClientRect, targetElemClientRect, primaryPlacement, availablePlacementArr) {
-        var html = document.documentElement;
-        // check for left-bottom
-        if ((window.innerWidth || html.clientWidth) - hostElemClientRect.left >= targetElemClientRect.width) {
-            availablePlacementArr.splice(availablePlacementArr.length, 1, primaryPlacement + '-left');
-        }
-        if (targetElemClientRect.width <= hostElemClientRect.right) {
-            availablePlacementArr.splice(availablePlacementArr.length, 1, primaryPlacement + '-right');
-        }
-    };
-    return Positioning;
-}());
-// previous version:
-// https://github.com/angular-ui/bootstrap/blob/07c31d0731f7cb068a1932b8e01d2312b796b4ec/src/position/position.js
-
-var positionService = new Positioning();
-/*
- * Accept the placement array and applies the appropriate placement dependent on the viewport.
- * Returns the applied placement.
- * In case of auto placement, placements are selected in order 'top', 'bottom', 'left', 'right'.
- * */
-function positionElements(hostElement, targetElement, placement, appendToBody) {
-    var placementVals = Array.isArray(placement) ? placement : [placement];
-    // replace auto placement with other placements
-    var hasAuto = placementVals.findIndex(function (val) { return val === 'auto'; });
-    if (hasAuto >= 0) {
-        ['top', 'right', 'bottom', 'left'].forEach(function (obj) {
-            if (placementVals.find(function (val) { return val.search('^' + obj + '|^' + obj + '-') !== -1; }) == null) {
-                placementVals.splice(hasAuto++, 1, obj);
-            }
-        });
-    }
-    // coordinates where to position
-    var topVal = 0, leftVal = 0;
-    var appliedPlacement;
-    // get available placements
-    var availablePlacements = positionService.getAvailablePlacements(hostElement, targetElement);
-    var _loop_1 = function (item, index) {
-        // check if passed placement is present in the available placement or otherwise apply the last placement in the
-        // passed placement list
-        if ((availablePlacements.find(function (val) { return val === item; }) != null) || (placementVals.length === index + 1)) {
-            appliedPlacement = item;
-            var pos = positionService.positionElements(hostElement, targetElement, item, appendToBody);
-            topVal = pos.top;
-            leftVal = pos.left;
-            return "break";
-        }
-    };
-    // iterate over all the passed placements
-    for (var _i = 0, _a = toItemIndexes(placementVals); _i < _a.length; _i++) {
-        var _b = _a[_i], item = _b.item, index = _b.index;
-        var state_1 = _loop_1(item, index);
-        if (state_1 === "break")
-            break;
-    }
-    targetElement.style.top = topVal + "px";
-    targetElement.style.left = leftVal + "px";
-    return appliedPlacement;
-}
-// function to get index and item of an array
-function toItemIndexes(a) {
-    return a.map(function (item, index) { return ({ item: item, index: index }); });
-}
-//# sourceMappingURL=positioning.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/util/triggers.js":
-/*!*******************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/util/triggers.js ***!
-  \*******************************************************************/
-/*! exports provided: Trigger, parseTriggers, listenToTriggers, ɵ0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Trigger", function() { return Trigger; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parseTriggers", function() { return parseTriggers; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listenToTriggers", function() { return listenToTriggers; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵ0", function() { return ɵ0; });
-var Trigger = /** @class */ (function () {
-    function Trigger(open, close) {
-        this.open = open;
-        this.close = close;
-        if (!close) {
-            this.close = open;
-        }
-    }
-    Trigger.prototype.isManual = function () { return this.open === 'manual' || this.close === 'manual'; };
-    return Trigger;
-}());
-
-var DEFAULT_ALIASES = {
-    'hover': ['mouseenter', 'mouseleave']
-};
-function parseTriggers(triggers, aliases) {
-    if (aliases === void 0) { aliases = DEFAULT_ALIASES; }
-    var trimmedTriggers = (triggers || '').trim();
-    if (trimmedTriggers.length === 0) {
-        return [];
-    }
-    var parsedTriggers = trimmedTriggers.split(/\s+/).map(function (trigger) { return trigger.split(':'); }).map(function (triggerPair) {
-        var alias = aliases[triggerPair[0]] || triggerPair;
-        return new Trigger(alias[0], alias[1]);
-    });
-    var manualTriggers = parsedTriggers.filter(function (triggerPair) { return triggerPair.isManual(); });
-    if (manualTriggers.length > 1) {
-        throw 'Triggers parse error: only one manual trigger is allowed';
-    }
-    if (manualTriggers.length === 1 && parsedTriggers.length > 1) {
-        throw 'Triggers parse error: manual trigger can\'t be mixed with other triggers';
-    }
-    return parsedTriggers;
-}
-var noopFn = function () { };
-var ɵ0 = noopFn;
-function listenToTriggers(renderer, nativeElement, triggers, openFn, closeFn, toggleFn) {
-    var parsedTriggers = parseTriggers(triggers);
-    var listeners = [];
-    if (parsedTriggers.length === 1 && parsedTriggers[0].isManual()) {
-        return noopFn;
-    }
-    parsedTriggers.forEach(function (trigger) {
-        if (trigger.open === trigger.close) {
-            listeners.push(renderer.listen(nativeElement, trigger.open, toggleFn));
-        }
-        else {
-            listeners.push(renderer.listen(nativeElement, trigger.open, openFn), renderer.listen(nativeElement, trigger.close, closeFn));
-        }
-    });
-    return function () { listeners.forEach(function (unsubscribeFn) { return unsubscribeFn(); }); };
-}
-
-//# sourceMappingURL=triggers.js.map
-
-/***/ }),
-
-/***/ "../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js":
-/*!***************************************************************!*\
-  !*** ../node_modules/@ng-bootstrap/ng-bootstrap/util/util.js ***!
-  \***************************************************************/
-/*! exports provided: toInteger, toString, getValueInRange, isString, isNumber, isInteger, isDefined, padNumber, regExpEscape */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toInteger", function() { return toInteger; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toString", function() { return toString; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getValueInRange", function() { return getValueInRange; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isString", function() { return isString; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNumber", function() { return isNumber; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isInteger", function() { return isInteger; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isDefined", function() { return isDefined; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "padNumber", function() { return padNumber; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "regExpEscape", function() { return regExpEscape; });
-function toInteger(value) {
-    return parseInt("" + value, 10);
-}
-function toString(value) {
-    return (value !== undefined && value !== null) ? "" + value : '';
-}
-function getValueInRange(value, max, min) {
-    if (min === void 0) { min = 0; }
-    return Math.max(Math.min(value, max), min);
-}
-function isString(value) {
-    return typeof value === 'string';
-}
-function isNumber(value) {
-    return !isNaN(toInteger(value));
-}
-function isInteger(value) {
-    return typeof value === 'number' && isFinite(value) && Math.floor(value) === value;
-}
-function isDefined(value) {
-    return value !== undefined && value !== null;
-}
-function padNumber(value) {
-    if (isNumber(value)) {
-        return ("0" + value).slice(-2);
-    }
-    else {
-        return '';
-    }
-}
-function regExpEscape(text) {
-    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
-}
-//# sourceMappingURL=util.js.map
-
-/***/ }),
-
 /***/ "../node_modules/core-js/es7/reflect.js":
 /*!**********************************************!*\
   !*** ../node_modules/core-js/es7/reflect.js ***!
@@ -64711,6 +56921,25 @@ $metadata.exp({ metadata: function metadata(metadataKey, metadataValue) {
 
 /***/ }),
 
+/***/ "../node_modules/css-loader/index.js!../node_modules/bootstrap/dist/css/bootstrap.css":
+/*!***********************************************************************************!*\
+  !*** ../node_modules/css-loader!../node_modules/bootstrap/dist/css/bootstrap.css ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../css-loader/lib/css-base.js */ "../node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/*!\n * Bootstrap v4.1.1 (https://getbootstrap.com/)\n * Copyright 2011-2018 The Bootstrap Authors\n * Copyright 2011-2018 Twitter, Inc.\n * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)\n */\n:root {\n  --blue: #007bff;\n  --indigo: #6610f2;\n  --purple: #6f42c1;\n  --pink: #e83e8c;\n  --red: #dc3545;\n  --orange: #fd7e14;\n  --yellow: #ffc107;\n  --green: #28a745;\n  --teal: #20c997;\n  --cyan: #17a2b8;\n  --white: #fff;\n  --gray: #6c757d;\n  --gray-dark: #343a40;\n  --primary: #007bff;\n  --secondary: #6c757d;\n  --success: #28a745;\n  --info: #17a2b8;\n  --warning: #ffc107;\n  --danger: #dc3545;\n  --light: #f8f9fa;\n  --dark: #343a40;\n  --breakpoint-xs: 0;\n  --breakpoint-sm: 576px;\n  --breakpoint-md: 768px;\n  --breakpoint-lg: 992px;\n  --breakpoint-xl: 1200px;\n  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n}\n\n*,\n*::before,\n*::after {\n  box-sizing: border-box;\n}\n\nhtml {\n  font-family: sans-serif;\n  line-height: 1.15;\n  -webkit-text-size-adjust: 100%;\n  -ms-text-size-adjust: 100%;\n  -ms-overflow-style: scrollbar;\n  -webkit-tap-highlight-color: transparent;\n}\n\n@-ms-viewport {\n  width: device-width;\n}\n\narticle, aside, figcaption, figure, footer, header, hgroup, main, nav, section {\n  display: block;\n}\n\nbody {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: 1rem;\n  font-weight: 400;\n  line-height: 1.5;\n  color: #212529;\n  text-align: left;\n  background-color: #fff;\n}\n\n[tabindex=\"-1\"]:focus {\n  outline: 0 !important;\n}\n\nhr {\n  box-sizing: content-box;\n  height: 0;\n  overflow: visible;\n}\n\nh1, h2, h3, h4, h5, h6 {\n  margin-top: 0;\n  margin-bottom: 0.5rem;\n}\n\np {\n  margin-top: 0;\n  margin-bottom: 1rem;\n}\n\nabbr[title],\nabbr[data-original-title] {\n  text-decoration: underline;\n  -webkit-text-decoration: underline dotted;\n  text-decoration: underline dotted;\n  cursor: help;\n  border-bottom: 0;\n}\n\naddress {\n  margin-bottom: 1rem;\n  font-style: normal;\n  line-height: inherit;\n}\n\nol,\nul,\ndl {\n  margin-top: 0;\n  margin-bottom: 1rem;\n}\n\nol ol,\nul ul,\nol ul,\nul ol {\n  margin-bottom: 0;\n}\n\ndt {\n  font-weight: 700;\n}\n\ndd {\n  margin-bottom: .5rem;\n  margin-left: 0;\n}\n\nblockquote {\n  margin: 0 0 1rem;\n}\n\ndfn {\n  font-style: italic;\n}\n\nb,\nstrong {\n  font-weight: bolder;\n}\n\nsmall {\n  font-size: 80%;\n}\n\nsub,\nsup {\n  position: relative;\n  font-size: 75%;\n  line-height: 0;\n  vertical-align: baseline;\n}\n\nsub {\n  bottom: -.25em;\n}\n\nsup {\n  top: -.5em;\n}\n\na {\n  color: #007bff;\n  text-decoration: none;\n  background-color: transparent;\n  -webkit-text-decoration-skip: objects;\n}\n\na:hover {\n  color: #0056b3;\n  text-decoration: underline;\n}\n\na:not([href]):not([tabindex]) {\n  color: inherit;\n  text-decoration: none;\n}\n\na:not([href]):not([tabindex]):hover, a:not([href]):not([tabindex]):focus {\n  color: inherit;\n  text-decoration: none;\n}\n\na:not([href]):not([tabindex]):focus {\n  outline: 0;\n}\n\npre,\ncode,\nkbd,\nsamp {\n  font-family: SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n  font-size: 1em;\n}\n\npre {\n  margin-top: 0;\n  margin-bottom: 1rem;\n  overflow: auto;\n  -ms-overflow-style: scrollbar;\n}\n\nfigure {\n  margin: 0 0 1rem;\n}\n\nimg {\n  vertical-align: middle;\n  border-style: none;\n}\n\nsvg:not(:root) {\n  overflow: hidden;\n}\n\ntable {\n  border-collapse: collapse;\n}\n\ncaption {\n  padding-top: 0.75rem;\n  padding-bottom: 0.75rem;\n  color: #6c757d;\n  text-align: left;\n  caption-side: bottom;\n}\n\nth {\n  text-align: inherit;\n}\n\nlabel {\n  display: inline-block;\n  margin-bottom: 0.5rem;\n}\n\nbutton {\n  border-radius: 0;\n}\n\nbutton:focus {\n  outline: 1px dotted;\n  outline: 5px auto -webkit-focus-ring-color;\n}\n\ninput,\nbutton,\nselect,\noptgroup,\ntextarea {\n  margin: 0;\n  font-family: inherit;\n  font-size: inherit;\n  line-height: inherit;\n}\n\nbutton,\ninput {\n  overflow: visible;\n}\n\nbutton,\nselect {\n  text-transform: none;\n}\n\nbutton,\nhtml [type=\"button\"],\n[type=\"reset\"],\n[type=\"submit\"] {\n  -webkit-appearance: button;\n}\n\nbutton::-moz-focus-inner,\n[type=\"button\"]::-moz-focus-inner,\n[type=\"reset\"]::-moz-focus-inner,\n[type=\"submit\"]::-moz-focus-inner {\n  padding: 0;\n  border-style: none;\n}\n\ninput[type=\"radio\"],\ninput[type=\"checkbox\"] {\n  box-sizing: border-box;\n  padding: 0;\n}\n\ninput[type=\"date\"],\ninput[type=\"time\"],\ninput[type=\"datetime-local\"],\ninput[type=\"month\"] {\n  -webkit-appearance: listbox;\n}\n\ntextarea {\n  overflow: auto;\n  resize: vertical;\n}\n\nfieldset {\n  min-width: 0;\n  padding: 0;\n  margin: 0;\n  border: 0;\n}\n\nlegend {\n  display: block;\n  width: 100%;\n  max-width: 100%;\n  padding: 0;\n  margin-bottom: .5rem;\n  font-size: 1.5rem;\n  line-height: inherit;\n  color: inherit;\n  white-space: normal;\n}\n\nprogress {\n  vertical-align: baseline;\n}\n\n[type=\"number\"]::-webkit-inner-spin-button,\n[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n\n[type=\"search\"] {\n  outline-offset: -2px;\n  -webkit-appearance: none;\n}\n\n[type=\"search\"]::-webkit-search-cancel-button,\n[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n\n::-webkit-file-upload-button {\n  font: inherit;\n  -webkit-appearance: button;\n}\n\noutput {\n  display: inline-block;\n}\n\nsummary {\n  display: list-item;\n  cursor: pointer;\n}\n\ntemplate {\n  display: none;\n}\n\n[hidden] {\n  display: none !important;\n}\n\nh1, h2, h3, h4, h5, h6,\n.h1, .h2, .h3, .h4, .h5, .h6 {\n  margin-bottom: 0.5rem;\n  font-family: inherit;\n  font-weight: 500;\n  line-height: 1.2;\n  color: inherit;\n}\n\nh1, .h1 {\n  font-size: 2.5rem;\n}\n\nh2, .h2 {\n  font-size: 2rem;\n}\n\nh3, .h3 {\n  font-size: 1.75rem;\n}\n\nh4, .h4 {\n  font-size: 1.5rem;\n}\n\nh5, .h5 {\n  font-size: 1.25rem;\n}\n\nh6, .h6 {\n  font-size: 1rem;\n}\n\n.lead {\n  font-size: 1.25rem;\n  font-weight: 300;\n}\n\n.display-1 {\n  font-size: 6rem;\n  font-weight: 300;\n  line-height: 1.2;\n}\n\n.display-2 {\n  font-size: 5.5rem;\n  font-weight: 300;\n  line-height: 1.2;\n}\n\n.display-3 {\n  font-size: 4.5rem;\n  font-weight: 300;\n  line-height: 1.2;\n}\n\n.display-4 {\n  font-size: 3.5rem;\n  font-weight: 300;\n  line-height: 1.2;\n}\n\nhr {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  border: 0;\n  border-top: 1px solid rgba(0, 0, 0, 0.1);\n}\n\nsmall,\n.small {\n  font-size: 80%;\n  font-weight: 400;\n}\n\nmark,\n.mark {\n  padding: 0.2em;\n  background-color: #fcf8e3;\n}\n\n.list-unstyled {\n  padding-left: 0;\n  list-style: none;\n}\n\n.list-inline {\n  padding-left: 0;\n  list-style: none;\n}\n\n.list-inline-item {\n  display: inline-block;\n}\n\n.list-inline-item:not(:last-child) {\n  margin-right: 0.5rem;\n}\n\n.initialism {\n  font-size: 90%;\n  text-transform: uppercase;\n}\n\n.blockquote {\n  margin-bottom: 1rem;\n  font-size: 1.25rem;\n}\n\n.blockquote-footer {\n  display: block;\n  font-size: 80%;\n  color: #6c757d;\n}\n\n.blockquote-footer::before {\n  content: \"\\2014   \\A0\";\n}\n\n.img-fluid {\n  max-width: 100%;\n  height: auto;\n}\n\n.img-thumbnail {\n  padding: 0.25rem;\n  background-color: #fff;\n  border: 1px solid #dee2e6;\n  border-radius: 0.25rem;\n  max-width: 100%;\n  height: auto;\n}\n\n.figure {\n  display: inline-block;\n}\n\n.figure-img {\n  margin-bottom: 0.5rem;\n  line-height: 1;\n}\n\n.figure-caption {\n  font-size: 90%;\n  color: #6c757d;\n}\n\ncode {\n  font-size: 87.5%;\n  color: #e83e8c;\n  word-break: break-word;\n}\n\na > code {\n  color: inherit;\n}\n\nkbd {\n  padding: 0.2rem 0.4rem;\n  font-size: 87.5%;\n  color: #fff;\n  background-color: #212529;\n  border-radius: 0.2rem;\n}\n\nkbd kbd {\n  padding: 0;\n  font-size: 100%;\n  font-weight: 700;\n}\n\npre {\n  display: block;\n  font-size: 87.5%;\n  color: #212529;\n}\n\npre code {\n  font-size: inherit;\n  color: inherit;\n  word-break: normal;\n}\n\n.pre-scrollable {\n  max-height: 340px;\n  overflow-y: scroll;\n}\n\n.container {\n  width: 100%;\n  padding-right: 15px;\n  padding-left: 15px;\n  margin-right: auto;\n  margin-left: auto;\n}\n\n@media (min-width: 576px) {\n  .container {\n    max-width: 540px;\n  }\n}\n\n@media (min-width: 768px) {\n  .container {\n    max-width: 720px;\n  }\n}\n\n@media (min-width: 992px) {\n  .container {\n    max-width: 960px;\n  }\n}\n\n@media (min-width: 1200px) {\n  .container {\n    max-width: 1140px;\n  }\n}\n\n.container-fluid {\n  width: 100%;\n  padding-right: 15px;\n  padding-left: 15px;\n  margin-right: auto;\n  margin-left: auto;\n}\n\n.row {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  margin-right: -15px;\n  margin-left: -15px;\n}\n\n.no-gutters {\n  margin-right: 0;\n  margin-left: 0;\n}\n\n.no-gutters > .col,\n.no-gutters > [class*=\"col-\"] {\n  padding-right: 0;\n  padding-left: 0;\n}\n\n.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col,\n.col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm,\n.col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md,\n.col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg,\n.col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl,\n.col-xl-auto {\n  position: relative;\n  width: 100%;\n  min-height: 1px;\n  padding-right: 15px;\n  padding-left: 15px;\n}\n\n.col {\n  -ms-flex-preferred-size: 0;\n  flex-basis: 0;\n  -ms-flex-positive: 1;\n  flex-grow: 1;\n  max-width: 100%;\n}\n\n.col-auto {\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  width: auto;\n  max-width: none;\n}\n\n.col-1 {\n  -ms-flex: 0 0 8.333333%;\n  flex: 0 0 8.333333%;\n  max-width: 8.333333%;\n}\n\n.col-2 {\n  -ms-flex: 0 0 16.666667%;\n  flex: 0 0 16.666667%;\n  max-width: 16.666667%;\n}\n\n.col-3 {\n  -ms-flex: 0 0 25%;\n  flex: 0 0 25%;\n  max-width: 25%;\n}\n\n.col-4 {\n  -ms-flex: 0 0 33.333333%;\n  flex: 0 0 33.333333%;\n  max-width: 33.333333%;\n}\n\n.col-5 {\n  -ms-flex: 0 0 41.666667%;\n  flex: 0 0 41.666667%;\n  max-width: 41.666667%;\n}\n\n.col-6 {\n  -ms-flex: 0 0 50%;\n  flex: 0 0 50%;\n  max-width: 50%;\n}\n\n.col-7 {\n  -ms-flex: 0 0 58.333333%;\n  flex: 0 0 58.333333%;\n  max-width: 58.333333%;\n}\n\n.col-8 {\n  -ms-flex: 0 0 66.666667%;\n  flex: 0 0 66.666667%;\n  max-width: 66.666667%;\n}\n\n.col-9 {\n  -ms-flex: 0 0 75%;\n  flex: 0 0 75%;\n  max-width: 75%;\n}\n\n.col-10 {\n  -ms-flex: 0 0 83.333333%;\n  flex: 0 0 83.333333%;\n  max-width: 83.333333%;\n}\n\n.col-11 {\n  -ms-flex: 0 0 91.666667%;\n  flex: 0 0 91.666667%;\n  max-width: 91.666667%;\n}\n\n.col-12 {\n  -ms-flex: 0 0 100%;\n  flex: 0 0 100%;\n  max-width: 100%;\n}\n\n.order-first {\n  -ms-flex-order: -1;\n  order: -1;\n}\n\n.order-last {\n  -ms-flex-order: 13;\n  order: 13;\n}\n\n.order-0 {\n  -ms-flex-order: 0;\n  order: 0;\n}\n\n.order-1 {\n  -ms-flex-order: 1;\n  order: 1;\n}\n\n.order-2 {\n  -ms-flex-order: 2;\n  order: 2;\n}\n\n.order-3 {\n  -ms-flex-order: 3;\n  order: 3;\n}\n\n.order-4 {\n  -ms-flex-order: 4;\n  order: 4;\n}\n\n.order-5 {\n  -ms-flex-order: 5;\n  order: 5;\n}\n\n.order-6 {\n  -ms-flex-order: 6;\n  order: 6;\n}\n\n.order-7 {\n  -ms-flex-order: 7;\n  order: 7;\n}\n\n.order-8 {\n  -ms-flex-order: 8;\n  order: 8;\n}\n\n.order-9 {\n  -ms-flex-order: 9;\n  order: 9;\n}\n\n.order-10 {\n  -ms-flex-order: 10;\n  order: 10;\n}\n\n.order-11 {\n  -ms-flex-order: 11;\n  order: 11;\n}\n\n.order-12 {\n  -ms-flex-order: 12;\n  order: 12;\n}\n\n.offset-1 {\n  margin-left: 8.333333%;\n}\n\n.offset-2 {\n  margin-left: 16.666667%;\n}\n\n.offset-3 {\n  margin-left: 25%;\n}\n\n.offset-4 {\n  margin-left: 33.333333%;\n}\n\n.offset-5 {\n  margin-left: 41.666667%;\n}\n\n.offset-6 {\n  margin-left: 50%;\n}\n\n.offset-7 {\n  margin-left: 58.333333%;\n}\n\n.offset-8 {\n  margin-left: 66.666667%;\n}\n\n.offset-9 {\n  margin-left: 75%;\n}\n\n.offset-10 {\n  margin-left: 83.333333%;\n}\n\n.offset-11 {\n  margin-left: 91.666667%;\n}\n\n@media (min-width: 576px) {\n  .col-sm {\n    -ms-flex-preferred-size: 0;\n    flex-basis: 0;\n    -ms-flex-positive: 1;\n    flex-grow: 1;\n    max-width: 100%;\n  }\n  .col-sm-auto {\n    -ms-flex: 0 0 auto;\n    flex: 0 0 auto;\n    width: auto;\n    max-width: none;\n  }\n  .col-sm-1 {\n    -ms-flex: 0 0 8.333333%;\n    flex: 0 0 8.333333%;\n    max-width: 8.333333%;\n  }\n  .col-sm-2 {\n    -ms-flex: 0 0 16.666667%;\n    flex: 0 0 16.666667%;\n    max-width: 16.666667%;\n  }\n  .col-sm-3 {\n    -ms-flex: 0 0 25%;\n    flex: 0 0 25%;\n    max-width: 25%;\n  }\n  .col-sm-4 {\n    -ms-flex: 0 0 33.333333%;\n    flex: 0 0 33.333333%;\n    max-width: 33.333333%;\n  }\n  .col-sm-5 {\n    -ms-flex: 0 0 41.666667%;\n    flex: 0 0 41.666667%;\n    max-width: 41.666667%;\n  }\n  .col-sm-6 {\n    -ms-flex: 0 0 50%;\n    flex: 0 0 50%;\n    max-width: 50%;\n  }\n  .col-sm-7 {\n    -ms-flex: 0 0 58.333333%;\n    flex: 0 0 58.333333%;\n    max-width: 58.333333%;\n  }\n  .col-sm-8 {\n    -ms-flex: 0 0 66.666667%;\n    flex: 0 0 66.666667%;\n    max-width: 66.666667%;\n  }\n  .col-sm-9 {\n    -ms-flex: 0 0 75%;\n    flex: 0 0 75%;\n    max-width: 75%;\n  }\n  .col-sm-10 {\n    -ms-flex: 0 0 83.333333%;\n    flex: 0 0 83.333333%;\n    max-width: 83.333333%;\n  }\n  .col-sm-11 {\n    -ms-flex: 0 0 91.666667%;\n    flex: 0 0 91.666667%;\n    max-width: 91.666667%;\n  }\n  .col-sm-12 {\n    -ms-flex: 0 0 100%;\n    flex: 0 0 100%;\n    max-width: 100%;\n  }\n  .order-sm-first {\n    -ms-flex-order: -1;\n    order: -1;\n  }\n  .order-sm-last {\n    -ms-flex-order: 13;\n    order: 13;\n  }\n  .order-sm-0 {\n    -ms-flex-order: 0;\n    order: 0;\n  }\n  .order-sm-1 {\n    -ms-flex-order: 1;\n    order: 1;\n  }\n  .order-sm-2 {\n    -ms-flex-order: 2;\n    order: 2;\n  }\n  .order-sm-3 {\n    -ms-flex-order: 3;\n    order: 3;\n  }\n  .order-sm-4 {\n    -ms-flex-order: 4;\n    order: 4;\n  }\n  .order-sm-5 {\n    -ms-flex-order: 5;\n    order: 5;\n  }\n  .order-sm-6 {\n    -ms-flex-order: 6;\n    order: 6;\n  }\n  .order-sm-7 {\n    -ms-flex-order: 7;\n    order: 7;\n  }\n  .order-sm-8 {\n    -ms-flex-order: 8;\n    order: 8;\n  }\n  .order-sm-9 {\n    -ms-flex-order: 9;\n    order: 9;\n  }\n  .order-sm-10 {\n    -ms-flex-order: 10;\n    order: 10;\n  }\n  .order-sm-11 {\n    -ms-flex-order: 11;\n    order: 11;\n  }\n  .order-sm-12 {\n    -ms-flex-order: 12;\n    order: 12;\n  }\n  .offset-sm-0 {\n    margin-left: 0;\n  }\n  .offset-sm-1 {\n    margin-left: 8.333333%;\n  }\n  .offset-sm-2 {\n    margin-left: 16.666667%;\n  }\n  .offset-sm-3 {\n    margin-left: 25%;\n  }\n  .offset-sm-4 {\n    margin-left: 33.333333%;\n  }\n  .offset-sm-5 {\n    margin-left: 41.666667%;\n  }\n  .offset-sm-6 {\n    margin-left: 50%;\n  }\n  .offset-sm-7 {\n    margin-left: 58.333333%;\n  }\n  .offset-sm-8 {\n    margin-left: 66.666667%;\n  }\n  .offset-sm-9 {\n    margin-left: 75%;\n  }\n  .offset-sm-10 {\n    margin-left: 83.333333%;\n  }\n  .offset-sm-11 {\n    margin-left: 91.666667%;\n  }\n}\n\n@media (min-width: 768px) {\n  .col-md {\n    -ms-flex-preferred-size: 0;\n    flex-basis: 0;\n    -ms-flex-positive: 1;\n    flex-grow: 1;\n    max-width: 100%;\n  }\n  .col-md-auto {\n    -ms-flex: 0 0 auto;\n    flex: 0 0 auto;\n    width: auto;\n    max-width: none;\n  }\n  .col-md-1 {\n    -ms-flex: 0 0 8.333333%;\n    flex: 0 0 8.333333%;\n    max-width: 8.333333%;\n  }\n  .col-md-2 {\n    -ms-flex: 0 0 16.666667%;\n    flex: 0 0 16.666667%;\n    max-width: 16.666667%;\n  }\n  .col-md-3 {\n    -ms-flex: 0 0 25%;\n    flex: 0 0 25%;\n    max-width: 25%;\n  }\n  .col-md-4 {\n    -ms-flex: 0 0 33.333333%;\n    flex: 0 0 33.333333%;\n    max-width: 33.333333%;\n  }\n  .col-md-5 {\n    -ms-flex: 0 0 41.666667%;\n    flex: 0 0 41.666667%;\n    max-width: 41.666667%;\n  }\n  .col-md-6 {\n    -ms-flex: 0 0 50%;\n    flex: 0 0 50%;\n    max-width: 50%;\n  }\n  .col-md-7 {\n    -ms-flex: 0 0 58.333333%;\n    flex: 0 0 58.333333%;\n    max-width: 58.333333%;\n  }\n  .col-md-8 {\n    -ms-flex: 0 0 66.666667%;\n    flex: 0 0 66.666667%;\n    max-width: 66.666667%;\n  }\n  .col-md-9 {\n    -ms-flex: 0 0 75%;\n    flex: 0 0 75%;\n    max-width: 75%;\n  }\n  .col-md-10 {\n    -ms-flex: 0 0 83.333333%;\n    flex: 0 0 83.333333%;\n    max-width: 83.333333%;\n  }\n  .col-md-11 {\n    -ms-flex: 0 0 91.666667%;\n    flex: 0 0 91.666667%;\n    max-width: 91.666667%;\n  }\n  .col-md-12 {\n    -ms-flex: 0 0 100%;\n    flex: 0 0 100%;\n    max-width: 100%;\n  }\n  .order-md-first {\n    -ms-flex-order: -1;\n    order: -1;\n  }\n  .order-md-last {\n    -ms-flex-order: 13;\n    order: 13;\n  }\n  .order-md-0 {\n    -ms-flex-order: 0;\n    order: 0;\n  }\n  .order-md-1 {\n    -ms-flex-order: 1;\n    order: 1;\n  }\n  .order-md-2 {\n    -ms-flex-order: 2;\n    order: 2;\n  }\n  .order-md-3 {\n    -ms-flex-order: 3;\n    order: 3;\n  }\n  .order-md-4 {\n    -ms-flex-order: 4;\n    order: 4;\n  }\n  .order-md-5 {\n    -ms-flex-order: 5;\n    order: 5;\n  }\n  .order-md-6 {\n    -ms-flex-order: 6;\n    order: 6;\n  }\n  .order-md-7 {\n    -ms-flex-order: 7;\n    order: 7;\n  }\n  .order-md-8 {\n    -ms-flex-order: 8;\n    order: 8;\n  }\n  .order-md-9 {\n    -ms-flex-order: 9;\n    order: 9;\n  }\n  .order-md-10 {\n    -ms-flex-order: 10;\n    order: 10;\n  }\n  .order-md-11 {\n    -ms-flex-order: 11;\n    order: 11;\n  }\n  .order-md-12 {\n    -ms-flex-order: 12;\n    order: 12;\n  }\n  .offset-md-0 {\n    margin-left: 0;\n  }\n  .offset-md-1 {\n    margin-left: 8.333333%;\n  }\n  .offset-md-2 {\n    margin-left: 16.666667%;\n  }\n  .offset-md-3 {\n    margin-left: 25%;\n  }\n  .offset-md-4 {\n    margin-left: 33.333333%;\n  }\n  .offset-md-5 {\n    margin-left: 41.666667%;\n  }\n  .offset-md-6 {\n    margin-left: 50%;\n  }\n  .offset-md-7 {\n    margin-left: 58.333333%;\n  }\n  .offset-md-8 {\n    margin-left: 66.666667%;\n  }\n  .offset-md-9 {\n    margin-left: 75%;\n  }\n  .offset-md-10 {\n    margin-left: 83.333333%;\n  }\n  .offset-md-11 {\n    margin-left: 91.666667%;\n  }\n}\n\n@media (min-width: 992px) {\n  .col-lg {\n    -ms-flex-preferred-size: 0;\n    flex-basis: 0;\n    -ms-flex-positive: 1;\n    flex-grow: 1;\n    max-width: 100%;\n  }\n  .col-lg-auto {\n    -ms-flex: 0 0 auto;\n    flex: 0 0 auto;\n    width: auto;\n    max-width: none;\n  }\n  .col-lg-1 {\n    -ms-flex: 0 0 8.333333%;\n    flex: 0 0 8.333333%;\n    max-width: 8.333333%;\n  }\n  .col-lg-2 {\n    -ms-flex: 0 0 16.666667%;\n    flex: 0 0 16.666667%;\n    max-width: 16.666667%;\n  }\n  .col-lg-3 {\n    -ms-flex: 0 0 25%;\n    flex: 0 0 25%;\n    max-width: 25%;\n  }\n  .col-lg-4 {\n    -ms-flex: 0 0 33.333333%;\n    flex: 0 0 33.333333%;\n    max-width: 33.333333%;\n  }\n  .col-lg-5 {\n    -ms-flex: 0 0 41.666667%;\n    flex: 0 0 41.666667%;\n    max-width: 41.666667%;\n  }\n  .col-lg-6 {\n    -ms-flex: 0 0 50%;\n    flex: 0 0 50%;\n    max-width: 50%;\n  }\n  .col-lg-7 {\n    -ms-flex: 0 0 58.333333%;\n    flex: 0 0 58.333333%;\n    max-width: 58.333333%;\n  }\n  .col-lg-8 {\n    -ms-flex: 0 0 66.666667%;\n    flex: 0 0 66.666667%;\n    max-width: 66.666667%;\n  }\n  .col-lg-9 {\n    -ms-flex: 0 0 75%;\n    flex: 0 0 75%;\n    max-width: 75%;\n  }\n  .col-lg-10 {\n    -ms-flex: 0 0 83.333333%;\n    flex: 0 0 83.333333%;\n    max-width: 83.333333%;\n  }\n  .col-lg-11 {\n    -ms-flex: 0 0 91.666667%;\n    flex: 0 0 91.666667%;\n    max-width: 91.666667%;\n  }\n  .col-lg-12 {\n    -ms-flex: 0 0 100%;\n    flex: 0 0 100%;\n    max-width: 100%;\n  }\n  .order-lg-first {\n    -ms-flex-order: -1;\n    order: -1;\n  }\n  .order-lg-last {\n    -ms-flex-order: 13;\n    order: 13;\n  }\n  .order-lg-0 {\n    -ms-flex-order: 0;\n    order: 0;\n  }\n  .order-lg-1 {\n    -ms-flex-order: 1;\n    order: 1;\n  }\n  .order-lg-2 {\n    -ms-flex-order: 2;\n    order: 2;\n  }\n  .order-lg-3 {\n    -ms-flex-order: 3;\n    order: 3;\n  }\n  .order-lg-4 {\n    -ms-flex-order: 4;\n    order: 4;\n  }\n  .order-lg-5 {\n    -ms-flex-order: 5;\n    order: 5;\n  }\n  .order-lg-6 {\n    -ms-flex-order: 6;\n    order: 6;\n  }\n  .order-lg-7 {\n    -ms-flex-order: 7;\n    order: 7;\n  }\n  .order-lg-8 {\n    -ms-flex-order: 8;\n    order: 8;\n  }\n  .order-lg-9 {\n    -ms-flex-order: 9;\n    order: 9;\n  }\n  .order-lg-10 {\n    -ms-flex-order: 10;\n    order: 10;\n  }\n  .order-lg-11 {\n    -ms-flex-order: 11;\n    order: 11;\n  }\n  .order-lg-12 {\n    -ms-flex-order: 12;\n    order: 12;\n  }\n  .offset-lg-0 {\n    margin-left: 0;\n  }\n  .offset-lg-1 {\n    margin-left: 8.333333%;\n  }\n  .offset-lg-2 {\n    margin-left: 16.666667%;\n  }\n  .offset-lg-3 {\n    margin-left: 25%;\n  }\n  .offset-lg-4 {\n    margin-left: 33.333333%;\n  }\n  .offset-lg-5 {\n    margin-left: 41.666667%;\n  }\n  .offset-lg-6 {\n    margin-left: 50%;\n  }\n  .offset-lg-7 {\n    margin-left: 58.333333%;\n  }\n  .offset-lg-8 {\n    margin-left: 66.666667%;\n  }\n  .offset-lg-9 {\n    margin-left: 75%;\n  }\n  .offset-lg-10 {\n    margin-left: 83.333333%;\n  }\n  .offset-lg-11 {\n    margin-left: 91.666667%;\n  }\n}\n\n@media (min-width: 1200px) {\n  .col-xl {\n    -ms-flex-preferred-size: 0;\n    flex-basis: 0;\n    -ms-flex-positive: 1;\n    flex-grow: 1;\n    max-width: 100%;\n  }\n  .col-xl-auto {\n    -ms-flex: 0 0 auto;\n    flex: 0 0 auto;\n    width: auto;\n    max-width: none;\n  }\n  .col-xl-1 {\n    -ms-flex: 0 0 8.333333%;\n    flex: 0 0 8.333333%;\n    max-width: 8.333333%;\n  }\n  .col-xl-2 {\n    -ms-flex: 0 0 16.666667%;\n    flex: 0 0 16.666667%;\n    max-width: 16.666667%;\n  }\n  .col-xl-3 {\n    -ms-flex: 0 0 25%;\n    flex: 0 0 25%;\n    max-width: 25%;\n  }\n  .col-xl-4 {\n    -ms-flex: 0 0 33.333333%;\n    flex: 0 0 33.333333%;\n    max-width: 33.333333%;\n  }\n  .col-xl-5 {\n    -ms-flex: 0 0 41.666667%;\n    flex: 0 0 41.666667%;\n    max-width: 41.666667%;\n  }\n  .col-xl-6 {\n    -ms-flex: 0 0 50%;\n    flex: 0 0 50%;\n    max-width: 50%;\n  }\n  .col-xl-7 {\n    -ms-flex: 0 0 58.333333%;\n    flex: 0 0 58.333333%;\n    max-width: 58.333333%;\n  }\n  .col-xl-8 {\n    -ms-flex: 0 0 66.666667%;\n    flex: 0 0 66.666667%;\n    max-width: 66.666667%;\n  }\n  .col-xl-9 {\n    -ms-flex: 0 0 75%;\n    flex: 0 0 75%;\n    max-width: 75%;\n  }\n  .col-xl-10 {\n    -ms-flex: 0 0 83.333333%;\n    flex: 0 0 83.333333%;\n    max-width: 83.333333%;\n  }\n  .col-xl-11 {\n    -ms-flex: 0 0 91.666667%;\n    flex: 0 0 91.666667%;\n    max-width: 91.666667%;\n  }\n  .col-xl-12 {\n    -ms-flex: 0 0 100%;\n    flex: 0 0 100%;\n    max-width: 100%;\n  }\n  .order-xl-first {\n    -ms-flex-order: -1;\n    order: -1;\n  }\n  .order-xl-last {\n    -ms-flex-order: 13;\n    order: 13;\n  }\n  .order-xl-0 {\n    -ms-flex-order: 0;\n    order: 0;\n  }\n  .order-xl-1 {\n    -ms-flex-order: 1;\n    order: 1;\n  }\n  .order-xl-2 {\n    -ms-flex-order: 2;\n    order: 2;\n  }\n  .order-xl-3 {\n    -ms-flex-order: 3;\n    order: 3;\n  }\n  .order-xl-4 {\n    -ms-flex-order: 4;\n    order: 4;\n  }\n  .order-xl-5 {\n    -ms-flex-order: 5;\n    order: 5;\n  }\n  .order-xl-6 {\n    -ms-flex-order: 6;\n    order: 6;\n  }\n  .order-xl-7 {\n    -ms-flex-order: 7;\n    order: 7;\n  }\n  .order-xl-8 {\n    -ms-flex-order: 8;\n    order: 8;\n  }\n  .order-xl-9 {\n    -ms-flex-order: 9;\n    order: 9;\n  }\n  .order-xl-10 {\n    -ms-flex-order: 10;\n    order: 10;\n  }\n  .order-xl-11 {\n    -ms-flex-order: 11;\n    order: 11;\n  }\n  .order-xl-12 {\n    -ms-flex-order: 12;\n    order: 12;\n  }\n  .offset-xl-0 {\n    margin-left: 0;\n  }\n  .offset-xl-1 {\n    margin-left: 8.333333%;\n  }\n  .offset-xl-2 {\n    margin-left: 16.666667%;\n  }\n  .offset-xl-3 {\n    margin-left: 25%;\n  }\n  .offset-xl-4 {\n    margin-left: 33.333333%;\n  }\n  .offset-xl-5 {\n    margin-left: 41.666667%;\n  }\n  .offset-xl-6 {\n    margin-left: 50%;\n  }\n  .offset-xl-7 {\n    margin-left: 58.333333%;\n  }\n  .offset-xl-8 {\n    margin-left: 66.666667%;\n  }\n  .offset-xl-9 {\n    margin-left: 75%;\n  }\n  .offset-xl-10 {\n    margin-left: 83.333333%;\n  }\n  .offset-xl-11 {\n    margin-left: 91.666667%;\n  }\n}\n\n.table {\n  width: 100%;\n  max-width: 100%;\n  margin-bottom: 1rem;\n  background-color: transparent;\n}\n\n.table th,\n.table td {\n  padding: 0.75rem;\n  vertical-align: top;\n  border-top: 1px solid #dee2e6;\n}\n\n.table thead th {\n  vertical-align: bottom;\n  border-bottom: 2px solid #dee2e6;\n}\n\n.table tbody + tbody {\n  border-top: 2px solid #dee2e6;\n}\n\n.table .table {\n  background-color: #fff;\n}\n\n.table-sm th,\n.table-sm td {\n  padding: 0.3rem;\n}\n\n.table-bordered {\n  border: 1px solid #dee2e6;\n}\n\n.table-bordered th,\n.table-bordered td {\n  border: 1px solid #dee2e6;\n}\n\n.table-bordered thead th,\n.table-bordered thead td {\n  border-bottom-width: 2px;\n}\n\n.table-borderless th,\n.table-borderless td,\n.table-borderless thead th,\n.table-borderless tbody + tbody {\n  border: 0;\n}\n\n.table-striped tbody tr:nth-of-type(odd) {\n  background-color: rgba(0, 0, 0, 0.05);\n}\n\n.table-hover tbody tr:hover {\n  background-color: rgba(0, 0, 0, 0.075);\n}\n\n.table-primary,\n.table-primary > th,\n.table-primary > td {\n  background-color: #b8daff;\n}\n\n.table-hover .table-primary:hover {\n  background-color: #9fcdff;\n}\n\n.table-hover .table-primary:hover > td,\n.table-hover .table-primary:hover > th {\n  background-color: #9fcdff;\n}\n\n.table-secondary,\n.table-secondary > th,\n.table-secondary > td {\n  background-color: #d6d8db;\n}\n\n.table-hover .table-secondary:hover {\n  background-color: #c8cbcf;\n}\n\n.table-hover .table-secondary:hover > td,\n.table-hover .table-secondary:hover > th {\n  background-color: #c8cbcf;\n}\n\n.table-success,\n.table-success > th,\n.table-success > td {\n  background-color: #c3e6cb;\n}\n\n.table-hover .table-success:hover {\n  background-color: #b1dfbb;\n}\n\n.table-hover .table-success:hover > td,\n.table-hover .table-success:hover > th {\n  background-color: #b1dfbb;\n}\n\n.table-info,\n.table-info > th,\n.table-info > td {\n  background-color: #bee5eb;\n}\n\n.table-hover .table-info:hover {\n  background-color: #abdde5;\n}\n\n.table-hover .table-info:hover > td,\n.table-hover .table-info:hover > th {\n  background-color: #abdde5;\n}\n\n.table-warning,\n.table-warning > th,\n.table-warning > td {\n  background-color: #ffeeba;\n}\n\n.table-hover .table-warning:hover {\n  background-color: #ffe8a1;\n}\n\n.table-hover .table-warning:hover > td,\n.table-hover .table-warning:hover > th {\n  background-color: #ffe8a1;\n}\n\n.table-danger,\n.table-danger > th,\n.table-danger > td {\n  background-color: #f5c6cb;\n}\n\n.table-hover .table-danger:hover {\n  background-color: #f1b0b7;\n}\n\n.table-hover .table-danger:hover > td,\n.table-hover .table-danger:hover > th {\n  background-color: #f1b0b7;\n}\n\n.table-light,\n.table-light > th,\n.table-light > td {\n  background-color: #fdfdfe;\n}\n\n.table-hover .table-light:hover {\n  background-color: #ececf6;\n}\n\n.table-hover .table-light:hover > td,\n.table-hover .table-light:hover > th {\n  background-color: #ececf6;\n}\n\n.table-dark,\n.table-dark > th,\n.table-dark > td {\n  background-color: #c6c8ca;\n}\n\n.table-hover .table-dark:hover {\n  background-color: #b9bbbe;\n}\n\n.table-hover .table-dark:hover > td,\n.table-hover .table-dark:hover > th {\n  background-color: #b9bbbe;\n}\n\n.table-active,\n.table-active > th,\n.table-active > td {\n  background-color: rgba(0, 0, 0, 0.075);\n}\n\n.table-hover .table-active:hover {\n  background-color: rgba(0, 0, 0, 0.075);\n}\n\n.table-hover .table-active:hover > td,\n.table-hover .table-active:hover > th {\n  background-color: rgba(0, 0, 0, 0.075);\n}\n\n.table .thead-dark th {\n  color: #fff;\n  background-color: #212529;\n  border-color: #32383e;\n}\n\n.table .thead-light th {\n  color: #495057;\n  background-color: #e9ecef;\n  border-color: #dee2e6;\n}\n\n.table-dark {\n  color: #fff;\n  background-color: #212529;\n}\n\n.table-dark th,\n.table-dark td,\n.table-dark thead th {\n  border-color: #32383e;\n}\n\n.table-dark.table-bordered {\n  border: 0;\n}\n\n.table-dark.table-striped tbody tr:nth-of-type(odd) {\n  background-color: rgba(255, 255, 255, 0.05);\n}\n\n.table-dark.table-hover tbody tr:hover {\n  background-color: rgba(255, 255, 255, 0.075);\n}\n\n@media (max-width: 575.98px) {\n  .table-responsive-sm {\n    display: block;\n    width: 100%;\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch;\n    -ms-overflow-style: -ms-autohiding-scrollbar;\n  }\n  .table-responsive-sm > .table-bordered {\n    border: 0;\n  }\n}\n\n@media (max-width: 767.98px) {\n  .table-responsive-md {\n    display: block;\n    width: 100%;\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch;\n    -ms-overflow-style: -ms-autohiding-scrollbar;\n  }\n  .table-responsive-md > .table-bordered {\n    border: 0;\n  }\n}\n\n@media (max-width: 991.98px) {\n  .table-responsive-lg {\n    display: block;\n    width: 100%;\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch;\n    -ms-overflow-style: -ms-autohiding-scrollbar;\n  }\n  .table-responsive-lg > .table-bordered {\n    border: 0;\n  }\n}\n\n@media (max-width: 1199.98px) {\n  .table-responsive-xl {\n    display: block;\n    width: 100%;\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch;\n    -ms-overflow-style: -ms-autohiding-scrollbar;\n  }\n  .table-responsive-xl > .table-bordered {\n    border: 0;\n  }\n}\n\n.table-responsive {\n  display: block;\n  width: 100%;\n  overflow-x: auto;\n  -webkit-overflow-scrolling: touch;\n  -ms-overflow-style: -ms-autohiding-scrollbar;\n}\n\n.table-responsive > .table-bordered {\n  border: 0;\n}\n\n.form-control {\n  display: block;\n  width: 100%;\n  padding: 0.375rem 0.75rem;\n  font-size: 1rem;\n  line-height: 1.5;\n  color: #495057;\n  background-color: #fff;\n  background-clip: padding-box;\n  border: 1px solid #ced4da;\n  border-radius: 0.25rem;\n  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\n}\n\n@media screen and (prefers-reduced-motion: reduce) {\n  .form-control {\n    transition: none;\n  }\n}\n\n.form-control::-ms-expand {\n  background-color: transparent;\n  border: 0;\n}\n\n.form-control:focus {\n  color: #495057;\n  background-color: #fff;\n  border-color: #80bdff;\n  outline: 0;\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\n}\n\n.form-control::-webkit-input-placeholder {\n  color: #6c757d;\n  opacity: 1;\n}\n\n.form-control::-moz-placeholder {\n  color: #6c757d;\n  opacity: 1;\n}\n\n.form-control:-ms-input-placeholder {\n  color: #6c757d;\n  opacity: 1;\n}\n\n.form-control::-ms-input-placeholder {\n  color: #6c757d;\n  opacity: 1;\n}\n\n.form-control::placeholder {\n  color: #6c757d;\n  opacity: 1;\n}\n\n.form-control:disabled, .form-control[readonly] {\n  background-color: #e9ecef;\n  opacity: 1;\n}\n\nselect.form-control:not([size]):not([multiple]) {\n  height: calc(2.25rem + 2px);\n}\n\nselect.form-control:focus::-ms-value {\n  color: #495057;\n  background-color: #fff;\n}\n\n.form-control-file,\n.form-control-range {\n  display: block;\n  width: 100%;\n}\n\n.col-form-label {\n  padding-top: calc(0.375rem + 1px);\n  padding-bottom: calc(0.375rem + 1px);\n  margin-bottom: 0;\n  font-size: inherit;\n  line-height: 1.5;\n}\n\n.col-form-label-lg {\n  padding-top: calc(0.5rem + 1px);\n  padding-bottom: calc(0.5rem + 1px);\n  font-size: 1.25rem;\n  line-height: 1.5;\n}\n\n.col-form-label-sm {\n  padding-top: calc(0.25rem + 1px);\n  padding-bottom: calc(0.25rem + 1px);\n  font-size: 0.875rem;\n  line-height: 1.5;\n}\n\n.form-control-plaintext {\n  display: block;\n  width: 100%;\n  padding-top: 0.375rem;\n  padding-bottom: 0.375rem;\n  margin-bottom: 0;\n  line-height: 1.5;\n  color: #212529;\n  background-color: transparent;\n  border: solid transparent;\n  border-width: 1px 0;\n}\n\n.form-control-plaintext.form-control-sm, .input-group-sm > .form-control-plaintext.form-control,\n.input-group-sm > .input-group-prepend > .form-control-plaintext.input-group-text,\n.input-group-sm > .input-group-append > .form-control-plaintext.input-group-text,\n.input-group-sm > .input-group-prepend > .form-control-plaintext.btn,\n.input-group-sm > .input-group-append > .form-control-plaintext.btn, .form-control-plaintext.form-control-lg, .input-group-lg > .form-control-plaintext.form-control,\n.input-group-lg > .input-group-prepend > .form-control-plaintext.input-group-text,\n.input-group-lg > .input-group-append > .form-control-plaintext.input-group-text,\n.input-group-lg > .input-group-prepend > .form-control-plaintext.btn,\n.input-group-lg > .input-group-append > .form-control-plaintext.btn {\n  padding-right: 0;\n  padding-left: 0;\n}\n\n.form-control-sm, .input-group-sm > .form-control,\n.input-group-sm > .input-group-prepend > .input-group-text,\n.input-group-sm > .input-group-append > .input-group-text,\n.input-group-sm > .input-group-prepend > .btn,\n.input-group-sm > .input-group-append > .btn {\n  padding: 0.25rem 0.5rem;\n  font-size: 0.875rem;\n  line-height: 1.5;\n  border-radius: 0.2rem;\n}\n\nselect.form-control-sm:not([size]):not([multiple]), .input-group-sm > select.form-control:not([size]):not([multiple]),\n.input-group-sm > .input-group-prepend > select.input-group-text:not([size]):not([multiple]),\n.input-group-sm > .input-group-append > select.input-group-text:not([size]):not([multiple]),\n.input-group-sm > .input-group-prepend > select.btn:not([size]):not([multiple]),\n.input-group-sm > .input-group-append > select.btn:not([size]):not([multiple]) {\n  height: calc(1.8125rem + 2px);\n}\n\n.form-control-lg, .input-group-lg > .form-control,\n.input-group-lg > .input-group-prepend > .input-group-text,\n.input-group-lg > .input-group-append > .input-group-text,\n.input-group-lg > .input-group-prepend > .btn,\n.input-group-lg > .input-group-append > .btn {\n  padding: 0.5rem 1rem;\n  font-size: 1.25rem;\n  line-height: 1.5;\n  border-radius: 0.3rem;\n}\n\nselect.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.form-control:not([size]):not([multiple]),\n.input-group-lg > .input-group-prepend > select.input-group-text:not([size]):not([multiple]),\n.input-group-lg > .input-group-append > select.input-group-text:not([size]):not([multiple]),\n.input-group-lg > .input-group-prepend > select.btn:not([size]):not([multiple]),\n.input-group-lg > .input-group-append > select.btn:not([size]):not([multiple]) {\n  height: calc(2.875rem + 2px);\n}\n\n.form-group {\n  margin-bottom: 1rem;\n}\n\n.form-text {\n  display: block;\n  margin-top: 0.25rem;\n}\n\n.form-row {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  margin-right: -5px;\n  margin-left: -5px;\n}\n\n.form-row > .col,\n.form-row > [class*=\"col-\"] {\n  padding-right: 5px;\n  padding-left: 5px;\n}\n\n.form-check {\n  position: relative;\n  display: block;\n  padding-left: 1.25rem;\n}\n\n.form-check-input {\n  position: absolute;\n  margin-top: 0.3rem;\n  margin-left: -1.25rem;\n}\n\n.form-check-input:disabled ~ .form-check-label {\n  color: #6c757d;\n}\n\n.form-check-label {\n  margin-bottom: 0;\n}\n\n.form-check-inline {\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -ms-flex-align: center;\n  align-items: center;\n  padding-left: 0;\n  margin-right: 0.75rem;\n}\n\n.form-check-inline .form-check-input {\n  position: static;\n  margin-top: 0;\n  margin-right: 0.3125rem;\n  margin-left: 0;\n}\n\n.valid-feedback {\n  display: none;\n  width: 100%;\n  margin-top: 0.25rem;\n  font-size: 80%;\n  color: #28a745;\n}\n\n.valid-tooltip {\n  position: absolute;\n  top: 100%;\n  z-index: 5;\n  display: none;\n  max-width: 100%;\n  padding: .5rem;\n  margin-top: .1rem;\n  font-size: .875rem;\n  line-height: 1;\n  color: #fff;\n  background-color: rgba(40, 167, 69, 0.8);\n  border-radius: .2rem;\n}\n\n.was-validated .form-control:valid, .form-control.is-valid, .was-validated\n.custom-select:valid,\n.custom-select.is-valid {\n  border-color: #28a745;\n}\n\n.was-validated .form-control:valid:focus, .form-control.is-valid:focus, .was-validated\n.custom-select:valid:focus,\n.custom-select.is-valid:focus {\n  border-color: #28a745;\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);\n}\n\n.was-validated .form-control:valid ~ .valid-feedback,\n.was-validated .form-control:valid ~ .valid-tooltip, .form-control.is-valid ~ .valid-feedback,\n.form-control.is-valid ~ .valid-tooltip, .was-validated\n.custom-select:valid ~ .valid-feedback,\n.was-validated\n.custom-select:valid ~ .valid-tooltip,\n.custom-select.is-valid ~ .valid-feedback,\n.custom-select.is-valid ~ .valid-tooltip {\n  display: block;\n}\n\n.was-validated .form-control-file:valid ~ .valid-feedback,\n.was-validated .form-control-file:valid ~ .valid-tooltip, .form-control-file.is-valid ~ .valid-feedback,\n.form-control-file.is-valid ~ .valid-tooltip {\n  display: block;\n}\n\n.was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {\n  color: #28a745;\n}\n\n.was-validated .form-check-input:valid ~ .valid-feedback,\n.was-validated .form-check-input:valid ~ .valid-tooltip, .form-check-input.is-valid ~ .valid-feedback,\n.form-check-input.is-valid ~ .valid-tooltip {\n  display: block;\n}\n\n.was-validated .custom-control-input:valid ~ .custom-control-label, .custom-control-input.is-valid ~ .custom-control-label {\n  color: #28a745;\n}\n\n.was-validated .custom-control-input:valid ~ .custom-control-label::before, .custom-control-input.is-valid ~ .custom-control-label::before {\n  background-color: #71dd8a;\n}\n\n.was-validated .custom-control-input:valid ~ .valid-feedback,\n.was-validated .custom-control-input:valid ~ .valid-tooltip, .custom-control-input.is-valid ~ .valid-feedback,\n.custom-control-input.is-valid ~ .valid-tooltip {\n  display: block;\n}\n\n.was-validated .custom-control-input:valid:checked ~ .custom-control-label::before, .custom-control-input.is-valid:checked ~ .custom-control-label::before {\n  background-color: #34ce57;\n}\n\n.was-validated .custom-control-input:valid:focus ~ .custom-control-label::before, .custom-control-input.is-valid:focus ~ .custom-control-label::before {\n  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(40, 167, 69, 0.25);\n}\n\n.was-validated .custom-file-input:valid ~ .custom-file-label, .custom-file-input.is-valid ~ .custom-file-label {\n  border-color: #28a745;\n}\n\n.was-validated .custom-file-input:valid ~ .custom-file-label::before, .custom-file-input.is-valid ~ .custom-file-label::before {\n  border-color: inherit;\n}\n\n.was-validated .custom-file-input:valid ~ .valid-feedback,\n.was-validated .custom-file-input:valid ~ .valid-tooltip, .custom-file-input.is-valid ~ .valid-feedback,\n.custom-file-input.is-valid ~ .valid-tooltip {\n  display: block;\n}\n\n.was-validated .custom-file-input:valid:focus ~ .custom-file-label, .custom-file-input.is-valid:focus ~ .custom-file-label {\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);\n}\n\n.invalid-feedback {\n  display: none;\n  width: 100%;\n  margin-top: 0.25rem;\n  font-size: 80%;\n  color: #dc3545;\n}\n\n.invalid-tooltip {\n  position: absolute;\n  top: 100%;\n  z-index: 5;\n  display: none;\n  max-width: 100%;\n  padding: .5rem;\n  margin-top: .1rem;\n  font-size: .875rem;\n  line-height: 1;\n  color: #fff;\n  background-color: rgba(220, 53, 69, 0.8);\n  border-radius: .2rem;\n}\n\n.was-validated .form-control:invalid, .form-control.is-invalid, .was-validated\n.custom-select:invalid,\n.custom-select.is-invalid {\n  border-color: #dc3545;\n}\n\n.was-validated .form-control:invalid:focus, .form-control.is-invalid:focus, .was-validated\n.custom-select:invalid:focus,\n.custom-select.is-invalid:focus {\n  border-color: #dc3545;\n  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);\n}\n\n.was-validated .form-control:invalid ~ .invalid-feedback,\n.was-validated .form-control:invalid ~ .invalid-tooltip, .form-control.is-invalid ~ .invalid-feedback,\n.form-control.is-invalid ~ .invalid-tooltip, .was-validated\n.custom-select:invalid ~ .invalid-feedback,\n.was-validated\n.custom-select:invalid ~ .invalid-tooltip,\n.custom-select.is-invalid ~ .invalid-feedback,\n.custom-select.is-invalid ~ .invalid-tooltip {\n  display: block;\n}\n\n.was-validated .form-control-file:invalid ~ .invalid-feedback,\n.was-validated .form-control-file:invalid ~ .invalid-tooltip, .form-control-file.is-invalid ~ .invalid-feedback,\n.form-control-file.is-invalid ~ .invalid-tooltip {\n  display: block;\n}\n\n.was-validated .form-check-input:invalid ~ .form-check-label, .form-check-input.is-invalid ~ .form-check-label {\n  color: #dc3545;\n}\n\n.was-validated .form-check-input:invalid ~ .invalid-feedback,\n.was-validated .form-check-input:invalid ~ .invalid-tooltip, .form-check-input.is-invalid ~ .invalid-feedback,\n.form-check-input.is-invalid ~ .invalid-tooltip {\n  display: block;\n}\n\n.was-validated .custom-control-input:invalid ~ .custom-control-label, .custom-control-input.is-invalid ~ .custom-control-label {\n  color: #dc3545;\n}\n\n.was-validated .custom-control-input:invalid ~ .custom-control-label::before, .custom-control-input.is-invalid ~ .custom-control-label::before {\n  background-color: #efa2a9;\n}\n\n.was-validated .custom-control-input:invalid ~ .invalid-feedback,\n.was-validated .custom-control-input:invalid ~ .invalid-tooltip, .custom-control-input.is-invalid ~ .invalid-feedback,\n.custom-control-input.is-invalid ~ .invalid-tooltip {\n  display: block;\n}\n\n.was-validated .custom-control-input:invalid:checked ~ .custom-control-label::before, .custom-control-input.is-invalid:checked ~ .custom-control-label::before {\n  background-color: #e4606d;\n}\n\n.was-validated .custom-control-input:invalid:focus ~ .custom-control-label::before, .custom-control-input.is-invalid:focus ~ .custom-control-label::before {\n  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(220, 53, 69, 0.25);\n}\n\n.was-validated .custom-file-input:invalid ~ .custom-file-label, .custom-file-input.is-invalid ~ .custom-file-label {\n  border-color: #dc3545;\n}\n\n.was-validated .custom-file-input:invalid ~ .custom-file-label::before, .custom-file-input.is-invalid ~ .custom-file-label::before {\n  border-color: inherit;\n}\n\n.was-validated .custom-file-input:invalid ~ .invalid-feedback,\n.was-validated .custom-file-input:invalid ~ .invalid-tooltip, .custom-file-input.is-invalid ~ .invalid-feedback,\n.custom-file-input.is-invalid ~ .invalid-tooltip {\n  display: block;\n}\n\n.was-validated .custom-file-input:invalid:focus ~ .custom-file-label, .custom-file-input.is-invalid:focus ~ .custom-file-label {\n  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);\n}\n\n.form-inline {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: row wrap;\n  flex-flow: row wrap;\n  -ms-flex-align: center;\n  align-items: center;\n}\n\n.form-inline .form-check {\n  width: 100%;\n}\n\n@media (min-width: 576px) {\n  .form-inline label {\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-align: center;\n    align-items: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n    margin-bottom: 0;\n  }\n  .form-inline .form-group {\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex: 0 0 auto;\n    flex: 0 0 auto;\n    -ms-flex-flow: row wrap;\n    flex-flow: row wrap;\n    -ms-flex-align: center;\n    align-items: center;\n    margin-bottom: 0;\n  }\n  .form-inline .form-control {\n    display: inline-block;\n    width: auto;\n    vertical-align: middle;\n  }\n  .form-inline .form-control-plaintext {\n    display: inline-block;\n  }\n  .form-inline .input-group,\n  .form-inline .custom-select {\n    width: auto;\n  }\n  .form-inline .form-check {\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-align: center;\n    align-items: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n    width: auto;\n    padding-left: 0;\n  }\n  .form-inline .form-check-input {\n    position: relative;\n    margin-top: 0;\n    margin-right: 0.25rem;\n    margin-left: 0;\n  }\n  .form-inline .custom-control {\n    -ms-flex-align: center;\n    align-items: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n  }\n  .form-inline .custom-control-label {\n    margin-bottom: 0;\n  }\n}\n\n.btn {\n  display: inline-block;\n  font-weight: 400;\n  text-align: center;\n  white-space: nowrap;\n  vertical-align: middle;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  border: 1px solid transparent;\n  padding: 0.375rem 0.75rem;\n  font-size: 1rem;\n  line-height: 1.5;\n  border-radius: 0.25rem;\n  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\n}\n\n@media screen and (prefers-reduced-motion: reduce) {\n  .btn {\n    transition: none;\n  }\n}\n\n.btn:hover, .btn:focus {\n  text-decoration: none;\n}\n\n.btn:focus, .btn.focus {\n  outline: 0;\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\n}\n\n.btn.disabled, .btn:disabled {\n  opacity: 0.65;\n}\n\n.btn:not(:disabled):not(.disabled) {\n  cursor: pointer;\n}\n\n.btn:not(:disabled):not(.disabled):active, .btn:not(:disabled):not(.disabled).active {\n  background-image: none;\n}\n\na.btn.disabled,\nfieldset:disabled a.btn {\n  pointer-events: none;\n}\n\n.btn-primary {\n  color: #fff;\n  background-color: #007bff;\n  border-color: #007bff;\n}\n\n.btn-primary:hover {\n  color: #fff;\n  background-color: #0069d9;\n  border-color: #0062cc;\n}\n\n.btn-primary:focus, .btn-primary.focus {\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n\n.btn-primary.disabled, .btn-primary:disabled {\n  color: #fff;\n  background-color: #007bff;\n  border-color: #007bff;\n}\n\n.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,\n.show > .btn-primary.dropdown-toggle {\n  color: #fff;\n  background-color: #0062cc;\n  border-color: #005cbf;\n}\n\n.btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,\n.show > .btn-primary.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n\n.btn-secondary {\n  color: #fff;\n  background-color: #6c757d;\n  border-color: #6c757d;\n}\n\n.btn-secondary:hover {\n  color: #fff;\n  background-color: #5a6268;\n  border-color: #545b62;\n}\n\n.btn-secondary:focus, .btn-secondary.focus {\n  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);\n}\n\n.btn-secondary.disabled, .btn-secondary:disabled {\n  color: #fff;\n  background-color: #6c757d;\n  border-color: #6c757d;\n}\n\n.btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active,\n.show > .btn-secondary.dropdown-toggle {\n  color: #fff;\n  background-color: #545b62;\n  border-color: #4e555b;\n}\n\n.btn-secondary:not(:disabled):not(.disabled):active:focus, .btn-secondary:not(:disabled):not(.disabled).active:focus,\n.show > .btn-secondary.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);\n}\n\n.btn-success {\n  color: #fff;\n  background-color: #28a745;\n  border-color: #28a745;\n}\n\n.btn-success:hover {\n  color: #fff;\n  background-color: #218838;\n  border-color: #1e7e34;\n}\n\n.btn-success:focus, .btn-success.focus {\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);\n}\n\n.btn-success.disabled, .btn-success:disabled {\n  color: #fff;\n  background-color: #28a745;\n  border-color: #28a745;\n}\n\n.btn-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active,\n.show > .btn-success.dropdown-toggle {\n  color: #fff;\n  background-color: #1e7e34;\n  border-color: #1c7430;\n}\n\n.btn-success:not(:disabled):not(.disabled):active:focus, .btn-success:not(:disabled):not(.disabled).active:focus,\n.show > .btn-success.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);\n}\n\n.btn-info {\n  color: #fff;\n  background-color: #17a2b8;\n  border-color: #17a2b8;\n}\n\n.btn-info:hover {\n  color: #fff;\n  background-color: #138496;\n  border-color: #117a8b;\n}\n\n.btn-info:focus, .btn-info.focus {\n  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);\n}\n\n.btn-info.disabled, .btn-info:disabled {\n  color: #fff;\n  background-color: #17a2b8;\n  border-color: #17a2b8;\n}\n\n.btn-info:not(:disabled):not(.disabled):active, .btn-info:not(:disabled):not(.disabled).active,\n.show > .btn-info.dropdown-toggle {\n  color: #fff;\n  background-color: #117a8b;\n  border-color: #10707f;\n}\n\n.btn-info:not(:disabled):not(.disabled):active:focus, .btn-info:not(:disabled):not(.disabled).active:focus,\n.show > .btn-info.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);\n}\n\n.btn-warning {\n  color: #212529;\n  background-color: #ffc107;\n  border-color: #ffc107;\n}\n\n.btn-warning:hover {\n  color: #212529;\n  background-color: #e0a800;\n  border-color: #d39e00;\n}\n\n.btn-warning:focus, .btn-warning.focus {\n  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);\n}\n\n.btn-warning.disabled, .btn-warning:disabled {\n  color: #212529;\n  background-color: #ffc107;\n  border-color: #ffc107;\n}\n\n.btn-warning:not(:disabled):not(.disabled):active, .btn-warning:not(:disabled):not(.disabled).active,\n.show > .btn-warning.dropdown-toggle {\n  color: #212529;\n  background-color: #d39e00;\n  border-color: #c69500;\n}\n\n.btn-warning:not(:disabled):not(.disabled):active:focus, .btn-warning:not(:disabled):not(.disabled).active:focus,\n.show > .btn-warning.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);\n}\n\n.btn-danger {\n  color: #fff;\n  background-color: #dc3545;\n  border-color: #dc3545;\n}\n\n.btn-danger:hover {\n  color: #fff;\n  background-color: #c82333;\n  border-color: #bd2130;\n}\n\n.btn-danger:focus, .btn-danger.focus {\n  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);\n}\n\n.btn-danger.disabled, .btn-danger:disabled {\n  color: #fff;\n  background-color: #dc3545;\n  border-color: #dc3545;\n}\n\n.btn-danger:not(:disabled):not(.disabled):active, .btn-danger:not(:disabled):not(.disabled).active,\n.show > .btn-danger.dropdown-toggle {\n  color: #fff;\n  background-color: #bd2130;\n  border-color: #b21f2d;\n}\n\n.btn-danger:not(:disabled):not(.disabled):active:focus, .btn-danger:not(:disabled):not(.disabled).active:focus,\n.show > .btn-danger.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);\n}\n\n.btn-light {\n  color: #212529;\n  background-color: #f8f9fa;\n  border-color: #f8f9fa;\n}\n\n.btn-light:hover {\n  color: #212529;\n  background-color: #e2e6ea;\n  border-color: #dae0e5;\n}\n\n.btn-light:focus, .btn-light.focus {\n  box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);\n}\n\n.btn-light.disabled, .btn-light:disabled {\n  color: #212529;\n  background-color: #f8f9fa;\n  border-color: #f8f9fa;\n}\n\n.btn-light:not(:disabled):not(.disabled):active, .btn-light:not(:disabled):not(.disabled).active,\n.show > .btn-light.dropdown-toggle {\n  color: #212529;\n  background-color: #dae0e5;\n  border-color: #d3d9df;\n}\n\n.btn-light:not(:disabled):not(.disabled):active:focus, .btn-light:not(:disabled):not(.disabled).active:focus,\n.show > .btn-light.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);\n}\n\n.btn-dark {\n  color: #fff;\n  background-color: #343a40;\n  border-color: #343a40;\n}\n\n.btn-dark:hover {\n  color: #fff;\n  background-color: #23272b;\n  border-color: #1d2124;\n}\n\n.btn-dark:focus, .btn-dark.focus {\n  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);\n}\n\n.btn-dark.disabled, .btn-dark:disabled {\n  color: #fff;\n  background-color: #343a40;\n  border-color: #343a40;\n}\n\n.btn-dark:not(:disabled):not(.disabled):active, .btn-dark:not(:disabled):not(.disabled).active,\n.show > .btn-dark.dropdown-toggle {\n  color: #fff;\n  background-color: #1d2124;\n  border-color: #171a1d;\n}\n\n.btn-dark:not(:disabled):not(.disabled):active:focus, .btn-dark:not(:disabled):not(.disabled).active:focus,\n.show > .btn-dark.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);\n}\n\n.btn-outline-primary {\n  color: #007bff;\n  background-color: transparent;\n  background-image: none;\n  border-color: #007bff;\n}\n\n.btn-outline-primary:hover {\n  color: #fff;\n  background-color: #007bff;\n  border-color: #007bff;\n}\n\n.btn-outline-primary:focus, .btn-outline-primary.focus {\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n\n.btn-outline-primary.disabled, .btn-outline-primary:disabled {\n  color: #007bff;\n  background-color: transparent;\n}\n\n.btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active,\n.show > .btn-outline-primary.dropdown-toggle {\n  color: #fff;\n  background-color: #007bff;\n  border-color: #007bff;\n}\n\n.btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus,\n.show > .btn-outline-primary.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n\n.btn-outline-secondary {\n  color: #6c757d;\n  background-color: transparent;\n  background-image: none;\n  border-color: #6c757d;\n}\n\n.btn-outline-secondary:hover {\n  color: #fff;\n  background-color: #6c757d;\n  border-color: #6c757d;\n}\n\n.btn-outline-secondary:focus, .btn-outline-secondary.focus {\n  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);\n}\n\n.btn-outline-secondary.disabled, .btn-outline-secondary:disabled {\n  color: #6c757d;\n  background-color: transparent;\n}\n\n.btn-outline-secondary:not(:disabled):not(.disabled):active, .btn-outline-secondary:not(:disabled):not(.disabled).active,\n.show > .btn-outline-secondary.dropdown-toggle {\n  color: #fff;\n  background-color: #6c757d;\n  border-color: #6c757d;\n}\n\n.btn-outline-secondary:not(:disabled):not(.disabled):active:focus, .btn-outline-secondary:not(:disabled):not(.disabled).active:focus,\n.show > .btn-outline-secondary.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);\n}\n\n.btn-outline-success {\n  color: #28a745;\n  background-color: transparent;\n  background-image: none;\n  border-color: #28a745;\n}\n\n.btn-outline-success:hover {\n  color: #fff;\n  background-color: #28a745;\n  border-color: #28a745;\n}\n\n.btn-outline-success:focus, .btn-outline-success.focus {\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);\n}\n\n.btn-outline-success.disabled, .btn-outline-success:disabled {\n  color: #28a745;\n  background-color: transparent;\n}\n\n.btn-outline-success:not(:disabled):not(.disabled):active, .btn-outline-success:not(:disabled):not(.disabled).active,\n.show > .btn-outline-success.dropdown-toggle {\n  color: #fff;\n  background-color: #28a745;\n  border-color: #28a745;\n}\n\n.btn-outline-success:not(:disabled):not(.disabled):active:focus, .btn-outline-success:not(:disabled):not(.disabled).active:focus,\n.show > .btn-outline-success.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);\n}\n\n.btn-outline-info {\n  color: #17a2b8;\n  background-color: transparent;\n  background-image: none;\n  border-color: #17a2b8;\n}\n\n.btn-outline-info:hover {\n  color: #fff;\n  background-color: #17a2b8;\n  border-color: #17a2b8;\n}\n\n.btn-outline-info:focus, .btn-outline-info.focus {\n  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);\n}\n\n.btn-outline-info.disabled, .btn-outline-info:disabled {\n  color: #17a2b8;\n  background-color: transparent;\n}\n\n.btn-outline-info:not(:disabled):not(.disabled):active, .btn-outline-info:not(:disabled):not(.disabled).active,\n.show > .btn-outline-info.dropdown-toggle {\n  color: #fff;\n  background-color: #17a2b8;\n  border-color: #17a2b8;\n}\n\n.btn-outline-info:not(:disabled):not(.disabled):active:focus, .btn-outline-info:not(:disabled):not(.disabled).active:focus,\n.show > .btn-outline-info.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);\n}\n\n.btn-outline-warning {\n  color: #ffc107;\n  background-color: transparent;\n  background-image: none;\n  border-color: #ffc107;\n}\n\n.btn-outline-warning:hover {\n  color: #212529;\n  background-color: #ffc107;\n  border-color: #ffc107;\n}\n\n.btn-outline-warning:focus, .btn-outline-warning.focus {\n  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);\n}\n\n.btn-outline-warning.disabled, .btn-outline-warning:disabled {\n  color: #ffc107;\n  background-color: transparent;\n}\n\n.btn-outline-warning:not(:disabled):not(.disabled):active, .btn-outline-warning:not(:disabled):not(.disabled).active,\n.show > .btn-outline-warning.dropdown-toggle {\n  color: #212529;\n  background-color: #ffc107;\n  border-color: #ffc107;\n}\n\n.btn-outline-warning:not(:disabled):not(.disabled):active:focus, .btn-outline-warning:not(:disabled):not(.disabled).active:focus,\n.show > .btn-outline-warning.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);\n}\n\n.btn-outline-danger {\n  color: #dc3545;\n  background-color: transparent;\n  background-image: none;\n  border-color: #dc3545;\n}\n\n.btn-outline-danger:hover {\n  color: #fff;\n  background-color: #dc3545;\n  border-color: #dc3545;\n}\n\n.btn-outline-danger:focus, .btn-outline-danger.focus {\n  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);\n}\n\n.btn-outline-danger.disabled, .btn-outline-danger:disabled {\n  color: #dc3545;\n  background-color: transparent;\n}\n\n.btn-outline-danger:not(:disabled):not(.disabled):active, .btn-outline-danger:not(:disabled):not(.disabled).active,\n.show > .btn-outline-danger.dropdown-toggle {\n  color: #fff;\n  background-color: #dc3545;\n  border-color: #dc3545;\n}\n\n.btn-outline-danger:not(:disabled):not(.disabled):active:focus, .btn-outline-danger:not(:disabled):not(.disabled).active:focus,\n.show > .btn-outline-danger.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);\n}\n\n.btn-outline-light {\n  color: #f8f9fa;\n  background-color: transparent;\n  background-image: none;\n  border-color: #f8f9fa;\n}\n\n.btn-outline-light:hover {\n  color: #212529;\n  background-color: #f8f9fa;\n  border-color: #f8f9fa;\n}\n\n.btn-outline-light:focus, .btn-outline-light.focus {\n  box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);\n}\n\n.btn-outline-light.disabled, .btn-outline-light:disabled {\n  color: #f8f9fa;\n  background-color: transparent;\n}\n\n.btn-outline-light:not(:disabled):not(.disabled):active, .btn-outline-light:not(:disabled):not(.disabled).active,\n.show > .btn-outline-light.dropdown-toggle {\n  color: #212529;\n  background-color: #f8f9fa;\n  border-color: #f8f9fa;\n}\n\n.btn-outline-light:not(:disabled):not(.disabled):active:focus, .btn-outline-light:not(:disabled):not(.disabled).active:focus,\n.show > .btn-outline-light.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);\n}\n\n.btn-outline-dark {\n  color: #343a40;\n  background-color: transparent;\n  background-image: none;\n  border-color: #343a40;\n}\n\n.btn-outline-dark:hover {\n  color: #fff;\n  background-color: #343a40;\n  border-color: #343a40;\n}\n\n.btn-outline-dark:focus, .btn-outline-dark.focus {\n  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);\n}\n\n.btn-outline-dark.disabled, .btn-outline-dark:disabled {\n  color: #343a40;\n  background-color: transparent;\n}\n\n.btn-outline-dark:not(:disabled):not(.disabled):active, .btn-outline-dark:not(:disabled):not(.disabled).active,\n.show > .btn-outline-dark.dropdown-toggle {\n  color: #fff;\n  background-color: #343a40;\n  border-color: #343a40;\n}\n\n.btn-outline-dark:not(:disabled):not(.disabled):active:focus, .btn-outline-dark:not(:disabled):not(.disabled).active:focus,\n.show > .btn-outline-dark.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);\n}\n\n.btn-link {\n  font-weight: 400;\n  color: #007bff;\n  background-color: transparent;\n}\n\n.btn-link:hover {\n  color: #0056b3;\n  text-decoration: underline;\n  background-color: transparent;\n  border-color: transparent;\n}\n\n.btn-link:focus, .btn-link.focus {\n  text-decoration: underline;\n  border-color: transparent;\n  box-shadow: none;\n}\n\n.btn-link:disabled, .btn-link.disabled {\n  color: #6c757d;\n  pointer-events: none;\n}\n\n.btn-lg, .btn-group-lg > .btn {\n  padding: 0.5rem 1rem;\n  font-size: 1.25rem;\n  line-height: 1.5;\n  border-radius: 0.3rem;\n}\n\n.btn-sm, .btn-group-sm > .btn {\n  padding: 0.25rem 0.5rem;\n  font-size: 0.875rem;\n  line-height: 1.5;\n  border-radius: 0.2rem;\n}\n\n.btn-block {\n  display: block;\n  width: 100%;\n}\n\n.btn-block + .btn-block {\n  margin-top: 0.5rem;\n}\n\ninput[type=\"submit\"].btn-block,\ninput[type=\"reset\"].btn-block,\ninput[type=\"button\"].btn-block {\n  width: 100%;\n}\n\n.fade {\n  transition: opacity 0.15s linear;\n}\n\n@media screen and (prefers-reduced-motion: reduce) {\n  .fade {\n    transition: none;\n  }\n}\n\n.fade:not(.show) {\n  opacity: 0;\n}\n\n.collapse:not(.show) {\n  display: none;\n}\n\n.collapsing {\n  position: relative;\n  height: 0;\n  overflow: hidden;\n  transition: height 0.35s ease;\n}\n\n@media screen and (prefers-reduced-motion: reduce) {\n  .collapsing {\n    transition: none;\n  }\n}\n\n.dropup,\n.dropright,\n.dropdown,\n.dropleft {\n  position: relative;\n}\n\n.dropdown-toggle::after {\n  display: inline-block;\n  width: 0;\n  height: 0;\n  margin-left: 0.255em;\n  vertical-align: 0.255em;\n  content: \"\";\n  border-top: 0.3em solid;\n  border-right: 0.3em solid transparent;\n  border-bottom: 0;\n  border-left: 0.3em solid transparent;\n}\n\n.dropdown-toggle:empty::after {\n  margin-left: 0;\n}\n\n.dropdown-menu {\n  position: absolute;\n  top: 100%;\n  left: 0;\n  z-index: 1000;\n  display: none;\n  float: left;\n  min-width: 10rem;\n  padding: 0.5rem 0;\n  margin: 0.125rem 0 0;\n  font-size: 1rem;\n  color: #212529;\n  text-align: left;\n  list-style: none;\n  background-color: #fff;\n  background-clip: padding-box;\n  border: 1px solid rgba(0, 0, 0, 0.15);\n  border-radius: 0.25rem;\n}\n\n.dropdown-menu-right {\n  right: 0;\n  left: auto;\n}\n\n.dropup .dropdown-menu {\n  top: auto;\n  bottom: 100%;\n  margin-top: 0;\n  margin-bottom: 0.125rem;\n}\n\n.dropup .dropdown-toggle::after {\n  display: inline-block;\n  width: 0;\n  height: 0;\n  margin-left: 0.255em;\n  vertical-align: 0.255em;\n  content: \"\";\n  border-top: 0;\n  border-right: 0.3em solid transparent;\n  border-bottom: 0.3em solid;\n  border-left: 0.3em solid transparent;\n}\n\n.dropup .dropdown-toggle:empty::after {\n  margin-left: 0;\n}\n\n.dropright .dropdown-menu {\n  top: 0;\n  right: auto;\n  left: 100%;\n  margin-top: 0;\n  margin-left: 0.125rem;\n}\n\n.dropright .dropdown-toggle::after {\n  display: inline-block;\n  width: 0;\n  height: 0;\n  margin-left: 0.255em;\n  vertical-align: 0.255em;\n  content: \"\";\n  border-top: 0.3em solid transparent;\n  border-right: 0;\n  border-bottom: 0.3em solid transparent;\n  border-left: 0.3em solid;\n}\n\n.dropright .dropdown-toggle:empty::after {\n  margin-left: 0;\n}\n\n.dropright .dropdown-toggle::after {\n  vertical-align: 0;\n}\n\n.dropleft .dropdown-menu {\n  top: 0;\n  right: 100%;\n  left: auto;\n  margin-top: 0;\n  margin-right: 0.125rem;\n}\n\n.dropleft .dropdown-toggle::after {\n  display: inline-block;\n  width: 0;\n  height: 0;\n  margin-left: 0.255em;\n  vertical-align: 0.255em;\n  content: \"\";\n}\n\n.dropleft .dropdown-toggle::after {\n  display: none;\n}\n\n.dropleft .dropdown-toggle::before {\n  display: inline-block;\n  width: 0;\n  height: 0;\n  margin-right: 0.255em;\n  vertical-align: 0.255em;\n  content: \"\";\n  border-top: 0.3em solid transparent;\n  border-right: 0.3em solid;\n  border-bottom: 0.3em solid transparent;\n}\n\n.dropleft .dropdown-toggle:empty::after {\n  margin-left: 0;\n}\n\n.dropleft .dropdown-toggle::before {\n  vertical-align: 0;\n}\n\n.dropdown-menu[x-placement^=\"top\"], .dropdown-menu[x-placement^=\"right\"], .dropdown-menu[x-placement^=\"bottom\"], .dropdown-menu[x-placement^=\"left\"] {\n  right: auto;\n  bottom: auto;\n}\n\n.dropdown-divider {\n  height: 0;\n  margin: 0.5rem 0;\n  overflow: hidden;\n  border-top: 1px solid #e9ecef;\n}\n\n.dropdown-item {\n  display: block;\n  width: 100%;\n  padding: 0.25rem 1.5rem;\n  clear: both;\n  font-weight: 400;\n  color: #212529;\n  text-align: inherit;\n  white-space: nowrap;\n  background-color: transparent;\n  border: 0;\n}\n\n.dropdown-item:hover, .dropdown-item:focus {\n  color: #16181b;\n  text-decoration: none;\n  background-color: #f8f9fa;\n}\n\n.dropdown-item.active, .dropdown-item:active {\n  color: #fff;\n  text-decoration: none;\n  background-color: #007bff;\n}\n\n.dropdown-item.disabled, .dropdown-item:disabled {\n  color: #6c757d;\n  background-color: transparent;\n}\n\n.dropdown-menu.show {\n  display: block;\n}\n\n.dropdown-header {\n  display: block;\n  padding: 0.5rem 1.5rem;\n  margin-bottom: 0;\n  font-size: 0.875rem;\n  color: #6c757d;\n  white-space: nowrap;\n}\n\n.dropdown-item-text {\n  display: block;\n  padding: 0.25rem 1.5rem;\n  color: #212529;\n}\n\n.btn-group,\n.btn-group-vertical {\n  position: relative;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  vertical-align: middle;\n}\n\n.btn-group > .btn,\n.btn-group-vertical > .btn {\n  position: relative;\n  -ms-flex: 0 1 auto;\n  flex: 0 1 auto;\n}\n\n.btn-group > .btn:hover,\n.btn-group-vertical > .btn:hover {\n  z-index: 1;\n}\n\n.btn-group > .btn:focus, .btn-group > .btn:active, .btn-group > .btn.active,\n.btn-group-vertical > .btn:focus,\n.btn-group-vertical > .btn:active,\n.btn-group-vertical > .btn.active {\n  z-index: 1;\n}\n\n.btn-group .btn + .btn,\n.btn-group .btn + .btn-group,\n.btn-group .btn-group + .btn,\n.btn-group .btn-group + .btn-group,\n.btn-group-vertical .btn + .btn,\n.btn-group-vertical .btn + .btn-group,\n.btn-group-vertical .btn-group + .btn,\n.btn-group-vertical .btn-group + .btn-group {\n  margin-left: -1px;\n}\n\n.btn-toolbar {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  -ms-flex-pack: start;\n  justify-content: flex-start;\n}\n\n.btn-toolbar .input-group {\n  width: auto;\n}\n\n.btn-group > .btn:first-child {\n  margin-left: 0;\n}\n\n.btn-group > .btn:not(:last-child):not(.dropdown-toggle),\n.btn-group > .btn-group:not(:last-child) > .btn {\n  border-top-right-radius: 0;\n  border-bottom-right-radius: 0;\n}\n\n.btn-group > .btn:not(:first-child),\n.btn-group > .btn-group:not(:first-child) > .btn {\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0;\n}\n\n.dropdown-toggle-split {\n  padding-right: 0.5625rem;\n  padding-left: 0.5625rem;\n}\n\n.dropdown-toggle-split::after,\n.dropup .dropdown-toggle-split::after,\n.dropright .dropdown-toggle-split::after {\n  margin-left: 0;\n}\n\n.dropleft .dropdown-toggle-split::before {\n  margin-right: 0;\n}\n\n.btn-sm + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split {\n  padding-right: 0.375rem;\n  padding-left: 0.375rem;\n}\n\n.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split {\n  padding-right: 0.75rem;\n  padding-left: 0.75rem;\n}\n\n.btn-group-vertical {\n  -ms-flex-direction: column;\n  flex-direction: column;\n  -ms-flex-align: start;\n  align-items: flex-start;\n  -ms-flex-pack: center;\n  justify-content: center;\n}\n\n.btn-group-vertical .btn,\n.btn-group-vertical .btn-group {\n  width: 100%;\n}\n\n.btn-group-vertical > .btn + .btn,\n.btn-group-vertical > .btn + .btn-group,\n.btn-group-vertical > .btn-group + .btn,\n.btn-group-vertical > .btn-group + .btn-group {\n  margin-top: -1px;\n  margin-left: 0;\n}\n\n.btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle),\n.btn-group-vertical > .btn-group:not(:last-child) > .btn {\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n}\n\n.btn-group-vertical > .btn:not(:first-child),\n.btn-group-vertical > .btn-group:not(:first-child) > .btn {\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;\n}\n\n.btn-group-toggle > .btn,\n.btn-group-toggle > .btn-group > .btn {\n  margin-bottom: 0;\n}\n\n.btn-group-toggle > .btn input[type=\"radio\"],\n.btn-group-toggle > .btn input[type=\"checkbox\"],\n.btn-group-toggle > .btn-group > .btn input[type=\"radio\"],\n.btn-group-toggle > .btn-group > .btn input[type=\"checkbox\"] {\n  position: absolute;\n  clip: rect(0, 0, 0, 0);\n  pointer-events: none;\n}\n\n.input-group {\n  position: relative;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  -ms-flex-align: stretch;\n  align-items: stretch;\n  width: 100%;\n}\n\n.input-group > .form-control,\n.input-group > .custom-select,\n.input-group > .custom-file {\n  position: relative;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  width: 1%;\n  margin-bottom: 0;\n}\n\n.input-group > .form-control:focus,\n.input-group > .custom-select:focus,\n.input-group > .custom-file:focus {\n  z-index: 3;\n}\n\n.input-group > .form-control + .form-control,\n.input-group > .form-control + .custom-select,\n.input-group > .form-control + .custom-file,\n.input-group > .custom-select + .form-control,\n.input-group > .custom-select + .custom-select,\n.input-group > .custom-select + .custom-file,\n.input-group > .custom-file + .form-control,\n.input-group > .custom-file + .custom-select,\n.input-group > .custom-file + .custom-file {\n  margin-left: -1px;\n}\n\n.input-group > .form-control:not(:last-child),\n.input-group > .custom-select:not(:last-child) {\n  border-top-right-radius: 0;\n  border-bottom-right-radius: 0;\n}\n\n.input-group > .form-control:not(:first-child),\n.input-group > .custom-select:not(:first-child) {\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0;\n}\n\n.input-group > .custom-file {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n  align-items: center;\n}\n\n.input-group > .custom-file:not(:last-child) .custom-file-label,\n.input-group > .custom-file:not(:last-child) .custom-file-label::after {\n  border-top-right-radius: 0;\n  border-bottom-right-radius: 0;\n}\n\n.input-group > .custom-file:not(:first-child) .custom-file-label {\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0;\n}\n\n.input-group-prepend,\n.input-group-append {\n  display: -ms-flexbox;\n  display: flex;\n}\n\n.input-group-prepend .btn,\n.input-group-append .btn {\n  position: relative;\n  z-index: 2;\n}\n\n.input-group-prepend .btn + .btn,\n.input-group-prepend .btn + .input-group-text,\n.input-group-prepend .input-group-text + .input-group-text,\n.input-group-prepend .input-group-text + .btn,\n.input-group-append .btn + .btn,\n.input-group-append .btn + .input-group-text,\n.input-group-append .input-group-text + .input-group-text,\n.input-group-append .input-group-text + .btn {\n  margin-left: -1px;\n}\n\n.input-group-prepend {\n  margin-right: -1px;\n}\n\n.input-group-append {\n  margin-left: -1px;\n}\n\n.input-group-text {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n  align-items: center;\n  padding: 0.375rem 0.75rem;\n  margin-bottom: 0;\n  font-size: 1rem;\n  font-weight: 400;\n  line-height: 1.5;\n  color: #495057;\n  text-align: center;\n  white-space: nowrap;\n  background-color: #e9ecef;\n  border: 1px solid #ced4da;\n  border-radius: 0.25rem;\n}\n\n.input-group-text input[type=\"radio\"],\n.input-group-text input[type=\"checkbox\"] {\n  margin-top: 0;\n}\n\n.input-group > .input-group-prepend > .btn,\n.input-group > .input-group-prepend > .input-group-text,\n.input-group > .input-group-append:not(:last-child) > .btn,\n.input-group > .input-group-append:not(:last-child) > .input-group-text,\n.input-group > .input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle),\n.input-group > .input-group-append:last-child > .input-group-text:not(:last-child) {\n  border-top-right-radius: 0;\n  border-bottom-right-radius: 0;\n}\n\n.input-group > .input-group-append > .btn,\n.input-group > .input-group-append > .input-group-text,\n.input-group > .input-group-prepend:not(:first-child) > .btn,\n.input-group > .input-group-prepend:not(:first-child) > .input-group-text,\n.input-group > .input-group-prepend:first-child > .btn:not(:first-child),\n.input-group > .input-group-prepend:first-child > .input-group-text:not(:first-child) {\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0;\n}\n\n.custom-control {\n  position: relative;\n  display: block;\n  min-height: 1.5rem;\n  padding-left: 1.5rem;\n}\n\n.custom-control-inline {\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  margin-right: 1rem;\n}\n\n.custom-control-input {\n  position: absolute;\n  z-index: -1;\n  opacity: 0;\n}\n\n.custom-control-input:checked ~ .custom-control-label::before {\n  color: #fff;\n  background-color: #007bff;\n}\n\n.custom-control-input:focus ~ .custom-control-label::before {\n  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\n}\n\n.custom-control-input:active ~ .custom-control-label::before {\n  color: #fff;\n  background-color: #b3d7ff;\n}\n\n.custom-control-input:disabled ~ .custom-control-label {\n  color: #6c757d;\n}\n\n.custom-control-input:disabled ~ .custom-control-label::before {\n  background-color: #e9ecef;\n}\n\n.custom-control-label {\n  position: relative;\n  margin-bottom: 0;\n}\n\n.custom-control-label::before {\n  position: absolute;\n  top: 0.25rem;\n  left: -1.5rem;\n  display: block;\n  width: 1rem;\n  height: 1rem;\n  pointer-events: none;\n  content: \"\";\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  background-color: #dee2e6;\n}\n\n.custom-control-label::after {\n  position: absolute;\n  top: 0.25rem;\n  left: -1.5rem;\n  display: block;\n  width: 1rem;\n  height: 1rem;\n  content: \"\";\n  background-repeat: no-repeat;\n  background-position: center center;\n  background-size: 50% 50%;\n}\n\n.custom-checkbox .custom-control-label::before {\n  border-radius: 0.25rem;\n}\n\n.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {\n  background-color: #007bff;\n}\n\n.custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {\n  background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E\");\n}\n\n.custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before {\n  background-color: #007bff;\n}\n\n.custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::after {\n  background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 4'%3E%3Cpath stroke='%23fff' d='M0 2h4'/%3E%3C/svg%3E\");\n}\n\n.custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {\n  background-color: rgba(0, 123, 255, 0.5);\n}\n\n.custom-checkbox .custom-control-input:disabled:indeterminate ~ .custom-control-label::before {\n  background-color: rgba(0, 123, 255, 0.5);\n}\n\n.custom-radio .custom-control-label::before {\n  border-radius: 50%;\n}\n\n.custom-radio .custom-control-input:checked ~ .custom-control-label::before {\n  background-color: #007bff;\n}\n\n.custom-radio .custom-control-input:checked ~ .custom-control-label::after {\n  background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23fff'/%3E%3C/svg%3E\");\n}\n\n.custom-radio .custom-control-input:disabled:checked ~ .custom-control-label::before {\n  background-color: rgba(0, 123, 255, 0.5);\n}\n\n.custom-select {\n  display: inline-block;\n  width: 100%;\n  height: calc(2.25rem + 2px);\n  padding: 0.375rem 1.75rem 0.375rem 0.75rem;\n  line-height: 1.5;\n  color: #495057;\n  vertical-align: middle;\n  background: #fff url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E\") no-repeat right 0.75rem center;\n  background-size: 8px 10px;\n  border: 1px solid #ced4da;\n  border-radius: 0.25rem;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n}\n\n.custom-select:focus {\n  border-color: #80bdff;\n  outline: 0;\n  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(128, 189, 255, 0.5);\n}\n\n.custom-select:focus::-ms-value {\n  color: #495057;\n  background-color: #fff;\n}\n\n.custom-select[multiple], .custom-select[size]:not([size=\"1\"]) {\n  height: auto;\n  padding-right: 0.75rem;\n  background-image: none;\n}\n\n.custom-select:disabled {\n  color: #6c757d;\n  background-color: #e9ecef;\n}\n\n.custom-select::-ms-expand {\n  opacity: 0;\n}\n\n.custom-select-sm {\n  height: calc(1.8125rem + 2px);\n  padding-top: 0.375rem;\n  padding-bottom: 0.375rem;\n  font-size: 75%;\n}\n\n.custom-select-lg {\n  height: calc(2.875rem + 2px);\n  padding-top: 0.375rem;\n  padding-bottom: 0.375rem;\n  font-size: 125%;\n}\n\n.custom-file {\n  position: relative;\n  display: inline-block;\n  width: 100%;\n  height: calc(2.25rem + 2px);\n  margin-bottom: 0;\n}\n\n.custom-file-input {\n  position: relative;\n  z-index: 2;\n  width: 100%;\n  height: calc(2.25rem + 2px);\n  margin: 0;\n  opacity: 0;\n}\n\n.custom-file-input:focus ~ .custom-file-label {\n  border-color: #80bdff;\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\n}\n\n.custom-file-input:focus ~ .custom-file-label::after {\n  border-color: #80bdff;\n}\n\n.custom-file-input:lang(en) ~ .custom-file-label::after {\n  content: \"Browse\";\n}\n\n.custom-file-label {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n  z-index: 1;\n  height: calc(2.25rem + 2px);\n  padding: 0.375rem 0.75rem;\n  line-height: 1.5;\n  color: #495057;\n  background-color: #fff;\n  border: 1px solid #ced4da;\n  border-radius: 0.25rem;\n}\n\n.custom-file-label::after {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  z-index: 3;\n  display: block;\n  height: 2.25rem;\n  padding: 0.375rem 0.75rem;\n  line-height: 1.5;\n  color: #495057;\n  content: \"Browse\";\n  background-color: #e9ecef;\n  border-left: 1px solid #ced4da;\n  border-radius: 0 0.25rem 0.25rem 0;\n}\n\n.custom-range {\n  width: 100%;\n  padding-left: 0;\n  background-color: transparent;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n}\n\n.custom-range:focus {\n  outline: none;\n}\n\n.custom-range::-moz-focus-outer {\n  border: 0;\n}\n\n.custom-range::-webkit-slider-thumb {\n  width: 1rem;\n  height: 1rem;\n  margin-top: -0.25rem;\n  background-color: #007bff;\n  border: 0;\n  border-radius: 1rem;\n  -webkit-appearance: none;\n  appearance: none;\n}\n\n.custom-range::-webkit-slider-thumb:focus {\n  outline: none;\n  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\n}\n\n.custom-range::-webkit-slider-thumb:active {\n  background-color: #b3d7ff;\n}\n\n.custom-range::-webkit-slider-runnable-track {\n  width: 100%;\n  height: 0.5rem;\n  color: transparent;\n  cursor: pointer;\n  background-color: #dee2e6;\n  border-color: transparent;\n  border-radius: 1rem;\n}\n\n.custom-range::-moz-range-thumb {\n  width: 1rem;\n  height: 1rem;\n  background-color: #007bff;\n  border: 0;\n  border-radius: 1rem;\n  -moz-appearance: none;\n  appearance: none;\n}\n\n.custom-range::-moz-range-thumb:focus {\n  outline: none;\n  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\n}\n\n.custom-range::-moz-range-thumb:active {\n  background-color: #b3d7ff;\n}\n\n.custom-range::-moz-range-track {\n  width: 100%;\n  height: 0.5rem;\n  color: transparent;\n  cursor: pointer;\n  background-color: #dee2e6;\n  border-color: transparent;\n  border-radius: 1rem;\n}\n\n.custom-range::-ms-thumb {\n  width: 1rem;\n  height: 1rem;\n  background-color: #007bff;\n  border: 0;\n  border-radius: 1rem;\n  appearance: none;\n}\n\n.custom-range::-ms-thumb:focus {\n  outline: none;\n  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\n}\n\n.custom-range::-ms-thumb:active {\n  background-color: #b3d7ff;\n}\n\n.custom-range::-ms-track {\n  width: 100%;\n  height: 0.5rem;\n  color: transparent;\n  cursor: pointer;\n  background-color: transparent;\n  border-color: transparent;\n  border-width: 0.5rem;\n}\n\n.custom-range::-ms-fill-lower {\n  background-color: #dee2e6;\n  border-radius: 1rem;\n}\n\n.custom-range::-ms-fill-upper {\n  margin-right: 15px;\n  background-color: #dee2e6;\n  border-radius: 1rem;\n}\n\n.nav {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  padding-left: 0;\n  margin-bottom: 0;\n  list-style: none;\n}\n\n.nav-link {\n  display: block;\n  padding: 0.5rem 1rem;\n}\n\n.nav-link:hover, .nav-link:focus {\n  text-decoration: none;\n}\n\n.nav-link.disabled {\n  color: #6c757d;\n}\n\n.nav-tabs {\n  border-bottom: 1px solid #dee2e6;\n}\n\n.nav-tabs .nav-item {\n  margin-bottom: -1px;\n}\n\n.nav-tabs .nav-link {\n  border: 1px solid transparent;\n  border-top-left-radius: 0.25rem;\n  border-top-right-radius: 0.25rem;\n}\n\n.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {\n  border-color: #e9ecef #e9ecef #dee2e6;\n}\n\n.nav-tabs .nav-link.disabled {\n  color: #6c757d;\n  background-color: transparent;\n  border-color: transparent;\n}\n\n.nav-tabs .nav-link.active,\n.nav-tabs .nav-item.show .nav-link {\n  color: #495057;\n  background-color: #fff;\n  border-color: #dee2e6 #dee2e6 #fff;\n}\n\n.nav-tabs .dropdown-menu {\n  margin-top: -1px;\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;\n}\n\n.nav-pills .nav-link {\n  border-radius: 0.25rem;\n}\n\n.nav-pills .nav-link.active,\n.nav-pills .show > .nav-link {\n  color: #fff;\n  background-color: #007bff;\n}\n\n.nav-fill .nav-item {\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  text-align: center;\n}\n\n.nav-justified .nav-item {\n  -ms-flex-preferred-size: 0;\n  flex-basis: 0;\n  -ms-flex-positive: 1;\n  flex-grow: 1;\n  text-align: center;\n}\n\n.tab-content > .tab-pane {\n  display: none;\n}\n\n.tab-content > .active {\n  display: block;\n}\n\n.navbar {\n  position: relative;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  -ms-flex-align: center;\n  align-items: center;\n  -ms-flex-pack: justify;\n  justify-content: space-between;\n  padding: 0.5rem 1rem;\n}\n\n.navbar > .container,\n.navbar > .container-fluid {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  -ms-flex-align: center;\n  align-items: center;\n  -ms-flex-pack: justify;\n  justify-content: space-between;\n}\n\n.navbar-brand {\n  display: inline-block;\n  padding-top: 0.3125rem;\n  padding-bottom: 0.3125rem;\n  margin-right: 1rem;\n  font-size: 1.25rem;\n  line-height: inherit;\n  white-space: nowrap;\n}\n\n.navbar-brand:hover, .navbar-brand:focus {\n  text-decoration: none;\n}\n\n.navbar-nav {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: column;\n  flex-direction: column;\n  padding-left: 0;\n  margin-bottom: 0;\n  list-style: none;\n}\n\n.navbar-nav .nav-link {\n  padding-right: 0;\n  padding-left: 0;\n}\n\n.navbar-nav .dropdown-menu {\n  position: static;\n  float: none;\n}\n\n.navbar-text {\n  display: inline-block;\n  padding-top: 0.5rem;\n  padding-bottom: 0.5rem;\n}\n\n.navbar-collapse {\n  -ms-flex-preferred-size: 100%;\n  flex-basis: 100%;\n  -ms-flex-positive: 1;\n  flex-grow: 1;\n  -ms-flex-align: center;\n  align-items: center;\n}\n\n.navbar-toggler {\n  padding: 0.25rem 0.75rem;\n  font-size: 1.25rem;\n  line-height: 1;\n  background-color: transparent;\n  border: 1px solid transparent;\n  border-radius: 0.25rem;\n}\n\n.navbar-toggler:hover, .navbar-toggler:focus {\n  text-decoration: none;\n}\n\n.navbar-toggler:not(:disabled):not(.disabled) {\n  cursor: pointer;\n}\n\n.navbar-toggler-icon {\n  display: inline-block;\n  width: 1.5em;\n  height: 1.5em;\n  vertical-align: middle;\n  content: \"\";\n  background: no-repeat center center;\n  background-size: 100% 100%;\n}\n\n@media (max-width: 575.98px) {\n  .navbar-expand-sm > .container,\n  .navbar-expand-sm > .container-fluid {\n    padding-right: 0;\n    padding-left: 0;\n  }\n}\n\n@media (min-width: 576px) {\n  .navbar-expand-sm {\n    -ms-flex-flow: row nowrap;\n    flex-flow: row nowrap;\n    -ms-flex-pack: start;\n    justify-content: flex-start;\n  }\n  .navbar-expand-sm .navbar-nav {\n    -ms-flex-direction: row;\n    flex-direction: row;\n  }\n  .navbar-expand-sm .navbar-nav .dropdown-menu {\n    position: absolute;\n  }\n  .navbar-expand-sm .navbar-nav .nav-link {\n    padding-right: 0.5rem;\n    padding-left: 0.5rem;\n  }\n  .navbar-expand-sm > .container,\n  .navbar-expand-sm > .container-fluid {\n    -ms-flex-wrap: nowrap;\n    flex-wrap: nowrap;\n  }\n  .navbar-expand-sm .navbar-collapse {\n    display: -ms-flexbox !important;\n    display: flex !important;\n    -ms-flex-preferred-size: auto;\n    flex-basis: auto;\n  }\n  .navbar-expand-sm .navbar-toggler {\n    display: none;\n  }\n}\n\n@media (max-width: 767.98px) {\n  .navbar-expand-md > .container,\n  .navbar-expand-md > .container-fluid {\n    padding-right: 0;\n    padding-left: 0;\n  }\n}\n\n@media (min-width: 768px) {\n  .navbar-expand-md {\n    -ms-flex-flow: row nowrap;\n    flex-flow: row nowrap;\n    -ms-flex-pack: start;\n    justify-content: flex-start;\n  }\n  .navbar-expand-md .navbar-nav {\n    -ms-flex-direction: row;\n    flex-direction: row;\n  }\n  .navbar-expand-md .navbar-nav .dropdown-menu {\n    position: absolute;\n  }\n  .navbar-expand-md .navbar-nav .nav-link {\n    padding-right: 0.5rem;\n    padding-left: 0.5rem;\n  }\n  .navbar-expand-md > .container,\n  .navbar-expand-md > .container-fluid {\n    -ms-flex-wrap: nowrap;\n    flex-wrap: nowrap;\n  }\n  .navbar-expand-md .navbar-collapse {\n    display: -ms-flexbox !important;\n    display: flex !important;\n    -ms-flex-preferred-size: auto;\n    flex-basis: auto;\n  }\n  .navbar-expand-md .navbar-toggler {\n    display: none;\n  }\n}\n\n@media (max-width: 991.98px) {\n  .navbar-expand-lg > .container,\n  .navbar-expand-lg > .container-fluid {\n    padding-right: 0;\n    padding-left: 0;\n  }\n}\n\n@media (min-width: 992px) {\n  .navbar-expand-lg {\n    -ms-flex-flow: row nowrap;\n    flex-flow: row nowrap;\n    -ms-flex-pack: start;\n    justify-content: flex-start;\n  }\n  .navbar-expand-lg .navbar-nav {\n    -ms-flex-direction: row;\n    flex-direction: row;\n  }\n  .navbar-expand-lg .navbar-nav .dropdown-menu {\n    position: absolute;\n  }\n  .navbar-expand-lg .navbar-nav .nav-link {\n    padding-right: 0.5rem;\n    padding-left: 0.5rem;\n  }\n  .navbar-expand-lg > .container,\n  .navbar-expand-lg > .container-fluid {\n    -ms-flex-wrap: nowrap;\n    flex-wrap: nowrap;\n  }\n  .navbar-expand-lg .navbar-collapse {\n    display: -ms-flexbox !important;\n    display: flex !important;\n    -ms-flex-preferred-size: auto;\n    flex-basis: auto;\n  }\n  .navbar-expand-lg .navbar-toggler {\n    display: none;\n  }\n}\n\n@media (max-width: 1199.98px) {\n  .navbar-expand-xl > .container,\n  .navbar-expand-xl > .container-fluid {\n    padding-right: 0;\n    padding-left: 0;\n  }\n}\n\n@media (min-width: 1200px) {\n  .navbar-expand-xl {\n    -ms-flex-flow: row nowrap;\n    flex-flow: row nowrap;\n    -ms-flex-pack: start;\n    justify-content: flex-start;\n  }\n  .navbar-expand-xl .navbar-nav {\n    -ms-flex-direction: row;\n    flex-direction: row;\n  }\n  .navbar-expand-xl .navbar-nav .dropdown-menu {\n    position: absolute;\n  }\n  .navbar-expand-xl .navbar-nav .nav-link {\n    padding-right: 0.5rem;\n    padding-left: 0.5rem;\n  }\n  .navbar-expand-xl > .container,\n  .navbar-expand-xl > .container-fluid {\n    -ms-flex-wrap: nowrap;\n    flex-wrap: nowrap;\n  }\n  .navbar-expand-xl .navbar-collapse {\n    display: -ms-flexbox !important;\n    display: flex !important;\n    -ms-flex-preferred-size: auto;\n    flex-basis: auto;\n  }\n  .navbar-expand-xl .navbar-toggler {\n    display: none;\n  }\n}\n\n.navbar-expand {\n  -ms-flex-flow: row nowrap;\n  flex-flow: row nowrap;\n  -ms-flex-pack: start;\n  justify-content: flex-start;\n}\n\n.navbar-expand > .container,\n.navbar-expand > .container-fluid {\n  padding-right: 0;\n  padding-left: 0;\n}\n\n.navbar-expand .navbar-nav {\n  -ms-flex-direction: row;\n  flex-direction: row;\n}\n\n.navbar-expand .navbar-nav .dropdown-menu {\n  position: absolute;\n}\n\n.navbar-expand .navbar-nav .nav-link {\n  padding-right: 0.5rem;\n  padding-left: 0.5rem;\n}\n\n.navbar-expand > .container,\n.navbar-expand > .container-fluid {\n  -ms-flex-wrap: nowrap;\n  flex-wrap: nowrap;\n}\n\n.navbar-expand .navbar-collapse {\n  display: -ms-flexbox !important;\n  display: flex !important;\n  -ms-flex-preferred-size: auto;\n  flex-basis: auto;\n}\n\n.navbar-expand .navbar-toggler {\n  display: none;\n}\n\n.navbar-light .navbar-brand {\n  color: rgba(0, 0, 0, 0.9);\n}\n\n.navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {\n  color: rgba(0, 0, 0, 0.9);\n}\n\n.navbar-light .navbar-nav .nav-link {\n  color: rgba(0, 0, 0, 0.5);\n}\n\n.navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {\n  color: rgba(0, 0, 0, 0.7);\n}\n\n.navbar-light .navbar-nav .nav-link.disabled {\n  color: rgba(0, 0, 0, 0.3);\n}\n\n.navbar-light .navbar-nav .show > .nav-link,\n.navbar-light .navbar-nav .active > .nav-link,\n.navbar-light .navbar-nav .nav-link.show,\n.navbar-light .navbar-nav .nav-link.active {\n  color: rgba(0, 0, 0, 0.9);\n}\n\n.navbar-light .navbar-toggler {\n  color: rgba(0, 0, 0, 0.5);\n  border-color: rgba(0, 0, 0, 0.1);\n}\n\n.navbar-light .navbar-toggler-icon {\n  background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E\");\n}\n\n.navbar-light .navbar-text {\n  color: rgba(0, 0, 0, 0.5);\n}\n\n.navbar-light .navbar-text a {\n  color: rgba(0, 0, 0, 0.9);\n}\n\n.navbar-light .navbar-text a:hover, .navbar-light .navbar-text a:focus {\n  color: rgba(0, 0, 0, 0.9);\n}\n\n.navbar-dark .navbar-brand {\n  color: #fff;\n}\n\n.navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {\n  color: #fff;\n}\n\n.navbar-dark .navbar-nav .nav-link {\n  color: rgba(255, 255, 255, 0.5);\n}\n\n.navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {\n  color: rgba(255, 255, 255, 0.75);\n}\n\n.navbar-dark .navbar-nav .nav-link.disabled {\n  color: rgba(255, 255, 255, 0.25);\n}\n\n.navbar-dark .navbar-nav .show > .nav-link,\n.navbar-dark .navbar-nav .active > .nav-link,\n.navbar-dark .navbar-nav .nav-link.show,\n.navbar-dark .navbar-nav .nav-link.active {\n  color: #fff;\n}\n\n.navbar-dark .navbar-toggler {\n  color: rgba(255, 255, 255, 0.5);\n  border-color: rgba(255, 255, 255, 0.1);\n}\n\n.navbar-dark .navbar-toggler-icon {\n  background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E\");\n}\n\n.navbar-dark .navbar-text {\n  color: rgba(255, 255, 255, 0.5);\n}\n\n.navbar-dark .navbar-text a {\n  color: #fff;\n}\n\n.navbar-dark .navbar-text a:hover, .navbar-dark .navbar-text a:focus {\n  color: #fff;\n}\n\n.card {\n  position: relative;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: column;\n  flex-direction: column;\n  min-width: 0;\n  word-wrap: break-word;\n  background-color: #fff;\n  background-clip: border-box;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n\n.card > hr {\n  margin-right: 0;\n  margin-left: 0;\n}\n\n.card > .list-group:first-child .list-group-item:first-child {\n  border-top-left-radius: 0.25rem;\n  border-top-right-radius: 0.25rem;\n}\n\n.card > .list-group:last-child .list-group-item:last-child {\n  border-bottom-right-radius: 0.25rem;\n  border-bottom-left-radius: 0.25rem;\n}\n\n.card-body {\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  padding: 1.25rem;\n}\n\n.card-title {\n  margin-bottom: 0.75rem;\n}\n\n.card-subtitle {\n  margin-top: -0.375rem;\n  margin-bottom: 0;\n}\n\n.card-text:last-child {\n  margin-bottom: 0;\n}\n\n.card-link:hover {\n  text-decoration: none;\n}\n\n.card-link + .card-link {\n  margin-left: 1.25rem;\n}\n\n.card-header {\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0;\n  background-color: rgba(0, 0, 0, 0.03);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.125);\n}\n\n.card-header:first-child {\n  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;\n}\n\n.card-header + .list-group .list-group-item:first-child {\n  border-top: 0;\n}\n\n.card-footer {\n  padding: 0.75rem 1.25rem;\n  background-color: rgba(0, 0, 0, 0.03);\n  border-top: 1px solid rgba(0, 0, 0, 0.125);\n}\n\n.card-footer:last-child {\n  border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);\n}\n\n.card-header-tabs {\n  margin-right: -0.625rem;\n  margin-bottom: -0.75rem;\n  margin-left: -0.625rem;\n  border-bottom: 0;\n}\n\n.card-header-pills {\n  margin-right: -0.625rem;\n  margin-left: -0.625rem;\n}\n\n.card-img-overlay {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  padding: 1.25rem;\n}\n\n.card-img {\n  width: 100%;\n  border-radius: calc(0.25rem - 1px);\n}\n\n.card-img-top {\n  width: 100%;\n  border-top-left-radius: calc(0.25rem - 1px);\n  border-top-right-radius: calc(0.25rem - 1px);\n}\n\n.card-img-bottom {\n  width: 100%;\n  border-bottom-right-radius: calc(0.25rem - 1px);\n  border-bottom-left-radius: calc(0.25rem - 1px);\n}\n\n.card-deck {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: column;\n  flex-direction: column;\n}\n\n.card-deck .card {\n  margin-bottom: 15px;\n}\n\n@media (min-width: 576px) {\n  .card-deck {\n    -ms-flex-flow: row wrap;\n    flex-flow: row wrap;\n    margin-right: -15px;\n    margin-left: -15px;\n  }\n  .card-deck .card {\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex: 1 0 0%;\n    flex: 1 0 0%;\n    -ms-flex-direction: column;\n    flex-direction: column;\n    margin-right: 15px;\n    margin-bottom: 0;\n    margin-left: 15px;\n  }\n}\n\n.card-group {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: column;\n  flex-direction: column;\n}\n\n.card-group > .card {\n  margin-bottom: 15px;\n}\n\n@media (min-width: 576px) {\n  .card-group {\n    -ms-flex-flow: row wrap;\n    flex-flow: row wrap;\n  }\n  .card-group > .card {\n    -ms-flex: 1 0 0%;\n    flex: 1 0 0%;\n    margin-bottom: 0;\n  }\n  .card-group > .card + .card {\n    margin-left: 0;\n    border-left: 0;\n  }\n  .card-group > .card:first-child {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n  }\n  .card-group > .card:first-child .card-img-top,\n  .card-group > .card:first-child .card-header {\n    border-top-right-radius: 0;\n  }\n  .card-group > .card:first-child .card-img-bottom,\n  .card-group > .card:first-child .card-footer {\n    border-bottom-right-radius: 0;\n  }\n  .card-group > .card:last-child {\n    border-top-left-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n  .card-group > .card:last-child .card-img-top,\n  .card-group > .card:last-child .card-header {\n    border-top-left-radius: 0;\n  }\n  .card-group > .card:last-child .card-img-bottom,\n  .card-group > .card:last-child .card-footer {\n    border-bottom-left-radius: 0;\n  }\n  .card-group > .card:only-child {\n    border-radius: 0.25rem;\n  }\n  .card-group > .card:only-child .card-img-top,\n  .card-group > .card:only-child .card-header {\n    border-top-left-radius: 0.25rem;\n    border-top-right-radius: 0.25rem;\n  }\n  .card-group > .card:only-child .card-img-bottom,\n  .card-group > .card:only-child .card-footer {\n    border-bottom-right-radius: 0.25rem;\n    border-bottom-left-radius: 0.25rem;\n  }\n  .card-group > .card:not(:first-child):not(:last-child):not(:only-child) {\n    border-radius: 0;\n  }\n  .card-group > .card:not(:first-child):not(:last-child):not(:only-child) .card-img-top,\n  .card-group > .card:not(:first-child):not(:last-child):not(:only-child) .card-img-bottom,\n  .card-group > .card:not(:first-child):not(:last-child):not(:only-child) .card-header,\n  .card-group > .card:not(:first-child):not(:last-child):not(:only-child) .card-footer {\n    border-radius: 0;\n  }\n}\n\n.card-columns .card {\n  margin-bottom: 0.75rem;\n}\n\n@media (min-width: 576px) {\n  .card-columns {\n    -webkit-column-count: 3;\n    -moz-column-count: 3;\n    column-count: 3;\n    -webkit-column-gap: 1.25rem;\n    -moz-column-gap: 1.25rem;\n    column-gap: 1.25rem;\n    orphans: 1;\n    widows: 1;\n  }\n  .card-columns .card {\n    display: inline-block;\n    width: 100%;\n  }\n}\n\n.accordion .card:not(:first-of-type):not(:last-of-type) {\n  border-bottom: 0;\n  border-radius: 0;\n}\n\n.accordion .card:not(:first-of-type) .card-header:first-child {\n  border-radius: 0;\n}\n\n.accordion .card:first-of-type {\n  border-bottom: 0;\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n}\n\n.accordion .card:last-of-type {\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;\n}\n\n.breadcrumb {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  padding: 0.75rem 1rem;\n  margin-bottom: 1rem;\n  list-style: none;\n  background-color: #e9ecef;\n  border-radius: 0.25rem;\n}\n\n.breadcrumb-item + .breadcrumb-item {\n  padding-left: 0.5rem;\n}\n\n.breadcrumb-item + .breadcrumb-item::before {\n  display: inline-block;\n  padding-right: 0.5rem;\n  color: #6c757d;\n  content: \"/\";\n}\n\n.breadcrumb-item + .breadcrumb-item:hover::before {\n  text-decoration: underline;\n}\n\n.breadcrumb-item + .breadcrumb-item:hover::before {\n  text-decoration: none;\n}\n\n.breadcrumb-item.active {\n  color: #6c757d;\n}\n\n.pagination {\n  display: -ms-flexbox;\n  display: flex;\n  padding-left: 0;\n  list-style: none;\n  border-radius: 0.25rem;\n}\n\n.page-link {\n  position: relative;\n  display: block;\n  padding: 0.5rem 0.75rem;\n  margin-left: -1px;\n  line-height: 1.25;\n  color: #007bff;\n  background-color: #fff;\n  border: 1px solid #dee2e6;\n}\n\n.page-link:hover {\n  z-index: 2;\n  color: #0056b3;\n  text-decoration: none;\n  background-color: #e9ecef;\n  border-color: #dee2e6;\n}\n\n.page-link:focus {\n  z-index: 2;\n  outline: 0;\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\n}\n\n.page-link:not(:disabled):not(.disabled) {\n  cursor: pointer;\n}\n\n.page-item:first-child .page-link {\n  margin-left: 0;\n  border-top-left-radius: 0.25rem;\n  border-bottom-left-radius: 0.25rem;\n}\n\n.page-item:last-child .page-link {\n  border-top-right-radius: 0.25rem;\n  border-bottom-right-radius: 0.25rem;\n}\n\n.page-item.active .page-link {\n  z-index: 1;\n  color: #fff;\n  background-color: #007bff;\n  border-color: #007bff;\n}\n\n.page-item.disabled .page-link {\n  color: #6c757d;\n  pointer-events: none;\n  cursor: auto;\n  background-color: #fff;\n  border-color: #dee2e6;\n}\n\n.pagination-lg .page-link {\n  padding: 0.75rem 1.5rem;\n  font-size: 1.25rem;\n  line-height: 1.5;\n}\n\n.pagination-lg .page-item:first-child .page-link {\n  border-top-left-radius: 0.3rem;\n  border-bottom-left-radius: 0.3rem;\n}\n\n.pagination-lg .page-item:last-child .page-link {\n  border-top-right-radius: 0.3rem;\n  border-bottom-right-radius: 0.3rem;\n}\n\n.pagination-sm .page-link {\n  padding: 0.25rem 0.5rem;\n  font-size: 0.875rem;\n  line-height: 1.5;\n}\n\n.pagination-sm .page-item:first-child .page-link {\n  border-top-left-radius: 0.2rem;\n  border-bottom-left-radius: 0.2rem;\n}\n\n.pagination-sm .page-item:last-child .page-link {\n  border-top-right-radius: 0.2rem;\n  border-bottom-right-radius: 0.2rem;\n}\n\n.badge {\n  display: inline-block;\n  padding: 0.25em 0.4em;\n  font-size: 75%;\n  font-weight: 700;\n  line-height: 1;\n  text-align: center;\n  white-space: nowrap;\n  vertical-align: baseline;\n  border-radius: 0.25rem;\n}\n\n.badge:empty {\n  display: none;\n}\n\n.btn .badge {\n  position: relative;\n  top: -1px;\n}\n\n.badge-pill {\n  padding-right: 0.6em;\n  padding-left: 0.6em;\n  border-radius: 10rem;\n}\n\n.badge-primary {\n  color: #fff;\n  background-color: #007bff;\n}\n\n.badge-primary[href]:hover, .badge-primary[href]:focus {\n  color: #fff;\n  text-decoration: none;\n  background-color: #0062cc;\n}\n\n.badge-secondary {\n  color: #fff;\n  background-color: #6c757d;\n}\n\n.badge-secondary[href]:hover, .badge-secondary[href]:focus {\n  color: #fff;\n  text-decoration: none;\n  background-color: #545b62;\n}\n\n.badge-success {\n  color: #fff;\n  background-color: #28a745;\n}\n\n.badge-success[href]:hover, .badge-success[href]:focus {\n  color: #fff;\n  text-decoration: none;\n  background-color: #1e7e34;\n}\n\n.badge-info {\n  color: #fff;\n  background-color: #17a2b8;\n}\n\n.badge-info[href]:hover, .badge-info[href]:focus {\n  color: #fff;\n  text-decoration: none;\n  background-color: #117a8b;\n}\n\n.badge-warning {\n  color: #212529;\n  background-color: #ffc107;\n}\n\n.badge-warning[href]:hover, .badge-warning[href]:focus {\n  color: #212529;\n  text-decoration: none;\n  background-color: #d39e00;\n}\n\n.badge-danger {\n  color: #fff;\n  background-color: #dc3545;\n}\n\n.badge-danger[href]:hover, .badge-danger[href]:focus {\n  color: #fff;\n  text-decoration: none;\n  background-color: #bd2130;\n}\n\n.badge-light {\n  color: #212529;\n  background-color: #f8f9fa;\n}\n\n.badge-light[href]:hover, .badge-light[href]:focus {\n  color: #212529;\n  text-decoration: none;\n  background-color: #dae0e5;\n}\n\n.badge-dark {\n  color: #fff;\n  background-color: #343a40;\n}\n\n.badge-dark[href]:hover, .badge-dark[href]:focus {\n  color: #fff;\n  text-decoration: none;\n  background-color: #1d2124;\n}\n\n.jumbotron {\n  padding: 2rem 1rem;\n  margin-bottom: 2rem;\n  background-color: #e9ecef;\n  border-radius: 0.3rem;\n}\n\n@media (min-width: 576px) {\n  .jumbotron {\n    padding: 4rem 2rem;\n  }\n}\n\n.jumbotron-fluid {\n  padding-right: 0;\n  padding-left: 0;\n  border-radius: 0;\n}\n\n.alert {\n  position: relative;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 1rem;\n  border: 1px solid transparent;\n  border-radius: 0.25rem;\n}\n\n.alert-heading {\n  color: inherit;\n}\n\n.alert-link {\n  font-weight: 700;\n}\n\n.alert-dismissible {\n  padding-right: 4rem;\n}\n\n.alert-dismissible .close {\n  position: absolute;\n  top: 0;\n  right: 0;\n  padding: 0.75rem 1.25rem;\n  color: inherit;\n}\n\n.alert-primary {\n  color: #004085;\n  background-color: #cce5ff;\n  border-color: #b8daff;\n}\n\n.alert-primary hr {\n  border-top-color: #9fcdff;\n}\n\n.alert-primary .alert-link {\n  color: #002752;\n}\n\n.alert-secondary {\n  color: #383d41;\n  background-color: #e2e3e5;\n  border-color: #d6d8db;\n}\n\n.alert-secondary hr {\n  border-top-color: #c8cbcf;\n}\n\n.alert-secondary .alert-link {\n  color: #202326;\n}\n\n.alert-success {\n  color: #155724;\n  background-color: #d4edda;\n  border-color: #c3e6cb;\n}\n\n.alert-success hr {\n  border-top-color: #b1dfbb;\n}\n\n.alert-success .alert-link {\n  color: #0b2e13;\n}\n\n.alert-info {\n  color: #0c5460;\n  background-color: #d1ecf1;\n  border-color: #bee5eb;\n}\n\n.alert-info hr {\n  border-top-color: #abdde5;\n}\n\n.alert-info .alert-link {\n  color: #062c33;\n}\n\n.alert-warning {\n  color: #856404;\n  background-color: #fff3cd;\n  border-color: #ffeeba;\n}\n\n.alert-warning hr {\n  border-top-color: #ffe8a1;\n}\n\n.alert-warning .alert-link {\n  color: #533f03;\n}\n\n.alert-danger {\n  color: #721c24;\n  background-color: #f8d7da;\n  border-color: #f5c6cb;\n}\n\n.alert-danger hr {\n  border-top-color: #f1b0b7;\n}\n\n.alert-danger .alert-link {\n  color: #491217;\n}\n\n.alert-light {\n  color: #818182;\n  background-color: #fefefe;\n  border-color: #fdfdfe;\n}\n\n.alert-light hr {\n  border-top-color: #ececf6;\n}\n\n.alert-light .alert-link {\n  color: #686868;\n}\n\n.alert-dark {\n  color: #1b1e21;\n  background-color: #d6d8d9;\n  border-color: #c6c8ca;\n}\n\n.alert-dark hr {\n  border-top-color: #b9bbbe;\n}\n\n.alert-dark .alert-link {\n  color: #040505;\n}\n\n@-webkit-keyframes progress-bar-stripes {\n  from {\n    background-position: 1rem 0;\n  }\n  to {\n    background-position: 0 0;\n  }\n}\n\n@keyframes progress-bar-stripes {\n  from {\n    background-position: 1rem 0;\n  }\n  to {\n    background-position: 0 0;\n  }\n}\n\n.progress {\n  display: -ms-flexbox;\n  display: flex;\n  height: 1rem;\n  overflow: hidden;\n  font-size: 0.75rem;\n  background-color: #e9ecef;\n  border-radius: 0.25rem;\n}\n\n.progress-bar {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: column;\n  flex-direction: column;\n  -ms-flex-pack: center;\n  justify-content: center;\n  color: #fff;\n  text-align: center;\n  white-space: nowrap;\n  background-color: #007bff;\n  transition: width 0.6s ease;\n}\n\n@media screen and (prefers-reduced-motion: reduce) {\n  .progress-bar {\n    transition: none;\n  }\n}\n\n.progress-bar-striped {\n  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-size: 1rem 1rem;\n}\n\n.progress-bar-animated {\n  -webkit-animation: progress-bar-stripes 1s linear infinite;\n  animation: progress-bar-stripes 1s linear infinite;\n}\n\n.media {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: start;\n  align-items: flex-start;\n}\n\n.media-body {\n  -ms-flex: 1;\n  flex: 1;\n}\n\n.list-group {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: column;\n  flex-direction: column;\n  padding-left: 0;\n  margin-bottom: 0;\n}\n\n.list-group-item-action {\n  width: 100%;\n  color: #495057;\n  text-align: inherit;\n}\n\n.list-group-item-action:hover, .list-group-item-action:focus {\n  color: #495057;\n  text-decoration: none;\n  background-color: #f8f9fa;\n}\n\n.list-group-item-action:active {\n  color: #212529;\n  background-color: #e9ecef;\n}\n\n.list-group-item {\n  position: relative;\n  display: block;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: -1px;\n  background-color: #fff;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n}\n\n.list-group-item:first-child {\n  border-top-left-radius: 0.25rem;\n  border-top-right-radius: 0.25rem;\n}\n\n.list-group-item:last-child {\n  margin-bottom: 0;\n  border-bottom-right-radius: 0.25rem;\n  border-bottom-left-radius: 0.25rem;\n}\n\n.list-group-item:hover, .list-group-item:focus {\n  z-index: 1;\n  text-decoration: none;\n}\n\n.list-group-item.disabled, .list-group-item:disabled {\n  color: #6c757d;\n  background-color: #fff;\n}\n\n.list-group-item.active {\n  z-index: 2;\n  color: #fff;\n  background-color: #007bff;\n  border-color: #007bff;\n}\n\n.list-group-flush .list-group-item {\n  border-right: 0;\n  border-left: 0;\n  border-radius: 0;\n}\n\n.list-group-flush:first-child .list-group-item:first-child {\n  border-top: 0;\n}\n\n.list-group-flush:last-child .list-group-item:last-child {\n  border-bottom: 0;\n}\n\n.list-group-item-primary {\n  color: #004085;\n  background-color: #b8daff;\n}\n\n.list-group-item-primary.list-group-item-action:hover, .list-group-item-primary.list-group-item-action:focus {\n  color: #004085;\n  background-color: #9fcdff;\n}\n\n.list-group-item-primary.list-group-item-action.active {\n  color: #fff;\n  background-color: #004085;\n  border-color: #004085;\n}\n\n.list-group-item-secondary {\n  color: #383d41;\n  background-color: #d6d8db;\n}\n\n.list-group-item-secondary.list-group-item-action:hover, .list-group-item-secondary.list-group-item-action:focus {\n  color: #383d41;\n  background-color: #c8cbcf;\n}\n\n.list-group-item-secondary.list-group-item-action.active {\n  color: #fff;\n  background-color: #383d41;\n  border-color: #383d41;\n}\n\n.list-group-item-success {\n  color: #155724;\n  background-color: #c3e6cb;\n}\n\n.list-group-item-success.list-group-item-action:hover, .list-group-item-success.list-group-item-action:focus {\n  color: #155724;\n  background-color: #b1dfbb;\n}\n\n.list-group-item-success.list-group-item-action.active {\n  color: #fff;\n  background-color: #155724;\n  border-color: #155724;\n}\n\n.list-group-item-info {\n  color: #0c5460;\n  background-color: #bee5eb;\n}\n\n.list-group-item-info.list-group-item-action:hover, .list-group-item-info.list-group-item-action:focus {\n  color: #0c5460;\n  background-color: #abdde5;\n}\n\n.list-group-item-info.list-group-item-action.active {\n  color: #fff;\n  background-color: #0c5460;\n  border-color: #0c5460;\n}\n\n.list-group-item-warning {\n  color: #856404;\n  background-color: #ffeeba;\n}\n\n.list-group-item-warning.list-group-item-action:hover, .list-group-item-warning.list-group-item-action:focus {\n  color: #856404;\n  background-color: #ffe8a1;\n}\n\n.list-group-item-warning.list-group-item-action.active {\n  color: #fff;\n  background-color: #856404;\n  border-color: #856404;\n}\n\n.list-group-item-danger {\n  color: #721c24;\n  background-color: #f5c6cb;\n}\n\n.list-group-item-danger.list-group-item-action:hover, .list-group-item-danger.list-group-item-action:focus {\n  color: #721c24;\n  background-color: #f1b0b7;\n}\n\n.list-group-item-danger.list-group-item-action.active {\n  color: #fff;\n  background-color: #721c24;\n  border-color: #721c24;\n}\n\n.list-group-item-light {\n  color: #818182;\n  background-color: #fdfdfe;\n}\n\n.list-group-item-light.list-group-item-action:hover, .list-group-item-light.list-group-item-action:focus {\n  color: #818182;\n  background-color: #ececf6;\n}\n\n.list-group-item-light.list-group-item-action.active {\n  color: #fff;\n  background-color: #818182;\n  border-color: #818182;\n}\n\n.list-group-item-dark {\n  color: #1b1e21;\n  background-color: #c6c8ca;\n}\n\n.list-group-item-dark.list-group-item-action:hover, .list-group-item-dark.list-group-item-action:focus {\n  color: #1b1e21;\n  background-color: #b9bbbe;\n}\n\n.list-group-item-dark.list-group-item-action.active {\n  color: #fff;\n  background-color: #1b1e21;\n  border-color: #1b1e21;\n}\n\n.close {\n  float: right;\n  font-size: 1.5rem;\n  font-weight: 700;\n  line-height: 1;\n  color: #000;\n  text-shadow: 0 1px 0 #fff;\n  opacity: .5;\n}\n\n.close:hover, .close:focus {\n  color: #000;\n  text-decoration: none;\n  opacity: .75;\n}\n\n.close:not(:disabled):not(.disabled) {\n  cursor: pointer;\n}\n\nbutton.close {\n  padding: 0;\n  background-color: transparent;\n  border: 0;\n  -webkit-appearance: none;\n}\n\n.modal-open {\n  overflow: hidden;\n}\n\n.modal {\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 1050;\n  display: none;\n  overflow: hidden;\n  outline: 0;\n}\n\n.modal-open .modal {\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n\n.modal-dialog {\n  position: relative;\n  width: auto;\n  margin: 0.5rem;\n  pointer-events: none;\n}\n\n.modal.fade .modal-dialog {\n  transition: -webkit-transform 0.3s ease-out;\n  transition: transform 0.3s ease-out;\n  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;\n  -webkit-transform: translate(0, -25%);\n  transform: translate(0, -25%);\n}\n\n@media screen and (prefers-reduced-motion: reduce) {\n  .modal.fade .modal-dialog {\n    transition: none;\n  }\n}\n\n.modal.show .modal-dialog {\n  -webkit-transform: translate(0, 0);\n  transform: translate(0, 0);\n}\n\n.modal-dialog-centered {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n  align-items: center;\n  min-height: calc(100% - (0.5rem * 2));\n}\n\n.modal-content {\n  position: relative;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: column;\n  flex-direction: column;\n  width: 100%;\n  pointer-events: auto;\n  background-color: #fff;\n  background-clip: padding-box;\n  border: 1px solid rgba(0, 0, 0, 0.2);\n  border-radius: 0.3rem;\n  outline: 0;\n}\n\n.modal-backdrop {\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 1040;\n  background-color: #000;\n}\n\n.modal-backdrop.fade {\n  opacity: 0;\n}\n\n.modal-backdrop.show {\n  opacity: 0.5;\n}\n\n.modal-header {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: start;\n  align-items: flex-start;\n  -ms-flex-pack: justify;\n  justify-content: space-between;\n  padding: 1rem;\n  border-bottom: 1px solid #e9ecef;\n  border-top-left-radius: 0.3rem;\n  border-top-right-radius: 0.3rem;\n}\n\n.modal-header .close {\n  padding: 1rem;\n  margin: -1rem -1rem -1rem auto;\n}\n\n.modal-title {\n  margin-bottom: 0;\n  line-height: 1.5;\n}\n\n.modal-body {\n  position: relative;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  padding: 1rem;\n}\n\n.modal-footer {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n  align-items: center;\n  -ms-flex-pack: end;\n  justify-content: flex-end;\n  padding: 1rem;\n  border-top: 1px solid #e9ecef;\n}\n\n.modal-footer > :not(:first-child) {\n  margin-left: .25rem;\n}\n\n.modal-footer > :not(:last-child) {\n  margin-right: .25rem;\n}\n\n.modal-scrollbar-measure {\n  position: absolute;\n  top: -9999px;\n  width: 50px;\n  height: 50px;\n  overflow: scroll;\n}\n\n@media (min-width: 576px) {\n  .modal-dialog {\n    max-width: 500px;\n    margin: 1.75rem auto;\n  }\n  .modal-dialog-centered {\n    min-height: calc(100% - (1.75rem * 2));\n  }\n  .modal-sm {\n    max-width: 300px;\n  }\n}\n\n@media (min-width: 992px) {\n  .modal-lg {\n    max-width: 800px;\n  }\n}\n\n.tooltip {\n  position: absolute;\n  z-index: 1070;\n  display: block;\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-style: normal;\n  font-weight: 400;\n  line-height: 1.5;\n  text-align: left;\n  text-align: start;\n  text-decoration: none;\n  text-shadow: none;\n  text-transform: none;\n  letter-spacing: normal;\n  word-break: normal;\n  word-spacing: normal;\n  white-space: normal;\n  line-break: auto;\n  font-size: 0.875rem;\n  word-wrap: break-word;\n  opacity: 0;\n}\n\n.tooltip.show {\n  opacity: 0.9;\n}\n\n.tooltip .arrow {\n  position: absolute;\n  display: block;\n  width: 0.8rem;\n  height: 0.4rem;\n}\n\n.tooltip .arrow::before {\n  position: absolute;\n  content: \"\";\n  border-color: transparent;\n  border-style: solid;\n}\n\n.bs-tooltip-top, .bs-tooltip-auto[x-placement^=\"top\"] {\n  padding: 0.4rem 0;\n}\n\n.bs-tooltip-top .arrow, .bs-tooltip-auto[x-placement^=\"top\"] .arrow {\n  bottom: 0;\n}\n\n.bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^=\"top\"] .arrow::before {\n  top: 0;\n  border-width: 0.4rem 0.4rem 0;\n  border-top-color: #000;\n}\n\n.bs-tooltip-right, .bs-tooltip-auto[x-placement^=\"right\"] {\n  padding: 0 0.4rem;\n}\n\n.bs-tooltip-right .arrow, .bs-tooltip-auto[x-placement^=\"right\"] .arrow {\n  left: 0;\n  width: 0.4rem;\n  height: 0.8rem;\n}\n\n.bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^=\"right\"] .arrow::before {\n  right: 0;\n  border-width: 0.4rem 0.4rem 0.4rem 0;\n  border-right-color: #000;\n}\n\n.bs-tooltip-bottom, .bs-tooltip-auto[x-placement^=\"bottom\"] {\n  padding: 0.4rem 0;\n}\n\n.bs-tooltip-bottom .arrow, .bs-tooltip-auto[x-placement^=\"bottom\"] .arrow {\n  top: 0;\n}\n\n.bs-tooltip-bottom .arrow::before, .bs-tooltip-auto[x-placement^=\"bottom\"] .arrow::before {\n  bottom: 0;\n  border-width: 0 0.4rem 0.4rem;\n  border-bottom-color: #000;\n}\n\n.bs-tooltip-left, .bs-tooltip-auto[x-placement^=\"left\"] {\n  padding: 0 0.4rem;\n}\n\n.bs-tooltip-left .arrow, .bs-tooltip-auto[x-placement^=\"left\"] .arrow {\n  right: 0;\n  width: 0.4rem;\n  height: 0.8rem;\n}\n\n.bs-tooltip-left .arrow::before, .bs-tooltip-auto[x-placement^=\"left\"] .arrow::before {\n  left: 0;\n  border-width: 0.4rem 0 0.4rem 0.4rem;\n  border-left-color: #000;\n}\n\n.tooltip-inner {\n  max-width: 200px;\n  padding: 0.25rem 0.5rem;\n  color: #fff;\n  text-align: center;\n  background-color: #000;\n  border-radius: 0.25rem;\n}\n\n.popover {\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 1060;\n  display: block;\n  max-width: 276px;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-style: normal;\n  font-weight: 400;\n  line-height: 1.5;\n  text-align: left;\n  text-align: start;\n  text-decoration: none;\n  text-shadow: none;\n  text-transform: none;\n  letter-spacing: normal;\n  word-break: normal;\n  word-spacing: normal;\n  white-space: normal;\n  line-break: auto;\n  font-size: 0.875rem;\n  word-wrap: break-word;\n  background-color: #fff;\n  background-clip: padding-box;\n  border: 1px solid rgba(0, 0, 0, 0.2);\n  border-radius: 0.3rem;\n}\n\n.popover .arrow {\n  position: absolute;\n  display: block;\n  width: 1rem;\n  height: 0.5rem;\n  margin: 0 0.3rem;\n}\n\n.popover .arrow::before, .popover .arrow::after {\n  position: absolute;\n  display: block;\n  content: \"\";\n  border-color: transparent;\n  border-style: solid;\n}\n\n.bs-popover-top, .bs-popover-auto[x-placement^=\"top\"] {\n  margin-bottom: 0.5rem;\n}\n\n.bs-popover-top .arrow, .bs-popover-auto[x-placement^=\"top\"] .arrow {\n  bottom: calc((0.5rem + 1px) * -1);\n}\n\n.bs-popover-top .arrow::before, .bs-popover-auto[x-placement^=\"top\"] .arrow::before,\n.bs-popover-top .arrow::after,\n.bs-popover-auto[x-placement^=\"top\"] .arrow::after {\n  border-width: 0.5rem 0.5rem 0;\n}\n\n.bs-popover-top .arrow::before, .bs-popover-auto[x-placement^=\"top\"] .arrow::before {\n  bottom: 0;\n  border-top-color: rgba(0, 0, 0, 0.25);\n}\n\n\n.bs-popover-top .arrow::after,\n.bs-popover-auto[x-placement^=\"top\"] .arrow::after {\n  bottom: 1px;\n  border-top-color: #fff;\n}\n\n.bs-popover-right, .bs-popover-auto[x-placement^=\"right\"] {\n  margin-left: 0.5rem;\n}\n\n.bs-popover-right .arrow, .bs-popover-auto[x-placement^=\"right\"] .arrow {\n  left: calc((0.5rem + 1px) * -1);\n  width: 0.5rem;\n  height: 1rem;\n  margin: 0.3rem 0;\n}\n\n.bs-popover-right .arrow::before, .bs-popover-auto[x-placement^=\"right\"] .arrow::before,\n.bs-popover-right .arrow::after,\n.bs-popover-auto[x-placement^=\"right\"] .arrow::after {\n  border-width: 0.5rem 0.5rem 0.5rem 0;\n}\n\n.bs-popover-right .arrow::before, .bs-popover-auto[x-placement^=\"right\"] .arrow::before {\n  left: 0;\n  border-right-color: rgba(0, 0, 0, 0.25);\n}\n\n\n.bs-popover-right .arrow::after,\n.bs-popover-auto[x-placement^=\"right\"] .arrow::after {\n  left: 1px;\n  border-right-color: #fff;\n}\n\n.bs-popover-bottom, .bs-popover-auto[x-placement^=\"bottom\"] {\n  margin-top: 0.5rem;\n}\n\n.bs-popover-bottom .arrow, .bs-popover-auto[x-placement^=\"bottom\"] .arrow {\n  top: calc((0.5rem + 1px) * -1);\n}\n\n.bs-popover-bottom .arrow::before, .bs-popover-auto[x-placement^=\"bottom\"] .arrow::before,\n.bs-popover-bottom .arrow::after,\n.bs-popover-auto[x-placement^=\"bottom\"] .arrow::after {\n  border-width: 0 0.5rem 0.5rem 0.5rem;\n}\n\n.bs-popover-bottom .arrow::before, .bs-popover-auto[x-placement^=\"bottom\"] .arrow::before {\n  top: 0;\n  border-bottom-color: rgba(0, 0, 0, 0.25);\n}\n\n\n.bs-popover-bottom .arrow::after,\n.bs-popover-auto[x-placement^=\"bottom\"] .arrow::after {\n  top: 1px;\n  border-bottom-color: #fff;\n}\n\n.bs-popover-bottom .popover-header::before, .bs-popover-auto[x-placement^=\"bottom\"] .popover-header::before {\n  position: absolute;\n  top: 0;\n  left: 50%;\n  display: block;\n  width: 1rem;\n  margin-left: -0.5rem;\n  content: \"\";\n  border-bottom: 1px solid #f7f7f7;\n}\n\n.bs-popover-left, .bs-popover-auto[x-placement^=\"left\"] {\n  margin-right: 0.5rem;\n}\n\n.bs-popover-left .arrow, .bs-popover-auto[x-placement^=\"left\"] .arrow {\n  right: calc((0.5rem + 1px) * -1);\n  width: 0.5rem;\n  height: 1rem;\n  margin: 0.3rem 0;\n}\n\n.bs-popover-left .arrow::before, .bs-popover-auto[x-placement^=\"left\"] .arrow::before,\n.bs-popover-left .arrow::after,\n.bs-popover-auto[x-placement^=\"left\"] .arrow::after {\n  border-width: 0.5rem 0 0.5rem 0.5rem;\n}\n\n.bs-popover-left .arrow::before, .bs-popover-auto[x-placement^=\"left\"] .arrow::before {\n  right: 0;\n  border-left-color: rgba(0, 0, 0, 0.25);\n}\n\n\n.bs-popover-left .arrow::after,\n.bs-popover-auto[x-placement^=\"left\"] .arrow::after {\n  right: 1px;\n  border-left-color: #fff;\n}\n\n.popover-header {\n  padding: 0.5rem 0.75rem;\n  margin-bottom: 0;\n  font-size: 1rem;\n  color: inherit;\n  background-color: #f7f7f7;\n  border-bottom: 1px solid #ebebeb;\n  border-top-left-radius: calc(0.3rem - 1px);\n  border-top-right-radius: calc(0.3rem - 1px);\n}\n\n.popover-header:empty {\n  display: none;\n}\n\n.popover-body {\n  padding: 0.5rem 0.75rem;\n  color: #212529;\n}\n\n.carousel {\n  position: relative;\n}\n\n.carousel-inner {\n  position: relative;\n  width: 100%;\n  overflow: hidden;\n}\n\n.carousel-item {\n  position: relative;\n  display: none;\n  -ms-flex-align: center;\n  align-items: center;\n  width: 100%;\n  transition: -webkit-transform 0.6s ease;\n  transition: transform 0.6s ease;\n  transition: transform 0.6s ease, -webkit-transform 0.6s ease;\n  -webkit-backface-visibility: hidden;\n  backface-visibility: hidden;\n  -webkit-perspective: 1000px;\n  perspective: 1000px;\n}\n\n@media screen and (prefers-reduced-motion: reduce) {\n  .carousel-item {\n    transition: none;\n  }\n}\n\n.carousel-item.active,\n.carousel-item-next,\n.carousel-item-prev {\n  display: block;\n}\n\n.carousel-item-next,\n.carousel-item-prev {\n  position: absolute;\n  top: 0;\n}\n\n.carousel-item-next.carousel-item-left,\n.carousel-item-prev.carousel-item-right {\n  -webkit-transform: translateX(0);\n  transform: translateX(0);\n}\n\n@supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {\n  .carousel-item-next.carousel-item-left,\n  .carousel-item-prev.carousel-item-right {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.carousel-item-next,\n.active.carousel-item-right {\n  -webkit-transform: translateX(100%);\n  transform: translateX(100%);\n}\n\n@supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {\n  .carousel-item-next,\n  .active.carousel-item-right {\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n  }\n}\n\n.carousel-item-prev,\n.active.carousel-item-left {\n  -webkit-transform: translateX(-100%);\n  transform: translateX(-100%);\n}\n\n@supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {\n  .carousel-item-prev,\n  .active.carousel-item-left {\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n\n.carousel-fade .carousel-item {\n  opacity: 0;\n  transition-duration: .6s;\n  transition-property: opacity;\n}\n\n.carousel-fade .carousel-item.active,\n.carousel-fade .carousel-item-next.carousel-item-left,\n.carousel-fade .carousel-item-prev.carousel-item-right {\n  opacity: 1;\n}\n\n.carousel-fade .active.carousel-item-left,\n.carousel-fade .active.carousel-item-right {\n  opacity: 0;\n}\n\n.carousel-fade .carousel-item-next,\n.carousel-fade .carousel-item-prev,\n.carousel-fade .carousel-item.active,\n.carousel-fade .active.carousel-item-left,\n.carousel-fade .active.carousel-item-prev {\n  -webkit-transform: translateX(0);\n  transform: translateX(0);\n}\n\n@supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {\n  .carousel-fade .carousel-item-next,\n  .carousel-fade .carousel-item-prev,\n  .carousel-fade .carousel-item.active,\n  .carousel-fade .active.carousel-item-left,\n  .carousel-fade .active.carousel-item-prev {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.carousel-control-prev,\n.carousel-control-next {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n  align-items: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  width: 15%;\n  color: #fff;\n  text-align: center;\n  opacity: 0.5;\n}\n\n.carousel-control-prev:hover, .carousel-control-prev:focus,\n.carousel-control-next:hover,\n.carousel-control-next:focus {\n  color: #fff;\n  text-decoration: none;\n  outline: 0;\n  opacity: .9;\n}\n\n.carousel-control-prev {\n  left: 0;\n}\n\n.carousel-control-next {\n  right: 0;\n}\n\n.carousel-control-prev-icon,\n.carousel-control-next-icon {\n  display: inline-block;\n  width: 20px;\n  height: 20px;\n  background: transparent no-repeat center center;\n  background-size: 100% 100%;\n}\n\n.carousel-control-prev-icon {\n  background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E\");\n}\n\n.carousel-control-next-icon {\n  background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E\");\n}\n\n.carousel-indicators {\n  position: absolute;\n  right: 0;\n  bottom: 10px;\n  left: 0;\n  z-index: 15;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: center;\n  justify-content: center;\n  padding-left: 0;\n  margin-right: 15%;\n  margin-left: 15%;\n  list-style: none;\n}\n\n.carousel-indicators li {\n  position: relative;\n  -ms-flex: 0 1 auto;\n  flex: 0 1 auto;\n  width: 30px;\n  height: 3px;\n  margin-right: 3px;\n  margin-left: 3px;\n  text-indent: -999px;\n  cursor: pointer;\n  background-color: rgba(255, 255, 255, 0.5);\n}\n\n.carousel-indicators li::before {\n  position: absolute;\n  top: -10px;\n  left: 0;\n  display: inline-block;\n  width: 100%;\n  height: 10px;\n  content: \"\";\n}\n\n.carousel-indicators li::after {\n  position: absolute;\n  bottom: -10px;\n  left: 0;\n  display: inline-block;\n  width: 100%;\n  height: 10px;\n  content: \"\";\n}\n\n.carousel-indicators .active {\n  background-color: #fff;\n}\n\n.carousel-caption {\n  position: absolute;\n  right: 15%;\n  bottom: 20px;\n  left: 15%;\n  z-index: 10;\n  padding-top: 20px;\n  padding-bottom: 20px;\n  color: #fff;\n  text-align: center;\n}\n\n.align-baseline {\n  vertical-align: baseline !important;\n}\n\n.align-top {\n  vertical-align: top !important;\n}\n\n.align-middle {\n  vertical-align: middle !important;\n}\n\n.align-bottom {\n  vertical-align: bottom !important;\n}\n\n.align-text-bottom {\n  vertical-align: text-bottom !important;\n}\n\n.align-text-top {\n  vertical-align: text-top !important;\n}\n\n.bg-primary {\n  background-color: #007bff !important;\n}\n\na.bg-primary:hover, a.bg-primary:focus,\nbutton.bg-primary:hover,\nbutton.bg-primary:focus {\n  background-color: #0062cc !important;\n}\n\n.bg-secondary {\n  background-color: #6c757d !important;\n}\n\na.bg-secondary:hover, a.bg-secondary:focus,\nbutton.bg-secondary:hover,\nbutton.bg-secondary:focus {\n  background-color: #545b62 !important;\n}\n\n.bg-success {\n  background-color: #28a745 !important;\n}\n\na.bg-success:hover, a.bg-success:focus,\nbutton.bg-success:hover,\nbutton.bg-success:focus {\n  background-color: #1e7e34 !important;\n}\n\n.bg-info {\n  background-color: #17a2b8 !important;\n}\n\na.bg-info:hover, a.bg-info:focus,\nbutton.bg-info:hover,\nbutton.bg-info:focus {\n  background-color: #117a8b !important;\n}\n\n.bg-warning {\n  background-color: #ffc107 !important;\n}\n\na.bg-warning:hover, a.bg-warning:focus,\nbutton.bg-warning:hover,\nbutton.bg-warning:focus {\n  background-color: #d39e00 !important;\n}\n\n.bg-danger {\n  background-color: #dc3545 !important;\n}\n\na.bg-danger:hover, a.bg-danger:focus,\nbutton.bg-danger:hover,\nbutton.bg-danger:focus {\n  background-color: #bd2130 !important;\n}\n\n.bg-light {\n  background-color: #f8f9fa !important;\n}\n\na.bg-light:hover, a.bg-light:focus,\nbutton.bg-light:hover,\nbutton.bg-light:focus {\n  background-color: #dae0e5 !important;\n}\n\n.bg-dark {\n  background-color: #343a40 !important;\n}\n\na.bg-dark:hover, a.bg-dark:focus,\nbutton.bg-dark:hover,\nbutton.bg-dark:focus {\n  background-color: #1d2124 !important;\n}\n\n.bg-white {\n  background-color: #fff !important;\n}\n\n.bg-transparent {\n  background-color: transparent !important;\n}\n\n.border {\n  border: 1px solid #dee2e6 !important;\n}\n\n.border-top {\n  border-top: 1px solid #dee2e6 !important;\n}\n\n.border-right {\n  border-right: 1px solid #dee2e6 !important;\n}\n\n.border-bottom {\n  border-bottom: 1px solid #dee2e6 !important;\n}\n\n.border-left {\n  border-left: 1px solid #dee2e6 !important;\n}\n\n.border-0 {\n  border: 0 !important;\n}\n\n.border-top-0 {\n  border-top: 0 !important;\n}\n\n.border-right-0 {\n  border-right: 0 !important;\n}\n\n.border-bottom-0 {\n  border-bottom: 0 !important;\n}\n\n.border-left-0 {\n  border-left: 0 !important;\n}\n\n.border-primary {\n  border-color: #007bff !important;\n}\n\n.border-secondary {\n  border-color: #6c757d !important;\n}\n\n.border-success {\n  border-color: #28a745 !important;\n}\n\n.border-info {\n  border-color: #17a2b8 !important;\n}\n\n.border-warning {\n  border-color: #ffc107 !important;\n}\n\n.border-danger {\n  border-color: #dc3545 !important;\n}\n\n.border-light {\n  border-color: #f8f9fa !important;\n}\n\n.border-dark {\n  border-color: #343a40 !important;\n}\n\n.border-white {\n  border-color: #fff !important;\n}\n\n.rounded {\n  border-radius: 0.25rem !important;\n}\n\n.rounded-top {\n  border-top-left-radius: 0.25rem !important;\n  border-top-right-radius: 0.25rem !important;\n}\n\n.rounded-right {\n  border-top-right-radius: 0.25rem !important;\n  border-bottom-right-radius: 0.25rem !important;\n}\n\n.rounded-bottom {\n  border-bottom-right-radius: 0.25rem !important;\n  border-bottom-left-radius: 0.25rem !important;\n}\n\n.rounded-left {\n  border-top-left-radius: 0.25rem !important;\n  border-bottom-left-radius: 0.25rem !important;\n}\n\n.rounded-circle {\n  border-radius: 50% !important;\n}\n\n.rounded-0 {\n  border-radius: 0 !important;\n}\n\n.clearfix::after {\n  display: block;\n  clear: both;\n  content: \"\";\n}\n\n.d-none {\n  display: none !important;\n}\n\n.d-inline {\n  display: inline !important;\n}\n\n.d-inline-block {\n  display: inline-block !important;\n}\n\n.d-block {\n  display: block !important;\n}\n\n.d-table {\n  display: table !important;\n}\n\n.d-table-row {\n  display: table-row !important;\n}\n\n.d-table-cell {\n  display: table-cell !important;\n}\n\n.d-flex {\n  display: -ms-flexbox !important;\n  display: flex !important;\n}\n\n.d-inline-flex {\n  display: -ms-inline-flexbox !important;\n  display: inline-flex !important;\n}\n\n@media (min-width: 576px) {\n  .d-sm-none {\n    display: none !important;\n  }\n  .d-sm-inline {\n    display: inline !important;\n  }\n  .d-sm-inline-block {\n    display: inline-block !important;\n  }\n  .d-sm-block {\n    display: block !important;\n  }\n  .d-sm-table {\n    display: table !important;\n  }\n  .d-sm-table-row {\n    display: table-row !important;\n  }\n  .d-sm-table-cell {\n    display: table-cell !important;\n  }\n  .d-sm-flex {\n    display: -ms-flexbox !important;\n    display: flex !important;\n  }\n  .d-sm-inline-flex {\n    display: -ms-inline-flexbox !important;\n    display: inline-flex !important;\n  }\n}\n\n@media (min-width: 768px) {\n  .d-md-none {\n    display: none !important;\n  }\n  .d-md-inline {\n    display: inline !important;\n  }\n  .d-md-inline-block {\n    display: inline-block !important;\n  }\n  .d-md-block {\n    display: block !important;\n  }\n  .d-md-table {\n    display: table !important;\n  }\n  .d-md-table-row {\n    display: table-row !important;\n  }\n  .d-md-table-cell {\n    display: table-cell !important;\n  }\n  .d-md-flex {\n    display: -ms-flexbox !important;\n    display: flex !important;\n  }\n  .d-md-inline-flex {\n    display: -ms-inline-flexbox !important;\n    display: inline-flex !important;\n  }\n}\n\n@media (min-width: 992px) {\n  .d-lg-none {\n    display: none !important;\n  }\n  .d-lg-inline {\n    display: inline !important;\n  }\n  .d-lg-inline-block {\n    display: inline-block !important;\n  }\n  .d-lg-block {\n    display: block !important;\n  }\n  .d-lg-table {\n    display: table !important;\n  }\n  .d-lg-table-row {\n    display: table-row !important;\n  }\n  .d-lg-table-cell {\n    display: table-cell !important;\n  }\n  .d-lg-flex {\n    display: -ms-flexbox !important;\n    display: flex !important;\n  }\n  .d-lg-inline-flex {\n    display: -ms-inline-flexbox !important;\n    display: inline-flex !important;\n  }\n}\n\n@media (min-width: 1200px) {\n  .d-xl-none {\n    display: none !important;\n  }\n  .d-xl-inline {\n    display: inline !important;\n  }\n  .d-xl-inline-block {\n    display: inline-block !important;\n  }\n  .d-xl-block {\n    display: block !important;\n  }\n  .d-xl-table {\n    display: table !important;\n  }\n  .d-xl-table-row {\n    display: table-row !important;\n  }\n  .d-xl-table-cell {\n    display: table-cell !important;\n  }\n  .d-xl-flex {\n    display: -ms-flexbox !important;\n    display: flex !important;\n  }\n  .d-xl-inline-flex {\n    display: -ms-inline-flexbox !important;\n    display: inline-flex !important;\n  }\n}\n\n@media print {\n  .d-print-none {\n    display: none !important;\n  }\n  .d-print-inline {\n    display: inline !important;\n  }\n  .d-print-inline-block {\n    display: inline-block !important;\n  }\n  .d-print-block {\n    display: block !important;\n  }\n  .d-print-table {\n    display: table !important;\n  }\n  .d-print-table-row {\n    display: table-row !important;\n  }\n  .d-print-table-cell {\n    display: table-cell !important;\n  }\n  .d-print-flex {\n    display: -ms-flexbox !important;\n    display: flex !important;\n  }\n  .d-print-inline-flex {\n    display: -ms-inline-flexbox !important;\n    display: inline-flex !important;\n  }\n}\n\n.embed-responsive {\n  position: relative;\n  display: block;\n  width: 100%;\n  padding: 0;\n  overflow: hidden;\n}\n\n.embed-responsive::before {\n  display: block;\n  content: \"\";\n}\n\n.embed-responsive .embed-responsive-item,\n.embed-responsive iframe,\n.embed-responsive embed,\n.embed-responsive object,\n.embed-responsive video {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  border: 0;\n}\n\n.embed-responsive-21by9::before {\n  padding-top: 42.857143%;\n}\n\n.embed-responsive-16by9::before {\n  padding-top: 56.25%;\n}\n\n.embed-responsive-4by3::before {\n  padding-top: 75%;\n}\n\n.embed-responsive-1by1::before {\n  padding-top: 100%;\n}\n\n.flex-row {\n  -ms-flex-direction: row !important;\n  flex-direction: row !important;\n}\n\n.flex-column {\n  -ms-flex-direction: column !important;\n  flex-direction: column !important;\n}\n\n.flex-row-reverse {\n  -ms-flex-direction: row-reverse !important;\n  flex-direction: row-reverse !important;\n}\n\n.flex-column-reverse {\n  -ms-flex-direction: column-reverse !important;\n  flex-direction: column-reverse !important;\n}\n\n.flex-wrap {\n  -ms-flex-wrap: wrap !important;\n  flex-wrap: wrap !important;\n}\n\n.flex-nowrap {\n  -ms-flex-wrap: nowrap !important;\n  flex-wrap: nowrap !important;\n}\n\n.flex-wrap-reverse {\n  -ms-flex-wrap: wrap-reverse !important;\n  flex-wrap: wrap-reverse !important;\n}\n\n.flex-fill {\n  -ms-flex: 1 1 auto !important;\n  flex: 1 1 auto !important;\n}\n\n.flex-grow-0 {\n  -ms-flex-positive: 0 !important;\n  flex-grow: 0 !important;\n}\n\n.flex-grow-1 {\n  -ms-flex-positive: 1 !important;\n  flex-grow: 1 !important;\n}\n\n.flex-shrink-0 {\n  -ms-flex-negative: 0 !important;\n  flex-shrink: 0 !important;\n}\n\n.flex-shrink-1 {\n  -ms-flex-negative: 1 !important;\n  flex-shrink: 1 !important;\n}\n\n.justify-content-start {\n  -ms-flex-pack: start !important;\n  justify-content: flex-start !important;\n}\n\n.justify-content-end {\n  -ms-flex-pack: end !important;\n  justify-content: flex-end !important;\n}\n\n.justify-content-center {\n  -ms-flex-pack: center !important;\n  justify-content: center !important;\n}\n\n.justify-content-between {\n  -ms-flex-pack: justify !important;\n  justify-content: space-between !important;\n}\n\n.justify-content-around {\n  -ms-flex-pack: distribute !important;\n  justify-content: space-around !important;\n}\n\n.align-items-start {\n  -ms-flex-align: start !important;\n  align-items: flex-start !important;\n}\n\n.align-items-end {\n  -ms-flex-align: end !important;\n  align-items: flex-end !important;\n}\n\n.align-items-center {\n  -ms-flex-align: center !important;\n  align-items: center !important;\n}\n\n.align-items-baseline {\n  -ms-flex-align: baseline !important;\n  align-items: baseline !important;\n}\n\n.align-items-stretch {\n  -ms-flex-align: stretch !important;\n  align-items: stretch !important;\n}\n\n.align-content-start {\n  -ms-flex-line-pack: start !important;\n  align-content: flex-start !important;\n}\n\n.align-content-end {\n  -ms-flex-line-pack: end !important;\n  align-content: flex-end !important;\n}\n\n.align-content-center {\n  -ms-flex-line-pack: center !important;\n  align-content: center !important;\n}\n\n.align-content-between {\n  -ms-flex-line-pack: justify !important;\n  align-content: space-between !important;\n}\n\n.align-content-around {\n  -ms-flex-line-pack: distribute !important;\n  align-content: space-around !important;\n}\n\n.align-content-stretch {\n  -ms-flex-line-pack: stretch !important;\n  align-content: stretch !important;\n}\n\n.align-self-auto {\n  -ms-flex-item-align: auto !important;\n  align-self: auto !important;\n}\n\n.align-self-start {\n  -ms-flex-item-align: start !important;\n  align-self: flex-start !important;\n}\n\n.align-self-end {\n  -ms-flex-item-align: end !important;\n  align-self: flex-end !important;\n}\n\n.align-self-center {\n  -ms-flex-item-align: center !important;\n  align-self: center !important;\n}\n\n.align-self-baseline {\n  -ms-flex-item-align: baseline !important;\n  align-self: baseline !important;\n}\n\n.align-self-stretch {\n  -ms-flex-item-align: stretch !important;\n  align-self: stretch !important;\n}\n\n@media (min-width: 576px) {\n  .flex-sm-row {\n    -ms-flex-direction: row !important;\n    flex-direction: row !important;\n  }\n  .flex-sm-column {\n    -ms-flex-direction: column !important;\n    flex-direction: column !important;\n  }\n  .flex-sm-row-reverse {\n    -ms-flex-direction: row-reverse !important;\n    flex-direction: row-reverse !important;\n  }\n  .flex-sm-column-reverse {\n    -ms-flex-direction: column-reverse !important;\n    flex-direction: column-reverse !important;\n  }\n  .flex-sm-wrap {\n    -ms-flex-wrap: wrap !important;\n    flex-wrap: wrap !important;\n  }\n  .flex-sm-nowrap {\n    -ms-flex-wrap: nowrap !important;\n    flex-wrap: nowrap !important;\n  }\n  .flex-sm-wrap-reverse {\n    -ms-flex-wrap: wrap-reverse !important;\n    flex-wrap: wrap-reverse !important;\n  }\n  .flex-sm-fill {\n    -ms-flex: 1 1 auto !important;\n    flex: 1 1 auto !important;\n  }\n  .flex-sm-grow-0 {\n    -ms-flex-positive: 0 !important;\n    flex-grow: 0 !important;\n  }\n  .flex-sm-grow-1 {\n    -ms-flex-positive: 1 !important;\n    flex-grow: 1 !important;\n  }\n  .flex-sm-shrink-0 {\n    -ms-flex-negative: 0 !important;\n    flex-shrink: 0 !important;\n  }\n  .flex-sm-shrink-1 {\n    -ms-flex-negative: 1 !important;\n    flex-shrink: 1 !important;\n  }\n  .justify-content-sm-start {\n    -ms-flex-pack: start !important;\n    justify-content: flex-start !important;\n  }\n  .justify-content-sm-end {\n    -ms-flex-pack: end !important;\n    justify-content: flex-end !important;\n  }\n  .justify-content-sm-center {\n    -ms-flex-pack: center !important;\n    justify-content: center !important;\n  }\n  .justify-content-sm-between {\n    -ms-flex-pack: justify !important;\n    justify-content: space-between !important;\n  }\n  .justify-content-sm-around {\n    -ms-flex-pack: distribute !important;\n    justify-content: space-around !important;\n  }\n  .align-items-sm-start {\n    -ms-flex-align: start !important;\n    align-items: flex-start !important;\n  }\n  .align-items-sm-end {\n    -ms-flex-align: end !important;\n    align-items: flex-end !important;\n  }\n  .align-items-sm-center {\n    -ms-flex-align: center !important;\n    align-items: center !important;\n  }\n  .align-items-sm-baseline {\n    -ms-flex-align: baseline !important;\n    align-items: baseline !important;\n  }\n  .align-items-sm-stretch {\n    -ms-flex-align: stretch !important;\n    align-items: stretch !important;\n  }\n  .align-content-sm-start {\n    -ms-flex-line-pack: start !important;\n    align-content: flex-start !important;\n  }\n  .align-content-sm-end {\n    -ms-flex-line-pack: end !important;\n    align-content: flex-end !important;\n  }\n  .align-content-sm-center {\n    -ms-flex-line-pack: center !important;\n    align-content: center !important;\n  }\n  .align-content-sm-between {\n    -ms-flex-line-pack: justify !important;\n    align-content: space-between !important;\n  }\n  .align-content-sm-around {\n    -ms-flex-line-pack: distribute !important;\n    align-content: space-around !important;\n  }\n  .align-content-sm-stretch {\n    -ms-flex-line-pack: stretch !important;\n    align-content: stretch !important;\n  }\n  .align-self-sm-auto {\n    -ms-flex-item-align: auto !important;\n    align-self: auto !important;\n  }\n  .align-self-sm-start {\n    -ms-flex-item-align: start !important;\n    align-self: flex-start !important;\n  }\n  .align-self-sm-end {\n    -ms-flex-item-align: end !important;\n    align-self: flex-end !important;\n  }\n  .align-self-sm-center {\n    -ms-flex-item-align: center !important;\n    align-self: center !important;\n  }\n  .align-self-sm-baseline {\n    -ms-flex-item-align: baseline !important;\n    align-self: baseline !important;\n  }\n  .align-self-sm-stretch {\n    -ms-flex-item-align: stretch !important;\n    align-self: stretch !important;\n  }\n}\n\n@media (min-width: 768px) {\n  .flex-md-row {\n    -ms-flex-direction: row !important;\n    flex-direction: row !important;\n  }\n  .flex-md-column {\n    -ms-flex-direction: column !important;\n    flex-direction: column !important;\n  }\n  .flex-md-row-reverse {\n    -ms-flex-direction: row-reverse !important;\n    flex-direction: row-reverse !important;\n  }\n  .flex-md-column-reverse {\n    -ms-flex-direction: column-reverse !important;\n    flex-direction: column-reverse !important;\n  }\n  .flex-md-wrap {\n    -ms-flex-wrap: wrap !important;\n    flex-wrap: wrap !important;\n  }\n  .flex-md-nowrap {\n    -ms-flex-wrap: nowrap !important;\n    flex-wrap: nowrap !important;\n  }\n  .flex-md-wrap-reverse {\n    -ms-flex-wrap: wrap-reverse !important;\n    flex-wrap: wrap-reverse !important;\n  }\n  .flex-md-fill {\n    -ms-flex: 1 1 auto !important;\n    flex: 1 1 auto !important;\n  }\n  .flex-md-grow-0 {\n    -ms-flex-positive: 0 !important;\n    flex-grow: 0 !important;\n  }\n  .flex-md-grow-1 {\n    -ms-flex-positive: 1 !important;\n    flex-grow: 1 !important;\n  }\n  .flex-md-shrink-0 {\n    -ms-flex-negative: 0 !important;\n    flex-shrink: 0 !important;\n  }\n  .flex-md-shrink-1 {\n    -ms-flex-negative: 1 !important;\n    flex-shrink: 1 !important;\n  }\n  .justify-content-md-start {\n    -ms-flex-pack: start !important;\n    justify-content: flex-start !important;\n  }\n  .justify-content-md-end {\n    -ms-flex-pack: end !important;\n    justify-content: flex-end !important;\n  }\n  .justify-content-md-center {\n    -ms-flex-pack: center !important;\n    justify-content: center !important;\n  }\n  .justify-content-md-between {\n    -ms-flex-pack: justify !important;\n    justify-content: space-between !important;\n  }\n  .justify-content-md-around {\n    -ms-flex-pack: distribute !important;\n    justify-content: space-around !important;\n  }\n  .align-items-md-start {\n    -ms-flex-align: start !important;\n    align-items: flex-start !important;\n  }\n  .align-items-md-end {\n    -ms-flex-align: end !important;\n    align-items: flex-end !important;\n  }\n  .align-items-md-center {\n    -ms-flex-align: center !important;\n    align-items: center !important;\n  }\n  .align-items-md-baseline {\n    -ms-flex-align: baseline !important;\n    align-items: baseline !important;\n  }\n  .align-items-md-stretch {\n    -ms-flex-align: stretch !important;\n    align-items: stretch !important;\n  }\n  .align-content-md-start {\n    -ms-flex-line-pack: start !important;\n    align-content: flex-start !important;\n  }\n  .align-content-md-end {\n    -ms-flex-line-pack: end !important;\n    align-content: flex-end !important;\n  }\n  .align-content-md-center {\n    -ms-flex-line-pack: center !important;\n    align-content: center !important;\n  }\n  .align-content-md-between {\n    -ms-flex-line-pack: justify !important;\n    align-content: space-between !important;\n  }\n  .align-content-md-around {\n    -ms-flex-line-pack: distribute !important;\n    align-content: space-around !important;\n  }\n  .align-content-md-stretch {\n    -ms-flex-line-pack: stretch !important;\n    align-content: stretch !important;\n  }\n  .align-self-md-auto {\n    -ms-flex-item-align: auto !important;\n    align-self: auto !important;\n  }\n  .align-self-md-start {\n    -ms-flex-item-align: start !important;\n    align-self: flex-start !important;\n  }\n  .align-self-md-end {\n    -ms-flex-item-align: end !important;\n    align-self: flex-end !important;\n  }\n  .align-self-md-center {\n    -ms-flex-item-align: center !important;\n    align-self: center !important;\n  }\n  .align-self-md-baseline {\n    -ms-flex-item-align: baseline !important;\n    align-self: baseline !important;\n  }\n  .align-self-md-stretch {\n    -ms-flex-item-align: stretch !important;\n    align-self: stretch !important;\n  }\n}\n\n@media (min-width: 992px) {\n  .flex-lg-row {\n    -ms-flex-direction: row !important;\n    flex-direction: row !important;\n  }\n  .flex-lg-column {\n    -ms-flex-direction: column !important;\n    flex-direction: column !important;\n  }\n  .flex-lg-row-reverse {\n    -ms-flex-direction: row-reverse !important;\n    flex-direction: row-reverse !important;\n  }\n  .flex-lg-column-reverse {\n    -ms-flex-direction: column-reverse !important;\n    flex-direction: column-reverse !important;\n  }\n  .flex-lg-wrap {\n    -ms-flex-wrap: wrap !important;\n    flex-wrap: wrap !important;\n  }\n  .flex-lg-nowrap {\n    -ms-flex-wrap: nowrap !important;\n    flex-wrap: nowrap !important;\n  }\n  .flex-lg-wrap-reverse {\n    -ms-flex-wrap: wrap-reverse !important;\n    flex-wrap: wrap-reverse !important;\n  }\n  .flex-lg-fill {\n    -ms-flex: 1 1 auto !important;\n    flex: 1 1 auto !important;\n  }\n  .flex-lg-grow-0 {\n    -ms-flex-positive: 0 !important;\n    flex-grow: 0 !important;\n  }\n  .flex-lg-grow-1 {\n    -ms-flex-positive: 1 !important;\n    flex-grow: 1 !important;\n  }\n  .flex-lg-shrink-0 {\n    -ms-flex-negative: 0 !important;\n    flex-shrink: 0 !important;\n  }\n  .flex-lg-shrink-1 {\n    -ms-flex-negative: 1 !important;\n    flex-shrink: 1 !important;\n  }\n  .justify-content-lg-start {\n    -ms-flex-pack: start !important;\n    justify-content: flex-start !important;\n  }\n  .justify-content-lg-end {\n    -ms-flex-pack: end !important;\n    justify-content: flex-end !important;\n  }\n  .justify-content-lg-center {\n    -ms-flex-pack: center !important;\n    justify-content: center !important;\n  }\n  .justify-content-lg-between {\n    -ms-flex-pack: justify !important;\n    justify-content: space-between !important;\n  }\n  .justify-content-lg-around {\n    -ms-flex-pack: distribute !important;\n    justify-content: space-around !important;\n  }\n  .align-items-lg-start {\n    -ms-flex-align: start !important;\n    align-items: flex-start !important;\n  }\n  .align-items-lg-end {\n    -ms-flex-align: end !important;\n    align-items: flex-end !important;\n  }\n  .align-items-lg-center {\n    -ms-flex-align: center !important;\n    align-items: center !important;\n  }\n  .align-items-lg-baseline {\n    -ms-flex-align: baseline !important;\n    align-items: baseline !important;\n  }\n  .align-items-lg-stretch {\n    -ms-flex-align: stretch !important;\n    align-items: stretch !important;\n  }\n  .align-content-lg-start {\n    -ms-flex-line-pack: start !important;\n    align-content: flex-start !important;\n  }\n  .align-content-lg-end {\n    -ms-flex-line-pack: end !important;\n    align-content: flex-end !important;\n  }\n  .align-content-lg-center {\n    -ms-flex-line-pack: center !important;\n    align-content: center !important;\n  }\n  .align-content-lg-between {\n    -ms-flex-line-pack: justify !important;\n    align-content: space-between !important;\n  }\n  .align-content-lg-around {\n    -ms-flex-line-pack: distribute !important;\n    align-content: space-around !important;\n  }\n  .align-content-lg-stretch {\n    -ms-flex-line-pack: stretch !important;\n    align-content: stretch !important;\n  }\n  .align-self-lg-auto {\n    -ms-flex-item-align: auto !important;\n    align-self: auto !important;\n  }\n  .align-self-lg-start {\n    -ms-flex-item-align: start !important;\n    align-self: flex-start !important;\n  }\n  .align-self-lg-end {\n    -ms-flex-item-align: end !important;\n    align-self: flex-end !important;\n  }\n  .align-self-lg-center {\n    -ms-flex-item-align: center !important;\n    align-self: center !important;\n  }\n  .align-self-lg-baseline {\n    -ms-flex-item-align: baseline !important;\n    align-self: baseline !important;\n  }\n  .align-self-lg-stretch {\n    -ms-flex-item-align: stretch !important;\n    align-self: stretch !important;\n  }\n}\n\n@media (min-width: 1200px) {\n  .flex-xl-row {\n    -ms-flex-direction: row !important;\n    flex-direction: row !important;\n  }\n  .flex-xl-column {\n    -ms-flex-direction: column !important;\n    flex-direction: column !important;\n  }\n  .flex-xl-row-reverse {\n    -ms-flex-direction: row-reverse !important;\n    flex-direction: row-reverse !important;\n  }\n  .flex-xl-column-reverse {\n    -ms-flex-direction: column-reverse !important;\n    flex-direction: column-reverse !important;\n  }\n  .flex-xl-wrap {\n    -ms-flex-wrap: wrap !important;\n    flex-wrap: wrap !important;\n  }\n  .flex-xl-nowrap {\n    -ms-flex-wrap: nowrap !important;\n    flex-wrap: nowrap !important;\n  }\n  .flex-xl-wrap-reverse {\n    -ms-flex-wrap: wrap-reverse !important;\n    flex-wrap: wrap-reverse !important;\n  }\n  .flex-xl-fill {\n    -ms-flex: 1 1 auto !important;\n    flex: 1 1 auto !important;\n  }\n  .flex-xl-grow-0 {\n    -ms-flex-positive: 0 !important;\n    flex-grow: 0 !important;\n  }\n  .flex-xl-grow-1 {\n    -ms-flex-positive: 1 !important;\n    flex-grow: 1 !important;\n  }\n  .flex-xl-shrink-0 {\n    -ms-flex-negative: 0 !important;\n    flex-shrink: 0 !important;\n  }\n  .flex-xl-shrink-1 {\n    -ms-flex-negative: 1 !important;\n    flex-shrink: 1 !important;\n  }\n  .justify-content-xl-start {\n    -ms-flex-pack: start !important;\n    justify-content: flex-start !important;\n  }\n  .justify-content-xl-end {\n    -ms-flex-pack: end !important;\n    justify-content: flex-end !important;\n  }\n  .justify-content-xl-center {\n    -ms-flex-pack: center !important;\n    justify-content: center !important;\n  }\n  .justify-content-xl-between {\n    -ms-flex-pack: justify !important;\n    justify-content: space-between !important;\n  }\n  .justify-content-xl-around {\n    -ms-flex-pack: distribute !important;\n    justify-content: space-around !important;\n  }\n  .align-items-xl-start {\n    -ms-flex-align: start !important;\n    align-items: flex-start !important;\n  }\n  .align-items-xl-end {\n    -ms-flex-align: end !important;\n    align-items: flex-end !important;\n  }\n  .align-items-xl-center {\n    -ms-flex-align: center !important;\n    align-items: center !important;\n  }\n  .align-items-xl-baseline {\n    -ms-flex-align: baseline !important;\n    align-items: baseline !important;\n  }\n  .align-items-xl-stretch {\n    -ms-flex-align: stretch !important;\n    align-items: stretch !important;\n  }\n  .align-content-xl-start {\n    -ms-flex-line-pack: start !important;\n    align-content: flex-start !important;\n  }\n  .align-content-xl-end {\n    -ms-flex-line-pack: end !important;\n    align-content: flex-end !important;\n  }\n  .align-content-xl-center {\n    -ms-flex-line-pack: center !important;\n    align-content: center !important;\n  }\n  .align-content-xl-between {\n    -ms-flex-line-pack: justify !important;\n    align-content: space-between !important;\n  }\n  .align-content-xl-around {\n    -ms-flex-line-pack: distribute !important;\n    align-content: space-around !important;\n  }\n  .align-content-xl-stretch {\n    -ms-flex-line-pack: stretch !important;\n    align-content: stretch !important;\n  }\n  .align-self-xl-auto {\n    -ms-flex-item-align: auto !important;\n    align-self: auto !important;\n  }\n  .align-self-xl-start {\n    -ms-flex-item-align: start !important;\n    align-self: flex-start !important;\n  }\n  .align-self-xl-end {\n    -ms-flex-item-align: end !important;\n    align-self: flex-end !important;\n  }\n  .align-self-xl-center {\n    -ms-flex-item-align: center !important;\n    align-self: center !important;\n  }\n  .align-self-xl-baseline {\n    -ms-flex-item-align: baseline !important;\n    align-self: baseline !important;\n  }\n  .align-self-xl-stretch {\n    -ms-flex-item-align: stretch !important;\n    align-self: stretch !important;\n  }\n}\n\n.float-left {\n  float: left !important;\n}\n\n.float-right {\n  float: right !important;\n}\n\n.float-none {\n  float: none !important;\n}\n\n@media (min-width: 576px) {\n  .float-sm-left {\n    float: left !important;\n  }\n  .float-sm-right {\n    float: right !important;\n  }\n  .float-sm-none {\n    float: none !important;\n  }\n}\n\n@media (min-width: 768px) {\n  .float-md-left {\n    float: left !important;\n  }\n  .float-md-right {\n    float: right !important;\n  }\n  .float-md-none {\n    float: none !important;\n  }\n}\n\n@media (min-width: 992px) {\n  .float-lg-left {\n    float: left !important;\n  }\n  .float-lg-right {\n    float: right !important;\n  }\n  .float-lg-none {\n    float: none !important;\n  }\n}\n\n@media (min-width: 1200px) {\n  .float-xl-left {\n    float: left !important;\n  }\n  .float-xl-right {\n    float: right !important;\n  }\n  .float-xl-none {\n    float: none !important;\n  }\n}\n\n.position-static {\n  position: static !important;\n}\n\n.position-relative {\n  position: relative !important;\n}\n\n.position-absolute {\n  position: absolute !important;\n}\n\n.position-fixed {\n  position: fixed !important;\n}\n\n.position-sticky {\n  position: -webkit-sticky !important;\n  position: sticky !important;\n}\n\n.fixed-top {\n  position: fixed;\n  top: 0;\n  right: 0;\n  left: 0;\n  z-index: 1030;\n}\n\n.fixed-bottom {\n  position: fixed;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 1030;\n}\n\n@supports ((position: -webkit-sticky) or (position: sticky)) {\n  .sticky-top {\n    position: -webkit-sticky;\n    position: sticky;\n    top: 0;\n    z-index: 1020;\n  }\n}\n\n.sr-only {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  white-space: nowrap;\n  border: 0;\n}\n\n.sr-only-focusable:active, .sr-only-focusable:focus {\n  position: static;\n  width: auto;\n  height: auto;\n  overflow: visible;\n  clip: auto;\n  white-space: normal;\n}\n\n.shadow-sm {\n  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;\n}\n\n.shadow {\n  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;\n}\n\n.shadow-lg {\n  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;\n}\n\n.shadow-none {\n  box-shadow: none !important;\n}\n\n.w-25 {\n  width: 25% !important;\n}\n\n.w-50 {\n  width: 50% !important;\n}\n\n.w-75 {\n  width: 75% !important;\n}\n\n.w-100 {\n  width: 100% !important;\n}\n\n.w-auto {\n  width: auto !important;\n}\n\n.h-25 {\n  height: 25% !important;\n}\n\n.h-50 {\n  height: 50% !important;\n}\n\n.h-75 {\n  height: 75% !important;\n}\n\n.h-100 {\n  height: 100% !important;\n}\n\n.h-auto {\n  height: auto !important;\n}\n\n.mw-100 {\n  max-width: 100% !important;\n}\n\n.mh-100 {\n  max-height: 100% !important;\n}\n\n.m-0 {\n  margin: 0 !important;\n}\n\n.mt-0,\n.my-0 {\n  margin-top: 0 !important;\n}\n\n.mr-0,\n.mx-0 {\n  margin-right: 0 !important;\n}\n\n.mb-0,\n.my-0 {\n  margin-bottom: 0 !important;\n}\n\n.ml-0,\n.mx-0 {\n  margin-left: 0 !important;\n}\n\n.m-1 {\n  margin: 0.25rem !important;\n}\n\n.mt-1,\n.my-1 {\n  margin-top: 0.25rem !important;\n}\n\n.mr-1,\n.mx-1 {\n  margin-right: 0.25rem !important;\n}\n\n.mb-1,\n.my-1 {\n  margin-bottom: 0.25rem !important;\n}\n\n.ml-1,\n.mx-1 {\n  margin-left: 0.25rem !important;\n}\n\n.m-2 {\n  margin: 0.5rem !important;\n}\n\n.mt-2,\n.my-2 {\n  margin-top: 0.5rem !important;\n}\n\n.mr-2,\n.mx-2 {\n  margin-right: 0.5rem !important;\n}\n\n.mb-2,\n.my-2 {\n  margin-bottom: 0.5rem !important;\n}\n\n.ml-2,\n.mx-2 {\n  margin-left: 0.5rem !important;\n}\n\n.m-3 {\n  margin: 1rem !important;\n}\n\n.mt-3,\n.my-3 {\n  margin-top: 1rem !important;\n}\n\n.mr-3,\n.mx-3 {\n  margin-right: 1rem !important;\n}\n\n.mb-3,\n.my-3 {\n  margin-bottom: 1rem !important;\n}\n\n.ml-3,\n.mx-3 {\n  margin-left: 1rem !important;\n}\n\n.m-4 {\n  margin: 1.5rem !important;\n}\n\n.mt-4,\n.my-4 {\n  margin-top: 1.5rem !important;\n}\n\n.mr-4,\n.mx-4 {\n  margin-right: 1.5rem !important;\n}\n\n.mb-4,\n.my-4 {\n  margin-bottom: 1.5rem !important;\n}\n\n.ml-4,\n.mx-4 {\n  margin-left: 1.5rem !important;\n}\n\n.m-5 {\n  margin: 3rem !important;\n}\n\n.mt-5,\n.my-5 {\n  margin-top: 3rem !important;\n}\n\n.mr-5,\n.mx-5 {\n  margin-right: 3rem !important;\n}\n\n.mb-5,\n.my-5 {\n  margin-bottom: 3rem !important;\n}\n\n.ml-5,\n.mx-5 {\n  margin-left: 3rem !important;\n}\n\n.p-0 {\n  padding: 0 !important;\n}\n\n.pt-0,\n.py-0 {\n  padding-top: 0 !important;\n}\n\n.pr-0,\n.px-0 {\n  padding-right: 0 !important;\n}\n\n.pb-0,\n.py-0 {\n  padding-bottom: 0 !important;\n}\n\n.pl-0,\n.px-0 {\n  padding-left: 0 !important;\n}\n\n.p-1 {\n  padding: 0.25rem !important;\n}\n\n.pt-1,\n.py-1 {\n  padding-top: 0.25rem !important;\n}\n\n.pr-1,\n.px-1 {\n  padding-right: 0.25rem !important;\n}\n\n.pb-1,\n.py-1 {\n  padding-bottom: 0.25rem !important;\n}\n\n.pl-1,\n.px-1 {\n  padding-left: 0.25rem !important;\n}\n\n.p-2 {\n  padding: 0.5rem !important;\n}\n\n.pt-2,\n.py-2 {\n  padding-top: 0.5rem !important;\n}\n\n.pr-2,\n.px-2 {\n  padding-right: 0.5rem !important;\n}\n\n.pb-2,\n.py-2 {\n  padding-bottom: 0.5rem !important;\n}\n\n.pl-2,\n.px-2 {\n  padding-left: 0.5rem !important;\n}\n\n.p-3 {\n  padding: 1rem !important;\n}\n\n.pt-3,\n.py-3 {\n  padding-top: 1rem !important;\n}\n\n.pr-3,\n.px-3 {\n  padding-right: 1rem !important;\n}\n\n.pb-3,\n.py-3 {\n  padding-bottom: 1rem !important;\n}\n\n.pl-3,\n.px-3 {\n  padding-left: 1rem !important;\n}\n\n.p-4 {\n  padding: 1.5rem !important;\n}\n\n.pt-4,\n.py-4 {\n  padding-top: 1.5rem !important;\n}\n\n.pr-4,\n.px-4 {\n  padding-right: 1.5rem !important;\n}\n\n.pb-4,\n.py-4 {\n  padding-bottom: 1.5rem !important;\n}\n\n.pl-4,\n.px-4 {\n  padding-left: 1.5rem !important;\n}\n\n.p-5 {\n  padding: 3rem !important;\n}\n\n.pt-5,\n.py-5 {\n  padding-top: 3rem !important;\n}\n\n.pr-5,\n.px-5 {\n  padding-right: 3rem !important;\n}\n\n.pb-5,\n.py-5 {\n  padding-bottom: 3rem !important;\n}\n\n.pl-5,\n.px-5 {\n  padding-left: 3rem !important;\n}\n\n.m-auto {\n  margin: auto !important;\n}\n\n.mt-auto,\n.my-auto {\n  margin-top: auto !important;\n}\n\n.mr-auto,\n.mx-auto {\n  margin-right: auto !important;\n}\n\n.mb-auto,\n.my-auto {\n  margin-bottom: auto !important;\n}\n\n.ml-auto,\n.mx-auto {\n  margin-left: auto !important;\n}\n\n@media (min-width: 576px) {\n  .m-sm-0 {\n    margin: 0 !important;\n  }\n  .mt-sm-0,\n  .my-sm-0 {\n    margin-top: 0 !important;\n  }\n  .mr-sm-0,\n  .mx-sm-0 {\n    margin-right: 0 !important;\n  }\n  .mb-sm-0,\n  .my-sm-0 {\n    margin-bottom: 0 !important;\n  }\n  .ml-sm-0,\n  .mx-sm-0 {\n    margin-left: 0 !important;\n  }\n  .m-sm-1 {\n    margin: 0.25rem !important;\n  }\n  .mt-sm-1,\n  .my-sm-1 {\n    margin-top: 0.25rem !important;\n  }\n  .mr-sm-1,\n  .mx-sm-1 {\n    margin-right: 0.25rem !important;\n  }\n  .mb-sm-1,\n  .my-sm-1 {\n    margin-bottom: 0.25rem !important;\n  }\n  .ml-sm-1,\n  .mx-sm-1 {\n    margin-left: 0.25rem !important;\n  }\n  .m-sm-2 {\n    margin: 0.5rem !important;\n  }\n  .mt-sm-2,\n  .my-sm-2 {\n    margin-top: 0.5rem !important;\n  }\n  .mr-sm-2,\n  .mx-sm-2 {\n    margin-right: 0.5rem !important;\n  }\n  .mb-sm-2,\n  .my-sm-2 {\n    margin-bottom: 0.5rem !important;\n  }\n  .ml-sm-2,\n  .mx-sm-2 {\n    margin-left: 0.5rem !important;\n  }\n  .m-sm-3 {\n    margin: 1rem !important;\n  }\n  .mt-sm-3,\n  .my-sm-3 {\n    margin-top: 1rem !important;\n  }\n  .mr-sm-3,\n  .mx-sm-3 {\n    margin-right: 1rem !important;\n  }\n  .mb-sm-3,\n  .my-sm-3 {\n    margin-bottom: 1rem !important;\n  }\n  .ml-sm-3,\n  .mx-sm-3 {\n    margin-left: 1rem !important;\n  }\n  .m-sm-4 {\n    margin: 1.5rem !important;\n  }\n  .mt-sm-4,\n  .my-sm-4 {\n    margin-top: 1.5rem !important;\n  }\n  .mr-sm-4,\n  .mx-sm-4 {\n    margin-right: 1.5rem !important;\n  }\n  .mb-sm-4,\n  .my-sm-4 {\n    margin-bottom: 1.5rem !important;\n  }\n  .ml-sm-4,\n  .mx-sm-4 {\n    margin-left: 1.5rem !important;\n  }\n  .m-sm-5 {\n    margin: 3rem !important;\n  }\n  .mt-sm-5,\n  .my-sm-5 {\n    margin-top: 3rem !important;\n  }\n  .mr-sm-5,\n  .mx-sm-5 {\n    margin-right: 3rem !important;\n  }\n  .mb-sm-5,\n  .my-sm-5 {\n    margin-bottom: 3rem !important;\n  }\n  .ml-sm-5,\n  .mx-sm-5 {\n    margin-left: 3rem !important;\n  }\n  .p-sm-0 {\n    padding: 0 !important;\n  }\n  .pt-sm-0,\n  .py-sm-0 {\n    padding-top: 0 !important;\n  }\n  .pr-sm-0,\n  .px-sm-0 {\n    padding-right: 0 !important;\n  }\n  .pb-sm-0,\n  .py-sm-0 {\n    padding-bottom: 0 !important;\n  }\n  .pl-sm-0,\n  .px-sm-0 {\n    padding-left: 0 !important;\n  }\n  .p-sm-1 {\n    padding: 0.25rem !important;\n  }\n  .pt-sm-1,\n  .py-sm-1 {\n    padding-top: 0.25rem !important;\n  }\n  .pr-sm-1,\n  .px-sm-1 {\n    padding-right: 0.25rem !important;\n  }\n  .pb-sm-1,\n  .py-sm-1 {\n    padding-bottom: 0.25rem !important;\n  }\n  .pl-sm-1,\n  .px-sm-1 {\n    padding-left: 0.25rem !important;\n  }\n  .p-sm-2 {\n    padding: 0.5rem !important;\n  }\n  .pt-sm-2,\n  .py-sm-2 {\n    padding-top: 0.5rem !important;\n  }\n  .pr-sm-2,\n  .px-sm-2 {\n    padding-right: 0.5rem !important;\n  }\n  .pb-sm-2,\n  .py-sm-2 {\n    padding-bottom: 0.5rem !important;\n  }\n  .pl-sm-2,\n  .px-sm-2 {\n    padding-left: 0.5rem !important;\n  }\n  .p-sm-3 {\n    padding: 1rem !important;\n  }\n  .pt-sm-3,\n  .py-sm-3 {\n    padding-top: 1rem !important;\n  }\n  .pr-sm-3,\n  .px-sm-3 {\n    padding-right: 1rem !important;\n  }\n  .pb-sm-3,\n  .py-sm-3 {\n    padding-bottom: 1rem !important;\n  }\n  .pl-sm-3,\n  .px-sm-3 {\n    padding-left: 1rem !important;\n  }\n  .p-sm-4 {\n    padding: 1.5rem !important;\n  }\n  .pt-sm-4,\n  .py-sm-4 {\n    padding-top: 1.5rem !important;\n  }\n  .pr-sm-4,\n  .px-sm-4 {\n    padding-right: 1.5rem !important;\n  }\n  .pb-sm-4,\n  .py-sm-4 {\n    padding-bottom: 1.5rem !important;\n  }\n  .pl-sm-4,\n  .px-sm-4 {\n    padding-left: 1.5rem !important;\n  }\n  .p-sm-5 {\n    padding: 3rem !important;\n  }\n  .pt-sm-5,\n  .py-sm-5 {\n    padding-top: 3rem !important;\n  }\n  .pr-sm-5,\n  .px-sm-5 {\n    padding-right: 3rem !important;\n  }\n  .pb-sm-5,\n  .py-sm-5 {\n    padding-bottom: 3rem !important;\n  }\n  .pl-sm-5,\n  .px-sm-5 {\n    padding-left: 3rem !important;\n  }\n  .m-sm-auto {\n    margin: auto !important;\n  }\n  .mt-sm-auto,\n  .my-sm-auto {\n    margin-top: auto !important;\n  }\n  .mr-sm-auto,\n  .mx-sm-auto {\n    margin-right: auto !important;\n  }\n  .mb-sm-auto,\n  .my-sm-auto {\n    margin-bottom: auto !important;\n  }\n  .ml-sm-auto,\n  .mx-sm-auto {\n    margin-left: auto !important;\n  }\n}\n\n@media (min-width: 768px) {\n  .m-md-0 {\n    margin: 0 !important;\n  }\n  .mt-md-0,\n  .my-md-0 {\n    margin-top: 0 !important;\n  }\n  .mr-md-0,\n  .mx-md-0 {\n    margin-right: 0 !important;\n  }\n  .mb-md-0,\n  .my-md-0 {\n    margin-bottom: 0 !important;\n  }\n  .ml-md-0,\n  .mx-md-0 {\n    margin-left: 0 !important;\n  }\n  .m-md-1 {\n    margin: 0.25rem !important;\n  }\n  .mt-md-1,\n  .my-md-1 {\n    margin-top: 0.25rem !important;\n  }\n  .mr-md-1,\n  .mx-md-1 {\n    margin-right: 0.25rem !important;\n  }\n  .mb-md-1,\n  .my-md-1 {\n    margin-bottom: 0.25rem !important;\n  }\n  .ml-md-1,\n  .mx-md-1 {\n    margin-left: 0.25rem !important;\n  }\n  .m-md-2 {\n    margin: 0.5rem !important;\n  }\n  .mt-md-2,\n  .my-md-2 {\n    margin-top: 0.5rem !important;\n  }\n  .mr-md-2,\n  .mx-md-2 {\n    margin-right: 0.5rem !important;\n  }\n  .mb-md-2,\n  .my-md-2 {\n    margin-bottom: 0.5rem !important;\n  }\n  .ml-md-2,\n  .mx-md-2 {\n    margin-left: 0.5rem !important;\n  }\n  .m-md-3 {\n    margin: 1rem !important;\n  }\n  .mt-md-3,\n  .my-md-3 {\n    margin-top: 1rem !important;\n  }\n  .mr-md-3,\n  .mx-md-3 {\n    margin-right: 1rem !important;\n  }\n  .mb-md-3,\n  .my-md-3 {\n    margin-bottom: 1rem !important;\n  }\n  .ml-md-3,\n  .mx-md-3 {\n    margin-left: 1rem !important;\n  }\n  .m-md-4 {\n    margin: 1.5rem !important;\n  }\n  .mt-md-4,\n  .my-md-4 {\n    margin-top: 1.5rem !important;\n  }\n  .mr-md-4,\n  .mx-md-4 {\n    margin-right: 1.5rem !important;\n  }\n  .mb-md-4,\n  .my-md-4 {\n    margin-bottom: 1.5rem !important;\n  }\n  .ml-md-4,\n  .mx-md-4 {\n    margin-left: 1.5rem !important;\n  }\n  .m-md-5 {\n    margin: 3rem !important;\n  }\n  .mt-md-5,\n  .my-md-5 {\n    margin-top: 3rem !important;\n  }\n  .mr-md-5,\n  .mx-md-5 {\n    margin-right: 3rem !important;\n  }\n  .mb-md-5,\n  .my-md-5 {\n    margin-bottom: 3rem !important;\n  }\n  .ml-md-5,\n  .mx-md-5 {\n    margin-left: 3rem !important;\n  }\n  .p-md-0 {\n    padding: 0 !important;\n  }\n  .pt-md-0,\n  .py-md-0 {\n    padding-top: 0 !important;\n  }\n  .pr-md-0,\n  .px-md-0 {\n    padding-right: 0 !important;\n  }\n  .pb-md-0,\n  .py-md-0 {\n    padding-bottom: 0 !important;\n  }\n  .pl-md-0,\n  .px-md-0 {\n    padding-left: 0 !important;\n  }\n  .p-md-1 {\n    padding: 0.25rem !important;\n  }\n  .pt-md-1,\n  .py-md-1 {\n    padding-top: 0.25rem !important;\n  }\n  .pr-md-1,\n  .px-md-1 {\n    padding-right: 0.25rem !important;\n  }\n  .pb-md-1,\n  .py-md-1 {\n    padding-bottom: 0.25rem !important;\n  }\n  .pl-md-1,\n  .px-md-1 {\n    padding-left: 0.25rem !important;\n  }\n  .p-md-2 {\n    padding: 0.5rem !important;\n  }\n  .pt-md-2,\n  .py-md-2 {\n    padding-top: 0.5rem !important;\n  }\n  .pr-md-2,\n  .px-md-2 {\n    padding-right: 0.5rem !important;\n  }\n  .pb-md-2,\n  .py-md-2 {\n    padding-bottom: 0.5rem !important;\n  }\n  .pl-md-2,\n  .px-md-2 {\n    padding-left: 0.5rem !important;\n  }\n  .p-md-3 {\n    padding: 1rem !important;\n  }\n  .pt-md-3,\n  .py-md-3 {\n    padding-top: 1rem !important;\n  }\n  .pr-md-3,\n  .px-md-3 {\n    padding-right: 1rem !important;\n  }\n  .pb-md-3,\n  .py-md-3 {\n    padding-bottom: 1rem !important;\n  }\n  .pl-md-3,\n  .px-md-3 {\n    padding-left: 1rem !important;\n  }\n  .p-md-4 {\n    padding: 1.5rem !important;\n  }\n  .pt-md-4,\n  .py-md-4 {\n    padding-top: 1.5rem !important;\n  }\n  .pr-md-4,\n  .px-md-4 {\n    padding-right: 1.5rem !important;\n  }\n  .pb-md-4,\n  .py-md-4 {\n    padding-bottom: 1.5rem !important;\n  }\n  .pl-md-4,\n  .px-md-4 {\n    padding-left: 1.5rem !important;\n  }\n  .p-md-5 {\n    padding: 3rem !important;\n  }\n  .pt-md-5,\n  .py-md-5 {\n    padding-top: 3rem !important;\n  }\n  .pr-md-5,\n  .px-md-5 {\n    padding-right: 3rem !important;\n  }\n  .pb-md-5,\n  .py-md-5 {\n    padding-bottom: 3rem !important;\n  }\n  .pl-md-5,\n  .px-md-5 {\n    padding-left: 3rem !important;\n  }\n  .m-md-auto {\n    margin: auto !important;\n  }\n  .mt-md-auto,\n  .my-md-auto {\n    margin-top: auto !important;\n  }\n  .mr-md-auto,\n  .mx-md-auto {\n    margin-right: auto !important;\n  }\n  .mb-md-auto,\n  .my-md-auto {\n    margin-bottom: auto !important;\n  }\n  .ml-md-auto,\n  .mx-md-auto {\n    margin-left: auto !important;\n  }\n}\n\n@media (min-width: 992px) {\n  .m-lg-0 {\n    margin: 0 !important;\n  }\n  .mt-lg-0,\n  .my-lg-0 {\n    margin-top: 0 !important;\n  }\n  .mr-lg-0,\n  .mx-lg-0 {\n    margin-right: 0 !important;\n  }\n  .mb-lg-0,\n  .my-lg-0 {\n    margin-bottom: 0 !important;\n  }\n  .ml-lg-0,\n  .mx-lg-0 {\n    margin-left: 0 !important;\n  }\n  .m-lg-1 {\n    margin: 0.25rem !important;\n  }\n  .mt-lg-1,\n  .my-lg-1 {\n    margin-top: 0.25rem !important;\n  }\n  .mr-lg-1,\n  .mx-lg-1 {\n    margin-right: 0.25rem !important;\n  }\n  .mb-lg-1,\n  .my-lg-1 {\n    margin-bottom: 0.25rem !important;\n  }\n  .ml-lg-1,\n  .mx-lg-1 {\n    margin-left: 0.25rem !important;\n  }\n  .m-lg-2 {\n    margin: 0.5rem !important;\n  }\n  .mt-lg-2,\n  .my-lg-2 {\n    margin-top: 0.5rem !important;\n  }\n  .mr-lg-2,\n  .mx-lg-2 {\n    margin-right: 0.5rem !important;\n  }\n  .mb-lg-2,\n  .my-lg-2 {\n    margin-bottom: 0.5rem !important;\n  }\n  .ml-lg-2,\n  .mx-lg-2 {\n    margin-left: 0.5rem !important;\n  }\n  .m-lg-3 {\n    margin: 1rem !important;\n  }\n  .mt-lg-3,\n  .my-lg-3 {\n    margin-top: 1rem !important;\n  }\n  .mr-lg-3,\n  .mx-lg-3 {\n    margin-right: 1rem !important;\n  }\n  .mb-lg-3,\n  .my-lg-3 {\n    margin-bottom: 1rem !important;\n  }\n  .ml-lg-3,\n  .mx-lg-3 {\n    margin-left: 1rem !important;\n  }\n  .m-lg-4 {\n    margin: 1.5rem !important;\n  }\n  .mt-lg-4,\n  .my-lg-4 {\n    margin-top: 1.5rem !important;\n  }\n  .mr-lg-4,\n  .mx-lg-4 {\n    margin-right: 1.5rem !important;\n  }\n  .mb-lg-4,\n  .my-lg-4 {\n    margin-bottom: 1.5rem !important;\n  }\n  .ml-lg-4,\n  .mx-lg-4 {\n    margin-left: 1.5rem !important;\n  }\n  .m-lg-5 {\n    margin: 3rem !important;\n  }\n  .mt-lg-5,\n  .my-lg-5 {\n    margin-top: 3rem !important;\n  }\n  .mr-lg-5,\n  .mx-lg-5 {\n    margin-right: 3rem !important;\n  }\n  .mb-lg-5,\n  .my-lg-5 {\n    margin-bottom: 3rem !important;\n  }\n  .ml-lg-5,\n  .mx-lg-5 {\n    margin-left: 3rem !important;\n  }\n  .p-lg-0 {\n    padding: 0 !important;\n  }\n  .pt-lg-0,\n  .py-lg-0 {\n    padding-top: 0 !important;\n  }\n  .pr-lg-0,\n  .px-lg-0 {\n    padding-right: 0 !important;\n  }\n  .pb-lg-0,\n  .py-lg-0 {\n    padding-bottom: 0 !important;\n  }\n  .pl-lg-0,\n  .px-lg-0 {\n    padding-left: 0 !important;\n  }\n  .p-lg-1 {\n    padding: 0.25rem !important;\n  }\n  .pt-lg-1,\n  .py-lg-1 {\n    padding-top: 0.25rem !important;\n  }\n  .pr-lg-1,\n  .px-lg-1 {\n    padding-right: 0.25rem !important;\n  }\n  .pb-lg-1,\n  .py-lg-1 {\n    padding-bottom: 0.25rem !important;\n  }\n  .pl-lg-1,\n  .px-lg-1 {\n    padding-left: 0.25rem !important;\n  }\n  .p-lg-2 {\n    padding: 0.5rem !important;\n  }\n  .pt-lg-2,\n  .py-lg-2 {\n    padding-top: 0.5rem !important;\n  }\n  .pr-lg-2,\n  .px-lg-2 {\n    padding-right: 0.5rem !important;\n  }\n  .pb-lg-2,\n  .py-lg-2 {\n    padding-bottom: 0.5rem !important;\n  }\n  .pl-lg-2,\n  .px-lg-2 {\n    padding-left: 0.5rem !important;\n  }\n  .p-lg-3 {\n    padding: 1rem !important;\n  }\n  .pt-lg-3,\n  .py-lg-3 {\n    padding-top: 1rem !important;\n  }\n  .pr-lg-3,\n  .px-lg-3 {\n    padding-right: 1rem !important;\n  }\n  .pb-lg-3,\n  .py-lg-3 {\n    padding-bottom: 1rem !important;\n  }\n  .pl-lg-3,\n  .px-lg-3 {\n    padding-left: 1rem !important;\n  }\n  .p-lg-4 {\n    padding: 1.5rem !important;\n  }\n  .pt-lg-4,\n  .py-lg-4 {\n    padding-top: 1.5rem !important;\n  }\n  .pr-lg-4,\n  .px-lg-4 {\n    padding-right: 1.5rem !important;\n  }\n  .pb-lg-4,\n  .py-lg-4 {\n    padding-bottom: 1.5rem !important;\n  }\n  .pl-lg-4,\n  .px-lg-4 {\n    padding-left: 1.5rem !important;\n  }\n  .p-lg-5 {\n    padding: 3rem !important;\n  }\n  .pt-lg-5,\n  .py-lg-5 {\n    padding-top: 3rem !important;\n  }\n  .pr-lg-5,\n  .px-lg-5 {\n    padding-right: 3rem !important;\n  }\n  .pb-lg-5,\n  .py-lg-5 {\n    padding-bottom: 3rem !important;\n  }\n  .pl-lg-5,\n  .px-lg-5 {\n    padding-left: 3rem !important;\n  }\n  .m-lg-auto {\n    margin: auto !important;\n  }\n  .mt-lg-auto,\n  .my-lg-auto {\n    margin-top: auto !important;\n  }\n  .mr-lg-auto,\n  .mx-lg-auto {\n    margin-right: auto !important;\n  }\n  .mb-lg-auto,\n  .my-lg-auto {\n    margin-bottom: auto !important;\n  }\n  .ml-lg-auto,\n  .mx-lg-auto {\n    margin-left: auto !important;\n  }\n}\n\n@media (min-width: 1200px) {\n  .m-xl-0 {\n    margin: 0 !important;\n  }\n  .mt-xl-0,\n  .my-xl-0 {\n    margin-top: 0 !important;\n  }\n  .mr-xl-0,\n  .mx-xl-0 {\n    margin-right: 0 !important;\n  }\n  .mb-xl-0,\n  .my-xl-0 {\n    margin-bottom: 0 !important;\n  }\n  .ml-xl-0,\n  .mx-xl-0 {\n    margin-left: 0 !important;\n  }\n  .m-xl-1 {\n    margin: 0.25rem !important;\n  }\n  .mt-xl-1,\n  .my-xl-1 {\n    margin-top: 0.25rem !important;\n  }\n  .mr-xl-1,\n  .mx-xl-1 {\n    margin-right: 0.25rem !important;\n  }\n  .mb-xl-1,\n  .my-xl-1 {\n    margin-bottom: 0.25rem !important;\n  }\n  .ml-xl-1,\n  .mx-xl-1 {\n    margin-left: 0.25rem !important;\n  }\n  .m-xl-2 {\n    margin: 0.5rem !important;\n  }\n  .mt-xl-2,\n  .my-xl-2 {\n    margin-top: 0.5rem !important;\n  }\n  .mr-xl-2,\n  .mx-xl-2 {\n    margin-right: 0.5rem !important;\n  }\n  .mb-xl-2,\n  .my-xl-2 {\n    margin-bottom: 0.5rem !important;\n  }\n  .ml-xl-2,\n  .mx-xl-2 {\n    margin-left: 0.5rem !important;\n  }\n  .m-xl-3 {\n    margin: 1rem !important;\n  }\n  .mt-xl-3,\n  .my-xl-3 {\n    margin-top: 1rem !important;\n  }\n  .mr-xl-3,\n  .mx-xl-3 {\n    margin-right: 1rem !important;\n  }\n  .mb-xl-3,\n  .my-xl-3 {\n    margin-bottom: 1rem !important;\n  }\n  .ml-xl-3,\n  .mx-xl-3 {\n    margin-left: 1rem !important;\n  }\n  .m-xl-4 {\n    margin: 1.5rem !important;\n  }\n  .mt-xl-4,\n  .my-xl-4 {\n    margin-top: 1.5rem !important;\n  }\n  .mr-xl-4,\n  .mx-xl-4 {\n    margin-right: 1.5rem !important;\n  }\n  .mb-xl-4,\n  .my-xl-4 {\n    margin-bottom: 1.5rem !important;\n  }\n  .ml-xl-4,\n  .mx-xl-4 {\n    margin-left: 1.5rem !important;\n  }\n  .m-xl-5 {\n    margin: 3rem !important;\n  }\n  .mt-xl-5,\n  .my-xl-5 {\n    margin-top: 3rem !important;\n  }\n  .mr-xl-5,\n  .mx-xl-5 {\n    margin-right: 3rem !important;\n  }\n  .mb-xl-5,\n  .my-xl-5 {\n    margin-bottom: 3rem !important;\n  }\n  .ml-xl-5,\n  .mx-xl-5 {\n    margin-left: 3rem !important;\n  }\n  .p-xl-0 {\n    padding: 0 !important;\n  }\n  .pt-xl-0,\n  .py-xl-0 {\n    padding-top: 0 !important;\n  }\n  .pr-xl-0,\n  .px-xl-0 {\n    padding-right: 0 !important;\n  }\n  .pb-xl-0,\n  .py-xl-0 {\n    padding-bottom: 0 !important;\n  }\n  .pl-xl-0,\n  .px-xl-0 {\n    padding-left: 0 !important;\n  }\n  .p-xl-1 {\n    padding: 0.25rem !important;\n  }\n  .pt-xl-1,\n  .py-xl-1 {\n    padding-top: 0.25rem !important;\n  }\n  .pr-xl-1,\n  .px-xl-1 {\n    padding-right: 0.25rem !important;\n  }\n  .pb-xl-1,\n  .py-xl-1 {\n    padding-bottom: 0.25rem !important;\n  }\n  .pl-xl-1,\n  .px-xl-1 {\n    padding-left: 0.25rem !important;\n  }\n  .p-xl-2 {\n    padding: 0.5rem !important;\n  }\n  .pt-xl-2,\n  .py-xl-2 {\n    padding-top: 0.5rem !important;\n  }\n  .pr-xl-2,\n  .px-xl-2 {\n    padding-right: 0.5rem !important;\n  }\n  .pb-xl-2,\n  .py-xl-2 {\n    padding-bottom: 0.5rem !important;\n  }\n  .pl-xl-2,\n  .px-xl-2 {\n    padding-left: 0.5rem !important;\n  }\n  .p-xl-3 {\n    padding: 1rem !important;\n  }\n  .pt-xl-3,\n  .py-xl-3 {\n    padding-top: 1rem !important;\n  }\n  .pr-xl-3,\n  .px-xl-3 {\n    padding-right: 1rem !important;\n  }\n  .pb-xl-3,\n  .py-xl-3 {\n    padding-bottom: 1rem !important;\n  }\n  .pl-xl-3,\n  .px-xl-3 {\n    padding-left: 1rem !important;\n  }\n  .p-xl-4 {\n    padding: 1.5rem !important;\n  }\n  .pt-xl-4,\n  .py-xl-4 {\n    padding-top: 1.5rem !important;\n  }\n  .pr-xl-4,\n  .px-xl-4 {\n    padding-right: 1.5rem !important;\n  }\n  .pb-xl-4,\n  .py-xl-4 {\n    padding-bottom: 1.5rem !important;\n  }\n  .pl-xl-4,\n  .px-xl-4 {\n    padding-left: 1.5rem !important;\n  }\n  .p-xl-5 {\n    padding: 3rem !important;\n  }\n  .pt-xl-5,\n  .py-xl-5 {\n    padding-top: 3rem !important;\n  }\n  .pr-xl-5,\n  .px-xl-5 {\n    padding-right: 3rem !important;\n  }\n  .pb-xl-5,\n  .py-xl-5 {\n    padding-bottom: 3rem !important;\n  }\n  .pl-xl-5,\n  .px-xl-5 {\n    padding-left: 3rem !important;\n  }\n  .m-xl-auto {\n    margin: auto !important;\n  }\n  .mt-xl-auto,\n  .my-xl-auto {\n    margin-top: auto !important;\n  }\n  .mr-xl-auto,\n  .mx-xl-auto {\n    margin-right: auto !important;\n  }\n  .mb-xl-auto,\n  .my-xl-auto {\n    margin-bottom: auto !important;\n  }\n  .ml-xl-auto,\n  .mx-xl-auto {\n    margin-left: auto !important;\n  }\n}\n\n.text-monospace {\n  font-family: SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n}\n\n.text-justify {\n  text-align: justify !important;\n}\n\n.text-nowrap {\n  white-space: nowrap !important;\n}\n\n.text-truncate {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.text-left {\n  text-align: left !important;\n}\n\n.text-right {\n  text-align: right !important;\n}\n\n.text-center {\n  text-align: center !important;\n}\n\n@media (min-width: 576px) {\n  .text-sm-left {\n    text-align: left !important;\n  }\n  .text-sm-right {\n    text-align: right !important;\n  }\n  .text-sm-center {\n    text-align: center !important;\n  }\n}\n\n@media (min-width: 768px) {\n  .text-md-left {\n    text-align: left !important;\n  }\n  .text-md-right {\n    text-align: right !important;\n  }\n  .text-md-center {\n    text-align: center !important;\n  }\n}\n\n@media (min-width: 992px) {\n  .text-lg-left {\n    text-align: left !important;\n  }\n  .text-lg-right {\n    text-align: right !important;\n  }\n  .text-lg-center {\n    text-align: center !important;\n  }\n}\n\n@media (min-width: 1200px) {\n  .text-xl-left {\n    text-align: left !important;\n  }\n  .text-xl-right {\n    text-align: right !important;\n  }\n  .text-xl-center {\n    text-align: center !important;\n  }\n}\n\n.text-lowercase {\n  text-transform: lowercase !important;\n}\n\n.text-uppercase {\n  text-transform: uppercase !important;\n}\n\n.text-capitalize {\n  text-transform: capitalize !important;\n}\n\n.font-weight-light {\n  font-weight: 300 !important;\n}\n\n.font-weight-normal {\n  font-weight: 400 !important;\n}\n\n.font-weight-bold {\n  font-weight: 700 !important;\n}\n\n.font-italic {\n  font-style: italic !important;\n}\n\n.text-white {\n  color: #fff !important;\n}\n\n.text-primary {\n  color: #007bff !important;\n}\n\na.text-primary:hover, a.text-primary:focus {\n  color: #0062cc !important;\n}\n\n.text-secondary {\n  color: #6c757d !important;\n}\n\na.text-secondary:hover, a.text-secondary:focus {\n  color: #545b62 !important;\n}\n\n.text-success {\n  color: #28a745 !important;\n}\n\na.text-success:hover, a.text-success:focus {\n  color: #1e7e34 !important;\n}\n\n.text-info {\n  color: #17a2b8 !important;\n}\n\na.text-info:hover, a.text-info:focus {\n  color: #117a8b !important;\n}\n\n.text-warning {\n  color: #ffc107 !important;\n}\n\na.text-warning:hover, a.text-warning:focus {\n  color: #d39e00 !important;\n}\n\n.text-danger {\n  color: #dc3545 !important;\n}\n\na.text-danger:hover, a.text-danger:focus {\n  color: #bd2130 !important;\n}\n\n.text-light {\n  color: #f8f9fa !important;\n}\n\na.text-light:hover, a.text-light:focus {\n  color: #dae0e5 !important;\n}\n\n.text-dark {\n  color: #343a40 !important;\n}\n\na.text-dark:hover, a.text-dark:focus {\n  color: #1d2124 !important;\n}\n\n.text-body {\n  color: #212529 !important;\n}\n\n.text-muted {\n  color: #6c757d !important;\n}\n\n.text-black-50 {\n  color: rgba(0, 0, 0, 0.5) !important;\n}\n\n.text-white-50 {\n  color: rgba(255, 255, 255, 0.5) !important;\n}\n\n.text-hide {\n  font: 0/0 a;\n  color: transparent;\n  text-shadow: none;\n  background-color: transparent;\n  border: 0;\n}\n\n.visible {\n  visibility: visible !important;\n}\n\n.invisible {\n  visibility: hidden !important;\n}\n\n@media print {\n  *,\n  *::before,\n  *::after {\n    text-shadow: none !important;\n    box-shadow: none !important;\n  }\n  a:not(.btn) {\n    text-decoration: underline;\n  }\n  abbr[title]::after {\n    content: \" (\" attr(title) \")\";\n  }\n  pre {\n    white-space: pre-wrap !important;\n  }\n  pre,\n  blockquote {\n    border: 1px solid #adb5bd;\n    page-break-inside: avoid;\n  }\n  thead {\n    display: table-header-group;\n  }\n  tr,\n  img {\n    page-break-inside: avoid;\n  }\n  p,\n  h2,\n  h3 {\n    orphans: 3;\n    widows: 3;\n  }\n  h2,\n  h3 {\n    page-break-after: avoid;\n  }\n  @page {\n    size: a3;\n  }\n  body {\n    min-width: 992px !important;\n  }\n  .container {\n    min-width: 992px !important;\n  }\n  .navbar {\n    display: none;\n  }\n  .badge {\n    border: 1px solid #000;\n  }\n  .table {\n    border-collapse: collapse !important;\n  }\n  .table td,\n  .table th {\n    background-color: #fff !important;\n  }\n  .table-bordered th,\n  .table-bordered td {\n    border: 1px solid #dee2e6 !important;\n  }\n  .table-dark {\n    color: inherit;\n  }\n  .table-dark th,\n  .table-dark td,\n  .table-dark thead th,\n  .table-dark tbody + tbody {\n    border-color: #dee2e6;\n  }\n  .table .thead-dark th {\n    color: inherit;\n    border-color: #dee2e6;\n  }\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "../node_modules/css-loader/index.js!./app/app.component.css":
 /*!**********************************************************!*\
   !*** ../node_modules/css-loader!./app/app.component.css ***!
@@ -64720,20 +56949,20 @@ $metadata.exp({ metadata: function metadata(metadataKey, metadataValue) {
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "../node_modules/css-loader/lib/css-base.js")(false);
 // imports
-
+exports.i(__webpack_require__(/*! -!../../node_modules/css-loader!bootstrap/dist/css/bootstrap.css */ "../node_modules/css-loader/index.js!../node_modules/bootstrap/dist/css/bootstrap.css"), "");
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "body {\n  background-color: cornsilk;\n}\n\n.gl-container {\n  background-color: white;\n}\n\n.gl-container-title {\n  transform: translateY(-50%);\n  background-color: black;\n  color: white;\n  font-size: 1.875rem;\n  padding: 0 0.5em;\n}\n\n.gl-container-first {\n  border-bottom: 1px solid black;\n  padding-bottom: 1em;\n}\n\n.gl-container {\n  padding-bottom: 1em;\n}\n\n.row {\n  margin: 1em;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "../node_modules/css-loader/index.js!./app/comp/comp.component.css":
-/*!****************************************************************!*\
-  !*** ../node_modules/css-loader!./app/comp/comp.component.css ***!
-  \****************************************************************/
+/***/ "../node_modules/css-loader/index.js!./app/giftcard-smart/giftcard-smart.component.css":
+/*!************************************************************************************!*\
+  !*** ../node_modules/css-loader!./app/giftcard-smart/giftcard-smart.component.css ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -64749,48 +56978,10 @@ exports.push([module.i, "", ""]);
 
 /***/ }),
 
-/***/ "../node_modules/css-loader/index.js!./app/comp1/comp1.component.css":
-/*!******************************************************************!*\
-  !*** ../node_modules/css-loader!./app/comp1/comp1.component.css ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "../node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "../node_modules/css-loader/index.js!./app/comp2/comp2.component.css":
-/*!******************************************************************!*\
-  !*** ../node_modules/css-loader!./app/comp2/comp2.component.css ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "../node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "../node_modules/css-loader/index.js!./app/joke/joke.component.css":
-/*!****************************************************************!*\
-  !*** ../node_modules/css-loader!./app/joke/joke.component.css ***!
-  \****************************************************************/
+/***/ "../node_modules/css-loader/index.js!./app/giftcard/giftcard.component.css":
+/*!************************************************************************!*\
+  !*** ../node_modules/css-loader!./app/giftcard/giftcard.component.css ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -64890,6 +57081,1500 @@ function toComment(sourceMap) {
 	return '/*# ' + data + ' */';
 }
 
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/component-loader/component-loader.class.js":
+/*!********************************************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/component-loader/component-loader.class.js ***!
+  \********************************************************************************/
+/*! exports provided: ComponentLoader */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ComponentLoader", function() { return ComponentLoader; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _utils_triggers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/triggers */ "../node_modules/ngx-bootstrap/utils/triggers.js");
+/* harmony import */ var _content_ref_class__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./content-ref.class */ "../node_modules/ngx-bootstrap/component-loader/content-ref.class.js");
+
+
+
+var ComponentLoader = /** @class */ (function () {
+    /**
+     * Do not use this directly, it should be instanced via
+     * `ComponentLoadFactory.attach`
+     * @internal
+     */
+    // tslint:disable-next-line
+    function ComponentLoader(_viewContainerRef, _renderer, _elementRef, _injector, _componentFactoryResolver, _ngZone, _applicationRef, _posService) {
+        this._viewContainerRef = _viewContainerRef;
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+        this._injector = _injector;
+        this._componentFactoryResolver = _componentFactoryResolver;
+        this._ngZone = _ngZone;
+        this._applicationRef = _applicationRef;
+        this._posService = _posService;
+        this.onBeforeShow = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.onShown = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.onBeforeHide = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.onHidden = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this._providers = [];
+        this._isHiding = false;
+        this._listenOpts = {};
+        this._globalListener = Function.prototype;
+    }
+    Object.defineProperty(ComponentLoader.prototype, "isShown", {
+        get: function () {
+            if (this._isHiding) {
+                return false;
+            }
+            return !!this._componentRef;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ComponentLoader.prototype.attach = function (compType) {
+        this._componentFactory = this._componentFactoryResolver
+            .resolveComponentFactory(compType);
+        return this;
+    };
+    // todo: add behaviour: to target element, `body`, custom element
+    // todo: add behaviour: to target element, `body`, custom element
+    ComponentLoader.prototype.to = 
+    // todo: add behaviour: to target element, `body`, custom element
+    function (container) {
+        this.container = container || this.container;
+        return this;
+    };
+    ComponentLoader.prototype.position = function (opts) {
+        this.attachment = opts.attachment || this.attachment;
+        this._elementRef = opts.target || this._elementRef;
+        return this;
+    };
+    ComponentLoader.prototype.provide = function (provider) {
+        this._providers.push(provider);
+        return this;
+    };
+    // todo: appendChild to element or document.querySelector(this.container)
+    // todo: appendChild to element or document.querySelector(this.container)
+    ComponentLoader.prototype.show = 
+    // todo: appendChild to element or document.querySelector(this.container)
+    function (opts) {
+        if (opts === void 0) { opts = {}; }
+        this._subscribePositioning();
+        this._innerComponent = null;
+        if (!this._componentRef) {
+            this.onBeforeShow.emit();
+            this._contentRef = this._getContentRef(opts.content, opts.context, opts.initialState);
+            var injector = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ReflectiveInjector"].resolveAndCreate(this._providers, this._injector);
+            this._componentRef = this._componentFactory.create(injector, this._contentRef.nodes);
+            this._applicationRef.attachView(this._componentRef.hostView);
+            // this._componentRef = this._viewContainerRef
+            //   .createComponent(this._componentFactory, 0, injector, this._contentRef.nodes);
+            this.instance = this._componentRef.instance;
+            Object.assign(this._componentRef.instance, opts);
+            if (this.container instanceof _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]) {
+                this.container.nativeElement.appendChild(this._componentRef.location.nativeElement);
+            }
+            if (this.container === 'body' && typeof document !== 'undefined') {
+                document
+                    .querySelector(this.container)
+                    .appendChild(this._componentRef.location.nativeElement);
+            }
+            if (!this.container &&
+                this._elementRef &&
+                this._elementRef.nativeElement.parentElement) {
+                this._elementRef.nativeElement.parentElement.appendChild(this._componentRef.location.nativeElement);
+            }
+            // we need to manually invoke change detection since events registered
+            // via
+            // Renderer::listen() are not picked up by change detection with the
+            // OnPush strategy
+            if (this._contentRef.componentRef) {
+                this._innerComponent = this._contentRef.componentRef.instance;
+                this._contentRef.componentRef.changeDetectorRef.markForCheck();
+                this._contentRef.componentRef.changeDetectorRef.detectChanges();
+            }
+            this._componentRef.changeDetectorRef.markForCheck();
+            this._componentRef.changeDetectorRef.detectChanges();
+            this.onShown.emit(this._componentRef.instance);
+        }
+        this._registerOutsideClick();
+        return this._componentRef;
+    };
+    ComponentLoader.prototype.hide = function () {
+        if (!this._componentRef) {
+            return this;
+        }
+        this.onBeforeHide.emit(this._componentRef.instance);
+        var componentEl = this._componentRef.location.nativeElement;
+        componentEl.parentNode.removeChild(componentEl);
+        if (this._contentRef.componentRef) {
+            this._contentRef.componentRef.destroy();
+        }
+        this._componentRef.destroy();
+        if (this._viewContainerRef && this._contentRef.viewRef) {
+            this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._contentRef.viewRef));
+        }
+        if (this._contentRef.viewRef) {
+            this._contentRef.viewRef.destroy();
+        }
+        // this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._componentRef.hostView));
+        //
+        // if (this._contentRef.viewRef && this._viewContainerRef.indexOf(this._contentRef.viewRef) !== -1) {
+        //   this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._contentRef.viewRef));
+        // }
+        this._contentRef = null;
+        this._componentRef = null;
+        this._removeGlobalListener();
+        this.onHidden.emit();
+        return this;
+    };
+    ComponentLoader.prototype.toggle = function () {
+        if (this.isShown) {
+            this.hide();
+            return;
+        }
+        this.show();
+    };
+    ComponentLoader.prototype.dispose = function () {
+        if (this.isShown) {
+            this.hide();
+        }
+        this._unsubscribePositioning();
+        if (this._unregisterListenersFn) {
+            this._unregisterListenersFn();
+        }
+    };
+    ComponentLoader.prototype.listen = function (listenOpts) {
+        var _this = this;
+        this.triggers = listenOpts.triggers || this.triggers;
+        this._listenOpts.outsideClick = listenOpts.outsideClick;
+        listenOpts.target = listenOpts.target || this._elementRef.nativeElement;
+        var hide = (this._listenOpts.hide = function () {
+            return listenOpts.hide ? listenOpts.hide() : void _this.hide();
+        });
+        var show = (this._listenOpts.show = function (registerHide) {
+            listenOpts.show ? listenOpts.show(registerHide) : _this.show(registerHide);
+            registerHide();
+        });
+        var toggle = function (registerHide) {
+            _this.isShown ? hide() : show(registerHide);
+        };
+        this._unregisterListenersFn = Object(_utils_triggers__WEBPACK_IMPORTED_MODULE_1__["listenToTriggersV2"])(this._renderer, {
+            target: listenOpts.target,
+            triggers: listenOpts.triggers,
+            show: show,
+            hide: hide,
+            toggle: toggle
+        });
+        return this;
+    };
+    ComponentLoader.prototype._removeGlobalListener = function () {
+        if (this._globalListener) {
+            this._globalListener();
+            this._globalListener = null;
+        }
+    };
+    ComponentLoader.prototype.attachInline = function (vRef, template) {
+        this._inlineViewRef = vRef.createEmbeddedView(template);
+        return this;
+    };
+    ComponentLoader.prototype._registerOutsideClick = function () {
+        var _this = this;
+        if (!this._componentRef || !this._componentRef.location) {
+            return;
+        }
+        // why: should run after first event bubble
+        if (this._listenOpts.outsideClick) {
+            var target_1 = this._componentRef.location.nativeElement;
+            setTimeout(function () {
+                _this._globalListener = Object(_utils_triggers__WEBPACK_IMPORTED_MODULE_1__["registerOutsideClick"])(_this._renderer, {
+                    targets: [target_1, _this._elementRef.nativeElement],
+                    outsideClick: _this._listenOpts.outsideClick,
+                    hide: function () { return _this._listenOpts.hide(); }
+                });
+            });
+        }
+    };
+    ComponentLoader.prototype.getInnerComponent = function () {
+        return this._innerComponent;
+    };
+    ComponentLoader.prototype._subscribePositioning = function () {
+        var _this = this;
+        if (this._zoneSubscription || !this.attachment) {
+            return;
+        }
+        this._zoneSubscription = this._ngZone.onStable.subscribe(function () {
+            if (!_this._componentRef) {
+                return;
+            }
+            _this._posService.position({
+                element: _this._componentRef.location,
+                target: _this._elementRef,
+                attachment: _this.attachment,
+                appendToBody: _this.container === 'body'
+            });
+        });
+    };
+    ComponentLoader.prototype._unsubscribePositioning = function () {
+        if (!this._zoneSubscription) {
+            return;
+        }
+        this._zoneSubscription.unsubscribe();
+        this._zoneSubscription = null;
+    };
+    ComponentLoader.prototype._getContentRef = function (content, context, initialState) {
+        if (!content) {
+            return new _content_ref_class__WEBPACK_IMPORTED_MODULE_2__["ContentRef"]([]);
+        }
+        if (content instanceof _angular_core__WEBPACK_IMPORTED_MODULE_0__["TemplateRef"]) {
+            if (this._viewContainerRef) {
+                var _viewRef = this._viewContainerRef
+                    .createEmbeddedView(content, context);
+                _viewRef.markForCheck();
+                return new _content_ref_class__WEBPACK_IMPORTED_MODULE_2__["ContentRef"]([_viewRef.rootNodes], _viewRef);
+            }
+            var viewRef = content.createEmbeddedView({});
+            this._applicationRef.attachView(viewRef);
+            return new _content_ref_class__WEBPACK_IMPORTED_MODULE_2__["ContentRef"]([viewRef.rootNodes], viewRef);
+        }
+        if (typeof content === 'function') {
+            var contentCmptFactory = this._componentFactoryResolver.resolveComponentFactory(content);
+            var modalContentInjector = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ReflectiveInjector"].resolveAndCreate(this._providers.slice(), this._injector);
+            var componentRef = contentCmptFactory.create(modalContentInjector);
+            Object.assign(componentRef.instance, initialState);
+            this._applicationRef.attachView(componentRef.hostView);
+            return new _content_ref_class__WEBPACK_IMPORTED_MODULE_2__["ContentRef"]([[componentRef.location.nativeElement]], componentRef.hostView, componentRef);
+        }
+        return new _content_ref_class__WEBPACK_IMPORTED_MODULE_2__["ContentRef"]([[this._renderer.createText("" + content)]]);
+    };
+    return ComponentLoader;
+}());
+
+//# sourceMappingURL=component-loader.class.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/component-loader/component-loader.factory.js":
+/*!**********************************************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/component-loader/component-loader.factory.js ***!
+  \**********************************************************************************/
+/*! exports provided: ComponentLoaderFactory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ComponentLoaderFactory", function() { return ComponentLoaderFactory; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _component_loader_class__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component-loader.class */ "../node_modules/ngx-bootstrap/component-loader/component-loader.class.js");
+/* harmony import */ var _positioning_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../positioning/index */ "../node_modules/ngx-bootstrap/positioning/index.js");
+
+
+
+var ComponentLoaderFactory = /** @class */ (function () {
+    function ComponentLoaderFactory(_componentFactoryResolver, _ngZone, _injector, _posService, _applicationRef) {
+        this._componentFactoryResolver = _componentFactoryResolver;
+        this._ngZone = _ngZone;
+        this._injector = _injector;
+        this._posService = _posService;
+        this._applicationRef = _applicationRef;
+    }
+    /**
+     *
+     * @param _elementRef
+     * @param _viewContainerRef
+     * @param _renderer
+     * @returns {ComponentLoader}
+     */
+    /**
+       *
+       * @param _elementRef
+       * @param _viewContainerRef
+       * @param _renderer
+       * @returns {ComponentLoader}
+       */
+    ComponentLoaderFactory.prototype.createLoader = /**
+       *
+       * @param _elementRef
+       * @param _viewContainerRef
+       * @param _renderer
+       * @returns {ComponentLoader}
+       */
+    function (_elementRef, _viewContainerRef, _renderer) {
+        return new _component_loader_class__WEBPACK_IMPORTED_MODULE_1__["ComponentLoader"](_viewContainerRef, _renderer, _elementRef, this._injector, this._componentFactoryResolver, this._ngZone, this._applicationRef, this._posService);
+    };
+    ComponentLoaderFactory.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+    ];
+    /** @nocollapse */
+    ComponentLoaderFactory.ctorParameters = function () { return [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ComponentFactoryResolver"], },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"], },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"], },
+        { type: _positioning_index__WEBPACK_IMPORTED_MODULE_2__["PositioningService"], },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ApplicationRef"], },
+    ]; };
+    return ComponentLoaderFactory;
+}());
+
+//# sourceMappingURL=component-loader.factory.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/component-loader/content-ref.class.js":
+/*!***************************************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/component-loader/content-ref.class.js ***!
+  \***************************************************************************/
+/*! exports provided: ContentRef */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContentRef", function() { return ContentRef; });
+/**
+ * @copyright Valor Software
+ * @copyright Angular ng-bootstrap team
+ */
+var ContentRef = /** @class */ (function () {
+    function ContentRef(nodes, viewRef, componentRef) {
+        this.nodes = nodes;
+        this.viewRef = viewRef;
+        this.componentRef = componentRef;
+    }
+    return ContentRef;
+}());
+
+//# sourceMappingURL=content-ref.class.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/component-loader/index.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/component-loader/index.js ***!
+  \***************************************************************/
+/*! exports provided: ComponentLoader, ComponentLoaderFactory, ContentRef */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component_loader_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component-loader.class */ "../node_modules/ngx-bootstrap/component-loader/component-loader.class.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComponentLoader", function() { return _component_loader_class__WEBPACK_IMPORTED_MODULE_0__["ComponentLoader"]; });
+
+/* harmony import */ var _component_loader_factory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component-loader.factory */ "../node_modules/ngx-bootstrap/component-loader/component-loader.factory.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComponentLoaderFactory", function() { return _component_loader_factory__WEBPACK_IMPORTED_MODULE_1__["ComponentLoaderFactory"]; });
+
+/* harmony import */ var _content_ref_class__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./content-ref.class */ "../node_modules/ngx-bootstrap/component-loader/content-ref.class.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ContentRef", function() { return _content_ref_class__WEBPACK_IMPORTED_MODULE_2__["ContentRef"]; });
+
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/positioning/index.js":
+/*!**********************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/positioning/index.js ***!
+  \**********************************************************/
+/*! exports provided: positionElements, Positioning, PositioningService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ng_positioning__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ng-positioning */ "../node_modules/ngx-bootstrap/positioning/ng-positioning.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "positionElements", function() { return _ng_positioning__WEBPACK_IMPORTED_MODULE_0__["positionElements"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Positioning", function() { return _ng_positioning__WEBPACK_IMPORTED_MODULE_0__["Positioning"]; });
+
+/* harmony import */ var _positioning_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./positioning.service */ "../node_modules/ngx-bootstrap/positioning/positioning.service.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PositioningService", function() { return _positioning_service__WEBPACK_IMPORTED_MODULE_1__["PositioningService"]; });
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/positioning/ng-positioning.js":
+/*!*******************************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/positioning/ng-positioning.js ***!
+  \*******************************************************************/
+/*! exports provided: Positioning, positionElements */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Positioning", function() { return Positioning; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "positionElements", function() { return positionElements; });
+/**
+ * @copyright Valor Software
+ * @copyright Angular ng-bootstrap team
+ */
+// previous version:
+// https://github.com/angular-ui/bootstrap/blob/07c31d0731f7cb068a1932b8e01d2312b796b4ec/src/position/position.js
+// tslint:disable
+var 
+// previous version:
+// https://github.com/angular-ui/bootstrap/blob/07c31d0731f7cb068a1932b8e01d2312b796b4ec/src/position/position.js
+// tslint:disable
+Positioning = /** @class */ (function () {
+    function Positioning() {
+    }
+    Positioning.prototype.position = function (element, round) {
+        if (round === void 0) { round = true; }
+        var elPosition;
+        var parentOffset = {
+            width: 0,
+            height: 0,
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0
+        };
+        if (this.getStyle(element, 'position') === 'fixed') {
+            var bcRect = element.getBoundingClientRect();
+            elPosition = {
+                width: bcRect.width,
+                height: bcRect.height,
+                top: bcRect.top,
+                bottom: bcRect.bottom,
+                left: bcRect.left,
+                right: bcRect.right
+            };
+        }
+        else {
+            var offsetParentEl = this.offsetParent(element);
+            elPosition = this.offset(element, false);
+            if (offsetParentEl !== document.documentElement) {
+                parentOffset = this.offset(offsetParentEl, false);
+            }
+            parentOffset.top += offsetParentEl.clientTop;
+            parentOffset.left += offsetParentEl.clientLeft;
+        }
+        elPosition.top -= parentOffset.top;
+        elPosition.bottom -= parentOffset.top;
+        elPosition.left -= parentOffset.left;
+        elPosition.right -= parentOffset.left;
+        if (round) {
+            elPosition.top = Math.round(elPosition.top);
+            elPosition.bottom = Math.round(elPosition.bottom);
+            elPosition.left = Math.round(elPosition.left);
+            elPosition.right = Math.round(elPosition.right);
+        }
+        return elPosition;
+    };
+    Positioning.prototype.offset = function (element, round) {
+        if (round === void 0) { round = true; }
+        var elBcr = element.getBoundingClientRect();
+        var viewportOffset = {
+            top: window.pageYOffset - document.documentElement.clientTop,
+            left: window.pageXOffset - document.documentElement.clientLeft
+        };
+        var elOffset = {
+            height: elBcr.height || element.offsetHeight,
+            width: elBcr.width || element.offsetWidth,
+            top: elBcr.top + viewportOffset.top,
+            bottom: elBcr.bottom + viewportOffset.top,
+            left: elBcr.left + viewportOffset.left,
+            right: elBcr.right + viewportOffset.left
+        };
+        if (round) {
+            elOffset.height = Math.round(elOffset.height);
+            elOffset.width = Math.round(elOffset.width);
+            elOffset.top = Math.round(elOffset.top);
+            elOffset.bottom = Math.round(elOffset.bottom);
+            elOffset.left = Math.round(elOffset.left);
+            elOffset.right = Math.round(elOffset.right);
+        }
+        return elOffset;
+    };
+    Positioning.prototype.positionElements = function (hostElement, targetElement, placement, appendToBody) {
+        var hostElPosition = appendToBody
+            ? this.offset(hostElement, false)
+            : this.position(hostElement, false);
+        var targetElStyles = this.getAllStyles(targetElement);
+        var shiftWidth = {
+            left: hostElPosition.left,
+            center: hostElPosition.left +
+                hostElPosition.width / 2 -
+                targetElement.offsetWidth / 2,
+            right: hostElPosition.left + hostElPosition.width
+        };
+        var shiftHeight = {
+            top: hostElPosition.top,
+            center: hostElPosition.top +
+                hostElPosition.height / 2 -
+                targetElement.offsetHeight / 2,
+            bottom: hostElPosition.top + hostElPosition.height
+        };
+        var targetElBCR = targetElement.getBoundingClientRect();
+        var placementPrimary = placement.split(' ')[0] || 'top';
+        var placementSecondary = placement.split(' ')[1] || 'center';
+        var targetElPosition = {
+            height: targetElBCR.height || targetElement.offsetHeight,
+            width: targetElBCR.width || targetElement.offsetWidth,
+            top: 0,
+            bottom: targetElBCR.height || targetElement.offsetHeight,
+            left: 0,
+            right: targetElBCR.width || targetElement.offsetWidth
+        };
+        if (placementPrimary === 'auto') {
+            var newPlacementPrimary = this.autoPosition(targetElPosition, hostElPosition, targetElement, placementSecondary);
+            if (!newPlacementPrimary)
+                newPlacementPrimary = this.autoPosition(targetElPosition, hostElPosition, targetElement);
+            if (newPlacementPrimary)
+                placementPrimary = newPlacementPrimary;
+            targetElement.classList.add(placementPrimary);
+        }
+        switch (placementPrimary) {
+            case 'top':
+                targetElPosition.top =
+                    hostElPosition.top -
+                        (targetElement.offsetHeight +
+                            parseFloat(targetElStyles.marginBottom));
+                targetElPosition.bottom +=
+                    hostElPosition.top - targetElement.offsetHeight;
+                targetElPosition.left = shiftWidth[placementSecondary];
+                targetElPosition.right += shiftWidth[placementSecondary];
+                break;
+            case 'bottom':
+                targetElPosition.top = shiftHeight[placementPrimary];
+                targetElPosition.bottom += shiftHeight[placementPrimary];
+                targetElPosition.left = shiftWidth[placementSecondary];
+                targetElPosition.right += shiftWidth[placementSecondary];
+                break;
+            case 'left':
+                targetElPosition.top = shiftHeight[placementSecondary];
+                targetElPosition.bottom += shiftHeight[placementSecondary];
+                targetElPosition.left =
+                    hostElPosition.left -
+                        (targetElement.offsetWidth + parseFloat(targetElStyles.marginRight));
+                targetElPosition.right +=
+                    hostElPosition.left - targetElement.offsetWidth;
+                break;
+            case 'right':
+                targetElPosition.top = shiftHeight[placementSecondary];
+                targetElPosition.bottom += shiftHeight[placementSecondary];
+                targetElPosition.left = shiftWidth[placementPrimary];
+                targetElPosition.right += shiftWidth[placementPrimary];
+                break;
+        }
+        targetElPosition.top = Math.round(targetElPosition.top);
+        targetElPosition.bottom = Math.round(targetElPosition.bottom);
+        targetElPosition.left = Math.round(targetElPosition.left);
+        targetElPosition.right = Math.round(targetElPosition.right);
+        return targetElPosition;
+    };
+    Positioning.prototype.autoPosition = function (targetElPosition, hostElPosition, targetElement, preferredPosition) {
+        if ((!preferredPosition || preferredPosition === 'right') &&
+            targetElPosition.left + hostElPosition.left - targetElement.offsetWidth <
+                0) {
+            return 'right';
+        }
+        else if ((!preferredPosition || preferredPosition === 'top') &&
+            targetElPosition.bottom +
+                hostElPosition.bottom +
+                targetElement.offsetHeight >
+                window.innerHeight) {
+            return 'top';
+        }
+        else if ((!preferredPosition || preferredPosition === 'bottom') &&
+            targetElPosition.top + hostElPosition.top - targetElement.offsetHeight < 0) {
+            return 'bottom';
+        }
+        else if ((!preferredPosition || preferredPosition === 'left') &&
+            targetElPosition.right +
+                hostElPosition.right +
+                targetElement.offsetWidth >
+                window.innerWidth) {
+            return 'left';
+        }
+        return null;
+    };
+    Positioning.prototype.getAllStyles = function (element) {
+        return window.getComputedStyle(element);
+    };
+    Positioning.prototype.getStyle = function (element, prop) {
+        return this.getAllStyles(element)[prop];
+    };
+    Positioning.prototype.isStaticPositioned = function (element) {
+        return (this.getStyle(element, 'position') || 'static') === 'static';
+    };
+    Positioning.prototype.offsetParent = function (element) {
+        var offsetParentEl = element.offsetParent || document.documentElement;
+        while (offsetParentEl &&
+            offsetParentEl !== document.documentElement &&
+            this.isStaticPositioned(offsetParentEl)) {
+            offsetParentEl = offsetParentEl.offsetParent;
+        }
+        return offsetParentEl || document.documentElement;
+    };
+    return Positioning;
+}());
+// previous version:
+// https://github.com/angular-ui/bootstrap/blob/07c31d0731f7cb068a1932b8e01d2312b796b4ec/src/position/position.js
+// tslint:disable
+
+var positionService = new Positioning();
+function positionElements(hostElement, targetElement, placement, appendToBody) {
+    var pos = positionService.positionElements(hostElement, targetElement, placement, appendToBody);
+    targetElement.style.top = pos.top + "px";
+    targetElement.style.left = pos.left + "px";
+}
+//# sourceMappingURL=ng-positioning.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/positioning/positioning.service.js":
+/*!************************************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/positioning/positioning.service.js ***!
+  \************************************************************************/
+/*! exports provided: PositioningService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PositioningService", function() { return PositioningService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ng_positioning__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ng-positioning */ "../node_modules/ngx-bootstrap/positioning/ng-positioning.js");
+
+
+var PositioningService = /** @class */ (function () {
+    function PositioningService() {
+    }
+    PositioningService.prototype.position = function (options) {
+        var element = options.element, target = options.target, attachment = options.attachment, appendToBody = options.appendToBody;
+        Object(_ng_positioning__WEBPACK_IMPORTED_MODULE_1__["positionElements"])(_getHtmlElement(target), _getHtmlElement(element), attachment, appendToBody);
+    };
+    PositioningService.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+    ];
+    return PositioningService;
+}());
+
+function _getHtmlElement(element) {
+    // it means that we got a selector
+    if (typeof element === 'string') {
+        return document.querySelector(element);
+    }
+    if (element instanceof _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]) {
+        return element.nativeElement;
+    }
+    return element;
+}
+//# sourceMappingURL=positioning.service.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/tooltip/index.js":
+/*!******************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/tooltip/index.js ***!
+  \******************************************************/
+/*! exports provided: TooltipContainerComponent, TooltipDirective, TooltipModule, TooltipConfig */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _tooltip_container_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tooltip-container.component */ "../node_modules/ngx-bootstrap/tooltip/tooltip-container.component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TooltipContainerComponent", function() { return _tooltip_container_component__WEBPACK_IMPORTED_MODULE_0__["TooltipContainerComponent"]; });
+
+/* harmony import */ var _tooltip_directive__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tooltip.directive */ "../node_modules/ngx-bootstrap/tooltip/tooltip.directive.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TooltipDirective", function() { return _tooltip_directive__WEBPACK_IMPORTED_MODULE_1__["TooltipDirective"]; });
+
+/* harmony import */ var _tooltip_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tooltip.module */ "../node_modules/ngx-bootstrap/tooltip/tooltip.module.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TooltipModule", function() { return _tooltip_module__WEBPACK_IMPORTED_MODULE_2__["TooltipModule"]; });
+
+/* harmony import */ var _tooltip_config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tooltip.config */ "../node_modules/ngx-bootstrap/tooltip/tooltip.config.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TooltipConfig", function() { return _tooltip_config__WEBPACK_IMPORTED_MODULE_3__["TooltipConfig"]; });
+
+
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/tooltip/tooltip-container.component.js":
+/*!****************************************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/tooltip/tooltip-container.component.js ***!
+  \****************************************************************************/
+/*! exports provided: TooltipContainerComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TooltipContainerComponent", function() { return TooltipContainerComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _tooltip_config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tooltip.config */ "../node_modules/ngx-bootstrap/tooltip/tooltip.config.js");
+/* harmony import */ var _utils_theme_provider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/theme-provider */ "../node_modules/ngx-bootstrap/utils/theme-provider.js");
+
+
+
+var TooltipContainerComponent = /** @class */ (function () {
+    function TooltipContainerComponent(config) {
+        Object.assign(this, config);
+    }
+    Object.defineProperty(TooltipContainerComponent.prototype, "isBs3", {
+        get: function () {
+            return Object(_utils_theme_provider__WEBPACK_IMPORTED_MODULE_2__["isBs3"])();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    TooltipContainerComponent.prototype.ngAfterViewInit = function () {
+        this.classMap = { in: false, fade: false };
+        this.classMap[this.placement] = true;
+        this.classMap["tooltip-" + this.placement] = true;
+        this.classMap.in = true;
+        if (this.animation) {
+            this.classMap.fade = true;
+        }
+        if (this.containerClass) {
+            this.classMap[this.containerClass] = true;
+        }
+    };
+    TooltipContainerComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'bs-tooltip-container',
+                    changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush,
+                    // tslint:disable-next-line
+                    host: {
+                        '[class]': '"tooltip in tooltip-" + placement + " " + "bs-tooltip-" + placement + " " + placement + " " + containerClass',
+                        '[class.show]': '!isBs3',
+                        role: 'tooltip'
+                    },
+                    styles: [
+                        "\n    :host.tooltip {\n      display: block;\n    }\n    :host.bs-tooltip-top .arrow, :host.bs-tooltip-bottom .arrow {\n      left: 50%;\n      margin-left: -6px;\n    }\n    :host.bs-tooltip-left .arrow, :host.bs-tooltip-right .arrow {\n      top: 50%;\n      margin-top: -6px;\n    }\n  "
+                    ],
+                    template: "\n    <div class=\"tooltip-arrow arrow\"></div>\n    <div class=\"tooltip-inner\"><ng-content></ng-content></div>\n    "
+                },] },
+    ];
+    /** @nocollapse */
+    TooltipContainerComponent.ctorParameters = function () { return [
+        { type: _tooltip_config__WEBPACK_IMPORTED_MODULE_1__["TooltipConfig"], },
+    ]; };
+    return TooltipContainerComponent;
+}());
+
+//# sourceMappingURL=tooltip-container.component.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/tooltip/tooltip.config.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/tooltip/tooltip.config.js ***!
+  \***************************************************************/
+/*! exports provided: TooltipConfig */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TooltipConfig", function() { return TooltipConfig; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
+
+/** Default values provider for tooltip */
+var TooltipConfig = /** @class */ (function () {
+    function TooltipConfig() {
+        /** tooltip placement, supported positions: 'top', 'bottom', 'left', 'right' */
+        this.placement = 'top';
+        /** array of event names which triggers tooltip opening */
+        this.triggers = 'hover focus';
+    }
+    TooltipConfig.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+    ];
+    return TooltipConfig;
+}());
+
+//# sourceMappingURL=tooltip.config.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/tooltip/tooltip.directive.js":
+/*!******************************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/tooltip/tooltip.directive.js ***!
+  \******************************************************************/
+/*! exports provided: TooltipDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TooltipDirective", function() { return TooltipDirective; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _tooltip_container_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tooltip-container.component */ "../node_modules/ngx-bootstrap/tooltip/tooltip-container.component.js");
+/* harmony import */ var _tooltip_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tooltip.config */ "../node_modules/ngx-bootstrap/tooltip/tooltip.config.js");
+/* harmony import */ var _component_loader_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../component-loader/index */ "../node_modules/ngx-bootstrap/component-loader/index.js");
+/* harmony import */ var _utils_decorators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/decorators */ "../node_modules/ngx-bootstrap/utils/decorators.js");
+/* harmony import */ var _utils_warn_once__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/warn-once */ "../node_modules/ngx-bootstrap/utils/warn-once.js");
+/* harmony import */ var _utils_triggers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/triggers */ "../node_modules/ngx-bootstrap/utils/triggers.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs */ "../node_modules/rxjs/_esm5/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+var TooltipDirective = /** @class */ (function () {
+    function TooltipDirective(_viewContainerRef, _renderer, _elementRef, cis, config) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+        /** Fired when tooltip content changes */
+        this.tooltipChange = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        /**
+           * Css class for tooltip container
+           */
+        this.containerClass = '';
+        /** @deprecated - removed, will be added to configuration */
+        this._animation = true;
+        /** @deprecated */
+        this._fadeDuration = 150;
+        /** @deprecated */
+        this.tooltipStateChanged = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this._tooltip = cis
+            .createLoader(this._elementRef, _viewContainerRef, this._renderer)
+            .provide({ provide: _tooltip_config__WEBPACK_IMPORTED_MODULE_2__["TooltipConfig"], useValue: config });
+        Object.assign(this, config);
+        this.onShown = this._tooltip.onShown;
+        this.onHidden = this._tooltip.onHidden;
+    }
+    Object.defineProperty(TooltipDirective.prototype, "isOpen", {
+        get: /**
+           * Returns whether or not the tooltip is currently being shown
+           */
+        function () {
+            return this._tooltip.isShown;
+        },
+        set: function (value) {
+            if (value) {
+                this.show();
+            }
+            else {
+                this.hide();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "htmlContent", {
+        set: /** @deprecated - please use `tooltip` instead */
+        function (value) {
+            Object(_utils_warn_once__WEBPACK_IMPORTED_MODULE_5__["warnOnce"])('tooltipHtml was deprecated, please use `tooltip` instead');
+            this.tooltip = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "_placement", {
+        set: /** @deprecated - please use `placement` instead */
+        function (value) {
+            Object(_utils_warn_once__WEBPACK_IMPORTED_MODULE_5__["warnOnce"])('tooltipPlacement was deprecated, please use `placement` instead');
+            this.placement = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "_isOpen", {
+        get: function () {
+            Object(_utils_warn_once__WEBPACK_IMPORTED_MODULE_5__["warnOnce"])('tooltipIsOpen was deprecated, please use `isOpen` instead');
+            return this.isOpen;
+        },
+        set: /** @deprecated - please use `isOpen` instead*/
+        function (value) {
+            Object(_utils_warn_once__WEBPACK_IMPORTED_MODULE_5__["warnOnce"])('tooltipIsOpen was deprecated, please use `isOpen` instead');
+            this.isOpen = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "_enable", {
+        get: function () {
+            Object(_utils_warn_once__WEBPACK_IMPORTED_MODULE_5__["warnOnce"])('tooltipEnable was deprecated, please use `isDisabled` instead');
+            return this.isDisabled;
+        },
+        set: /** @deprecated - please use `isDisabled` instead */
+        function (value) {
+            Object(_utils_warn_once__WEBPACK_IMPORTED_MODULE_5__["warnOnce"])('tooltipEnable was deprecated, please use `isDisabled` instead');
+            this.isDisabled = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "_appendToBody", {
+        get: function () {
+            Object(_utils_warn_once__WEBPACK_IMPORTED_MODULE_5__["warnOnce"])('tooltipAppendToBody was deprecated, please use `container="body"` instead');
+            return this.container === 'body';
+        },
+        set: /** @deprecated - please use `container="body"` instead */
+        function (value) {
+            Object(_utils_warn_once__WEBPACK_IMPORTED_MODULE_5__["warnOnce"])('tooltipAppendToBody was deprecated, please use `container="body"` instead');
+            this.container = value ? 'body' : this.container;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "_popupClass", {
+        set: /** @deprecated - will replaced with customClass */
+        function (value) {
+            Object(_utils_warn_once__WEBPACK_IMPORTED_MODULE_5__["warnOnce"])('tooltipClass deprecated');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "_tooltipContext", {
+        set: /** @deprecated - removed */
+        function (value) {
+            Object(_utils_warn_once__WEBPACK_IMPORTED_MODULE_5__["warnOnce"])('tooltipContext deprecated');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "_tooltipPopupDelay", {
+        set: /** @deprecated */
+        function (value) {
+            Object(_utils_warn_once__WEBPACK_IMPORTED_MODULE_5__["warnOnce"])('tooltipPopupDelay is deprecated, use `delay` instead');
+            this.delay = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "_tooltipTrigger", {
+        get: /** @deprecated -  please use `triggers` instead */
+        function () {
+            Object(_utils_warn_once__WEBPACK_IMPORTED_MODULE_5__["warnOnce"])('tooltipTrigger was deprecated, please use `triggers` instead');
+            return this.triggers;
+        },
+        set: function (value) {
+            Object(_utils_warn_once__WEBPACK_IMPORTED_MODULE_5__["warnOnce"])('tooltipTrigger was deprecated, please use `triggers` instead');
+            this.triggers = (value || '').toString();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    TooltipDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this._tooltip.listen({
+            triggers: this.triggers,
+            show: function () { return _this.show(); }
+        });
+        this.tooltipChange.subscribe(function (value) {
+            if (!value) {
+                _this._tooltip.hide();
+            }
+        });
+    };
+    /**
+     * Toggles an element’s tooltip. This is considered a “manual” triggering of
+     * the tooltip.
+     */
+    /**
+       * Toggles an element’s tooltip. This is considered a “manual” triggering of
+       * the tooltip.
+       */
+    TooltipDirective.prototype.toggle = /**
+       * Toggles an element’s tooltip. This is considered a “manual” triggering of
+       * the tooltip.
+       */
+    function () {
+        if (this.isOpen) {
+            return this.hide();
+        }
+        this.show();
+    };
+    /**
+     * Opens an element’s tooltip. This is considered a “manual” triggering of
+     * the tooltip.
+     */
+    /**
+       * Opens an element’s tooltip. This is considered a “manual” triggering of
+       * the tooltip.
+       */
+    TooltipDirective.prototype.show = /**
+       * Opens an element’s tooltip. This is considered a “manual” triggering of
+       * the tooltip.
+       */
+    function () {
+        var _this = this;
+        if (this.isOpen ||
+            this.isDisabled ||
+            this._delayTimeoutId ||
+            !this.tooltip) {
+            return;
+        }
+        var showTooltip = function () {
+            if (_this._delayTimeoutId) {
+                _this._delayTimeoutId = undefined;
+            }
+            _this._tooltip
+                .attach(_tooltip_container_component__WEBPACK_IMPORTED_MODULE_1__["TooltipContainerComponent"])
+                .to(_this.container)
+                .position({ attachment: _this.placement })
+                .show({
+                content: _this.tooltip,
+                placement: _this.placement,
+                containerClass: _this.containerClass
+            });
+        };
+        var cancelDelayedTooltipShowing = function () {
+            if (_this._tooltipCancelShowFn) {
+                _this._tooltipCancelShowFn();
+            }
+        };
+        if (this.delay) {
+            var _timer_1 = Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["timer"])(this.delay).subscribe(function () {
+                showTooltip();
+                cancelDelayedTooltipShowing();
+            });
+            if (this.triggers) {
+                var triggers = Object(_utils_triggers__WEBPACK_IMPORTED_MODULE_6__["parseTriggers"])(this.triggers);
+                this._tooltipCancelShowFn = this._renderer.listen(this._elementRef.nativeElement, triggers[0].close, function () {
+                    _timer_1.unsubscribe();
+                    cancelDelayedTooltipShowing();
+                });
+            }
+        }
+        else {
+            showTooltip();
+        }
+    };
+    /**
+     * Closes an element’s tooltip. This is considered a “manual” triggering of
+     * the tooltip.
+     */
+    /**
+       * Closes an element’s tooltip. This is considered a “manual” triggering of
+       * the tooltip.
+       */
+    TooltipDirective.prototype.hide = /**
+       * Closes an element’s tooltip. This is considered a “manual” triggering of
+       * the tooltip.
+       */
+    function () {
+        var _this = this;
+        if (this._delayTimeoutId) {
+            clearTimeout(this._delayTimeoutId);
+            this._delayTimeoutId = undefined;
+        }
+        if (!this._tooltip.isShown) {
+            return;
+        }
+        this._tooltip.instance.classMap.in = false;
+        setTimeout(function () {
+            _this._tooltip.hide();
+        }, this._fadeDuration);
+    };
+    TooltipDirective.prototype.ngOnDestroy = function () {
+        this._tooltip.dispose();
+    };
+    TooltipDirective.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: '[tooltip], [tooltipHtml]',
+                    exportAs: 'bs-tooltip'
+                },] },
+    ];
+    /** @nocollapse */
+    TooltipDirective.ctorParameters = function () { return [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewContainerRef"], },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"], },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], },
+        { type: _component_loader_index__WEBPACK_IMPORTED_MODULE_3__["ComponentLoaderFactory"], },
+        { type: _tooltip_config__WEBPACK_IMPORTED_MODULE_2__["TooltipConfig"], },
+    ]; };
+    TooltipDirective.propDecorators = {
+        "tooltip": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
+        "tooltipChange": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
+        "placement": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
+        "triggers": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
+        "container": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
+        "isOpen": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
+        "isDisabled": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
+        "containerClass": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
+        "delay": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
+        "onShown": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
+        "onHidden": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
+        "htmlContent": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['tooltipHtml',] },],
+        "_placement": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['tooltipPlacement',] },],
+        "_isOpen": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['tooltipIsOpen',] },],
+        "_enable": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['tooltipEnable',] },],
+        "_appendToBody": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['tooltipAppendToBody',] },],
+        "_animation": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['tooltipAnimation',] },],
+        "_popupClass": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['tooltipClass',] },],
+        "_tooltipContext": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['tooltipContext',] },],
+        "_tooltipPopupDelay": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['tooltipPopupDelay',] },],
+        "_fadeDuration": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['tooltipFadeDuration',] },],
+        "_tooltipTrigger": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['tooltipTrigger',] },],
+        "tooltipStateChanged": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] },],
+    };
+    __decorate([
+        Object(_utils_decorators__WEBPACK_IMPORTED_MODULE_4__["OnChange"])(),
+        __metadata("design:type", Object)
+    ], TooltipDirective.prototype, "tooltip", void 0);
+    return TooltipDirective;
+}());
+
+//# sourceMappingURL=tooltip.directive.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/tooltip/tooltip.module.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/tooltip/tooltip.module.js ***!
+  \***************************************************************/
+/*! exports provided: TooltipModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TooltipModule", function() { return TooltipModule; });
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ "../node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _tooltip_container_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tooltip-container.component */ "../node_modules/ngx-bootstrap/tooltip/tooltip-container.component.js");
+/* harmony import */ var _tooltip_directive__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tooltip.directive */ "../node_modules/ngx-bootstrap/tooltip/tooltip.directive.js");
+/* harmony import */ var _tooltip_config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tooltip.config */ "../node_modules/ngx-bootstrap/tooltip/tooltip.config.js");
+/* harmony import */ var _component_loader_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../component-loader/index */ "../node_modules/ngx-bootstrap/component-loader/index.js");
+/* harmony import */ var _positioning_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../positioning/index */ "../node_modules/ngx-bootstrap/positioning/index.js");
+
+
+
+
+
+
+
+var TooltipModule = /** @class */ (function () {
+    function TooltipModule() {
+    }
+    TooltipModule.forRoot = function () {
+        return {
+            ngModule: TooltipModule,
+            providers: [_tooltip_config__WEBPACK_IMPORTED_MODULE_4__["TooltipConfig"], _component_loader_index__WEBPACK_IMPORTED_MODULE_5__["ComponentLoaderFactory"], _positioning_index__WEBPACK_IMPORTED_MODULE_6__["PositioningService"]]
+        };
+    };
+    TooltipModule.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"], args: [{
+                    imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"]],
+                    declarations: [_tooltip_directive__WEBPACK_IMPORTED_MODULE_3__["TooltipDirective"], _tooltip_container_component__WEBPACK_IMPORTED_MODULE_2__["TooltipContainerComponent"]],
+                    exports: [_tooltip_directive__WEBPACK_IMPORTED_MODULE_3__["TooltipDirective"]],
+                    entryComponents: [_tooltip_container_component__WEBPACK_IMPORTED_MODULE_2__["TooltipContainerComponent"]]
+                },] },
+    ];
+    return TooltipModule;
+}());
+
+//# sourceMappingURL=tooltip.module.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/utils/decorators.js":
+/*!*********************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/utils/decorators.js ***!
+  \*********************************************************/
+/*! exports provided: OnChange */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OnChange", function() { return OnChange; });
+/*tslint:disable:no-invalid-this */
+function OnChange(defaultValue) {
+    var sufix = 'Change';
+    return function OnChangeHandler(target, propertyKey) {
+        var _key = " __" + propertyKey + "Value";
+        Object.defineProperty(target, propertyKey, {
+            get: function () {
+                return this[_key];
+            },
+            set: function (value) {
+                var prevValue = this[_key];
+                this[_key] = value;
+                if (prevValue !== value && this[propertyKey + sufix]) {
+                    this[propertyKey + sufix].emit(value);
+                }
+            }
+        });
+    };
+}
+/* tslint:enable */
+//# sourceMappingURL=decorators.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/utils/facade/browser.js":
+/*!*************************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/utils/facade/browser.js ***!
+  \*************************************************************/
+/*! exports provided: window, document, location, gc, performance, Event, MouseEvent, KeyboardEvent, EventTarget, History, Location, EventListener */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "window", function() { return win; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "document", function() { return document; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "location", function() { return location; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gc", function() { return gc; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "performance", function() { return performance; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Event", function() { return Event; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MouseEvent", function() { return MouseEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KeyboardEvent", function() { return KeyboardEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventTarget", function() { return EventTarget; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "History", function() { return History; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Location", function() { return Location; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventListener", function() { return EventListener; });
+/*tslint:disable */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * JS version of browser APIs. This library can only run in the browser.
+ */
+var win = (typeof window !== 'undefined' && window) || {};
+
+var document = win.document;
+var location = win.location;
+var gc = win['gc'] ? function () { return win['gc'](); } : function () { return null; };
+var performance = win['performance'] ? win['performance'] : null;
+var Event = win['Event'];
+var MouseEvent = win['MouseEvent'];
+var KeyboardEvent = win['KeyboardEvent'];
+var EventTarget = win['EventTarget'];
+var History = win['History'];
+var Location = win['Location'];
+var EventListener = win['EventListener'];
+//# sourceMappingURL=browser.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/utils/theme-provider.js":
+/*!*************************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/utils/theme-provider.js ***!
+  \*************************************************************/
+/*! exports provided: setTheme, isBs3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTheme", function() { return setTheme; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isBs3", function() { return isBs3; });
+/* harmony import */ var _facade_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./facade/browser */ "../node_modules/ngx-bootstrap/utils/facade/browser.js");
+
+var guessedVersion;
+function _guessBsVersion() {
+    if (typeof document === 'undefined') {
+        return null;
+    }
+    var spanEl = document.createElement('span');
+    spanEl.innerText = 'test bs version';
+    document.body.appendChild(spanEl);
+    spanEl.classList.add('d-none');
+    var rect = spanEl.getBoundingClientRect();
+    document.body.removeChild(spanEl);
+    if (!rect) {
+        return 'bs3';
+    }
+    return rect.top === 0 ? 'bs4' : 'bs3';
+}
+function setTheme(theme) {
+    guessedVersion = theme;
+}
+// todo: in ngx-bootstrap, bs4 will became a default one
+function isBs3() {
+    if (typeof _facade_browser__WEBPACK_IMPORTED_MODULE_0__["window"] === 'undefined') {
+        return true;
+    }
+    if (typeof _facade_browser__WEBPACK_IMPORTED_MODULE_0__["window"].__theme === 'undefined') {
+        if (guessedVersion) {
+            return guessedVersion === 'bs3';
+        }
+        guessedVersion = _guessBsVersion();
+        return guessedVersion === 'bs3';
+    }
+    return _facade_browser__WEBPACK_IMPORTED_MODULE_0__["window"].__theme !== 'bs4';
+}
+//# sourceMappingURL=theme-provider.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/utils/trigger.class.js":
+/*!************************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/utils/trigger.class.js ***!
+  \************************************************************/
+/*! exports provided: Trigger */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Trigger", function() { return Trigger; });
+/**
+ * @copyright Valor Software
+ * @copyright Angular ng-bootstrap team
+ */
+var Trigger = /** @class */ (function () {
+    function Trigger(open, close) {
+        this.open = open;
+        this.close = close || open;
+    }
+    Trigger.prototype.isManual = function () {
+        return this.open === 'manual' || this.close === 'manual';
+    };
+    return Trigger;
+}());
+
+//# sourceMappingURL=trigger.class.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/utils/triggers.js":
+/*!*******************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/utils/triggers.js ***!
+  \*******************************************************/
+/*! exports provided: parseTriggers, listenToTriggers, listenToTriggersV2, registerOutsideClick */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parseTriggers", function() { return parseTriggers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listenToTriggers", function() { return listenToTriggers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listenToTriggersV2", function() { return listenToTriggersV2; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registerOutsideClick", function() { return registerOutsideClick; });
+/* harmony import */ var _trigger_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./trigger.class */ "../node_modules/ngx-bootstrap/utils/trigger.class.js");
+
+var DEFAULT_ALIASES = {
+    hover: ['mouseover', 'mouseout'],
+    focus: ['focusin', 'focusout']
+};
+function parseTriggers(triggers, aliases) {
+    if (aliases === void 0) { aliases = DEFAULT_ALIASES; }
+    var trimmedTriggers = (triggers || '').trim();
+    if (trimmedTriggers.length === 0) {
+        return [];
+    }
+    var parsedTriggers = trimmedTriggers
+        .split(/\s+/)
+        .map(function (trigger) { return trigger.split(':'); })
+        .map(function (triggerPair) {
+        var alias = aliases[triggerPair[0]] || triggerPair;
+        return new _trigger_class__WEBPACK_IMPORTED_MODULE_0__["Trigger"](alias[0], alias[1]);
+    });
+    var manualTriggers = parsedTriggers.filter(function (triggerPair) {
+        return triggerPair.isManual();
+    });
+    if (manualTriggers.length > 1) {
+        throw new Error('Triggers parse error: only one manual trigger is allowed');
+    }
+    if (manualTriggers.length === 1 && parsedTriggers.length > 1) {
+        throw new Error('Triggers parse error: manual trigger can\'t be mixed with other triggers');
+    }
+    return parsedTriggers;
+}
+function listenToTriggers(renderer, target, triggers, showFn, hideFn, toggleFn) {
+    var parsedTriggers = parseTriggers(triggers);
+    var listeners = [];
+    if (parsedTriggers.length === 1 && parsedTriggers[0].isManual()) {
+        return Function.prototype;
+    }
+    parsedTriggers.forEach(function (trigger) {
+        if (trigger.open === trigger.close) {
+            listeners.push(renderer.listen(target, trigger.open, toggleFn));
+            return;
+        }
+        listeners.push(renderer.listen(target, trigger.open, showFn), renderer.listen(target, trigger.close, hideFn));
+    });
+    return function () {
+        listeners.forEach(function (unsubscribeFn) { return unsubscribeFn(); });
+    };
+}
+function listenToTriggersV2(renderer, options) {
+    var parsedTriggers = parseTriggers(options.triggers);
+    var target = options.target;
+    // do nothing
+    if (parsedTriggers.length === 1 && parsedTriggers[0].isManual()) {
+        return Function.prototype;
+    }
+    // all listeners
+    var listeners = [];
+    // lazy listeners registration
+    var _registerHide = [];
+    var registerHide = function () {
+        // add hide listeners to unregister array
+        _registerHide.forEach(function (fn) { return listeners.push(fn()); });
+        // register hide events only once
+        _registerHide.length = 0;
+    };
+    // register open\close\toggle listeners
+    parsedTriggers.forEach(function (trigger) {
+        var useToggle = trigger.open === trigger.close;
+        var showFn = useToggle ? options.toggle : options.show;
+        if (!useToggle) {
+            _registerHide.push(function () {
+                return renderer.listen(target, trigger.close, options.hide);
+            });
+        }
+        listeners.push(renderer.listen(target, trigger.open, function () { return showFn(registerHide); }));
+    });
+    return function () {
+        listeners.forEach(function (unsubscribeFn) { return unsubscribeFn(); });
+    };
+}
+function registerOutsideClick(renderer, options) {
+    if (!options.outsideClick) {
+        return Function.prototype;
+    }
+    return renderer.listen('document', 'click', function (event) {
+        if (options.target && options.target.contains(event.target)) {
+            return;
+        }
+        if (options.targets &&
+            options.targets.some(function (target) { return target.contains(event.target); })) {
+            return;
+        }
+        options.hide();
+    });
+}
+//# sourceMappingURL=triggers.js.map
+
+/***/ }),
+
+/***/ "../node_modules/ngx-bootstrap/utils/warn-once.js":
+/*!********************************************************!*\
+  !*** ../node_modules/ngx-bootstrap/utils/warn-once.js ***!
+  \********************************************************/
+/*! exports provided: warnOnce */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "warnOnce", function() { return warnOnce; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
+
+var _messagesHash = {};
+var _hideMsg = typeof console === 'undefined' || !('warn' in console);
+function warnOnce(msg) {
+    if (!Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["isDevMode"])() || _hideMsg || msg in _messagesHash) {
+        return;
+    }
+    _messagesHash[msg] = true;
+    /*tslint:disable-next-line*/
+    console.warn(msg);
+}
+//# sourceMappingURL=warn-once.js.map
 
 /***/ }),
 
@@ -86857,7 +80542,7 @@ Zone.__load_patch('PromiseRejectionEvent', function (global, Zone) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n  <!--<img width=\"300\" alt=\"Angular Logo\" src=\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==\">-->\n</div>\n<h2>Here are some links to help you start: </h2>\n<ul>\n  <li>\n    <h2><a target=\"_blank\" rel=\"noopener\" href=\"https://angular.io/tutorial\">Tour of Heroes</a></h2>\n  </li>\n  <li>\n    <h2><a target=\"_blank\" rel=\"noopener\" href=\"https://github.com/angular/angular-cli/wiki\">CLI Documentation</a></h2>\n  </li>\n  <li>\n    <h2><a target=\"_blank\" rel=\"noopener\" href=\"https://blog.angular.io/\">Angular blog</a></h2>\n  </li>\n</ul>\n\n<app-joke></app-joke>\n<app-comp></app-comp>\n\n\n\n\n<div class=\"jumbotron text-center\">\n  <h1>My First Bootstrap Page</h1>\n  <p>Resize this responsive page to see the effect!</p>\n</div>\n\n<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-sm-4\">\n      <h3>Column 1</h3>\n      <p>Lorem ipsum dolor..</p>\n      <p>Ut enim ad..</p>\n    </div>\n    <div class=\"col-sm-4\">\n      <h3>Column 2</h3>\n      <p>Lorem ipsum dolor..</p>\n      <p>Ut enim ad..</p>\n    </div>\n    <div class=\"col-sm-4\">\n      <h3>Column 3</h3>\n      <p>Lorem ipsum dolor..</p>\n      <p>Ut enim ad..</p>\n    </div>\n  </div>\n</div>\n"
+module.exports = "\n<div class=\"row\">\n\n  <div class=\"col-sm-10 offset-sm-1 gl-container\">\n\n    <div class=\"row col-sm-1\">\n      <div class=\"gl-container-title\">\n        Ma&nbsp;commande\n      </div>\n    </div>\n\n    <div class=\"row gl-container-first\">\n\n      <div class=\"col-sm-6 \">\n        <span class=\"float-sm-left\">1 articles</span>\n      </div>\n\n      <div class=\"col-sm-6 float-right\">\n        <span class=\"float-sm-right\">\n          <button type=\"button\" class=\"btn btn-outline-dark\">Afficher les articles</button>\n        </span>\n      </div>\n\n    </div>\n\n    <div class=\"row\">\n\n      <div class=\"col-sm-6 \">\n        <span class=\"float-sm-left\">TOTAL TTC</span>\n      </div>\n\n      <div class=\"col-sm-6 float-right\">\n        <span class=\"float-sm-right\">42.50 €</span>\n      </div>\n\n    </div>\n\n  </div>\n\n</div>\n\n<div *ngFor=\"let giftcard of (giftcards | async); let i = index\">\n  <gl-giftcard-smart [id]=\"i\"></gl-giftcard-smart>\n</div>\n\n\n<div class=\"row\">\n  <div class=\"col-sm-10 offset-sm-1\">\n    <div class=\"row\">\n\n      Cartes cadeaux enregistrées\n\n    </div>\n    <div class=\"row\">\n\n      <table class=\"table\">\n        <thead>\n        <tr>\n          <th>Numéro</th>\n          <th>CCV</th>\n          <th>Montant</th>\n        </tr>\n        </thead>\n        <tbody>\n        <tr *ngFor=\"let giftcardSaved of (giftcardsSaved | async); let i = index\">\n          <td>{{ giftcardSaved.number }}</td>\n          <td>{{ giftcardSaved.bin }}</td>\n          <td>{{ giftcardSaved.amount }}</td>\n        </tr>\n        </tbody>\n      </table>\n\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -86876,17 +80561,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
+var store_1 = __webpack_require__(/*! @angular-redux/store */ "../node_modules/@angular-redux/store/lib/src/index.js");
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
         this.title = 'app';
     }
+    __decorate([
+        store_1.select(['display', 'payment', 'giftcard']),
+        __metadata("design:type", Object)
+    ], AppComponent.prototype, "giftcards", void 0);
+    __decorate([
+        store_1.select(['payment', 'giftcard']),
+        __metadata("design:type", Object)
+    ], AppComponent.prototype, "giftcardsSaved", void 0);
     AppComponent = __decorate([
         core_1.Component({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./app/app.component.html"),
-            styles: [__webpack_require__(/*! ./app.component.css */ "./app/app.component.css")]
+            styles: [__webpack_require__(/*! ./app.component.css */ "./app/app.component.css")],
+            encapsulation: core_1.ViewEncapsulation.None,
+            changeDetection: core_1.ChangeDetectionStrategy.OnPush
         })
     ], AppComponent);
     return AppComponent;
@@ -86917,39 +80616,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var platform_browser_1 = __webpack_require__(/*! @angular/platform-browser */ "../node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 var core_1 = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
+var forms_1 = __webpack_require__(/*! @angular/forms */ "../node_modules/@angular/forms/fesm5/forms.js");
 var store_1 = __webpack_require__(/*! @angular-redux/store */ "../node_modules/@angular-redux/store/lib/src/index.js");
 var redux_1 = __webpack_require__(/*! redux */ "../node_modules/redux/es/redux.js");
 var app_component_1 = __webpack_require__(/*! ./app.component */ "./app/app.component.ts");
-var joke_component_1 = __webpack_require__(/*! ./joke/joke.component */ "./app/joke/joke.component.ts");
-var comp1_component_1 = __webpack_require__(/*! ./comp1/comp1.component */ "./app/comp1/comp1.component.ts");
-var comp2_component_1 = __webpack_require__(/*! ./comp2/comp2.component */ "./app/comp2/comp2.component.ts");
-var joke_reducer_1 = __webpack_require__(/*! ./joke/joke.reducer */ "./app/joke/joke.reducer.ts");
-var comp_reducer_1 = __webpack_require__(/*! ./comp1/comp.reducer */ "./app/comp1/comp.reducer.ts");
-var comp_component_1 = __webpack_require__(/*! ./comp/comp.component */ "./app/comp/comp.component.ts");
-var ng_bootstrap_1 = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "../node_modules/@ng-bootstrap/ng-bootstrap/index.js");
+var tooltip_1 = __webpack_require__(/*! ngx-bootstrap/tooltip */ "../node_modules/ngx-bootstrap/tooltip/index.js");
+var giftcard_component_1 = __webpack_require__(/*! ./giftcard/giftcard.component */ "./app/giftcard/giftcard.component.ts");
+var giftcard_smart_component_1 = __webpack_require__(/*! ./giftcard-smart/giftcard-smart.component */ "./app/giftcard-smart/giftcard-smart.component.ts");
+var display_reducer_1 = __webpack_require__(/*! ./store/display.reducer */ "./app/store/display.reducer.ts");
+var payment_reducer_1 = __webpack_require__(/*! ./store/payment.reducer */ "./app/store/payment.reducer.ts");
 var AppModule = /** @class */ (function () {
     function AppModule(ngRedux) {
         // Tell @angular-redux/store about our rootReducer and our initial state.
         // It will use this to create a redux store for us and wire up all the
         // events.
-        ngRedux.provideStore(redux_1.createStore(redux_1.combineReducers({
-            cart: joke_reducer_1.jokeReducer,
-            display: comp_reducer_1.displayReducer
+        ngRedux.provideStore(redux_1.createStore(
+        // composeReducers(
+        //   defaultFormReducer(),
+        redux_1.combineReducers({
+            display: display_reducer_1.displayReducer,
+            payment: payment_reducer_1.paymentReducer,
         })));
+        // provideReduxForms(ngRedux);
     }
     AppModule = __decorate([
         core_1.NgModule({
             declarations: [
                 app_component_1.AppComponent,
-                joke_component_1.JokeComponent,
-                comp1_component_1.Comp1Component,
-                comp2_component_1.Comp2Component,
-                comp_component_1.CompComponent
+                giftcard_component_1.GiftcardComponent,
+                giftcard_smart_component_1.GiftcardSmartComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
                 store_1.NgReduxModule,
-                ng_bootstrap_1.NgbModule.forRoot()
+                forms_1.FormsModule,
+                forms_1.ReactiveFormsModule,
+                // NgReduxFormModule,
+                tooltip_1.TooltipModule.forRoot()
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]
@@ -86963,15 +80666,15 @@ exports.AppModule = AppModule;
 
 /***/ }),
 
-/***/ "./app/comp/comp.component.css":
-/*!*************************************!*\
-  !*** ./app/comp/comp.component.css ***!
-  \*************************************/
+/***/ "./app/giftcard-smart/giftcard-smart.component.css":
+/*!*********************************************************!*\
+  !*** ./app/giftcard-smart/giftcard-smart.component.css ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../../node_modules/css-loader!./comp.component.css */ "../node_modules/css-loader/index.js!./app/comp/comp.component.css");
+        var result = __webpack_require__(/*! !../../../node_modules/css-loader!./giftcard-smart.component.css */ "../node_modules/css-loader/index.js!./app/giftcard-smart/giftcard-smart.component.css");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -86982,21 +80685,21 @@ exports.AppModule = AppModule;
 
 /***/ }),
 
-/***/ "./app/comp/comp.component.html":
-/*!**************************************!*\
-  !*** ./app/comp/comp.component.html ***!
-  \**************************************/
+/***/ "./app/giftcard-smart/giftcard-smart.component.html":
+/*!**********************************************************!*\
+  !*** ./app/giftcard-smart/giftcard-smart.component.html ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <!--[hidden]=\"_hideComp1\"-->\n  <!--[hidden]=\"_hideComp2\"-->\n  <app-comp1 (getSearchStatusChange)=\"statusChangeHandler($event)\"></app-comp1>\n  <app-comp2 (getSearchStatusChange)=\"statusChangeHandler($event)\"></app-comp2>\n  <input [hidden]=\"_hideButton\" type=\"button\" value=\"save all\" />\n</div>\n"
+module.exports = "<gl-giftcard [id]=\"id\" (validate)=\"validate($event)\"></gl-giftcard>\n"
 
 /***/ }),
 
-/***/ "./app/comp/comp.component.ts":
-/*!************************************!*\
-  !*** ./app/comp/comp.component.ts ***!
-  \************************************/
+/***/ "./app/giftcard-smart/giftcard-smart.component.ts":
+/*!********************************************************!*\
+  !*** ./app/giftcard-smart/giftcard-smart.component.ts ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -87013,45 +80716,256 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-var CompComponent = /** @class */ (function () {
-    function CompComponent() {
+var store_1 = __webpack_require__(/*! @angular-redux/store */ "../node_modules/@angular-redux/store/lib/src/index.js");
+var GiftcardUiStep_1 = __webpack_require__(/*! ../model/GiftcardUiStep */ "./app/model/GiftcardUiStep.ts");
+var Action_1 = __webpack_require__(/*! ../store/Action */ "./app/store/Action.ts");
+var GiftcardSmartComponent = /** @class */ (function () {
+    function GiftcardSmartComponent(ngRedux) {
+        var _this = this;
+        this.ngRedux = ngRedux;
+        this.getBasePath = function () { return ['payment', 'giftcard', _this.id]; };
     }
-    CompComponent.prototype.ngOnInit = function () {
-    };
-    CompComponent.prototype.statusChangeHandler = function (e) {
-        console.log('event received:');
-        if (e === 'from comp2') {
-            console.log('showing comp1');
-            this._hideComp1 = false;
-            this._hideComp2 = true;
-            this._hideButton = true;
+    GiftcardSmartComponent.prototype.validate = function (_a) {
+        var validationStep = _a.validationStep, giftcard = _a.giftcard, success = _a.success, failure = _a.failure;
+        switch (validationStep) {
+            case GiftcardUiStep_1.GiftcardUiStep.InsertCard:
+                if (!!giftcard && !!giftcard.number && !!giftcard.bin) {
+                    setTimeout(function () { return success(); }, 1000);
+                }
+                else {
+                    setTimeout(function () { return failure('numberOrBin'); }, 1000);
+                }
+                break;
+            case GiftcardUiStep_1.GiftcardUiStep.InsertAmount:
+                if (!!giftcard && !!giftcard.amount) {
+                    this.ngRedux.dispatch({
+                        type: Action_1.PAYMENT_GIFTCARD_ACTION.ADD_CARD,
+                        payload: { giftcard: giftcard }
+                    });
+                    setTimeout(function () { return success(); }, 1000);
+                }
+                else {
+                    setTimeout(function () { return failure('amount'); }, 1000);
+                }
+                break;
         }
-        else {
-            console.log('showing comp2');
-            this._hideComp1 = true;
-            this._hideComp2 = false;
-            this._hideButton = false;
-        }
     };
-    CompComponent = __decorate([
+    __decorate([
+        core_1.Input('id'),
+        __metadata("design:type", Object)
+    ], GiftcardSmartComponent.prototype, "id", void 0);
+    GiftcardSmartComponent = __decorate([
         core_1.Component({
-            selector: 'app-comp',
-            template: __webpack_require__(/*! ./comp.component.html */ "./app/comp/comp.component.html"),
-            styles: [__webpack_require__(/*! ./comp.component.css */ "./app/comp/comp.component.css")]
+            selector: 'gl-giftcard-smart',
+            template: __webpack_require__(/*! ./giftcard-smart.component.html */ "./app/giftcard-smart/giftcard-smart.component.html"),
+            styles: [__webpack_require__(/*! ./giftcard-smart.component.css */ "./app/giftcard-smart/giftcard-smart.component.css")],
+            changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }),
-        __metadata("design:paramtypes", [])
-    ], CompComponent);
-    return CompComponent;
+        __metadata("design:paramtypes", [store_1.NgRedux])
+    ], GiftcardSmartComponent);
+    return GiftcardSmartComponent;
 }());
-exports.CompComponent = CompComponent;
+exports.GiftcardSmartComponent = GiftcardSmartComponent;
 
 
 /***/ }),
 
-/***/ "./app/comp1/comp.reducer.ts":
-/*!***********************************!*\
-  !*** ./app/comp1/comp.reducer.ts ***!
-  \***********************************/
+/***/ "./app/giftcard-smart/giftcard-smart.reducer.ts":
+/*!******************************************************!*\
+  !*** ./app/giftcard-smart/giftcard-smart.reducer.ts ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Action_1 = __webpack_require__(/*! ../store/Action */ "./app/store/Action.ts");
+exports.paymentGiftcardReducer = function (state, _a) {
+    // const newState = JSON.parse(JSON.stringify(state));
+    var type = _a.type, payload = _a.payload;
+    switch (type) {
+        case Action_1.PAYMENT_GIFTCARD_ACTION.ADD_CARD:
+            state.giftcard = insertItem(state.giftcard, {
+                index: state.giftcard.length,
+                item: {
+                    number: payload.giftcard.number,
+                    bin: payload.giftcard.bin,
+                    amount: payload.giftcard.amount
+                }
+            });
+    }
+    return state;
+};
+function insertItem(array, action) {
+    var newArray = array.slice();
+    newArray.splice(action.index, 0, action.item);
+    return newArray;
+}
+
+
+/***/ }),
+
+/***/ "./app/giftcard/giftcard.component.css":
+/*!*********************************************!*\
+  !*** ./app/giftcard/giftcard.component.css ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(/*! !../../../node_modules/css-loader!./giftcard.component.css */ "../node_modules/css-loader/index.js!./app/giftcard/giftcard.component.css");
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+
+/***/ "./app/giftcard/giftcard.component.html":
+/*!**********************************************!*\
+  !*** ./app/giftcard/giftcard.component.html ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\n  <div class=\"col-sm-10 offset-sm-1 gl-container\">\n\n    <ng-template [ngIf]=\"(currentStep | async) === GiftcardUiStep.InsertCard\">\n    <div>\n      <div class=\"row\">\n        J'identifie ma carte\n      </div>\n      <div class=\"row\">\n        <div class=\"col-sm-7\">\n          <input  class=\"form-control\" type=\"text\" [(ngModel)]=\"number\">\n        </div>\n        <div class=\"col-sm-4\">\n          <input class=\"form-control\" [(ngModel)]=\"bin\" type=\"text\">\n        </div>\n        <div class=\"col-sm-1\">\n          <div *ngIf=\"(loading | async) === true; then thenBlock else elseBlock\"></div>\n          <ng-template #thenBlock>\n            <button type=\"button\" class=\"btn btn-outline-dark\">Chargement...</button>\n          </ng-template><ng-template #elseBlock>\n            <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"displayNextStep()\">Enregistrer</button>\n          </ng-template>\n        </div>\n      </div>\n      <div *ngIf=\"(errorNumberOrBin | async) === true\" class=\"row col-sm-12\">\n        Le numéro de carte et/ou le code de sécurité ne sont pas valides\n      </div>\n    </div>\n    </ng-template>\n\n    <ng-template [ngIf]=\"(currentStep | async) === 1\">\n    <div>\n      <div class=\"row\">\n       Je saisie le montant\n      </div>\n      <div class=\"row\">\n        <div class=\"col-sm-7\">\n          Soldes de votre carte cadeau 100,00 €\n        </div>\n        <div class=\"col-sm-4\">\n          <input class=\"form-control\" type=\"text\" [(ngModel)]=\"amount\" value=\"Veuillez saisir le montant à débiter\">\n        </div>\n        <div class=\"col-sm-1\" style=\"text-align: center;\">\n          <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"displayNextStep()\">Valider</button>\n        </div>\n      </div>\n      <div *ngIf=\"(errorAmount | async) === true\" class=\"row col-sm-12\">\n        Le montant n'est pas valide\n      </div>\n    </div>\n    </ng-template>\n\n    <ng-template [ngIf]=\"(currentStep | async) === 2\">\n    <div>\n      <div class=\"row\">\n        Récapitulatif\n      </div>\n      <div class=\"row\">\n        <div class=\"col-sm-3\">\n          Carte cadeau selectionnée : {{ number }}\n        </div>\n        <div class=\"col-sm-4\">\n          Montant à utiliser : {{ amount }} €\n        </div>\n      </div>\n      <div *ngIf=\"(showAddCardButton | async)\" class=\"row justify-content-sm-center\" style=\"margin: auto;\">\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"addGiftCard()\">Ajouter une carte</button>\n      </div>\n    </div>\n    </ng-template>\n\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./app/giftcard/giftcard.component.ts":
+/*!********************************************!*\
+  !*** ./app/giftcard/giftcard.component.ts ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
+var store_1 = __webpack_require__(/*! @angular-redux/store */ "../node_modules/@angular-redux/store/lib/src/index.js");
+var GiftcardUiStep_1 = __webpack_require__(/*! ../model/GiftcardUiStep */ "./app/model/GiftcardUiStep.ts");
+var Action_1 = __webpack_require__(/*! ../store/Action */ "./app/store/Action.ts");
+var empty_reducer_1 = __webpack_require__(/*! ../store/empty.reducer */ "./app/store/empty.reducer.ts");
+var Giftcard_1 = __webpack_require__(/*! ../model/Giftcard */ "./app/model/Giftcard.ts");
+var GiftcardComponent = /** @class */ (function () {
+    function GiftcardComponent(ngRedux) {
+        var _this = this;
+        this.ngRedux = ngRedux;
+        this.validate = new core_1.EventEmitter();
+        this.GiftcardUiStep = GiftcardUiStep_1.GiftcardUiStep;
+        this.getBasePath = function () { return ['display', 'payment', 'giftcard', _this.id]; };
+        this.addGiftCard = function () { return ({ type: Action_1.DISPLAY_GIFTCARD_ACTION.ADD_CARD }); };
+        this.displayNextStep = function () {
+            // LOADING...
+            _this.ngRedux.dispatch({
+                type: Action_1.DISPLAY_GIFTCARD_ACTION.LOADING,
+                payload: { currentId: _this.id, bin: _this.bin }
+            });
+            // VALIDATING...
+            _this.validate.emit({
+                validationStep: _this.ngRedux.getState().display.payment.giftcard[_this.id].step,
+                giftcard: Giftcard_1.Giftcard.build().number(_this.number).bin(_this.bin).amount(_this.amount).build(),
+                success: function () {
+                    return _this.ngRedux.dispatch({
+                        type: Action_1.DISPLAY_GIFTCARD_ACTION.NEXT_STEP,
+                        payload: {
+                            currentId: _this.id,
+                            number: _this.number,
+                            bin: _this.bin,
+                            amount: _this.amount,
+                        }
+                    });
+                },
+                failure: function (errorFields) {
+                    return _this.ngRedux.dispatch({
+                        type: Action_1.DISPLAY_GIFTCARD_ACTION.ERROR,
+                        payload: {
+                            currentId: _this.id,
+                            number: _this.number,
+                            bin: _this.bin,
+                            amount: _this.amount,
+                            errorFields: errorFields
+                        }
+                    });
+                }
+            });
+        };
+    }
+    GiftcardComponent.prototype.ngOnInit = function () {
+        this.number = this.ngRedux.getState().display.payment.giftcard[this.id].number;
+        this.bin = this.ngRedux.getState().display.payment.giftcard[this.id].bin;
+        this.amount = this.ngRedux.getState().display.payment.giftcard[this.id].amount;
+    };
+    __decorate([
+        core_1.Input('id'),
+        __metadata("design:type", Object)
+    ], GiftcardComponent.prototype, "id", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], GiftcardComponent.prototype, "validate", void 0);
+    __decorate([
+        store_1.select('step'),
+        __metadata("design:type", Object)
+    ], GiftcardComponent.prototype, "currentStep", void 0);
+    __decorate([
+        store_1.select('loading'),
+        __metadata("design:type", Object)
+    ], GiftcardComponent.prototype, "loading", void 0);
+    __decorate([
+        store_1.select('showAddCardButton'),
+        __metadata("design:type", Object)
+    ], GiftcardComponent.prototype, "showAddCardButton", void 0);
+    __decorate([
+        store_1.select(['error', 'numberOrBin']),
+        __metadata("design:type", Object)
+    ], GiftcardComponent.prototype, "errorNumberOrBin", void 0);
+    __decorate([
+        store_1.select(['error', 'amount']),
+        __metadata("design:type", Object)
+    ], GiftcardComponent.prototype, "errorAmount", void 0);
+    __decorate([
+        store_1.dispatch(),
+        __metadata("design:type", Object)
+    ], GiftcardComponent.prototype, "addGiftCard", void 0);
+    GiftcardComponent = __decorate([
+        store_1.WithSubStore({
+            basePathMethodName: 'getBasePath',
+            localReducer: empty_reducer_1.emptyReducer,
+        }),
+        core_1.Component({
+            selector: 'gl-giftcard',
+            template: __webpack_require__(/*! ./giftcard.component.html */ "./app/giftcard/giftcard.component.html"),
+            styles: [__webpack_require__(/*! ./giftcard.component.css */ "./app/giftcard/giftcard.component.css")],
+            changeDetection: core_1.ChangeDetectionStrategy.OnPush
+        }),
+        __metadata("design:paramtypes", [store_1.NgRedux])
+    ], GiftcardComponent);
+    return GiftcardComponent;
+}());
+exports.GiftcardComponent = GiftcardComponent;
+
+
+/***/ }),
+
+/***/ "./app/giftcard/giftcard.reducer.ts":
+/*!******************************************!*\
+  !*** ./app/giftcard/giftcard.reducer.ts ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -87059,389 +80973,317 @@ exports.CompComponent = CompComponent;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 // The "joke" reducer performs actions on our list of articles & price
-var displayReducer = function (state, _a) {
-    if (state === void 0) { state = {}; }
+var GiftcardUiStep_1 = __webpack_require__(/*! ../model/GiftcardUiStep */ "./app/model/GiftcardUiStep.ts");
+var Action_1 = __webpack_require__(/*! ../store/Action */ "./app/store/Action.ts");
+exports.displayGiftcardReducer = function (state, _a) {
     var type = _a.type, payload = _a.payload;
-    if (typeof type === 'string' && type.substring(0, 12) === '@@redux/INIT') {
-        return { show: true };
-    }
+    var newState = JSON.parse(JSON.stringify(state));
     switch (type) {
-        case 'SHOW':
-            return { show: true };
-        case 'HIDE':
-            return { show: false };
-        default:
-            return state;
+        case Action_1.DISPLAY_GIFTCARD_ACTION.ADD_CARD:
+            newState.payment.giftcard.forEach(function (elt) {
+                console.log(elt);
+                return elt.showAddCardButton = false;
+            });
+            newState.payment.giftcard.push({
+                step: GiftcardUiStep_1.GiftcardUiStep.InsertCard,
+                loading: false,
+                number: '1234',
+                showAddCardButton: false
+            });
+            return newState;
+        case Action_1.DISPLAY_GIFTCARD_ACTION.LOADING:
+            newState.payment.giftcard[payload.currentId].number = payload.number;
+            newState.payment.giftcard[payload.currentId].bin = payload.bin;
+            newState.payment.giftcard[payload.currentId].amount = payload.amount;
+            newState.payment.giftcard[payload.currentId].loading = true;
+            return newState;
+        case Action_1.DISPLAY_GIFTCARD_ACTION.NEXT_STEP:
+            switch (state.payment.giftcard[payload.currentId].step) {
+                case GiftcardUiStep_1.GiftcardUiStep.InsertCard:
+                    newState.payment.giftcard[payload.currentId].number = payload.number;
+                    newState.payment.giftcard[payload.currentId].bin = payload.bin;
+                    newState.payment.giftcard[payload.currentId].amount = payload.amount;
+                    newState.payment.giftcard[payload.currentId].step = GiftcardUiStep_1.GiftcardUiStep.InsertAmount;
+                    newState.payment.giftcard[payload.currentId].loading = false;
+                    break;
+                case GiftcardUiStep_1.GiftcardUiStep.InsertAmount:
+                    newState.payment.giftcard[payload.currentId].number = payload.number;
+                    newState.payment.giftcard[payload.currentId].bin = payload.bin;
+                    newState.payment.giftcard[payload.currentId].amount = payload.amount;
+                    newState.payment.giftcard[payload.currentId].step = GiftcardUiStep_1.GiftcardUiStep.RecapCard;
+                    newState.payment.giftcard[payload.currentId].loading = false;
+                    newState.payment.giftcard[payload.currentId].showAddCardButton = true;
+                    break;
+                default:
+                    console.log('NEXT_STEP is not allowed here. Payload:');
+                    console.log(payload);
+            }
+            return newState;
+        case Action_1.DISPLAY_GIFTCARD_ACTION.ERROR:
+            newState.payment.giftcard[payload.currentId].number = payload.number;
+            newState.payment.giftcard[payload.currentId].bin = payload.bin;
+            newState.payment.giftcard[payload.currentId].amount = payload.amount;
+            newState.payment.giftcard[payload.currentId].loading = false;
+            if (payload.errorFields === 'numberOrBin') {
+                newState.payment.giftcard[payload.currentId].error.numberOrBin = true;
+            }
+            else if ('amount') {
+                newState.payment.giftcard[payload.currentId].error.amount = true;
+            }
     }
+    return newState;
 };
-exports.displayReducer = displayReducer;
 
 
 /***/ }),
 
-/***/ "./app/comp1/comp1.component.css":
-/*!***************************************!*\
-  !*** ./app/comp1/comp1.component.css ***!
-  \***************************************/
+/***/ "./app/model/Giftcard.ts":
+/*!*******************************!*\
+  !*** ./app/model/Giftcard.ts ***!
+  \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
 
-        var result = __webpack_require__(/*! !../../../node_modules/css-loader!./comp1.component.css */ "../node_modules/css-loader/index.js!./app/comp1/comp1.component.css");
+Object.defineProperty(exports, "__esModule", { value: true });
+var GiftcardBuilder_1 = __webpack_require__(/*! ./GiftcardBuilder */ "./app/model/GiftcardBuilder.ts");
+var Giftcard = /** @class */ (function () {
+    function Giftcard() {
+        //
+    }
+    Object.defineProperty(Giftcard.prototype, "number", {
+        get: function () {
+            return this._number;
+        },
+        set: function (value) {
+            this._number = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Giftcard.prototype, "bin", {
+        get: function () {
+            return this._bin;
+        },
+        set: function (value) {
+            this._bin = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Giftcard.prototype, "amount", {
+        get: function () {
+            return this._amount;
+        },
+        set: function (value) {
+            this._amount = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Giftcard.build = function () {
+        return new GiftcardBuilder_1.GiftcardBuilder();
+    };
+    return Giftcard;
+}());
+exports.Giftcard = Giftcard;
 
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
 
 /***/ }),
 
-/***/ "./app/comp1/comp1.component.html":
-/*!****************************************!*\
-  !*** ./app/comp1/comp1.component.html ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  comp1 works!: {{ show | async }}\n  <input type=\"button\" value=\"go to comp2\"  (click)=\"goToComp2()\" />\n</p>\n"
-
-/***/ }),
-
-/***/ "./app/comp1/comp1.component.ts":
+/***/ "./app/model/GiftcardBuilder.ts":
 /*!**************************************!*\
-  !*** ./app/comp1/comp1.component.ts ***!
+  !*** ./app/model/GiftcardBuilder.ts ***!
   \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-var store_1 = __webpack_require__(/*! @angular-redux/store */ "../node_modules/@angular-redux/store/lib/src/index.js");
-var Comp1Component = /** @class */ (function () {
-    function Comp1Component(ngRedux) {
-        this.ngRedux = ngRedux;
-        this.getSearchStatusChange = new core_1.EventEmitter();
+var Giftcard_1 = __webpack_require__(/*! ./Giftcard */ "./app/model/Giftcard.ts");
+var GiftcardBuilder = /** @class */ (function () {
+    function GiftcardBuilder() {
+        this.instance = new Giftcard_1.Giftcard();
     }
-    Comp1Component.prototype.ngOnInit = function () {
+    GiftcardBuilder.prototype.number = function (number) {
+        this.instance.number = number;
+        return this;
     };
-    Comp1Component.prototype.goToComp2 = function () {
-        this.getSearchStatusChange.emit('from comp1');
-        console.log('show');
-        this.ngRedux.dispatch({ type: 'SHOW' });
+    GiftcardBuilder.prototype.bin = function (bin) {
+        this.instance.bin = bin;
+        return this;
     };
-    __decorate([
-        core_1.Output(),
-        __metadata("design:type", Object)
-    ], Comp1Component.prototype, "getSearchStatusChange", void 0);
-    __decorate([
-        store_1.select(['display', 'show']),
-        __metadata("design:type", Boolean)
-    ], Comp1Component.prototype, "show", void 0);
-    Comp1Component = __decorate([
-        core_1.Component({
-            selector: 'app-comp1',
-            template: __webpack_require__(/*! ./comp1.component.html */ "./app/comp1/comp1.component.html"),
-            styles: [__webpack_require__(/*! ./comp1.component.css */ "./app/comp1/comp1.component.css")],
-            changeDetection: core_1.ChangeDetectionStrategy.OnPush
-        }),
-        __metadata("design:paramtypes", [store_1.NgRedux])
-    ], Comp1Component);
-    return Comp1Component;
+    GiftcardBuilder.prototype.amount = function (amount) {
+        this.instance.amount = amount;
+        return this;
+    };
+    GiftcardBuilder.prototype.build = function () {
+        return this.instance;
+    };
+    return GiftcardBuilder;
 }());
-exports.Comp1Component = Comp1Component;
+exports.GiftcardBuilder = GiftcardBuilder;
 
 
 /***/ }),
 
-/***/ "./app/comp2/comp2.component.css":
-/*!***************************************!*\
-  !*** ./app/comp2/comp2.component.css ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-        var result = __webpack_require__(/*! !../../../node_modules/css-loader!./comp2.component.css */ "../node_modules/css-loader/index.js!./app/comp2/comp2.component.css");
-
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
-
-/***/ }),
-
-/***/ "./app/comp2/comp2.component.html":
-/*!****************************************!*\
-  !*** ./app/comp2/comp2.component.html ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  comp2 works!: {{ show | async }}\n  <input type=\"button\" value=\"go to comp1\" (click)=\"goToComp1()\" />\n</p>\n"
-
-/***/ }),
-
-/***/ "./app/comp2/comp2.component.ts":
-/*!**************************************!*\
-  !*** ./app/comp2/comp2.component.ts ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-var store_1 = __webpack_require__(/*! @angular-redux/store */ "../node_modules/@angular-redux/store/lib/src/index.js");
-var Comp2Component = /** @class */ (function () {
-    function Comp2Component(ngRedux) {
-        this.ngRedux = ngRedux;
-        this.getSearchStatusChange = new core_1.EventEmitter();
-    }
-    Comp2Component.prototype.ngOnInit = function () {
-    };
-    Comp2Component.prototype.goToComp1 = function () {
-        this.getSearchStatusChange.emit('from comp2');
-        console.log('hide');
-        this.ngRedux.dispatch({ type: 'HIDE' });
-    };
-    __decorate([
-        core_1.Output(),
-        __metadata("design:type", Object)
-    ], Comp2Component.prototype, "getSearchStatusChange", void 0);
-    __decorate([
-        store_1.select(['display', 'show']),
-        __metadata("design:type", Boolean)
-    ], Comp2Component.prototype, "show", void 0);
-    Comp2Component = __decorate([
-        core_1.Component({
-            selector: 'app-comp2',
-            template: __webpack_require__(/*! ./comp2.component.html */ "./app/comp2/comp2.component.html"),
-            styles: [__webpack_require__(/*! ./comp2.component.css */ "./app/comp2/comp2.component.css")],
-            changeDetection: core_1.ChangeDetectionStrategy.OnPush
-        }),
-        __metadata("design:paramtypes", [store_1.NgRedux])
-    ], Comp2Component);
-    return Comp2Component;
-}());
-exports.Comp2Component = Comp2Component;
-
-
-/***/ }),
-
-/***/ "./app/joke/joke.component.css":
+/***/ "./app/model/GiftcardUiStep.ts":
 /*!*************************************!*\
-  !*** ./app/joke/joke.component.css ***!
+  !*** ./app/model/GiftcardUiStep.ts ***!
   \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
 
-        var result = __webpack_require__(/*! !../../../node_modules/css-loader!./joke.component.css */ "../node_modules/css-loader/index.js!./app/joke/joke.component.css");
+Object.defineProperty(exports, "__esModule", { value: true });
+var GiftcardUiStep;
+(function (GiftcardUiStep) {
+    GiftcardUiStep[GiftcardUiStep["InsertCard"] = 0] = "InsertCard";
+    GiftcardUiStep[GiftcardUiStep["InsertAmount"] = 1] = "InsertAmount";
+    GiftcardUiStep[GiftcardUiStep["RecapCard"] = 2] = "RecapCard";
+})(GiftcardUiStep = exports.GiftcardUiStep || (exports.GiftcardUiStep = {}));
 
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
-
-/***/ }),
-
-/***/ "./app/joke/joke.component.html":
-/*!**************************************!*\
-  !*** ./app/joke/joke.component.html ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<h1 [hidden]=\"true\">What did the cheese say when it looked in the mirror?</h1>\n<p (click)=\"clickMe()\" >Prix total: {{ totalPrice | async }} euros</p>\n\nContenu du panier :\n<div *ngFor=\"let article of ( articles | async )\">\n  {{ article.desc }}\n</div>\n\n\n<br />\n<br />\nAjout d'un article au panier :\n<br />\n<!-- the event is used to fill the template-reference-variable -->\n<input type=\"text\" (keyup)=\"keyUpButton($event)\">\n\n\n<br />\n<br />\n<br />\n<br />\n\n<br />\n<br />\n<br />\n<br />\n\n<div *ngIf=\"test12 > 5; then thenBlock else elseBlock\"></div>\n\n<ng-template #thenBlock>< 5</ng-template>\n<ng-template #elseBlock>> 5</ng-template>\n\n<br />\n\n<ng-template [ngIf]=\"true\">\n  ...\n</ng-template>\n\n<br />\n"
 
 /***/ }),
 
-/***/ "./app/joke/joke.component.reducer.ts":
-/*!********************************************!*\
-  !*** ./app/joke/joke.component.reducer.ts ***!
-  \********************************************/
+/***/ "./app/store/Action.ts":
+/*!*****************************!*\
+  !*** ./app/store/Action.ts ***!
+  \*****************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var jokeComponentReducer = function (state, _a) {
-    if (state === void 0) { state = {}; }
-    var type = _a.type, payload = _a.payload;
-    console.log('jokeComponentReducer');
-    return state;
-};
-exports.jokeComponentReducer = jokeComponentReducer;
+var DISPLAY_GIFTCARD_ACTION;
+(function (DISPLAY_GIFTCARD_ACTION) {
+    DISPLAY_GIFTCARD_ACTION["BASE"] = "D_GIFTCARD__";
+    DISPLAY_GIFTCARD_ACTION["ADD_CARD"] = "D_GIFTCARD__ADD_CARD";
+    DISPLAY_GIFTCARD_ACTION["NEXT_STEP"] = "D_GIFTCARD__NEXT_STEP";
+    DISPLAY_GIFTCARD_ACTION["LOADING"] = "D_GIFTCARD__LOADING";
+    DISPLAY_GIFTCARD_ACTION["ERROR"] = "D_GIFTCARD__ERROR";
+})(DISPLAY_GIFTCARD_ACTION || (DISPLAY_GIFTCARD_ACTION = {}));
+exports.DISPLAY_GIFTCARD_ACTION = DISPLAY_GIFTCARD_ACTION;
+var PAYMENT_GIFTCARD_ACTION;
+(function (PAYMENT_GIFTCARD_ACTION) {
+    PAYMENT_GIFTCARD_ACTION["BASE"] = "P_GIFTCARD__";
+    PAYMENT_GIFTCARD_ACTION["ADD_CARD"] = "P_GIFTCARD__ADD_CARD";
+})(PAYMENT_GIFTCARD_ACTION || (PAYMENT_GIFTCARD_ACTION = {}));
+exports.PAYMENT_GIFTCARD_ACTION = PAYMENT_GIFTCARD_ACTION;
 
 
 /***/ }),
 
-/***/ "./app/joke/joke.component.ts":
+/***/ "./app/store/display.reducer.ts":
+/*!**************************************!*\
+  !*** ./app/store/display.reducer.ts ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var GiftcardUiStep_1 = __webpack_require__(/*! ../model/GiftcardUiStep */ "./app/model/GiftcardUiStep.ts");
+var giftcard_reducer_1 = __webpack_require__(/*! ../giftcard/giftcard.reducer */ "./app/giftcard/giftcard.reducer.ts");
+var Action_1 = __webpack_require__(/*! ./Action */ "./app/store/Action.ts");
+function displayReducer(state, _a) {
+    var type = _a.type, payload = _a.payload;
+    if (typeof state === 'undefined') {
+        state = {};
+    }
+    if (typeof type === 'string') {
+        if (type.substring(0, 12) === '@@redux/INIT') {
+            return initDisplayReducer();
+        }
+        switch (type.substring(0, type.indexOf('__') + 2)) {
+            case Action_1.DISPLAY_GIFTCARD_ACTION.BASE:
+                return giftcard_reducer_1.displayGiftcardReducer(state, { type: type, payload: payload });
+        }
+    }
+    return state;
+}
+exports.displayReducer = displayReducer;
+function initDisplayReducer() {
+    return {
+        payment: {
+            giftcard: [
+                {
+                    number: null,
+                    bin: null,
+                    amount: null,
+                    step: GiftcardUiStep_1.GiftcardUiStep.InsertCard,
+                    loading: false,
+                    showAddCardButton: false,
+                    error: {
+                        numberOrBin: false,
+                        amount: false
+                    }
+                }
+            ]
+        }
+    };
+}
+
+
+/***/ }),
+
+/***/ "./app/store/empty.reducer.ts":
 /*!************************************!*\
-  !*** ./app/joke/joke.component.ts ***!
+  !*** ./app/store/empty.reducer.ts ***!
   \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-var service_test_service_1 = __webpack_require__(/*! ../service/service-test.service */ "./app/service/service-test.service.ts");
-var store_1 = __webpack_require__(/*! @angular-redux/store */ "../node_modules/@angular-redux/store/lib/src/index.js");
-// import { jokeReducer } from './joke.reducer';
-var joke_component_reducer_1 = __webpack_require__(/*! ./joke.component.reducer */ "./app/joke/joke.component.reducer.ts");
-var JokeComponent = /** @class */ (function () {
-    function JokeComponent(serviceTestService, ngRedux) {
-        this.serviceTestService = serviceTestService;
-        this.ngRedux = ngRedux;
-        this.getBasePath = function () { return ['cart']; };
-    }
-    JokeComponent.prototype.keyUpButton = function (e) {
-        if (e.keyCode === 13) {
-            return this.serviceTestService.updateArticles(e.target.value);
-        }
-        return { type: 'NONE' };
-    };
-    __decorate([
-        store_1.select(),
-        __metadata("design:type", Object)
-    ], JokeComponent.prototype, "totalPrice", void 0);
-    __decorate([
-        store_1.select(),
-        __metadata("design:type", Object)
-    ], JokeComponent.prototype, "articles", void 0);
-    __decorate([
-        store_1.dispatch(),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object]),
-        __metadata("design:returntype", void 0)
-    ], JokeComponent.prototype, "keyUpButton", null);
-    JokeComponent = __decorate([
-        store_1.WithSubStore({
-            basePathMethodName: 'getBasePath',
-            localReducer: joke_component_reducer_1.jokeComponentReducer
-        }),
-        core_1.Component({
-            selector: 'app-joke',
-            template: __webpack_require__(/*! ./joke.component.html */ "./app/joke/joke.component.html"),
-            providers: [service_test_service_1.ServiceTestService],
-            styles: [__webpack_require__(/*! ./joke.component.css */ "./app/joke/joke.component.css")],
-            changeDetection: core_1.ChangeDetectionStrategy.OnPush // render component on immutability change (reference changed)
-        }),
-        __metadata("design:paramtypes", [service_test_service_1.ServiceTestService, store_1.NgRedux])
-    ], JokeComponent);
-    return JokeComponent;
-}());
-exports.JokeComponent = JokeComponent;
-
-
-/***/ }),
-
-/***/ "./app/joke/joke.reducer.ts":
-/*!**********************************!*\
-  !*** ./app/joke/joke.reducer.ts ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-// The 'joke' reducer performs actions on our list of articles & price
-var jokeReducer = function (state, _a) {
-    if (state === void 0) { state = {}; }
+exports.emptyReducer = function (state, _a) {
     var type = _a.type, payload = _a.payload;
-    if (typeof type === 'string' && type.substring(0, 12) === '@@redux/INIT') {
-        return { totalPrice: 0, articles: [] };
-    }
-    switch (type) {
-        case 'ADD_ITEM':
-            var obj = Object.assign({});
-            obj.totalPrice = 42;
-            obj.articles = [Object.assign({})];
-            obj.articles[0].desc = payload;
-            return obj;
-        default:
-            return state;
-    }
+    console.log('emptyReducer called, action ${type}');
 };
-exports.jokeReducer = jokeReducer;
 
 
 /***/ }),
 
-/***/ "./app/service/service-test.service.ts":
-/*!*********************************************!*\
-  !*** ./app/service/service-test.service.ts ***!
-  \*********************************************/
+/***/ "./app/store/payment.reducer.ts":
+/*!**************************************!*\
+  !*** ./app/store/payment.reducer.ts ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-/**
- *  Angular services communicate with AppStore in both ways. They dispatch actions and they read data from the store.
- */
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(/*! @angular/core */ "../node_modules/@angular/core/fesm5/core.js");
-var ServiceTestService = /** @class */ (function () {
-    function ServiceTestService() {
+var Action_1 = __webpack_require__(/*! ./Action */ "./app/store/Action.ts");
+var giftcard_smart_reducer_1 = __webpack_require__(/*! ../giftcard-smart/giftcard-smart.reducer */ "./app/giftcard-smart/giftcard-smart.reducer.ts");
+function paymentReducer(state, _a) {
+    var type = _a.type, payload = _a.payload;
+    if (typeof state === 'undefined') {
+        state = {};
     }
-    ServiceTestService.prototype.updateArticles = function (article) {
-        return { type: 'ADD_ITEM', payload: article };
+    if (typeof type === 'string') {
+        if (type.substring(0, 12) === '@@redux/INIT') {
+            return initPaymentReducer();
+        }
+        switch (type.substring(0, type.indexOf('__') + 2)) {
+            case Action_1.PAYMENT_GIFTCARD_ACTION.BASE:
+                return giftcard_smart_reducer_1.paymentGiftcardReducer(state, { type: type, payload: payload });
+        }
+    }
+    return state;
+}
+exports.paymentReducer = paymentReducer;
+function initPaymentReducer() {
+    return {
+        giftcard: []
     };
-    ServiceTestService = __decorate([
-        core_1.Injectable({
-            providedIn: 'root' // singleton
-        })
-    ], ServiceTestService);
-    return ServiceTestService;
-}());
-exports.ServiceTestService = ServiceTestService;
+}
 
 
 /***/ }),

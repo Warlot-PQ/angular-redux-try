@@ -1,5 +1,9 @@
 // The 'joke' reducer performs actions on our list of articles & price
 const jokeReducer = (state = {}, {type, payload}) => {
+  console.log('jokeReducer: type & payload');
+  console.log(type);
+  console.log(payload);
+
   if (typeof type === 'string' && type.substring(0, 12) === '@@redux/INIT') {
     return { totalPrice: 0, articles: [] };
   }

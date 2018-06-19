@@ -1,9 +1,27 @@
-interface IAppState {
-  cart:{
-    totalPrice:number,
-    articles:Array<Article>
+import {GiftcardUiStep} from '../model/GiftcardUiStep';
+
+export interface IAppState {
+  payment: {
+    giftcard: [{
+      number: String,
+      bin: String,
+      amount: String
+    }]
   },
   display: {
-    show: boolean
+    payment: {
+      giftcard: [{
+        number: String,
+        bin: String,
+        amount: String,
+        step: GiftcardUiStep,
+        loading: boolean,
+        showAddCardButton: boolean,
+        error: {
+          numberOrBin: boolean,
+          amount: boolean
+        }
+      }]
+    }
   }
 }

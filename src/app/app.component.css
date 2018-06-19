@@ -1,1 +1,30 @@
 @import "~bootstrap/dist/css/bootstrap.css";
+
+body {
+  background-color: cornsilk;
+}
+
+.gl-container {
+  background-color: white;
+}
+
+.gl-container-title {
+  transform: translateY(-50%);
+  background-color: black;
+  color: white;
+  font-size: 1.875rem;
+  padding: 0 0.5em;
+}
+
+.gl-container-first {
+  border-bottom: 1px solid black;
+  padding-bottom: 1em;
+}
+
+.gl-container {
+  padding-bottom: 1em;
+}
+
+.row {
+  margin: 1em;
+}
