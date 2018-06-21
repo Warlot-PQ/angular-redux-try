@@ -80870,23 +80870,22 @@ var GiftcardComponent = /** @class */ (function () {
         this.getBasePath = function () { return ['display', 'payment', 'giftcard', _this.id]; };
         this.addGiftCard = function () { return ({ type: Action_1.DISPLAY_GIFTCARD_ACTION.ADD_CARD }); };
         this.displayNextStep = function () {
+            var giftcard = Giftcard_1.Giftcard.build().number(_this.number).bin(_this.bin).amount(_this.amount).build();
             // LOADING...
             _this.ngRedux.dispatch({
                 type: Action_1.DISPLAY_GIFTCARD_ACTION.LOADING,
-                payload: { currentId: _this.id, bin: _this.bin }
+                payload: { currentId: _this.id, giftcard: giftcard }
             });
             // VALIDATING...
             _this.validate.emit({
                 validationStep: _this.ngRedux.getState().display.payment.giftcard[_this.id].step,
-                giftcard: Giftcard_1.Giftcard.build().number(_this.number).bin(_this.bin).amount(_this.amount).build(),
+                giftcard: giftcard,
                 success: function () {
                     return _this.ngRedux.dispatch({
                         type: Action_1.DISPLAY_GIFTCARD_ACTION.NEXT_STEP,
                         payload: {
                             currentId: _this.id,
-                            number: _this.number,
-                            bin: _this.bin,
-                            amount: _this.amount,
+                            giftcard: giftcard,
                         }
                     });
                 },
@@ -80895,9 +80894,7 @@ var GiftcardComponent = /** @class */ (function () {
                         type: Action_1.DISPLAY_GIFTCARD_ACTION.ERROR,
                         payload: {
                             currentId: _this.id,
-                            number: _this.number,
-                            bin: _this.bin,
-                            amount: _this.amount,
+                            giftcard: giftcard,
                             errorFields: errorFields
                         }
                     });
@@ -80975,41 +80972,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // The "joke" reducer performs actions on our list of articles & price
 var GiftcardUiStep_1 = __webpack_require__(/*! ../model/GiftcardUiStep */ "./app/model/GiftcardUiStep.ts");
 var Action_1 = __webpack_require__(/*! ../store/Action */ "./app/store/Action.ts");
+var display_reducer_1 = __webpack_require__(/*! ../store/display.reducer */ "./app/store/display.reducer.ts");
 exports.displayGiftcardReducer = function (state, _a) {
     var type = _a.type, payload = _a.payload;
     var newState = JSON.parse(JSON.stringify(state));
     switch (type) {
         case Action_1.DISPLAY_GIFTCARD_ACTION.ADD_CARD:
             newState.payment.giftcard.forEach(function (elt) {
-                console.log(elt);
                 return elt.showAddCardButton = false;
             });
-            newState.payment.giftcard.push({
-                step: GiftcardUiStep_1.GiftcardUiStep.InsertCard,
-                loading: false,
-                number: '1234',
-                showAddCardButton: false
-            });
+            newState.payment.giftcard.push(display_reducer_1.initDisplayPaymentGiftcard());
             return newState;
         case Action_1.DISPLAY_GIFTCARD_ACTION.LOADING:
-            newState.payment.giftcard[payload.currentId].number = payload.number;
-            newState.payment.giftcard[payload.currentId].bin = payload.bin;
-            newState.payment.giftcard[payload.currentId].amount = payload.amount;
+            newState.payment.giftcard[payload.currentId].number = payload.giftcard.number;
+            newState.payment.giftcard[payload.currentId].bin = payload.giftcard.bin;
+            newState.payment.giftcard[payload.currentId].amount = payload.giftcard.amount;
             newState.payment.giftcard[payload.currentId].loading = true;
             return newState;
         case Action_1.DISPLAY_GIFTCARD_ACTION.NEXT_STEP:
             switch (state.payment.giftcard[payload.currentId].step) {
                 case GiftcardUiStep_1.GiftcardUiStep.InsertCard:
-                    newState.payment.giftcard[payload.currentId].number = payload.number;
-                    newState.payment.giftcard[payload.currentId].bin = payload.bin;
-                    newState.payment.giftcard[payload.currentId].amount = payload.amount;
+                    newState.payment.giftcard[payload.currentId].number = payload.giftcard.number;
+                    newState.payment.giftcard[payload.currentId].bin = payload.giftcard.bin;
+                    newState.payment.giftcard[payload.currentId].amount = payload.giftcard.amount;
                     newState.payment.giftcard[payload.currentId].step = GiftcardUiStep_1.GiftcardUiStep.InsertAmount;
                     newState.payment.giftcard[payload.currentId].loading = false;
                     break;
                 case GiftcardUiStep_1.GiftcardUiStep.InsertAmount:
-                    newState.payment.giftcard[payload.currentId].number = payload.number;
-                    newState.payment.giftcard[payload.currentId].bin = payload.bin;
-                    newState.payment.giftcard[payload.currentId].amount = payload.amount;
+                    newState.payment.giftcard[payload.currentId].number = payload.giftcard.number;
+                    newState.payment.giftcard[payload.currentId].bin = payload.giftcard.bin;
+                    newState.payment.giftcard[payload.currentId].amount = payload.giftcard.amount;
                     newState.payment.giftcard[payload.currentId].step = GiftcardUiStep_1.GiftcardUiStep.RecapCard;
                     newState.payment.giftcard[payload.currentId].loading = false;
                     newState.payment.giftcard[payload.currentId].showAddCardButton = true;
@@ -81020,9 +81012,9 @@ exports.displayGiftcardReducer = function (state, _a) {
             }
             return newState;
         case Action_1.DISPLAY_GIFTCARD_ACTION.ERROR:
-            newState.payment.giftcard[payload.currentId].number = payload.number;
-            newState.payment.giftcard[payload.currentId].bin = payload.bin;
-            newState.payment.giftcard[payload.currentId].amount = payload.amount;
+            newState.payment.giftcard[payload.currentId].number = payload.giftcard.number;
+            newState.payment.giftcard[payload.currentId].bin = payload.giftcard.bin;
+            newState.payment.giftcard[payload.currentId].amount = payload.giftcard.amount;
             newState.payment.giftcard[payload.currentId].loading = false;
             if (payload.errorFields === 'numberOrBin') {
                 newState.payment.giftcard[payload.currentId].error.numberOrBin = true;
@@ -81212,22 +81204,26 @@ function initDisplayReducer() {
     return {
         payment: {
             giftcard: [
-                {
-                    number: null,
-                    bin: null,
-                    amount: null,
-                    step: GiftcardUiStep_1.GiftcardUiStep.InsertCard,
-                    loading: false,
-                    showAddCardButton: false,
-                    error: {
-                        numberOrBin: false,
-                        amount: false
-                    }
-                }
+                initDisplayPaymentGiftcard()
             ]
         }
     };
 }
+function initDisplayPaymentGiftcard() {
+    return {
+        number: null,
+        bin: null,
+        amount: null,
+        step: GiftcardUiStep_1.GiftcardUiStep.InsertCard,
+        loading: false,
+        showAddCardButton: false,
+        error: {
+            numberOrBin: false,
+            amount: false
+        }
+    };
+}
+exports.initDisplayPaymentGiftcard = initDisplayPaymentGiftcard;
 
 
 /***/ }),

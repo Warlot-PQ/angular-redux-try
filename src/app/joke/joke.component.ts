@@ -12,7 +12,7 @@ import {IAppState} from '../store/IAppState';
 @Component({
   selector: 'app-joke',
   templateUrl: './joke.component.html',
-  providers: [ServiceTestService],
+  providers: [ ServiceTestService ],
   styleUrls: ['./joke.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush // render component on immutability change (reference changed)
 })

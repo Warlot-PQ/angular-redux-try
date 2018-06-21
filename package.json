@@ -12,7 +12,8 @@
     "start": "npm run serve:dev",
     "serve:dev": "webpack-dev-server --config webpack-dev.config.js",
     "preserve:prd": "npm run build:prd",
-    "serve:prd": "http-server"
+    "serve:prd": "http-server",
+    "test": "karma start src/karma.conf.js"
   },
   "private": true,
   "dependencies": {
@@ -42,7 +43,7 @@
     "@types/jasmine": "~2.8.6",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
-    "@types/redux": "^4.0.0",
+    "@types/redux": "^3.6.0",
     "@types/webpack-env": "^1.13.5",
     "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^5.0.0",
@@ -63,7 +64,10 @@
     "karma-coverage-istanbul-reporter": "~1.4.2",
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "karma-webpack": "v4.0.0-beta.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-typescript": "^3.0.12",
+    "karma-typescript-es6-transform": "^1.0.4",
+    "karma-webpack": "^4.0.0-beta.0",
     "ng-annotate-loader": "^0.6.1",
     "ngtemplate-loader": "^2.0.1",
     "node-sass": "^4.8.3",

@@ -14,9 +14,7 @@ import {paymentReducer} from './store/payment.reducer';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    GiftcardComponent,
-    GiftcardSmartComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +23,10 @@ import {paymentReducer} from './store/payment.reducer';
     ReactiveFormsModule,
     // NgReduxFormModule,
     TooltipModule.forRoot()
+  ],
+  exports: [
+    GiftcardSmartComponent,
+    GiftcardComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

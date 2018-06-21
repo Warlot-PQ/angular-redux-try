@@ -19,9 +19,9 @@ import {Giftcard} from '../model/Giftcard';
 export class GiftcardComponent implements OnInit {
 
   @Input('id')
-  private id;
+  id;
   @Output()
-  private validate = new EventEmitter();
+  validate = new EventEmitter();
 
   @select('step')
   readonly currentStep;
