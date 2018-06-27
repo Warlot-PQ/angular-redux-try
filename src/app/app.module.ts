@@ -14,7 +14,9 @@ import {paymentReducer} from './store/payment.reducer';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GiftcardSmartComponent,
+    GiftcardComponent
   ],
   imports: [
     BrowserModule,
